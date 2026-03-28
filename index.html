@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office of Tyler Nicholas | Public Service & Youth Leadership</title>
+    <title>Office of Tyler Nicholas</title>
     
     <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" id="favicon" />
     
@@ -13,296 +13,432 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    fontFamily: { sans: ['Source Sans 3', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
                     colors: {
-                        brand: { navy: '#0F172A', blue: '#1E3A8A', light: '#E6F0FA', text: '#334155' },
-                        seychelles: { blue: '#003F87', yellow: '#FCD856', red: '#D62828', white: '#FFFFFF', green: '#007A3D' }
+                        navy: { 900: '#060B19', 800: '#0A192F', 700: '#112240' },
+                        brand: { red: '#D71A21', gold: '#C4A47C', blue: '#003F87' }
                     },
-                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,0,0,0.08)' }
+                    boxShadow: { 'corporate': '0 20px 40px -15px rgba(10, 25, 47, 0.1)' }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #FAFAFA; -webkit-font-smoothing: antialiased; }
-        .seychelles-border { background: linear-gradient(to right, #003F87 20%, #FCD856 20% 40%, #D62828 40% 60%, #e2e8f0 60% 80%, #007A3D 80% 100%); height: 6px; width: 100%; }
-        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        body { background-color: #F8FAFC; -webkit-font-smoothing: antialiased; }
+        
+        /* Multi-Page Router Styles */
+        .page-view { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .page-view.active { display: block; opacity: 1; }
+        
+        /* Custom Toast Notification */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: #0A192F; color: white; padding: 16px 24px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-left: 4px solid #D71A21; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 12px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10B981; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-slate-800">
 
-    <div class="seychelles-border fixed top-0 w-full z-50"></div>
+    <div class="h-1.5 w-full bg-gradient-to-r from-brand-blue via-brand-red to-green-600 fixed top-0 z-50"></div>
 
-    <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200 py-4 px-6 md:px-12 fixed w-full top-[6px] z-40 shadow-sm transition-all duration-300" id="navbar">
+    <nav class="bg-white border-b border-slate-200 py-5 px-6 md:px-12 fixed w-full top-1.5 z-40 shadow-sm transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center gap-4 group">
-                <div class="w-10 h-10 bg-brand-navy text-white rounded-sm flex items-center justify-center font-serif font-bold text-xl tracking-tighter group-hover:bg-brand-blue transition-colors">TN</div>
+            <a href="#" onclick="navigate('home')" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-navy-800 text-white flex items-center justify-center font-display font-bold text-xl tracking-tighter group-hover:bg-brand-red transition-colors duration-500">TN</div>
                 <div>
-                    <h1 class="font-bold text-brand-navy tracking-tight uppercase text-sm md:text-base leading-none">Tyler Nicholas</h1>
-                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">Official Office</p>
+                    <h1 class="font-display font-bold text-navy-800 tracking-wide uppercase text-sm md:text-base leading-none">Tyler Nicholas</h1>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Official Office</p>
                 </div>
             </a>
 
-            <button id="mobile-menu-btn" class="lg:hidden text-slate-800 text-2xl"><i class="fa-solid fa-bars"></i></button>
+            <button id="mobile-menu-btn" class="lg:hidden text-navy-800 text-2xl"><i class="fa-solid fa-bars"></i></button>
 
-            <div class="hidden lg:flex space-x-8 text-xs font-bold uppercase tracking-widest items-center text-slate-600">
-                <a href="#about" class="hover:text-brand-blue transition-colors">About</a>
-                <a href="#initiatives" class="hover:text-brand-blue transition-colors">Initiatives</a>
-                <a href="#updates" class="hover:text-brand-blue transition-colors">Updates</a>
-                <a href="#media" class="hover:text-brand-blue transition-colors">Media</a>
-                <a href="#contact" class="bg-brand-navy hover:bg-brand-blue text-white px-6 py-3 rounded-sm transition-colors shadow-md">Contact Office</a>
+            <div class="hidden lg:flex space-x-8 text-[11px] font-bold uppercase tracking-widest items-center text-slate-600 font-display">
+                <a href="#" onclick="navigate('home')" class="nav-link hover:text-brand-red transition-colors text-navy-800">Home</a>
+                <a href="#" onclick="navigate('about')" class="nav-link hover:text-brand-red transition-colors">About</a>
+                <a href="#" onclick="navigate('initiatives')" class="nav-link hover:text-brand-red transition-colors">Initiatives</a>
+                <a href="#" onclick="navigate('contact')" class="bg-navy-800 hover:bg-brand-red text-white px-7 py-3.5 transition-colors shadow-md hover:shadow-lg">Contact Office</a>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-brand-navy/95 backdrop-blur-sm z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-navy-900/95 backdrop-blur-md z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
         <div class="p-6 flex justify-between items-center border-b border-white/10 mt-1.5">
-            <h2 class="text-white font-bold uppercase tracking-widest">Navigation</h2>
+            <h2 class="text-white font-display font-bold uppercase tracking-widest text-sm">Menu</h2>
             <button id="mobile-menu-close" class="text-white text-3xl"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="p-8 flex flex-col space-y-6 text-white flex-grow text-lg font-medium">
-            <a href="#about" class="mobile-link hover:text-brand-light">About Tyler Nicholas</a>
-            <a href="#initiatives" class="mobile-link hover:text-brand-light">Public Initiatives</a>
-            <a href="#updates" class="mobile-link hover:text-brand-light">Latest Updates</a>
-            <a href="#media" class="mobile-link hover:text-brand-light">Media & Gallery</a>
-            <a href="#contact" class="mobile-link mt-4 inline-block bg-white text-brand-navy text-center py-4 rounded-sm font-bold uppercase tracking-widest text-sm">Contact The Office</a>
+        <div class="p-8 flex flex-col space-y-6 text-white flex-grow font-display font-medium text-xl">
+            <a href="#" onclick="navigate('home'); toggleMenu();" class="hover:text-brand-red transition-colors">Home</a>
+            <a href="#" onclick="navigate('about'); toggleMenu();" class="hover:text-brand-red transition-colors">About Tyler Nicholas</a>
+            <a href="#" onclick="navigate('initiatives'); toggleMenu();" class="hover:text-brand-red transition-colors">Public Initiatives</a>
+            <a href="#" onclick="navigate('contact'); toggleMenu();" class="mt-4 inline-block bg-white text-navy-900 text-center py-4 font-bold uppercase tracking-widest text-sm">Contact The Office</a>
         </div>
     </div>
 
-    <main class="flex-grow pt-24">
-        
-        <section class="relative bg-brand-light overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12 relative z-10">
-                <div class="flex-1 md:pr-10 text-center md:text-left fade-in">
-                    <span class="inline-flex items-center bg-white border border-slate-200 text-brand-blue px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6 shadow-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 mr-2 animate-pulse"></span> Seychelles National Youth Assembly
-                    </span>
-                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-brand-navy leading-tight mb-6">
-                        Committed to public service & national development.
-                    </h1>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto md:mx-0">
-                        Tyler Nicholas serves the Republic of Seychelles with a focus on strengthening civic engagement, expanding opportunities for young people, and driving sustainable community progress.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                        <a href="#about" class="w-full sm:w-auto bg-brand-navy hover:bg-brand-blue text-white font-bold py-4 px-8 rounded-sm transition-all text-xs uppercase tracking-widest shadow-md hover:shadow-soft text-center">
-                            Learn More
-                        </a>
-                        <a href="#updates" class="w-full sm:w-auto bg-white border border-slate-300 hover:border-brand-blue hover:text-brand-blue text-brand-navy font-bold py-4 px-8 rounded-sm transition-all text-xs uppercase tracking-widest shadow-sm text-center">
-                            View Official Updates
-                        </a>
-                    </div>
-                </div>
+    <main class="flex-grow pt-20" id="main-content">
+
+        <div id="page-home" class="page-view active">
+            
+            <section class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105" style="background-image: url('https://statehouse.gov.sc/uploads/news/2025/6502_UwGs7Q2Vx.jpg');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-navy-900/95 via-navy-900/80 to-transparent"></div>
                 
-                <div class="flex-1 relative fade-in" style="animation-delay: 0.2s;">
-                    <div class="relative w-full max-w-md mx-auto">
-                        <div class="absolute inset-0 bg-brand-blue rounded-full blur-3xl opacity-10 transform -translate-y-10"></div>
-                        <img src="https://i.ibb.co/cXStwwFm/image-7.png" alt="Tyler Nicholas Official Portrait" class="relative z-10 w-full h-auto object-contain drop-shadow-2xl scale-105 transform origin-bottom">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="py-24 bg-white border-b border-slate-100">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div class="order-2 lg:order-1 relative">
-                        <div class="absolute -inset-4 bg-brand-light rounded-sm transform -rotate-3 z-0"></div>
-                        <img src="https://i.ibb.co/rfHnkLQ2/image-9.png" alt="Honorable Member Elect Tyler Nicholas" class="relative z-10 w-full h-auto object-cover rounded-sm shadow-soft border border-slate-200 bg-slate-100">
-                    </div>
-                    <div class="order-1 lg:order-2">
-                        <h2 class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-3 border-b-2 border-brand-blue inline-block pb-1">About The Honorable Member</h2>
-                        <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-6 leading-snug">A dedicated voice for the next generation of Seychellois leadership.</h3>
-                        <div class="space-y-5 text-slate-600 leading-relaxed">
-                            <p>
-                                Tyler Nicholas is a young public service leader dedicated to youth empowerment and national progress in Seychelles. As an Honorable Member Elect of the Seychelles National Youth Assembly, he represents the voice and interests of young people while contributing to vital civic dialogue and structural development.
-                            </p>
-                            <p>
-                                His work is grounded in the belief that true national development requires the active participation of informed, equipped, and empowered youth. He focuses intensely on creating meaningful opportunities, promoting civic responsibility, and fostering leadership frameworks that will sustain the Republic for decades to come.
-                            </p>
-                        </div>
-                        <div class="mt-8 pt-8 border-t border-slate-100 flex items-center gap-6">
-                            <div>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Official Contact</p>
-                                <a href="mailto:contact@nicholasoffice.online" class="text-brand-navy font-bold hover:text-brand-blue transition-colors">contact@nicholasoffice.online</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="initiatives" class="py-24 bg-brand-light">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <div class="text-center max-w-2xl mx-auto mb-16">
-                    <h2 class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-3">Core Pillars</h2>
-                    <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-4">Strategic Focus Areas</h3>
-                    <p class="text-slate-600">The central objectives driving the work, engagements, and public service initiatives of the Office.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-10 rounded-sm shadow-sm hover:shadow-soft transition-all border border-slate-100 border-l-4 border-l-brand-blue group">
-                        <div class="w-12 h-12 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-graduation-cap text-xl"></i></div>
-                        <h4 class="text-xl font-bold text-brand-navy mb-3">Youth Empowerment</h4>
-                        <p class="text-slate-600 leading-relaxed text-sm">Supporting educational opportunities, economic pathways, and structural representation for young people across the nation.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-sm shadow-sm hover:shadow-soft transition-all border border-slate-100 border-l-4 border-l-red-600 group">
-                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-building-columns text-xl"></i></div>
-                        <h4 class="text-xl font-bold text-brand-navy mb-3">Public Service</h4>
-                        <p class="text-slate-600 leading-relaxed text-sm">Engaging in high-level legislative initiatives and civic programs that contribute directly to Seychelles' national development goals.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-sm shadow-sm hover:shadow-soft transition-all border border-slate-100 border-l-4 border-l-yellow-500 group">
-                        <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-users text-xl"></i></div>
-                        <h4 class="text-xl font-bold text-brand-navy mb-3">Community Engagement</h4>
-                        <p class="text-slate-600 leading-relaxed text-sm">Working closely on the ground with local communities to understand, document, and actively address key socio-economic issues.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-sm shadow-sm hover:shadow-soft transition-all border border-slate-100 border-l-4 border-l-green-600 group">
-                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-arrow-trend-up text-xl"></i></div>
-                        <h4 class="text-xl font-bold text-brand-navy mb-3">Leadership Development</h4>
-                        <p class="text-slate-600 leading-relaxed text-sm">Encouraging, mentoring, and building robust frameworks to support the next generation of Seychellois leaders in all sectors.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="updates" class="py-24 bg-white border-b border-slate-100">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-slate-100 pb-6 gap-6">
-                    <div>
-                        <h2 class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2">Newsroom</h2>
-                        <h3 class="text-3xl font-serif font-bold text-brand-navy">Updates & Announcements</h3>
-                    </div>
-                    <a href="#contact" class="text-xs font-bold uppercase tracking-widest text-brand-blue hover:text-brand-navy transition-colors flex items-center">
-                        Press Inquiries <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-
-                <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="col-span-full text-center py-16 text-slate-400 bg-slate-50 rounded-sm border border-slate-100">
-                        <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i>
-                        <p class="text-xs font-bold uppercase tracking-widest">Connecting to Official Database...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-24 bg-brand-navy text-white relative overflow-hidden">
-            <div class="absolute right-0 bottom-0 h-[120%] opacity-10 pointer-events-none transform translate-y-[20%] translate-x-[20%]">
-                <img src="https://i.ibb.co/Q34Wycc7/dr9jgfmhq5rmt0cx5marskkg94-preview-0-ezremove-removebg-preview.png" alt="Background" class="h-full object-contain filter grayscale">
-            </div>
-
-            <div class="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                    <div>
-                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 border-b-2 border-slate-700 inline-block pb-1">Get in Touch</h2>
-                        <h3 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">Contact the Office.</h3>
-                        <p class="text-slate-300 leading-relaxed mb-8">
-                            For official inquiries, community concerns, invitations, or collaboration proposals, please utilize the secure intake form or email the office directly. Our team reviews all correspondence systematically.
+                <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
+                    <div class="max-w-3xl">
+                        <span class="inline-block border border-white/20 bg-white/10 backdrop-blur-sm text-white px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest mb-6 font-display">
+                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-brand-red mr-2 mb-0.5"></span> Republic of Seychelles
+                        </span>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1] mb-6">
+                            Committed to public service & national progress.
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light max-w-2xl">
+                            Advancing youth representation, strengthening civic engagement, and dedicating vision to the sustainable development of Seychelles.
                         </p>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center"><i class="fa-solid fa-envelope text-white"></i></div>
-                                <div>
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Official Email</p>
-                                    <a href="mailto:contact@nicholasoffice.online" class="font-medium hover:text-blue-300 transition-colors">contact@nicholasoffice.online</a>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center"><i class="fa-solid fa-location-dot text-white"></i></div>
-                                <div>
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Location</p>
-                                    <p class="font-medium">Republic of Seychelles</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-8 rounded-sm shadow-xl text-slate-800">
-                        <h4 class="text-lg font-bold text-brand-navy mb-6">Secure Inquiry Form</h4>
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Full Name</label>
-                                <input type="text" id="contact-name" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm outline-none focus:border-brand-blue text-sm" placeholder="Your full name">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Email Address</label>
-                                <input type="email" id="contact-email" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm outline-none focus:border-brand-blue text-sm" placeholder="email@address.com">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Message / Inquiry</label>
-                                <textarea id="contact-msg" rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-sm outline-none focus:border-brand-blue text-sm resize-none" placeholder="Detail your inquiry here..."></textarea>
-                            </div>
-                            <button onclick="submitMessage()" id="btn-submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-bold py-4 rounded-sm transition-colors text-xs uppercase tracking-widest shadow-md">
-                                Submit to Office
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="navigate('about')" class="bg-brand-red hover:bg-red-700 text-white font-display font-bold py-4 px-10 text-xs uppercase tracking-widest transition-all text-center">
+                                Read Biography
+                            </button>
+                            <button onclick="navigate('contact')" class="bg-transparent border border-white hover:bg-white hover:text-navy-900 text-white font-display font-bold py-4 px-10 text-xs uppercase tracking-widest transition-all text-center">
+                                Contact Office
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section class="py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                        <div class="lg:col-span-5 relative">
+                            <div class="absolute inset-0 bg-slate-100 transform translate-x-4 translate-y-4"></div>
+                            <img src="https://i.ibb.co/cXStwwFm/image-7.png" alt="Tyler Nicholas Portrait" class="relative z-10 w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 shadow-corporate">
+                        </div>
+                        <div class="lg:col-span-7">
+                            <h2 class="text-sm font-display font-bold text-slate-400 uppercase tracking-widest mb-4">Leadership & Vision</h2>
+                            <h3 class="text-3xl md:text-4xl font-display font-bold text-navy-800 mb-6 leading-tight">A dedicated voice for the next generation of Seychellois leadership.</h3>
+                            <div class="w-20 h-1 bg-brand-red mb-8"></div>
+                            <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                                Tyler Nicholas is an emerging public service leader and Honorable Member Elect of the Seychelles National Youth Assembly. Through his work, he is committed to advancing youth representation, strengthening civic engagement, and contributing directly to national development.
+                            </p>
+                            <button onclick="navigate('initiatives')" class="text-brand-red font-display font-bold text-sm uppercase tracking-widest hover:text-navy-800 transition-colors mt-4 flex items-center">
+                                View Core Initiatives <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 bg-slate-50 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div>
+                            <h2 class="text-sm font-display font-bold text-slate-400 uppercase tracking-widest mb-2">Newsroom</h2>
+                            <h3 class="text-3xl font-display font-bold text-navy-800">Latest Updates</h3>
+                        </div>
+                    </div>
+                    <div id="home-news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="col-span-full text-center py-20 text-slate-400 border border-slate-200 bg-white shadow-sm">
+                            <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-4"></i>
+                            <p class="text-xs font-display font-bold uppercase tracking-widest">Syncing with Official Database...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-about" class="page-view">
+            <section class="bg-navy-900 py-32 px-6 md:px-12 text-center border-b-4 border-brand-red">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-4">About Tyler Nicholas</h1>
+                <p class="text-slate-400 font-display uppercase tracking-widest text-xs">Biography & Public Record</p>
+            </section>
+
+            <section class="py-20 bg-white">
+                <div class="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+                    <div class="md:col-span-8 space-y-6 text-lg text-slate-700 leading-relaxed font-light">
+                        <p class="text-2xl text-navy-800 font-display font-semibold leading-snug mb-8">
+                            Tyler Nicholas is a young public service leader dedicated to youth empowerment and national progress in Seychelles.
+                        </p>
+                        <p>
+                            As an Honorable Member Elect of the Seychelles National Youth Assembly, he represents the voice and interests of young people while contributing to vital civic dialogue and structural development. He operates on the core principle that a nation's future is fundamentally tied to the education, empowerment, and integration of its youth into high-level decision-making processes.
+                        </p>
+                        <p>
+                            His public service work focuses intensely on creating meaningful opportunities, promoting civic responsibility, and fostering leadership frameworks. By engaging directly with communities and stakeholders, he seeks to bridge the gap between policy and the everyday realities of Seychellois citizens.
+                        </p>
+                        
+                        <div class="bg-slate-50 p-8 border border-slate-200 mt-10">
+                            <h4 class="font-display font-bold text-navy-800 text-xl mb-4">Professional Affiliations</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-brand-red mt-1 mr-3"></i>
+                                    <span><strong>Honorable Member Elect</strong> — Seychelles National Youth Assembly</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-brand-red mt-1 mr-3"></i>
+                                    <span><strong>Chairman of the Board</strong> — Tyler Nicholas Group</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-brand-red mt-1 mr-3"></i>
+                                    <span><strong>Founder</strong> — Tyler Nicholas Foundation</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4">
+                        <img src="https://i.ibb.co/pjph51fb/IMG-20260227-WA0014-removebg-preview.png" alt="Tyler Nicholas Seated Portrait" class="w-full h-auto object-cover bg-slate-100 p-2 border border-slate-200 shadow-corporate">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-initiatives" class="page-view">
+            <section class="bg-navy-900 py-32 px-6 md:px-12 text-center border-b-4 border-brand-red">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-4">Public Initiatives</h1>
+                <p class="text-slate-400 font-display uppercase tracking-widest text-xs">Core Pillars & Engagements</p>
+            </section>
+
+            <section class="py-24 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <div class="bg-white p-10 border border-slate-200 shadow-sm hover:shadow-corporate transition-all group">
+                            <div class="w-14 h-14 bg-navy-800 text-white flex items-center justify-center mb-6 group-hover:bg-brand-red transition-colors"><i class="fa-solid fa-graduation-cap text-xl"></i></div>
+                            <h4 class="font-display text-2xl font-bold text-navy-800 mb-4">Youth Empowerment</h4>
+                            <p class="text-slate-600 leading-relaxed">Supporting educational opportunities, economic pathways, and structural representation for young people across the nation to ensure they are equipped for the future.</p>
+                        </div>
+                        
+                        <div class="bg-white p-10 border border-slate-200 shadow-sm hover:shadow-corporate transition-all group">
+                            <div class="w-14 h-14 bg-navy-800 text-white flex items-center justify-center mb-6 group-hover:bg-brand-red transition-colors"><i class="fa-solid fa-building-columns text-xl"></i></div>
+                            <h4 class="font-display text-2xl font-bold text-navy-800 mb-4">Public Service</h4>
+                            <p class="text-slate-600 leading-relaxed">Engaging in high-level legislative initiatives, policy discussions, and civic programs that contribute directly to Seychelles' long-term national development goals.</p>
+                        </div>
+                        
+                        <div class="bg-white p-10 border border-slate-200 shadow-sm hover:shadow-corporate transition-all group">
+                            <div class="w-14 h-14 bg-navy-800 text-white flex items-center justify-center mb-6 group-hover:bg-brand-red transition-colors"><i class="fa-solid fa-users text-xl"></i></div>
+                            <h4 class="font-display text-2xl font-bold text-navy-800 mb-4">Community Engagement</h4>
+                            <p class="text-slate-600 leading-relaxed">Working closely on the ground with local communities to understand, document, and actively address key socio-economic and infrastructural issues.</p>
+                        </div>
+                        
+                        <div class="bg-white p-10 border border-slate-200 shadow-sm hover:shadow-corporate transition-all group">
+                            <div class="w-14 h-14 bg-navy-800 text-white flex items-center justify-center mb-6 group-hover:bg-brand-red transition-colors"><i class="fa-solid fa-arrow-trend-up text-xl"></i></div>
+                            <h4 class="font-display text-2xl font-bold text-navy-800 mb-4">Leadership Development</h4>
+                            <p class="text-slate-600 leading-relaxed">Encouraging, mentoring, and building robust frameworks to support the next generation of Seychellois leaders in government, business, and civil society.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-contact" class="page-view">
+            <section class="bg-navy-900 py-32 px-6 md:px-12 text-center border-b-4 border-brand-red">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-4">Contact The Office</h1>
+                <p class="text-slate-400 font-display uppercase tracking-widest text-xs">Inquiries & Correspondence</p>
+            </section>
+
+            <section class="py-24 bg-white relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 h-full opacity-[0.03] pointer-events-none transform translate-x-1/4">
+                    <img src="https://i.ibb.co/Q34Wycc7/dr9jgfmhq5rmt0cx5marskkg94-preview-0-ezremove-removebg-preview.png" class="h-full object-contain filter grayscale">
+                </div>
+
+                <div class="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        
+                        <div>
+                            <h3 class="text-3xl font-display font-bold text-navy-800 mb-6">Official Channels</h3>
+                            <p class="text-slate-600 leading-relaxed mb-10">
+                                For official inquiries, community concerns, invitations, or collaboration proposals, please utilize the secure intake form or contact the office directly via the channels below. All correspondence is reviewed systematically.
+                            </p>
+                            
+                            <div class="space-y-8">
+                                <div>
+                                    <p class="text-[10px] font-display font-bold text-slate-400 uppercase tracking-widest mb-3">Primary Email Directories</p>
+                                    <div class="space-y-3">
+                                        <a href="mailto:tyler@nicholasoffice.online" class="flex items-center text-navy-800 font-medium hover:text-brand-red transition-colors"><i class="fa-solid fa-envelope w-6 text-slate-400"></i> tyler@nicholasoffice.online</a>
+                                        <a href="mailto:tylernicholas.civic@gmail.com" class="flex items-center text-navy-800 font-medium hover:text-brand-red transition-colors"><i class="fa-solid fa-envelope w-6 text-slate-400"></i> tylernicholas.civic@gmail.com</a>
+                                        <a href="mailto:tyler.nicholasefs@gmail.com" class="flex items-center text-navy-800 font-medium hover:text-brand-red transition-colors"><i class="fa-solid fa-envelope w-6 text-slate-400"></i> tyler.nicholasefs@gmail.com</a>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <p class="text-[10px] font-display font-bold text-slate-400 uppercase tracking-widest mb-3">Direct Line</p>
+                                    <a href="tel:+2482544788" class="flex items-center text-navy-800 font-medium hover:text-brand-red transition-colors"><i class="fa-solid fa-phone w-6 text-slate-400"></i> +248 2544788</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-10 border border-slate-200 shadow-corporate">
+                            <h4 class="font-display font-bold text-navy-800 text-xl mb-6">Secure Inquiry Form</h4>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-[10px] font-display font-bold text-slate-500 uppercase tracking-widest mb-2">Full Legal Name</label>
+                                    <input type="text" id="contact-name" class="w-full px-4 py-3 border border-slate-300 rounded-sm focus:border-navy-800 focus:ring-1 focus:ring-navy-800 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-display font-bold text-slate-500 uppercase tracking-widest mb-2">Email Address</label>
+                                    <input type="email" id="contact-email" class="w-full px-4 py-3 border border-slate-300 rounded-sm focus:border-navy-800 focus:ring-1 focus:ring-navy-800 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-display font-bold text-slate-500 uppercase tracking-widest mb-2">Message / Inquiry Details</label>
+                                    <textarea id="contact-msg" rows="5" class="w-full px-4 py-3 border border-slate-300 rounded-sm focus:border-navy-800 focus:ring-1 focus:ring-navy-800 outline-none transition-all resize-none"></textarea>
+                                </div>
+                                <button onclick="submitMessage()" id="btn-submit" class="w-full bg-navy-800 hover:bg-brand-red text-white font-display font-bold py-4 transition-colors text-xs uppercase tracking-widest">
+                                    Transmit to Office
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-legal" class="page-view">
+            <section class="bg-navy-900 py-24 px-6 text-center border-b-4 border-brand-red">
+                <h1 class="text-3xl md:text-4xl font-display font-bold text-white uppercase tracking-tight mb-2">Legal Information</h1>
+            </section>
+            <section class="py-20 bg-white max-w-4xl mx-auto px-6 md:px-12 text-slate-700 space-y-8 leading-relaxed">
+                <h2 class="text-2xl font-display font-bold text-navy-800">Privacy & Cookie Policy</h2>
+                <p>The Office of Tyler Nicholas respects your privacy and is committed to protecting your personal data. This portal collects minimal data necessary to facilitate communication via the Secure Inquiry Form.</p>
+                <p><strong>Data Collection:</strong> We collect your name, email, and message solely for the purpose of correspondence. This data is securely stored in our encrypted Supabase database and is never sold or shared with third parties without explicit consent.</p>
+                <p><strong>Cookies:</strong> This website utilizes strictly necessary cookies to ensure proper routing and session management. We do not use intrusive tracking or advertising cookies.</p>
+                <p>For data removal requests, please email <em>contact@nicholasoffice.online</em>.</p>
+            </section>
+        </div>
 
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 py-12 px-6 md:px-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <h3 class="text-white font-serif font-bold text-xl mb-1 uppercase tracking-wide">Office of Tyler Nicholas</h3>
-                <p class="text-[10px] uppercase tracking-widest font-bold">Public Service | Youth Leadership | National Development</p>
+    <footer class="bg-navy-900 pt-20 pb-8 px-6 md:px-12 text-slate-400 border-t-4 border-brand-red">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            
+            <div class="md:col-span-4">
+                <h3 class="text-white font-display font-bold text-xl mb-2 uppercase tracking-wide">Office of Tyler Nicholas</h3>
+                <p class="text-[10px] font-display uppercase tracking-widest text-brand-red font-bold mb-6">Republic of Seychelles</p>
+                <p class="text-sm leading-relaxed text-slate-400 mb-8 max-w-xs">
+                    Committed to public service, youth leadership, and national development. Establishing frameworks for a progressive future.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-threads"></i></a>
+                    <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded border border-white/10 flex items-center justify-center hover:bg-white hover:text-navy-900 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
             
-            <div class="flex gap-4">
-                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <div class="md:col-span-2">
+                <h4 class="text-white font-display font-bold text-xs uppercase tracking-widest mb-6">Directory</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="#" onclick="navigate('home')" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#" onclick="navigate('about')" class="hover:text-white transition-colors">About Tyler</a></li>
+                    <li><a href="#" onclick="navigate('initiatives')" class="hover:text-white transition-colors">Core Initiatives</a></li>
+                    <li><a href="#" onclick="navigate('contact')" class="hover:text-white transition-colors">Contact Office</a></li>
+                </ul>
             </div>
+
+            <div class="md:col-span-3">
+                <h4 class="text-white font-display font-bold text-xs uppercase tracking-widest mb-6">External Networks</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-red transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px] mr-2"></i> Personal Website</a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-red transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-[10px] mr-2"></i> Tyler Nicholas Foundation</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-3">
+                <h4 class="text-white font-display font-bold text-xs uppercase tracking-widest mb-6">Contact Directory</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-white transition-colors">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-white transition-colors">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-white transition-colors">tyler.nicholasefs@gmail.com</a></li>
+                    <li class="pt-2"><a href="tel:+2482544788" class="text-white font-bold tracking-wider">+248 2544788</a></li>
+                </ul>
+            </div>
+
         </div>
-        <div class="max-w-7xl mx-auto border-t border-slate-800 mt-8 pt-6 text-center md:text-left text-[10px] font-bold uppercase tracking-widest flex flex-col md:flex-row justify-between">
+
+        <div class="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-display font-bold uppercase tracking-widest">
             <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
-            <p class="mt-2 md:mt-0">Republic of Seychelles</p>
+            <div class="flex gap-6">
+                <a href="#" onclick="navigate('legal')" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" onclick="navigate('legal')" class="hover:text-white transition-colors">Cookie Policy</a>
+            </div>
         </div>
     </footer>
 
+    <div id="toast-container"></div>
+
     <script>
+        // --- CUSTOM TOAST NOTIFICATION SYSTEM ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-green-500 text-lg"></i>' : '<i class="fa-solid fa-circle-exclamation text-red-500 text-lg"></i>';
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400); // Wait for slide out animation
+            }, 4000);
+        }
+
+        // --- MULTI-PAGE ROUTER LOGIC ---
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Update active nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-brand-red');
+                if(!link.classList.contains('text-navy-800')) link.classList.add('text-navy-800'); // Reset colors
+            });
+
+            // Show selected page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Highlight active nav (find exact match based on onclick attribute)
+                const activeLinks = document.querySelectorAll(`a[onclick="navigate('${pageId}')"]`);
+                activeLinks.forEach(link => {
+                    if(link.classList.contains('nav-link')) {
+                        link.classList.remove('text-navy-800');
+                        link.classList.add('text-brand-red');
+                    }
+                });
+            }
+        }
+
         // --- MOBILE MENU LOGIC ---
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileClose = document.getElementById('mobile-menu-close');
         const mobileMenu = document.getElementById('mobile-menu-overlay');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
+        document.getElementById('mobile-menu-close').addEventListener('click', toggleMenu);
 
         function toggleMenu() {
             mobileMenu.classList.toggle('translate-x-full');
         }
 
-        mobileBtn.addEventListener('click', toggleMenu);
-        mobileClose.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
-        // --- NAVBAR SCROLL EFFECT ---
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                nav.classList.add('shadow-md');
-                nav.classList.remove('py-4');
-                nav.classList.add('py-2');
-            } else {
-                nav.classList.remove('shadow-md');
-                nav.classList.remove('py-2');
-                nav.classList.add('py-4');
-            }
-        });
-
         // --- SUPABASE LOGIC ---
         const SUPABASE_URL = 'https://eeqgfchvchpdulfybsjg.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcWdmY2h2Y2hwZHVsZnlic2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDEyMzYsImV4cCI6MjA5MDI3NzIzNn0.2Psw_X2TB1r8iLb46WWWANhVuDvoDPnUMjaWykvqd1s';
-        
         let supabase = null;
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -318,28 +454,28 @@
         async function fetchUpdates() {
             try {
                 const { data, error } = await supabase.from('tn_updates').select('*').order('published_at', { ascending: false }).limit(3);
-                const grid = document.getElementById('news-grid');
+                const grid = document.getElementById('home-news-grid');
                 
                 if (error) throw error;
                 
                 if (!data || data.length === 0) {
-                    grid.innerHTML = `<div class="col-span-full text-center py-16 bg-slate-50 border border-slate-100 rounded-sm"><p class="text-slate-500 font-medium">No official updates published yet. Check back soon.</p></div>`;
+                    grid.innerHTML = `<div class="col-span-full text-center py-20 bg-white border border-slate-200"><p class="text-slate-500 font-medium">No official updates published yet. Check back soon.</p></div>`;
                     return;
                 }
 
                 let html = '';
                 data.forEach(update => {
                     const date = new Date(update.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                    const imgHtml = update.image_url ? `<div class="h-48 w-full overflow-hidden border-b border-slate-100"><img src="${update.image_url}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"></div>` : '';
+                    const imgHtml = update.image_url ? `<div class="h-56 w-full overflow-hidden border-b border-slate-100"><img src="${update.image_url}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"></div>` : '';
                     
                     html += `
-                    <div class="bg-white rounded-sm border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full overflow-hidden">
+                    <div class="bg-white border border-slate-200 shadow-sm hover:shadow-corporate transition-all duration-300 flex flex-col h-full overflow-hidden group">
                         ${imgHtml}
-                        <div class="p-6 flex flex-col flex-grow">
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2"><i class="fa-regular fa-calendar mr-1"></i> ${date}</span>
-                            <h4 class="text-lg font-bold text-brand-navy mb-3 leading-snug">${update.title}</h4>
-                            <p class="text-sm text-slate-600 mb-6 flex-grow">${update.short_summary}</p>
-                            <button class="text-xs font-bold uppercase tracking-widest text-brand-blue hover:text-brand-navy transition-colors self-start mt-auto">Read Full Brief <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <span class="text-[10px] font-display font-bold text-brand-red uppercase tracking-widest mb-3"><i class="fa-regular fa-calendar mr-1"></i> ${date}</span>
+                            <h4 class="text-xl font-display font-bold text-navy-800 mb-4 leading-snug group-hover:text-brand-blue transition-colors">${update.title}</h4>
+                            <p class="text-slate-600 mb-8 flex-grow leading-relaxed">${update.short_summary}</p>
+                            <button class="text-xs font-display font-bold uppercase tracking-widest text-navy-800 hover:text-brand-red transition-colors self-start mt-auto flex items-center">Read Full Brief <i class="fa-solid fa-arrow-right ml-2 text-[10px] transition-transform group-hover:translate-x-1"></i></button>
                         </div>
                     </div>`;
                 });
@@ -355,22 +491,25 @@
             const msg = document.getElementById('contact-msg').value.trim();
             const btn = document.getElementById('btn-submit');
 
-            if (!name || !email || !msg) return alert("Please fill in all fields to submit an inquiry.");
+            if (!name || !email || !msg) {
+                showToast('All fields are required.', 'error');
+                return;
+            }
             
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Submitting...`;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Transmitting...`;
             
             try {
                 const { error } = await supabase.from('tn_messages').insert({ sender_name: name, sender_email: email, message_body: msg });
                 if (error) throw error;
                 
-                alert("Your inquiry has been successfully submitted to the Office of Tyler Nicholas.");
+                showToast('Inquiry successfully transmitted to the Office.', 'success');
                 document.getElementById('contact-name').value = '';
                 document.getElementById('contact-email').value = '';
                 document.getElementById('contact-msg').value = '';
             } catch (err) {
-                alert("Error submitting inquiry. Please try again later.");
+                showToast('Error submitting inquiry. Please try again.', 'error');
             } finally {
-                btn.innerHTML = "Submit to Office";
+                btn.innerHTML = "Transmit to Office";
             }
         }
     </script>
