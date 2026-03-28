@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office of Tyler Nicholas | Public Service</title>
+    <title>Office of Tyler Nicholas | Public Service & National Development</title>
     
     <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
     
@@ -57,6 +57,16 @@
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #00AEEF; }
         .nav-link.active::after { width: 100%; }
+        
+        /* Media Gallery Hover Overlay */
+        .media-card { position: relative; overflow: hidden; border-radius: 1rem; }
+        .media-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(17, 24, 39, 0.9) 0%, rgba(17, 24, 39, 0) 50%);
+            opacity: 0; transition: opacity 0.3s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+        }
+        .media-card:hover .media-overlay { opacity: 1; }
+        .media-card img { transition: transform 0.5s ease; }
+        .media-card:hover img { transform: scale(1.05); }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark">
@@ -166,6 +176,27 @@
             </div>
         </section>
 
+        <section class="py-24 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 fade-up">
+                    <div>
+                        <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1">Visual Log</h2>
+                        <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark">Media & Gallery</h3>
+                    </div>
+                    <a href="/media/" class="text-sm font-heading font-semibold text-brand-blue hover:text-[#0096D1] transition-colors flex items-center">
+                        View Full Gallery <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div id="home-media-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-up delay-200">
+                    <div class="col-span-full text-center py-16 bg-[#F9FAFB] rounded-2xl shadow-sm border border-gray-100">
+                        <i class="fa-solid fa-circle-notch fa-spin text-2xl text-brand-muted mb-3"></i>
+                        <p class="text-sm font-heading font-medium text-brand-muted">Loading Media Assets...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
@@ -219,7 +250,7 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
+        <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
             <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
                 <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
@@ -232,11 +263,7 @@
         // --- NAVBAR SHADOW ON SCROLL ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) {
-                nav.classList.add('shadow-sm');
-            } else {
-                nav.classList.remove('shadow-sm');
-            }
+            if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
         });
 
         // --- MOBILE MENU LOGIC ---
@@ -244,10 +271,7 @@
         const mobileClose = document.getElementById('mobile-menu-close');
         const mobileMenu = document.getElementById('mobile-menu-overlay');
 
-        function toggleMenu() {
-            mobileMenu.classList.toggle('translate-x-full');
-        }
-
+        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         mobileBtn.addEventListener('click', toggleMenu);
         mobileClose.addEventListener('click', toggleMenu);
 
@@ -261,6 +285,7 @@
                     clearInterval(checkSupabase); 
                     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                     fetchUpdates(supabase);
+                    fetchMedia(supabase); // Call the new media function
                 }
             }, 100);
         });
@@ -283,13 +308,44 @@
                     const imgHtml = update.image_url ? `<div class="h-56 w-full overflow-hidden bg-gray-100"><img src="${update.image_url}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"></div>` : '';
                     
                     html += `
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full overflow-hidden group">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full overflow-hidden group cursor-pointer" onclick="window.location.href='/newsroom/'">
                         ${imgHtml}
                         <div class="p-8 flex flex-col flex-grow">
                             <span class="text-[10px] font-heading font-bold text-brand-blue uppercase tracking-widest mb-3"><i class="fa-regular fa-calendar mr-1"></i> ${date}</span>
                             <h4 class="text-xl font-heading font-bold text-brand-dark mb-3 leading-snug group-hover:text-brand-blue transition-colors">${update.title}</h4>
                             <p class="text-brand-muted mb-8 flex-grow leading-relaxed text-sm">${update.short_summary}</p>
-                            <a href="/newsroom/" class="text-sm font-heading font-bold text-brand-dark hover:text-brand-blue transition-colors self-start mt-auto flex items-center">Read Article <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i></a>
+                            <span class="text-sm font-heading font-bold text-brand-dark hover:text-brand-blue transition-colors self-start mt-auto flex items-center">Read Article <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i></span>
+                        </div>
+                    </div>`;
+                });
+                grid.innerHTML = html;
+            } catch (err) {
+                console.error("Database connection error.", err);
+            }
+        }
+
+        // New function to fetch media for the home page
+        async function fetchMedia(supabase) {
+            try {
+                const { data, error } = await supabase.from('tn_media').select('*').order('created_at', { ascending: false }).limit(4);
+                const grid = document.getElementById('home-media-grid');
+                
+                if (error) throw error;
+                
+                if (!data || data.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full text-center py-16 bg-[#F9FAFB] border border-gray-100 rounded-2xl shadow-sm"><p class="text-brand-muted font-medium">No media uploaded yet.</p></div>`;
+                    return;
+                }
+
+                let html = '';
+                data.forEach(media => {
+                    const categoryBadge = media.category ? `<span class="bg-brand-blue text-white text-[9px] font-bold px-2 py-1 rounded-sm uppercase tracking-widest self-start mb-2">${media.category}</span>` : '';
+                    html += `
+                    <div class="media-card h-64 w-full bg-gray-100 shadow-sm">
+                        <img src="${media.image_url}" alt="${media.title}" class="w-full h-full object-cover">
+                        <div class="media-overlay">
+                            ${categoryBadge}
+                            <h4 class="text-white font-heading font-bold text-sm leading-snug">${media.title}</h4>
                         </div>
                     </div>`;
                 });
