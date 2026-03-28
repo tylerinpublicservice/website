@@ -18,47 +18,59 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'], 
-                        heading: ['Poppins', 'sans-serif'] 
-                    },
-                    colors: {
-                        brand: { 
-                            blue: '#00AEEF',      
-                            dark: '#111827',      
-                            light: '#E6F6FE',     
-                            muted: '#6B7280'      
-                        }
-                    },
-                    boxShadow: { 
-                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' 
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
+                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #FFFFFF; -webkit-font-smoothing: antialiased; }
-        
+        body { background-color: #F9FAFB; -webkit-font-smoothing: antialiased; }
         .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
         .delay-100 { animation-delay: 100ms; }
-        
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
-            background-color: #00AEEF; transition: width 0.3s ease;
-        }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
         .nav-link:hover::after { width: 100%; }
 
+        /* Custom Toast Notification */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: white; color: #111827; padding: 16px 24px; border-radius: 8px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1); border-left: 4px solid #00AEEF; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 12px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10B981; } .toast.error { border-left-color: #EF4444; }
+
+        /* Search Overlay */
+        #search-overlay { transition: opacity 0.3s ease; }
+        #search-overlay.hidden { opacity: 0; pointer-events: none; }
+        #search-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        /* Discord Popup */
+        #discord-popup { transition: opacity 0.4s ease, transform 0.4s ease; }
+        #discord-popup.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        #discord-popup.hide { opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; }
+
+        /* Floating Accessibility Panel */
+        #accessibility-panel { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 80; transition: transform 0.3s ease; }
+        #accessibility-panel.closed { transform: translate(-100%, -50%); }
+        .acc-btn { @apply w-10 h-10 flex items-center justify-center bg-white border-b border-gray-100 text-brand-dark hover:bg-brand-light hover:text-brand-blue transition-colors cursor-pointer; }
+        
+        /* Accessibility Reading Classes */
+        .read-area { transition: all 0.3s ease; }
+        .read-area.high-contrast { background-color: #111827 !important; color: #F9FAFB !important; border-color: #374151 !important; }
+        .read-area.high-contrast h2, .read-area.high-contrast p, .read-area.high-contrast li, .read-area.high-contrast a { color: #F9FAFB !important; }
+        .read-area.high-contrast a { text-decoration: underline; color: #00AEEF !important; }
+        
+        .read-area.text-lvl-1 p, .read-area.text-lvl-1 li { font-size: 1rem; line-height: 1.8; }
+        .read-area.text-lvl-2 p, .read-area.text-lvl-2 li { font-size: 1.125rem; line-height: 1.9; }
+        .read-area.text-lvl-3 p, .read-area.text-lvl-3 li { font-size: 1.25rem; line-height: 2.0; }
+
         /* Legal Content Styling */
-        .legal-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: #111827; margin-top: 2.5rem; margin-bottom: 1rem; }
-        .legal-content p { color: #4B5563; line-height: 1.8; margin-bottom: 1.25rem; font-size: 1rem; }
-        .legal-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4B5563; }
+        .legal-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: #111827; margin-top: 2.5rem; margin-bottom: 1rem; transition: color 0.3s ease; }
+        .legal-content p { color: #4B5563; margin-bottom: 1.25rem; transition: color 0.3s ease, font-size 0.3s ease; }
+        .legal-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4B5563; transition: color 0.3s ease, font-size 0.3s ease; }
         .legal-content li { margin-bottom: 0.5rem; }
         .legal-content a { color: #00AEEF; font-weight: 500; text-decoration: none; transition: color 0.2s; }
         .legal-content a:hover { color: #0096D1; text-decoration: underline; }
@@ -66,33 +78,65 @@
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark">
 
-    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
-        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly!
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide" data-i18n="banner">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
     </div>
 
     <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300 border-b border-gray-100" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            
             <a href="/" class="flex items-center gap-2 group">
                 <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
             </a>
-
             <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
-
-            <div class="hidden lg:flex space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
-                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
-                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
-                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
-                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
+            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navHome">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navAbout">About</a>
+                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navInit">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navNews">Newsroom</a>
             </div>
-
-            <div class="hidden lg:block">
-                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
+            <div class="hidden lg:flex items-center space-x-6">
+                <button onclick="toggleSearch()" class="text-brand-muted hover:text-brand-blue transition-colors text-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+                <div class="relative group">
+                    <button class="flex items-center text-sm font-heading font-semibold text-brand-dark hover:text-brand-blue">
+                        <i class="fa-solid fa-globe mr-1.5 text-brand-muted"></i> <span id="current-lang">EN</span> <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-soft opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-gray-100 overflow-hidden">
+                        <button onclick="changeLang('en')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">English</button>
+                        <button onclick="changeLang('fr')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Français</button>
+                        <button onclick="changeLang('crs')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Seselwa</button>
+                    </div>
+                </div>
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block" data-i18n="navContact">
                     Let's Talk
                 </a>
             </div>
         </div>
     </nav>
+
+    <div id="search-overlay" class="fixed inset-0 bg-white/95 backdrop-blur-md z-[200] hidden flex flex-col items-center justify-center p-6">
+        <button onclick="toggleSearch()" class="absolute top-8 right-8 text-4xl text-brand-muted hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-full max-w-3xl">
+            <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="searchTitle">Search the Office Directory</h3>
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
+                <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
+            </div>
+            <p class="text-brand-muted text-sm mt-4 ml-2"><span data-i18n="searchHint1">Press</span> <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> <span data-i18n="searchHint2">to search.</span></p>
+        </div>
+    </div>
+
+    <div id="discord-popup" class="fixed bottom-6 left-6 z-[90] w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 hide">
+        <button onclick="closeDiscordPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-12 h-12 bg-[#5865F2]/10 text-[#5865F2] rounded-xl flex items-center justify-center text-2xl mb-4">
+            <i class="fa-brands fa-discord"></i>
+        </div>
+        <h4 class="font-heading font-bold text-lg text-brand-dark mb-2" data-i18n="discordTitle">Join the Conversation</h4>
+        <p class="text-sm text-brand-muted mb-4 leading-relaxed" data-i18n="discordDesc">Engage in community discussions, live updates, and connect with the Tyler Nicholas Foundation.</p>
+        <a href="https://discord.gg/DMaJmWChP4" target="_blank" onclick="closeDiscordPopup()" class="block w-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-center font-heading font-bold py-3 rounded-lg transition-colors text-sm" data-i18n="discordBtn">
+            Join Discord Server
+        </a>
+    </div>
 
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
         <div class="p-6 flex justify-between items-center border-b border-gray-100">
@@ -100,75 +144,82 @@
             <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+            <a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft" data-i18n="navContact">Let's Talk</a>
         </div>
+    </div>
+
+    <div id="accessibility-panel" class="shadow-lg rounded-r-xl overflow-hidden bg-white border border-l-0 border-gray-200">
+        <div class="bg-brand-dark text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-2 text-center w-12" data-i18n="accRead">Read</div>
+        <div class="acc-btn" onclick="adjustTextSize(1)" title="Increase Text Size"><i class="fa-solid fa-a text-lg"></i><i class="fa-solid fa-plus text-[10px] ml-0.5"></i></div>
+        <div class="acc-btn" onclick="adjustTextSize(-1)" title="Decrease Text Size"><i class="fa-solid fa-a text-sm"></i><i class="fa-solid fa-minus text-[10px] ml-0.5"></i></div>
+        <div class="acc-btn" onclick="toggleHighContrast()" title="Toggle High Contrast"><i class="fa-solid fa-circle-half-stroke text-lg"></i></div>
     </div>
 
     <main class="flex-grow bg-[#F9FAFB]">
         
         <section class="pt-20 pb-12 text-center px-6 fade-up">
-            <span class="text-brand-blue font-heading font-bold uppercase tracking-widest text-xs mb-3 block">Official Documentation</span>
-            <h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-dark mb-4">Legal & Privacy</h1>
-            <p class="text-brand-muted text-sm max-w-2xl mx-auto">
+            <span class="text-brand-blue font-heading font-bold uppercase tracking-widest text-xs mb-3 block" data-i18n="legalHeaderSub">Official Documentation</span>
+            <h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-dark mb-4" data-i18n="legalHeaderTitle">Legal & Privacy</h1>
+            <p class="text-brand-muted text-sm max-w-2xl mx-auto" data-i18n="legalHeaderDesc">
                 Last Updated: March 2026
             </p>
         </section>
 
         <section class="pb-24 px-6 md:px-12">
-            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-14 fade-up delay-100">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-14 fade-up delay-100 read-area text-lvl-1">
                 
                 <div class="legal-content">
-                    <p class="text-lg font-medium text-brand-dark">
+                    <p class="text-lg font-medium text-brand-dark" data-i18n="legalIntro">
                         The Office of Tyler Nicholas ("we," "our," or "us") is committed to protecting your privacy and ensuring transparency in how we handle your data. This policy outlines our practices regarding the collection, use, and protection of personal information through this public service portal.
                     </p>
 
                     <hr class="my-8 border-gray-100">
 
-                    <h2>1. Information We Collect</h2>
-                    <p>We collect minimal personal data to ensure effective communication and functionality of this platform. The data we collect includes:</p>
+                    <h2 data-i18n="legalH1">1. Information We Collect</h2>
+                    <p data-i18n="legalP1">We collect minimal personal data to ensure effective communication and functionality of this platform. The data we collect includes:</p>
                     <ul>
-                        <li><strong>Information you provide directly:</strong> When you use our Secure Inquiry Form or "Let's Talk" feature, we collect your full legal name, email address, subject of inquiry, and the contents of your message.</li>
-                        <li><strong>Automatically collected data:</strong> We may collect standard technical information such as your IP address, browser type, and operating system strictly for security and anti-spam purposes.</li>
+                        <li data-i18n="legalLi1_1"><strong>Information you provide directly:</strong> When you use our Secure Inquiry Form or "Let's Talk" feature, we collect your full legal name, email address, subject of inquiry, and the contents of your message.</li>
+                        <li data-i18n="legalLi1_2"><strong>Automatically collected data:</strong> We may collect standard technical information such as your IP address, browser type, and operating system strictly for security and anti-spam purposes.</li>
                     </ul>
 
-                    <h2>2. How We Use Your Information</h2>
-                    <p>The information collected is used exclusively for public service and official correspondence. Specifically, we use your data to:</p>
+                    <h2 data-i18n="legalH2">2. How We Use Your Information</h2>
+                    <p data-i18n="legalP2">The information collected is used exclusively for public service and official correspondence. Specifically, we use your data to:</p>
                     <ul>
-                        <li>Respond to your inquiries, concerns, or collaboration proposals.</li>
-                        <li>Maintain a secure internal registry of community engagement for the Office.</li>
-                        <li>Improve the functionality and security of our digital infrastructure.</li>
+                        <li data-i18n="legalLi2_1">Respond to your inquiries, concerns, or collaboration proposals.</li>
+                        <li data-i18n="legalLi2_2">Maintain a secure internal registry of community engagement for the Office.</li>
+                        <li data-i18n="legalLi2_3">Improve the functionality and security of our digital infrastructure.</li>
                     </ul>
-                    <p><strong>We do not sell, rent, or trade your personal information to third parties under any circumstances.</strong></p>
+                    <p data-i18n="legalP2_bold"><strong>We do not sell, rent, or trade your personal information to third parties under any circumstances.</strong></p>
 
-                    <h2>3. Data Storage and Security</h2>
-                    <p>All inquiries and personal data submitted through this website are transmitted securely and stored in an encrypted database utilizing industry-standard infrastructure (Supabase). Access to this data is strictly limited to authorized personnel within the Office of Tyler Nicholas.</p>
+                    <h2 data-i18n="legalH3">3. Data Storage and Security</h2>
+                    <p data-i18n="legalP3">All inquiries and personal data submitted through this website are transmitted securely and stored in an encrypted database utilizing industry-standard infrastructure (Supabase). Access to this data is strictly limited to authorized personnel within the Office of Tyler Nicholas.</p>
 
                     <hr class="my-8 border-gray-100">
 
-                    <h2>4. Cookie Policy</h2>
-                    <p>This website utilizes cookies—small text files placed on your device—to enhance your browsing experience. Our use of cookies is strictly limited to:</p>
+                    <h2 data-i18n="legalH4">4. Cookie Policy</h2>
+                    <p data-i18n="legalP4">This website utilizes cookies—small text files placed on your device—to enhance your browsing experience. Our use of cookies is strictly limited to:</p>
                     <ul>
-                        <li><strong>Essential Cookies:</strong> Necessary for the website to function properly, enabling core features like security, network management, and accessibility.</li>
-                        <li><strong>Session Management:</strong> To remember your navigation state during your active visit.</li>
+                        <li data-i18n="legalLi4_1"><strong>Essential Cookies:</strong> Necessary for the website to function properly, enabling core features like security, network management, and accessibility.</li>
+                        <li data-i18n="legalLi4_2"><strong>Session Management:</strong> To remember your navigation state during your active visit.</li>
                     </ul>
-                    <p>We <strong>do not</strong> use intrusive third-party tracking cookies or targeted advertising cookies. By continuing to use this website, you consent to our use of essential cookies.</p>
+                    <p data-i18n="legalP4_end">We <strong>do not</strong> use intrusive third-party tracking cookies or targeted advertising cookies. By continuing to use this website, you consent to our use of essential cookies.</p>
 
-                    <h2>5. Your Rights</h2>
-                    <p>As a user, you retain full rights over your personal data. You may request to:</p>
+                    <h2 data-i18n="legalH5">5. Your Rights</h2>
+                    <p data-i18n="legalP5">As a user, you retain full rights over your personal data. You may request to:</p>
                     <ul>
-                        <li>Access a copy of the personal information we hold about you.</li>
-                        <li>Request correction of any inaccurate or incomplete data.</li>
-                        <li>Request the deletion or removal of your correspondence from our official registry.</li>
+                        <li data-i18n="legalLi5_1">Access a copy of the personal information we hold about you.</li>
+                        <li data-i18n="legalLi5_2">Request correction of any inaccurate or incomplete data.</li>
+                        <li data-i18n="legalLi5_3">Request the deletion or removal of your correspondence from our official registry.</li>
                     </ul>
 
-                    <h2>6. Contact Us</h2>
-                    <p>If you have any questions about this Privacy & Cookie Policy, or if you wish to exercise your data rights, please contact the Office directly at:</p>
+                    <h2 data-i18n="legalH6">6. Contact Us</h2>
+                    <p data-i18n="legalP6">If you have any questions about this Privacy & Cookie Policy, or if you wish to exercise your data rights, please contact the Office directly at:</p>
                     <p>
-                        <strong>Email:</strong> <a href="mailto:contact@nicholasoffice.online">contact@nicholasoffice.online</a><br>
+                        <strong>Email:</strong> <a href="mailto:tyler@nicholasoffice.online">tyler@nicholasoffice.online</a><br>
                         <strong>Phone:</strong> +248 2544788
                     </p>
                 </div>
@@ -180,14 +231,12 @@
 
     <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            
             <div class="md:col-span-4">
                 <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
                 <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
-                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs" data-i18n="footerDesc">
                     Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
                 </p>
-                
                 <div class="flex flex-wrap gap-3">
                     <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
                     <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
@@ -198,61 +247,248 @@
                     <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-            
             <div class="md:col-span-2">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerDir">Directory</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
-                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
-                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
-                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                    <li><a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors" data-i18n="navContact">Contact</a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerAffil">Affiliations</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerPersonalWeb">Personal Website</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerFoundation">Tyler Nicholas Foundation</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerContact">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
-                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors">tylernicholas.civic@gmail.com</a></li>
-                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors">tyler.nicholasefs@gmail.com</a></li>
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors break-all">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors break-all">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors break-all">tyler.nicholasefs@gmail.com</a></li>
                     <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
-            <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+            <p data-i18n="footerRights">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerPrivacy">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerCookie">Cookie Policy</a>
             </div>
         </div>
     </footer>
 
+    <div id="toast-container"></div>
+
     <script>
+        // --- COMPREHENSIVE TRANSLATION DICTIONARY FOR LEGAL PAGE ---
+        const translations = {
+            en: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly",
+                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk",
+                searchTitle: "Search the Office Directory", searchHint1: "Press", searchHint2: "to search.", searchPlaceholder: "Type keywords and press Enter...",
+                discordTitle: "Join the Conversation", discordDesc: "Engage in community discussions, live updates, and connect with the Tyler Nicholas Foundation.", discordBtn: "Join Discord Server",
+                accRead: "Read",
+                legalHeaderSub: "Official Documentation", legalHeaderTitle: "Legal & Privacy", legalHeaderDesc: "Last Updated: March 2026",
+                legalIntro: "The Office of Tyler Nicholas (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy and ensuring transparency in how we handle your data. This policy outlines our practices regarding the collection, use, and protection of personal information through this public service portal.",
+                legalH1: "1. Information We Collect", legalP1: "We collect minimal personal data to ensure effective communication and functionality of this platform. The data we collect includes:",
+                legalLi1_1: "<strong>Information you provide directly:</strong> When you use our Secure Inquiry Form or \"Let's Talk\" feature, we collect your full legal name, email address, subject of inquiry, and the contents of your message.",
+                legalLi1_2: "<strong>Automatically collected data:</strong> We may collect standard technical information such as your IP address, browser type, and operating system strictly for security and anti-spam purposes.",
+                legalH2: "2. How We Use Your Information", legalP2: "The information collected is used exclusively for public service and official correspondence. Specifically, we use your data to:",
+                legalLi2_1: "Respond to your inquiries, concerns, or collaboration proposals.",
+                legalLi2_2: "Maintain a secure internal registry of community engagement for the Office.",
+                legalLi2_3: "Improve the functionality and security of our digital infrastructure.",
+                legalP2_bold: "<strong>We do not sell, rent, or trade your personal information to third parties under any circumstances.</strong>",
+                legalH3: "3. Data Storage and Security", legalP3: "All inquiries and personal data submitted through this website are transmitted securely and stored in an encrypted database utilizing industry-standard infrastructure (Supabase). Access to this data is strictly limited to authorized personnel within the Office of Tyler Nicholas.",
+                legalH4: "4. Cookie Policy", legalP4: "This website utilizes cookies—small text files placed on your device—to enhance your browsing experience. Our use of cookies is strictly limited to:",
+                legalLi4_1: "<strong>Essential Cookies:</strong> Necessary for the website to function properly, enabling core features like security, network management, and accessibility.",
+                legalLi4_2: "<strong>Session Management:</strong> To remember your navigation state during your active visit.",
+                legalP4_end: "We <strong>do not</strong> use intrusive third-party tracking cookies or targeted advertising cookies. By continuing to use this website, you consent to our use of essential cookies.",
+                legalH5: "5. Your Rights", legalP5: "As a user, you retain full rights over your personal data. You may request to:",
+                legalLi5_1: "Access a copy of the personal information we hold about you.",
+                legalLi5_2: "Request correction of any inaccurate or incomplete data.",
+                legalLi5_3: "Request the deletion or removal of your correspondence from our official registry.",
+                legalH6: "6. Contact Us", legalP6: "If you have any questions about this Privacy & Cookie Policy, or if you wish to exercise your data rights, please contact the Office directly at:",
+                footerDesc: "Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.",
+                footerDir: "Directory", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Personal Website", footerFoundation: "Tyler Nicholas Foundation",
+                footerRights: "&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy"
+            },
+            fr: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Membre Honorable Élu pour la 21e Cohorte de l'Assemblée Nationale des Jeunes des Seychelles",
+                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en",
+                searchTitle: "Rechercher dans l'Annuaire", searchHint1: "Appuyez sur", searchHint2: "pour rechercher.", searchPlaceholder: "Tapez des mots-clés et appuyez sur Entrée...",
+                discordTitle: "Rejoignez la Conversation", discordDesc: "Participez aux discussions communautaires et connectez-vous avec la Fondation Tyler Nicholas.", discordBtn: "Rejoindre le Serveur",
+                accRead: "Lire",
+                legalHeaderSub: "Documentation Officielle", legalHeaderTitle: "Légal & Confidentialité", legalHeaderDesc: "Dernière mise à jour : Mars 2026",
+                legalIntro: "Le Bureau de Tyler Nicholas s'engage à protéger votre vie privée et à assurer la transparence dans la gestion de vos données. Cette politique décrit nos pratiques concernant la collecte, l'utilisation et la protection des informations personnelles.",
+                legalH1: "1. Informations Que Nous Collectons", legalP1: "Nous collectons un minimum de données personnelles pour assurer une communication efficace :",
+                legalLi1_1: "<strong>Informations que vous fournissez directement :</strong> Lors de l'utilisation de notre formulaire, nous collectons votre nom, adresse e-mail, sujet et contenu du message.",
+                legalLi1_2: "<strong>Données collectées automatiquement :</strong> Nous pouvons collecter des informations techniques standard (adresse IP, navigateur) strictement à des fins de sécurité.",
+                legalH2: "2. Comment Nous Utilisons Vos Informations", legalP2: "Les informations sont utilisées exclusivement pour le service public et la correspondance officielle :",
+                legalLi2_1: "Répondre à vos demandes, préoccupations ou propositions de collaboration.",
+                legalLi2_2: "Maintenir un registre interne sécurisé de l'engagement communautaire.",
+                legalLi2_3: "Améliorer la fonctionnalité et la sécurité de notre infrastructure numérique.",
+                legalP2_bold: "<strong>Nous ne vendons, louons ou n'échangeons vos informations personnelles à des tiers en aucune circonstance.</strong>",
+                legalH3: "3. Stockage et Sécurité des Données", legalP3: "Toutes les demandes et données personnelles sont transmises de manière sécurisée et stockées dans une base de données cryptée. L'accès est strictement limité au personnel autorisé.",
+                legalH4: "4. Politique des Cookies", legalP4: "Ce site utilise des cookies pour améliorer votre expérience de navigation. Notre utilisation est strictement limitée à :",
+                legalLi4_1: "<strong>Cookies Essentiels :</strong> Nécessaires au bon fonctionnement du site (sécurité, accessibilité).",
+                legalLi4_2: "<strong>Gestion de Session :</strong> Pour mémoriser votre état de navigation.",
+                legalP4_end: "Nous <strong>n'utilisons pas</strong> de cookies de suivi intrusifs. En continuant à utiliser ce site, vous consentez à notre utilisation de cookies essentiels.",
+                legalH5: "5. Vos Droits", legalP5: "En tant qu'utilisateur, vous conservez tous les droits sur vos données personnelles. Vous pouvez demander à :",
+                legalLi5_1: "Accéder à une copie de vos informations personnelles.",
+                legalLi5_2: "Demander la correction de données inexactes.",
+                legalLi5_3: "Demander la suppression de votre correspondance de notre registre.",
+                legalH6: "6. Nous Contacter", legalP6: "Si vous avez des questions sur cette politique, veuillez contacter le Bureau directement :",
+                footerDesc: "Engagé envers le service public, le leadership des jeunes et le développement durable de la République des Seychelles.",
+                footerDir: "Annuaire", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Site Personnel", footerFoundation: "Fondation Tyler Nicholas",
+                footerRights: "&copy; 2026 Bureau de Tyler Nicholas. Tous droits réservés.", footerPrivacy: "Politique de Confidentialité", footerCookie: "Politique des Cookies"
+            },
+            crs: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Manm Onorab Elekte pour 21enm Lakohort Lasanble Nasyonal Lazenes Sesel",
+                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze",
+                searchTitle: "Rod dan Lalis", searchHint1: "Pese", searchHint2: "pour rode.", searchPlaceholder: "Tap ou mo isi...",
+                discordTitle: "Zwenn nou Konversasyon", discordDesc: "Pran par dan diskisyon kominote, e ganny konekte avek Fondasyon Tyler Nicholas.", discordBtn: "Zwenn Servir Discord",
+                accRead: "Lir",
+                legalHeaderSub: "Dokimantasyon Ofisyel", legalHeaderTitle: "Legal ek Konfidansyalite", legalHeaderDesc: "Dernyen Mizazour: Mars 2026",
+                legalIntro: "Lobi Tyler Nicholas i devwe pour protez ou lavi prive e asir transparans dan fason nou zer ou bann lenformasyon. Sa polisi i eksplik nou pratik lo koleksyon ek proteksyon lenformasyon personel.",
+                legalH1: "1. Lenformasyon Ki Nou Kolekte", legalP1: "Nou kolekte en pti pe lenformasyon personel zis pour asir en bon kominikasyon:",
+                legalLi1_1: "<strong>Lenformasyon ki ou donnen:</strong> Ler ou servi nou formiler, nou kolekte ou non, email, size ek mesaz.",
+                legalLi1_2: "<strong>Lenformasyon otomatik:</strong> Nou kapab kolekte bann lenformasyon teknik (IP, browser) zis pour rezon sekirite.",
+                legalH2: "2. Koman Nou Servi Ou Lenformasyon", legalP2: "Bann lenformasyon i ganny servi zis pour servis piblik ek kominikasyon ofisyel:",
+                legalLi2_1: "Reponn ou bann demann ek konsern.",
+                legalLi2_2: "Gard en rikord sekirize pour lobi.",
+                legalLi2_3: "Amelyor sekirite nou sitweb.",
+                legalP2_bold: "<strong>Nou pa zanmen vann, lwe, oubyen pas ou lenformasyon personel avek okenn lezot dimoun.</strong>",
+                legalH3: "3. Sekirite Lenformasyon", legalP3: "Tou demann i ganny anvoye an sekirite e ganny anrezistre dan en databaz proteze. Zis dimoun otorize ki kapab ganny akse avek sa bann lenformasyon.",
+                legalH4: "4. Polisi Cookie", legalP4: "Sa sitweb i servi bann cookies (pti fiy lo ou devis) pour ed ou letan ou pe servi sitweb. Nou servi zot zis pour:",
+                legalLi4_1: "<strong>Cookies Esansyel:</strong> Ki neseser pour fer sitweb marse byen.",
+                legalLi4_2: "<strong>Sesyons:</strong> Pour rapel ou letan ou lo sitweb.",
+                legalP4_end: "Nou <strong>pa servi</strong> okenn cookies pour swiv ou pour biznes. Ler ou servi sa sitweb, ou dakor avek nou polisi cookies esansyel.",
+                legalH5: "5. Ou Bann Drwa", legalP5: "Koman en itilizater, ou gard tou drwa lo ou lenformasyon personel. Ou kapab demann pour:",
+                legalLi5_1: "Ganny en kopi ou lenformasyon.",
+                legalLi5_2: "Sanz bann lenformasyon ki pa korek.",
+                legalLi5_3: "Tir ou mesaz dan nou rikord ofisyel.",
+                legalH6: "6. Kontak Nou", legalP6: "Si ou annan okenn kestyon lo sa polisi, silvouple kontakte Lobi direk lo:",
+                footerDesc: "Angaze pour servis piblik, ledersip lazenes, ek devlopman dirab Repiblik Sesel.",
+                footerDir: "Lalis", footerAffil: "Afilysyon", footerContact: "Kontak", footerPersonalWeb: "Sitweb Personel", footerFoundation: "Fondasyon Tyler Nicholas",
+                footerRights: "&copy; 2026 Lobi Tyler Nicholas. Tou drwa rezerve.", footerPrivacy: "Polisi Konfidansyalite", footerCookie: "Polisi Cookie"
+            }
+        };
+
+        let currentLangCode = 'en';
+
+        function changeLang(lang) {
+            currentLangCode = lang;
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            
+            // Translate HTML elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Translate placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+        }
+
+        // --- DISCORD POPUP LOGIC ---
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('discordPopupSeen')) {
+                setTimeout(() => {
+                    const popup = document.getElementById('discord-popup');
+                    popup.classList.remove('hide');
+                    popup.classList.add('show');
+                }, 2000); 
+            }
+        });
+
+        function closeDiscordPopup() {
+            const popup = document.getElementById('discord-popup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            localStorage.setItem('discordPopupSeen', 'true');
+        }
+
+        // --- SEARCH LOGIC ---
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function executeSearch(e) {
+            if (e.key === 'Enter') {
+                const query = document.getElementById('search-input').value.trim();
+                if (query) {
+                    window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+                } else {
+                    showToast('Please enter a search term.', 'error');
+                }
+            }
+        }
+
+        // --- MOBILE MENU ---
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+
+        // --- ACCESSIBILITY PANEL ---
+        let currentTextLevel = 1;
+        let isHighContrast = false;
+
+        function adjustTextSize(step) {
+            const newLevel = currentTextLevel + step;
+            if (newLevel >= 1 && newLevel <= 3) {
+                const areas = document.querySelectorAll('.read-area');
+                areas.forEach(area => {
+                    area.classList.remove(`text-lvl-${currentTextLevel}`);
+                    area.classList.add(`text-lvl-${newLevel}`);
+                });
+                currentTextLevel = newLevel;
+            }
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            const areas = document.querySelectorAll('.read-area');
+            areas.forEach(area => {
+                if(isHighContrast) area.classList.add('high-contrast');
+                else area.classList.remove('high-contrast');
+            });
+        }
+
+        // --- TOAST NOTIFICATION ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-[#10B981] text-xl"></i>' : '<i class="fa-solid fa-circle-exclamation text-[#EF4444] text-xl"></i>';
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4000);
+        }
+
         // --- NAVBAR SHADOW ON SCROLL ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
         });
-
-        // --- MOBILE MENU LOGIC ---
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu-overlay');
-
-        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
-        mobileBtn.addEventListener('click', toggleMenu);
-        mobileClose.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
