@@ -18,22 +18,9 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'], 
-                        heading: ['Poppins', 'sans-serif'] 
-                    },
-                    colors: {
-                        brand: { 
-                            blue: '#00AEEF',      
-                            dark: '#111827',      
-                            light: '#E6F6FE',     
-                            muted: '#6B7280'      
-                        }
-                    },
-                    boxShadow: { 
-                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)',
-                        'card': '0 4px 20px rgba(0,0,0,0.04)'
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
+                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)', 'card': '0 4px 20px rgba(0,0,0,0.04)' }
                 }
             }
         }
@@ -41,24 +28,32 @@
 
     <style>
         body { background-color: #FFFFFF; -webkit-font-smoothing: antialiased; }
-        
         .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-        
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .delay-100 { animation-delay: 100ms; } .delay-200 { animation-delay: 200ms; } .delay-300 { animation-delay: 300ms; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
-            background-color: #00AEEF; transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .nav-link.active { color: #00AEEF; }
-        .nav-link.active::after { width: 100%; }
+
+        /* Floating Accessibility Panel */
+        #accessibility-panel { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 80; transition: transform 0.3s ease; }
+        #accessibility-panel.closed { transform: translate(-100%, -50%); }
+        .acc-btn { @apply w-10 h-10 flex items-center justify-center bg-white border-b border-gray-100 text-brand-dark hover:bg-brand-light hover:text-brand-blue transition-colors cursor-pointer; }
+        
+        /* Accessibility Reading Classes */
+        .read-area { transition: all 0.3s ease; }
+        .read-area.high-contrast { background-color: #111827 !important; color: #F9FAFB !important; border-color: #374151 !important; }
+        .read-area.high-contrast h2, .read-area.high-contrast h3, .read-area.high-contrast h4, .read-area.high-contrast p, .read-area.high-contrast span { color: #F9FAFB !important; }
+        .read-area.text-lvl-1 p { font-size: 1rem; line-height: 1.75; }
+        .read-area.text-lvl-2 p { font-size: 1.125rem; line-height: 1.8; }
+        .read-area.text-lvl-3 p { font-size: 1.25rem; line-height: 1.9; }
+
+        /* Search Overlay */
+        #search-overlay { transition: opacity 0.3s ease; }
+        #search-overlay.hidden { opacity: 0; pointer-events: none; }
+        #search-overlay.active { opacity: 1; pointer-events: auto; }
 
         .policy-card { transition: all 0.3s ease; border-left: 4px solid transparent; }
         .policy-card:hover { transform: translateX(5px); border-left-color: #00AEEF; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -66,8 +61,8 @@
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark bg-gray-50">
 
-    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
-        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly!
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide" data-i18n="banner">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
     </div>
 
     <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300" id="navbar">
@@ -79,20 +74,45 @@
 
             <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
 
-            <div class="hidden lg:flex space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
-                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
-                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
-                <a href="/initiatives/" class="nav-link active">Initiatives</a>
-                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
+            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navHome">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navAbout">About</a>
+                <a href="/initiatives/" class="nav-link active" data-i18n="navInit">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navNews">Newsroom</a>
             </div>
 
-            <div class="hidden lg:block">
-                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
+            <div class="hidden lg:flex items-center space-x-6">
+                <button onclick="toggleSearch()" class="text-brand-muted hover:text-brand-blue transition-colors text-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+                <div class="relative group">
+                    <button class="flex items-center text-sm font-heading font-semibold text-brand-dark hover:text-brand-blue">
+                        <i class="fa-solid fa-globe mr-1.5 text-brand-muted"></i> <span id="current-lang">EN</span> <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-soft opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-gray-100 overflow-hidden">
+                        <button onclick="changeLang('en')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">English</button>
+                        <button onclick="changeLang('fr')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Français</button>
+                        <button onclick="changeLang('crs')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Seselwa</button>
+                    </div>
+                </div>
+
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block" data-i18n="navContact">
                     Let's Talk
                 </a>
             </div>
         </div>
     </nav>
+
+    <div id="search-overlay" class="fixed inset-0 bg-white/95 backdrop-blur-md z-[200] hidden flex flex-col items-center justify-center p-6">
+        <button onclick="toggleSearch()" class="absolute top-8 right-8 text-4xl text-brand-muted hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-full max-w-3xl">
+            <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="searchTitle">Search the Office Directory</h3>
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
+                <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
+            </div>
+            <p class="text-brand-muted text-sm mt-4 ml-2"><span data-i18n="searchHint1">Press</span> <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> <span data-i18n="searchHint2">to search.</span></p>
+        </div>
+    </div>
 
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
         <div class="p-6 flex justify-between items-center border-b border-gray-100">
@@ -100,23 +120,30 @@
             <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+            <a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft" data-i18n="navContact">Let's Talk</a>
         </div>
+    </div>
+
+    <div id="accessibility-panel" class="shadow-lg rounded-r-xl overflow-hidden bg-white border border-l-0 border-gray-200">
+        <div class="bg-brand-dark text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-2 text-center w-12" data-i18n="accRead">Read</div>
+        <div class="acc-btn" onclick="adjustTextSize(1)" title="Increase Text Size"><i class="fa-solid fa-a text-lg"></i><i class="fa-solid fa-plus text-[10px] ml-0.5"></i></div>
+        <div class="acc-btn" onclick="adjustTextSize(-1)" title="Decrease Text Size"><i class="fa-solid fa-a text-sm"></i><i class="fa-solid fa-minus text-[10px] ml-0.5"></i></div>
+        <div class="acc-btn" onclick="toggleHighContrast()" title="Toggle High Contrast"><i class="fa-solid fa-circle-half-stroke text-lg"></i></div>
     </div>
 
     <main class="flex-grow">
         
         <section class="pt-20 pb-16 bg-white text-center px-6 fade-up">
-            <span class="text-brand-blue font-heading font-bold uppercase tracking-widest text-xs mb-3 block">My Vision For Seychelles</span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-dark mb-6 max-w-4xl mx-auto leading-tight">
+            <span class="text-brand-blue font-heading font-bold uppercase tracking-widest text-xs mb-3 block" data-i18n="headerSub">My Vision For Seychelles</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-dark mb-6 max-w-4xl mx-auto leading-tight" data-i18n="headerTitle">
                 A nation built on active participation and progressive reform.
             </h1>
-            <p class="text-brand-muted text-lg max-w-2xl mx-auto leading-relaxed">
-                The ultimate dream is a Republic where young Seychellois are not just observers, but active architects of our democracy and government decision-making.
+            <p class="text-brand-muted text-lg max-w-3xl mx-auto leading-relaxed" data-i18n="headerDesc">
+                The ultimate dream is a Republic where young Seychellois are not just observers, but active architects of our democracy. We must evolve beyond inherited systems and actively construct a government framework where youth presence in decision-making is normalized, respected, and institutionalized.
             </p>
         </section>
 
@@ -125,27 +152,28 @@
                 <div class="bg-brand-light rounded-3xl p-10 md:p-16 relative overflow-hidden">
                     <div class="absolute -right-20 -top-20 w-64 h-64 bg-white opacity-40 rounded-full blur-2xl"></div>
                     
-                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start read-area text-lvl-1">
+                        
                         <div>
                             <div class="w-12 h-12 bg-white text-brand-blue rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-book-open-reader"></i></div>
-                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4">The Education Reform Agenda</h2>
-                            <p class="text-brand-dark font-medium leading-relaxed mb-4">
-                                Our current educational framework places immense pressure on students, prioritizing rigid grading over genuine learning and personal discovery.
-                            </p>
-                            <p class="text-brand-muted leading-relaxed">
-                                I advocate for an educational system where students feel happy, motivated, and supported when they go to school—not depressed, anxious, or perpetually exhausted. We must shift the paradigm so that schools become incubators of talent and well-being, fostering critical thinking and mental health above mere test scores.
-                            </p>
+                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4" data-i18n="eduTitle">The Education Reform Agenda</h2>
+                            <div class="space-y-4 text-brand-muted">
+                                <p data-i18n="eduP1">Our current educational framework places immense, often unbearable pressure on students. It is a system that inadvertently prioritizes rigid grading and rote memorization over genuine learning, personal discovery, and critical thinking.</p>
+                                <p data-i18n="eduP2">I advocate fiercely for a paradigm shift. We need an educational system where students feel happy, motivated, and supported when they step into a classroom—not depressed, anxious, or perpetually exhausted by the fear of failure.</p>
+                                <p data-i18n="eduP3">To achieve this, we must modernize our curriculum. We need to introduce robust mental health resources directly into schools, reduce high-stakes testing anxiety, and foster environments that celebrate vocational skills and creative problem-solving just as much as traditional academics. Schools must become incubators of holistic well-being.</p>
+                            </div>
                         </div>
+
                         <div>
                             <div class="w-12 h-12 bg-white text-brand-blue rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-landmark-dome"></i></div>
-                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4">Democratic Integration</h2>
-                            <p class="text-brand-dark font-medium leading-relaxed mb-4">
-                                The youth of Seychelles represent the future of this nation, yet they are often left out of the rooms where the future is decided.
-                            </p>
-                            <p class="text-brand-muted leading-relaxed">
-                                My vision is the total integration of youth into government duties, civic operations, and national decision-making. We cannot build a sustainable democracy without the active, respected, and institutionalized participation of the next generation in our legislative processes.
-                            </p>
+                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4" data-i18n="demTitle">Democratic Integration</h2>
+                            <div class="space-y-4 text-brand-muted">
+                                <p data-i18n="demP1">The youth of Seychelles represent the very future of this nation, yet historically, they are often left out of the rooms where that future is decided. Token representation is no longer sufficient.</p>
+                                <p data-i18n="demP2">My vision demands the total, uncompromising integration of youth into government duties, civic operations, and national decision-making. We cannot build a sustainable, resilient democracy without the active participation of the next generation in our legislative and executive processes.</p>
+                                <p data-i18n="demP3">This means lowering the barriers to entry for young people in civic spaces. We must establish localized youth advisory boards, ensure all national policies are stress-tested for their long-term impact on younger demographics, and cultivate a political culture that actively listens to, rather than dismisses, the voice of the Seychellois youth.</p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -155,56 +183,60 @@
             <div class="max-w-7xl mx-auto px-6 md:px-12">
                 
                 <div class="text-center max-w-3xl mx-auto mb-16 fade-up delay-200">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">The Four Strategic Pillars</h2>
-                    <p class="text-brand-muted text-base leading-relaxed">
-                        To achieve this overarching vision, my public service work within the Seychelles National Youth Assembly and the broader community is categorized into four primary areas of action.
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4" data-i18n="pillarsTitle">The Four Strategic Pillars</h2>
+                    <p class="text-brand-muted text-base leading-relaxed" data-i18n="pillarsDesc">
+                        To achieve this overarching vision, my public service work within the Seychelles National Youth Assembly and the broader community is categorized into four primary, actionable areas of focus.
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-up delay-300">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-up delay-300 read-area text-lvl-1">
                     
-                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card flex flex-col h-full">
                         <div class="flex items-center justify-between mb-6">
                             <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-bullhorn"></i></div>
                             <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 01</span>
                         </div>
-                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Youth Empowerment</h3>
-                        <p class="text-brand-muted leading-relaxed text-sm">
-                            Advocating for policies that give young Seychellois true economic and social mobility. This means securing better funding for youth-led enterprises, ensuring access to modern digital infrastructure, and dismantling the barriers that prevent young professionals from succeeding in the modern economy.
-                        </p>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="pil1Title">Youth Empowerment</h3>
+                        <div class="text-brand-muted leading-relaxed space-y-3 flex-grow">
+                            <p data-i18n="pil1P1">Empowerment is not just a buzzword; it requires structural economic and social mobility. I am advocating for policies that give young Seychellois tangible tools to succeed.</p>
+                            <p data-i18n="pil1P2">This encompasses securing better funding pathways for youth-led enterprises and startups, ensuring equitable access to modern digital infrastructure, and actively dismantling the bureaucratic barriers that prevent young professionals from thriving in the modern, globalized economy.</p>
+                        </div>
                     </div>
 
-                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card flex flex-col h-full">
                         <div class="flex items-center justify-between mb-6">
                             <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-scale-balanced"></i></div>
                             <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 02</span>
                         </div>
-                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Public Service</h3>
-                        <p class="text-brand-muted leading-relaxed text-sm">
-                            Operating with absolute transparency and dedication within the Seychelles National Youth Assembly. My commitment is to draft, review, and fiercely debate resolutions that serve the public interest, ensuring that legislative momentum always aligns with the needs of the people.
-                        </p>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="pil2Title">Public Service</h3>
+                        <div class="text-brand-muted leading-relaxed space-y-3 flex-grow">
+                            <p data-i18n="pil2P1">My tenure within the Seychelles National Youth Assembly is governed by absolute transparency, rigorous debate, and unwavering dedication to the public interest.</p>
+                            <p data-i18n="pil2P2">I am committed to drafting, reviewing, and defending resolutions that directly address the concerns of my constituents. Public service means showing up prepared, holding institutions accountable, and ensuring that legislative momentum aligns precisely with the immediate and long-term needs of the Seychellois people.</p>
+                        </div>
                     </div>
 
-                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card flex flex-col h-full">
                         <div class="flex items-center justify-between mb-6">
                             <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-handshake-angle"></i></div>
                             <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 03</span>
                         </div>
-                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Community Engagement</h3>
-                        <p class="text-brand-muted leading-relaxed text-sm">
-                            A leader must remain connected to the grassroots. This pillar focuses on direct dialogue with citizens, organizing local interventions, and ensuring that the real, everyday struggles of Seychellois communities are elevated directly to the highest levels of national governance.
-                        </p>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="pil3Title">Community Engagement</h3>
+                        <div class="text-brand-muted leading-relaxed space-y-3 flex-grow">
+                            <p data-i18n="pil3P1">A true leader must remain intimately connected to the grassroots. Policy drafted in a vacuum rarely solves problems on the ground.</p>
+                            <p data-i18n="pil3P2">This pillar focuses on maintaining direct, continuous dialogue with citizens. It involves organizing local interventions, supporting community resilience projects like food security initiatives, hosting town halls, and ensuring that the real, everyday struggles of our communities are elevated directly to the highest levels of national governance.</p>
+                        </div>
                     </div>
 
-                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card flex flex-col h-full">
                         <div class="flex items-center justify-between mb-6">
                             <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
                             <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 04</span>
                         </div>
-                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Leadership Development</h3>
-                        <p class="text-brand-muted leading-relaxed text-sm">
-                            True leadership is about building more leaders, not followers. I am committed to creating mentorship pipelines and support systems that identify ambitious young Seychellois and equip them with the skills required to take the helm in both the public and private sectors.
-                        </p>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="pil4Title">Leadership Development</h3>
+                        <div class="text-brand-muted leading-relaxed space-y-3 flex-grow">
+                            <p data-i18n="pil4P1">The measure of effective leadership is not the followers it creates, but the new leaders it cultivates. We must build a sustainable pipeline of talent for Seychelles.</p>
+                            <p data-i18n="pil4P2">I am dedicated to creating formalized mentorship programs, paring seasoned executives and public servants with ambitious youth. We must create incubators that identify young talent early and equip them with the precise skills, ethics, and strategic thinking required to take the helm in both the public and private sectors.</p>
+                        </div>
                     </div>
 
                 </div>
@@ -213,9 +245,9 @@
 
         <section class="py-20 bg-white border-t border-gray-200 text-center">
             <div class="max-w-3xl mx-auto px-6 fade-up">
-                <h2 class="text-3xl font-heading font-bold text-brand-dark mb-6">Want to contribute to the vision?</h2>
-                <p class="text-brand-muted mb-8">Whether you have a policy suggestion, a community concern, or wish to collaborate on an initiative, the Office is always open.</p>
-                <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-4 rounded-xl font-heading font-bold transition-all shadow-soft hover:shadow-md transform hover:-translate-y-1">
+                <h2 class="text-3xl font-heading font-bold text-brand-dark mb-6" data-i18n="ctaTitle">Want to contribute to the vision?</h2>
+                <p class="text-brand-muted mb-8" data-i18n="ctaDesc">Whether you have a policy suggestion, a community concern, or wish to collaborate on an initiative, the Office is always open. Your voice matters.</p>
+                <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-4 rounded-xl font-heading font-bold transition-all shadow-soft hover:shadow-md transform hover:-translate-y-1" data-i18n="ctaBtn">
                     Contact The Office Today
                 </a>
             </div>
@@ -225,14 +257,12 @@
 
     <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            
             <div class="md:col-span-4">
                 <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
                 <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
-                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs" data-i18n="footerDesc">
                     Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
                 </p>
-                
                 <div class="flex flex-wrap gap-3">
                     <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
                     <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
@@ -243,59 +273,228 @@
                     <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-            
             <div class="md:col-span-2">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerDir">Directory</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
-                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
-                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
-                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                    <li><a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors" data-i18n="navContact">Contact</a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerAffil">Affiliations</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerPersonalWeb">Personal Website</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerFoundation">Tyler Nicholas Foundation</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerContact">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
-                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors">tylernicholas.civic@gmail.com</a></li>
-                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors">tyler.nicholasefs@gmail.com</a></li>
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors break-all">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors break-all">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors break-all">tyler.nicholasefs@gmail.com</a></li>
                     <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
-            <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+            <p data-i18n="footerRights">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerPrivacy">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerCookie">Cookie Policy</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // --- COMPREHENSIVE TRANSLATION DICTIONARY FOR INITIATIVES PAGE ---
+        const translations = {
+            en: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly",
+                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk",
+                searchTitle: "Search the Office Directory", searchHint1: "Press", searchHint2: "to search.", searchPlaceholder: "Type keywords and press Enter...",
+                accRead: "Read",
+                headerSub: "My Vision For Seychelles",
+                headerTitle: "A nation built on active participation and progressive reform.",
+                headerDesc: "The ultimate dream is a Republic where young Seychellois are not just observers, but active architects of our democracy. We must evolve beyond inherited systems and actively construct a government framework where youth presence in decision-making is normalized, respected, and institutionalized.",
+                eduTitle: "The Education Reform Agenda",
+                eduP1: "Our current educational framework places immense, often unbearable pressure on students. It is a system that inadvertently prioritizes rigid grading and rote memorization over genuine learning, personal discovery, and critical thinking.",
+                eduP2: "I advocate fiercely for a paradigm shift. We need an educational system where students feel happy, motivated, and supported when they step into a classroom—not depressed, anxious, or perpetually exhausted by the fear of failure.",
+                eduP3: "To achieve this, we must modernize our curriculum. We need to introduce robust mental health resources directly into schools, reduce high-stakes testing anxiety, and foster environments that celebrate vocational skills and creative problem-solving just as much as traditional academics. Schools must become incubators of holistic well-being.",
+                demTitle: "Democratic Integration",
+                demP1: "The youth of Seychelles represent the very future of this nation, yet historically, they are often left out of the rooms where that future is decided. Token representation is no longer sufficient.",
+                demP2: "My vision demands the total, uncompromising integration of youth into government duties, civic operations, and national decision-making. We cannot build a sustainable, resilient democracy without the active participation of the next generation in our legislative and executive processes.",
+                demP3: "This means lowering the barriers to entry for young people in civic spaces. We must establish localized youth advisory boards, ensure all national policies are stress-tested for their long-term impact on younger demographics, and cultivate a political culture that actively listens to, rather than dismisses, the voice of the Seychellois youth.",
+                pillarsTitle: "The Four Strategic Pillars",
+                pillarsDesc: "To achieve this overarching vision, my public service work within the Seychelles National Youth Assembly and the broader community is categorized into four primary, actionable areas of focus.",
+                pil1Title: "Youth Empowerment",
+                pil1P1: "Empowerment is not just a buzzword; it requires structural economic and social mobility. I am advocating for policies that give young Seychellois tangible tools to succeed.",
+                pil1P2: "This encompasses securing better funding pathways for youth-led enterprises and startups, ensuring equitable access to modern digital infrastructure, and actively dismantling the bureaucratic barriers that prevent young professionals from thriving in the modern, globalized economy.",
+                pil2Title: "Public Service",
+                pil2P1: "My tenure within the Seychelles National Youth Assembly is governed by absolute transparency, rigorous debate, and unwavering dedication to the public interest.",
+                pil2P2: "I am committed to drafting, reviewing, and defending resolutions that directly address the concerns of my constituents. Public service means showing up prepared, holding institutions accountable, and ensuring that legislative momentum aligns precisely with the immediate and long-term needs of the Seychellois people.",
+                pil3Title: "Community Engagement",
+                pil3P1: "A true leader must remain intimately connected to the grassroots. Policy drafted in a vacuum rarely solves problems on the ground.",
+                pil3P2: "This pillar focuses on maintaining direct, continuous dialogue with citizens. It involves organizing local interventions, supporting community resilience projects like food security initiatives, hosting town halls, and ensuring that the real, everyday struggles of our communities are elevated directly to the highest levels of national governance.",
+                pil4Title: "Leadership Development",
+                pil4P1: "The measure of effective leadership is not the followers it creates, but the new leaders it cultivates. We must build a sustainable pipeline of talent for Seychelles.",
+                pil4P2: "I am dedicated to creating formalized mentorship programs, paring seasoned executives and public servants with ambitious youth. We must create incubators that identify young talent early and equip them with the precise skills, ethics, and strategic thinking required to take the helm in both the public and private sectors.",
+                ctaTitle: "Want to contribute to the vision?",
+                ctaDesc: "Whether you have a policy suggestion, a community concern, or wish to collaborate on an initiative, the Office is always open. Your voice matters.",
+                ctaBtn: "Contact The Office Today",
+                footerDesc: "Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.",
+                footerDir: "Directory", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Personal Website", footerFoundation: "Tyler Nicholas Foundation",
+                footerRights: "&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy"
+            },
+            fr: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Membre Honorable Élu pour la 21e Cohorte de l'Assemblée Nationale des Jeunes des Seychelles",
+                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en",
+                searchTitle: "Rechercher dans l'Annuaire", searchHint1: "Appuyez sur", searchHint2: "pour rechercher.", searchPlaceholder: "Tapez des mots-clés et appuyez sur Entrée...",
+                accRead: "Lire",
+                headerSub: "Ma Vision Pour les Seychelles",
+                headerTitle: "Une nation bâtie sur la participation active et la réforme progressiste.",
+                headerDesc: "Le rêve ultime est une République où les jeunes Seychellois ne sont pas de simples observateurs, mais les architectes actifs de notre démocratie. Nous devons construire un cadre où la présence des jeunes est respectée et institutionnalisée.",
+                eduTitle: "Le Programme de Réforme de l'Éducation",
+                eduP1: "Notre cadre éducatif actuel exerce une pression immense sur les étudiants. C'est un système qui privilégie par inadvertance la notation rigide au détriment du véritable apprentissage et de la découverte personnelle.",
+                eduP2: "Je plaide pour un changement de paradigme. Nous avons besoin d'un système éducatif où les étudiants se sentent heureux et soutenus lorsqu'ils entrent dans une salle de classe—et non anxieux ou épuisés par la peur de l'échec.",
+                eduP3: "Pour y parvenir, nous devons moderniser notre programme. Nous devons introduire des ressources en santé mentale dans les écoles, réduire l'anxiété liée aux examens et célébrer la créativité. Les écoles doivent devenir des incubateurs de bien-être holistique.",
+                demTitle: "Intégration Démocratique",
+                demP1: "La jeunesse des Seychelles représente l'avenir de cette nation, mais historiquement, elle est souvent exclue des salles où cet avenir est décidé.",
+                demP2: "Ma vision exige l'intégration totale et sans compromis des jeunes dans les fonctions gouvernementales et la prise de décision nationale. Nous ne pouvons pas construire une démocratie résiliente sans la participation active de la prochaine génération.",
+                demP3: "Cela signifie abaisser les barrières à l'entrée pour les jeunes. Nous devons établir des conseils consultatifs de jeunes et cultiver une culture politique qui écoute activement la voix de la jeunesse seychelloise.",
+                pillarsTitle: "Les Quatre Piliers Stratégiques",
+                pillarsDesc: "Pour réaliser cette vision, mon travail de service public au sein de l'Assemblée Nationale des Jeunes est catégorisé en quatre domaines d'action principaux.",
+                pil1Title: "Autonomisation des Jeunes",
+                pil1P1: "L'autonomisation nécessite une mobilité économique et sociale structurelle. Je plaide pour des politiques qui donnent aux jeunes Seychellois des outils tangibles pour réussir.",
+                pil1P2: "Cela inclut de meilleures voies de financement pour les entreprises dirigées par des jeunes, un accès équitable à l'infrastructure numérique et le démantèlement des barrières bureaucratiques.",
+                pil2Title: "Service Public",
+                pil2P1: "Mon mandat est régi par une transparence absolue, un débat rigoureux et un dévouement inébranlable à l'intérêt public.",
+                pil2P2: "Je m'engage à rédiger et défendre des résolutions qui répondent directement aux préoccupations de mes électeurs. Le service public signifie tenir les institutions responsables.",
+                pil3Title: "Engagement Communautaire",
+                pil3P1: "Un véritable leader doit rester intimement lié à la base. Les politiques rédigées en vase clos résolvent rarement les problèmes sur le terrain.",
+                pil3P2: "Ce pilier se concentre sur le maintien d'un dialogue direct avec les citoyens. Il implique de soutenir des projets de résilience communautaire et de s'assurer que les luttes réelles de nos communautés soient entendues.",
+                pil4Title: "Développement du Leadership",
+                pil4P1: "La mesure d'un leadership efficace n'est pas le nombre d'adeptes, mais les nouveaux leaders qu'il cultive. Nous devons construire un vivier de talents pour les Seychelles.",
+                pil4P2: "Je me consacre à la création de programmes de mentorat, associant des cadres expérimentés à des jeunes ambitieux pour les doter des compétences nécessaires pour prendre la relève.",
+                ctaTitle: "Voulez-vous contribuer à la vision ?",
+                ctaDesc: "Que vous ayez une suggestion de politique ou souhaitiez collaborer à une initiative, le Bureau est toujours ouvert. Votre voix compte.",
+                ctaBtn: "Contactez le Bureau Aujourd'hui",
+                footerDesc: "Engagé envers le service public, le leadership des jeunes et le développement durable de la République des Seychelles.",
+                footerDir: "Annuaire", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Site Personnel", footerFoundation: "Fondation Tyler Nicholas",
+                footerRights: "&copy; 2026 Bureau de Tyler Nicholas. Tous droits réservés.", footerPrivacy: "Politique de Confidentialité", footerCookie: "Politique des Cookies"
+            },
+            crs: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Manm Onorab Elekte pour 21enm Lakohort Lasanble Nasyonal Lazenes Sesel",
+                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze",
+                searchTitle: "Rod dan Lalis", searchHint1: "Pese", searchHint2: "pour rode.", searchPlaceholder: "Tap ou mo isi...",
+                accRead: "Lir",
+                headerSub: "Mon Vizyon Pour Sesel",
+                headerTitle: "En nasyon batir lo partisipasyon aktif ek reform progrese.",
+                headerDesc: "Sa pli gran rev se en Repiblik kot bann zenn Seselwa i pa zis obzervater, me bann vre arsitek nou demokrasi. Nou bezwen devlop en sistenm gouvernman kot prezans lazenes i ganny respekte e ganny enkli dan tou desizyon.",
+                eduTitle: "Ladzanda Reform Ledikasyon",
+                eduP1: "Nou sistenm ledikasyon konmela i met en presyon imans lo bann zelev. I en sistenm ki parfwa met plis lenportans lo pas legzanmen ki lo vre laprantisaz ek devlopman personel.",
+                eduP2: "Mon vreman krwar dan en sanzman. Nou bezwen en sistenm kot zelev i kontan, ganny motive, e ganny siport ler zot antre dan laklas—pa en sistenm kot zot deprimen, anksye, oubyen fatige akoz lafreyer pour fail.",
+                eduP3: "Pour fer sa, nou bezwen moderniz nou progranm letid. Nou bezwen met resours lasante mantal dan lekol, redwir presyon legzanmen, e siport bann skill pratik parey nou siport ledikasyon tradisyonel. Lekol i bezwen vin en landrwa kot zelev i devlope an antye.",
+                demTitle: "Lentegrasyon Demokratik",
+                demP1: "Lazenes Sesel i reprezant lavenir sa nasyon, me byen souvan, zot pa ganny enkli dan bann landrwa kot sa lavenir pe ganny deside.",
+                demP2: "Mon vizyon i demann lentegrasyon total lazenes dan bann fonksyon gouvernman ek desizyon nasyonal. Nou pa kapab batir en demokrasi for san partisipasyon nouvo zenerasyon.",
+                demP3: "Sa i vedir fer li pli fasil pour bann zenn rantre dan bann lespas sivik. Nou bezwen etabli bann board konseye lazenes dan kominote e fer sir ki tou polisi nasyonal i ganny teste pour vwar son lenpak lo lazenes.",
+                pillarsTitle: "Sa Kat Pilye Stratezik",
+                pillarsDesc: "Pour atenn sa vizyon, mon travay dan Lasanble Nasyonal Lazenes ek dan kominote i ganny divize an kat form prensipal.",
+                pil1Title: "Lafors Lazenes",
+                pil1P1: "Donn lafors lazenes i pa zis en mo; i demann vre sanzman ekonomik ek sosyal. Mon siport bann polisi ki donn bann zenn Seselwa bann zouti reel pour reisi.",
+                pil1P2: "Sa i enkli ganny meyer fon pour bann biznes lazenes, asire ki tou dimoun i ganny akse avek lenternet ek teknolozi modern, e retir bann baryer ki anpes bann zenn profesyonel avanse.",
+                pil2Title: "Servis Piblik",
+                pil2P1: "Mon letan dan Lasanble Nasyonal Lazenes i baze lo transparans, deba serye, ek en gran devouman pour lentere piblik.",
+                pil2P2: "Mon determinen pour formil, revwar, e defann bann rezolisyon ki adrese problem mon bann sitwayen. Servis piblik i vedir prepar ou byen e fer sir ki ledikasyon i reponn bezwen pep Seselwa.",
+                pil3Title: "Langazman Kominote",
+                pil3P1: "En vre lider i bezwen reste konekte avek son kominote. Bann polisi ki ganny fer san konsilte dimoun anba, rarman rezourd problem.",
+                pil3P2: "Sa pilye i konsantre lo gard en dyalog direk avek sitwayen. I enplik siport bann proze kominote, organiz bann miting, e fer sir ki bann vre lit nou bann kominote i ganny tande par gouvernman.",
+                pil4Title: "Devlopman Ledersip",
+                pil4P1: "En bon lider i pa mezire par kantite dimoun ki swiv li, me par kantite nouvo lider ki i prodir. Nou bezwen batir en lalis talan pour Sesel.",
+                pil4P2: "Mon devwe pour kree bann progranm mentorat ki met ansanm bann lider avek leksperyans ek bann zenn anbisye. Nou bezwen ekip zot avek bann skill ek fason panse pour vin bann fitir lider dan sekter piblik ek prive.",
+                ctaTitle: "Ou anvi kontribye dan sa vizyon?",
+                ctaDesc: "Si ou annan en sizesyon polisi, en konsern kominote, oubyen ou anvi travay ansanm lo en inisyativ, lobi i touzour ouver. Ou lavwa i kont bokou.",
+                ctaBtn: "Kontakte Lobi Ozordi",
+                footerDesc: "Angaze pour servis piblik, ledersip lazenes, ek devlopman dirab Repiblik Sesel.",
+                footerDir: "Lalis", footerAffil: "Afilysyon", footerContact: "Kontak", footerPersonalWeb: "Sitweb Personel", footerFoundation: "Fondasyon Tyler Nicholas",
+                footerRights: "&copy; 2026 Lobi Tyler Nicholas. Tou drwa rezerve.", footerPrivacy: "Polisi Konfidansyalite", footerCookie: "Polisi Cookie"
+            }
+        };
+
+        function changeLang(lang) {
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+        }
+
+        // --- SEARCH LOGIC ---
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) document.getElementById('search-input').focus();
+        }
+        function executeSearch(e) {
+            if (e.key === 'Enter') {
+                const query = document.getElementById('search-input').value.trim();
+                if (query) window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // --- MOBILE MENU ---
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+
+        // --- ACCESSIBILITY CONTROL PANEL ---
+        let currentTextLevel = 1;
+        let isHighContrast = false;
+
+        function adjustTextSize(step) {
+            const newLevel = currentTextLevel + step;
+            if (newLevel >= 1 && newLevel <= 3) {
+                const areas = document.querySelectorAll('.read-area');
+                areas.forEach(area => {
+                    area.classList.remove(`text-lvl-${currentTextLevel}`);
+                    area.classList.add(`text-lvl-${newLevel}`);
+                });
+                currentTextLevel = newLevel;
+            }
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            const areas = document.querySelectorAll('.read-area');
+            areas.forEach(area => {
+                if(isHighContrast) {
+                    area.classList.add('high-contrast');
+                } else {
+                    area.classList.remove('high-contrast');
+                }
+            });
+        }
+
+        // --- NAVBAR SHADOW ON SCROLL ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
         });
-
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu-overlay');
-
-        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
-        mobileBtn.addEventListener('click', toggleMenu);
-        mobileClose.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
