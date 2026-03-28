@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Directory | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
+                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F9FAFB; -webkit-font-smoothing: antialiased; }
+        .fade-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Highlight matching text */
+        .highlight { background-color: #FEF08A; color: #111827; font-weight: 600; padding: 0 2px; rounded: 2px; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-brand-dark">
+
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
+    </div>
+
+    <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 group">
+                <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            </a>
+            <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
+            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
+                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft transform hover:-translate-y-0.5 inline-block">
+                    Let's Talk
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+        <div class="p-6 flex justify-between items-center border-b border-gray-100">
+            <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
+            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+        </div>
+    </div>
+
+    <main class="flex-grow">
+        
+        <section class="pt-16 pb-10 bg-white border-b border-gray-100">
+            <div class="max-w-4xl mx-auto px-6 md:px-12">
+                <h1 class="text-2xl md:text-3xl font-heading font-bold text-brand-dark mb-6">Directory Search</h1>
+                
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 text-xl text-brand-muted"></i>
+                    <input type="text" id="page-search-input" placeholder="Search policies, updates, or contact info..." class="w-full bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-blue rounded-xl py-4 pl-14 pr-32 text-lg font-heading outline-none transition-all shadow-inner">
+                    <button onclick="triggerNewSearch()" class="absolute right-2 bg-brand-dark hover:bg-brand-blue text-white font-heading font-semibold text-sm py-2.5 px-6 rounded-lg transition-colors">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <div class="max-w-4xl mx-auto px-6 md:px-12">
+                
+                <div class="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
+                    <h2 class="text-sm font-heading font-semibold text-brand-muted">Search Results for: <span id="search-query-display" class="text-brand-dark font-bold">"..."</span></h2>
+                    <span id="results-count" class="text-xs font-bold bg-brand-light text-brand-blue px-3 py-1 rounded-full uppercase tracking-widest">0 Found</span>
+                </div>
+
+                <div id="results-container" class="space-y-6">
+                    <div id="loading-state" class="text-center py-20">
+                        <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-blue mb-4"></i>
+                        <p class="text-brand-muted font-heading font-medium">Scanning Office Directory & Database...</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
+                <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                    Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
+                </p>
+            </div>
+            <div class="md:col-span-2">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-3">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-3">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
+                    <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- MOBILE MENU LOGIC ---
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        mobileClose.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+
+        // Allow pressing Enter in the search box on this page
+        document.getElementById('page-search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') triggerNewSearch();
+        });
+
+        function triggerNewSearch() {
+            const query = document.getElementById('page-search-input').value.trim();
+            if (query) {
+                window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // --- SEARCH ENGINE LOGIC ---
+        const SUPABASE_URL = 'https://eeqgfchvchpdulfybsjg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcWdmY2h2Y2hwZHVsZnlic2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDEyMzYsImV4cCI6MjA5MDI3NzIzNn0.2Psw_X2TB1r8iLb46WWWANhVuDvoDPnUMjaWykvqd1s';
+
+        // 1. Define Static Core Pages
+        const staticIndex = [
+            {
+                title: "About Tyler Nicholas",
+                url: "/about/",
+                type: "Biography",
+                content: "Biography, public record, and professional affiliations. Tyler Nicholas is an Honorable Member Elect dedicated to youth empowerment, civic duty, and the structural development of Seychelles. Principal of Tyler Nicholas Group."
+            },
+            {
+                title: "My Initiatives & Vision",
+                url: "/initiatives/",
+                type: "Policy",
+                content: "Youth Empowerment, Public Service, Community Engagement, Leadership Development. Advocating for educational reform, mental health, and democratic integration of the next generation."
+            },
+            {
+                title: "Contact The Office",
+                url: "/contact/",
+                type: "Directory",
+                content: "Official communication channels, secure inquiry form, email directories, phone number, and location in the Republic of Seychelles. Become an Office Ambassador."
+            },
+            {
+                title: "Privacy & Cookie Policy",
+                url: "/legal/",
+                type: "Legal",
+                content: "Legal documentation, data collection policies, information security, and cookie practices for the Office."
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get search query from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            
+            if (query) {
+                document.getElementById('search-query-display').innerText = `"${query}"`;
+                document.getElementById('page-search-input').value = query;
+                executeHybridSearch(query);
+            } else {
+                document.getElementById('search-query-display').innerText = "None";
+                document.getElementById('loading-state').innerHTML = `<p class="text-brand-muted font-medium">Please enter a keyword to search the directory.</p>`;
+            }
+        });
+
+        async function executeHybridSearch(query) {
+            const searchTerm = query.toLowerCase();
+            let allResults = [];
+
+            // 1. Search Static Pages
+            staticIndex.forEach(page => {
+                if (page.title.toLowerCase().includes(searchTerm) || page.content.toLowerCase().includes(searchTerm)) {
+                    allResults.push({
+                        title: page.title,
+                        url: page.url,
+                        type: page.type,
+                        snippet: page.content
+                    });
+                }
+            });
+
+            // 2. Search Supabase Database (Wait for client to load if needed)
+            const checkSupabase = setInterval(async () => {
+                if (window.supabase) {
+                    clearInterval(checkSupabase);
+                    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    
+                    try {
+                        // Fetch News Updates
+                        const { data: newsData } = await supabase.from('tn_updates')
+                            .select('title, short_summary')
+                            .or(`title.ilike.%${searchTerm}%,short_summary.ilike.%${searchTerm}%`);
+                        
+                        if (newsData) {
+                            newsData.forEach(item => {
+                                allResults.push({
+                                    title: item.title,
+                                    url: "/newsroom/",
+                                    type: "Press Release",
+                                    snippet: item.short_summary
+                                });
+                            });
+                        }
+
+                        // Fetch Events
+                        const { data: eventsData } = await supabase.from('tn_events')
+                            .select('title, description')
+                            .or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
+                            
+                        if (eventsData) {
+                            eventsData.forEach(item => {
+                                allResults.push({
+                                    title: item.title,
+                                    url: "/#events",
+                                    type: "Official Event",
+                                    snippet: item.description || "Upcoming official appearance."
+                                });
+                            });
+                        }
+
+                    } catch(err) {
+                        console.error("Supabase search failed", err);
+                    }
+
+                    // 3. Render Results
+                    renderResults(allResults, searchTerm);
+                }
+            }, 100);
+        }
+
+        function renderResults(results, searchTerm) {
+            const container = document.getElementById('results-container');
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('results-count').innerText = `${results.length} Found`;
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 bg-white border border-gray-100 rounded-2xl shadow-sm fade-up">
+                        <i class="fa-solid fa-folder-open text-4xl text-gray-300 mb-4"></i>
+                        <h3 class="text-xl font-heading font-bold text-brand-dark mb-2">No results found</h3>
+                        <p class="text-brand-muted">We couldn't find anything matching "${searchTerm}". Try checking your spelling or using more general keywords.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            results.forEach((res, index) => {
+                // Simple highlighter function
+                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                const highlightedTitle = res.title.replace(regex, '<span class="highlight">$1</span>');
+                const highlightedSnippet = res.snippet.replace(regex, '<span class="highlight">$1</span>');
+
+                html += `
+                <a href="${res.url}" class="block bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-blue transition-all group fade-up" style="animation-delay: ${index * 50}ms">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-[10px] font-bold bg-brand-light text-brand-blue px-2 py-1 rounded uppercase tracking-widest">${res.type}</span>
+                        <span class="text-xs text-gray-400 group-hover:text-brand-blue transition-colors break-all">nicholasoffice.online${res.url}</span>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-brand-dark mb-3 group-hover:text-brand-blue transition-colors">${highlightedTitle}</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">${highlightedSnippet}</p>
+                </a>
+                `;
+            });
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
