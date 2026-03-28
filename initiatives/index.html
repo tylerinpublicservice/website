@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initiatives & Vision | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        heading: ['Poppins', 'sans-serif'] 
+                    },
+                    colors: {
+                        brand: { 
+                            blue: '#00AEEF',      
+                            dark: '#111827',      
+                            light: '#E6F6FE',     
+                            muted: '#6B7280'      
+                        }
+                    },
+                    boxShadow: { 
+                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)',
+                        'card': '0 4px 20px rgba(0,0,0,0.04)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #FFFFFF; -webkit-font-smoothing: antialiased; }
+        
+        .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: #00AEEF; transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: #00AEEF; }
+        .nav-link.active::after { width: 100%; }
+
+        .policy-card { transition: all 0.3s ease; border-left: 4px solid transparent; }
+        .policy-card:hover { transform: translateX(5px); border-left-color: #00AEEF; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-brand-dark bg-gray-50">
+
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly!
+    </div>
+
+    <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <a href="/" class="flex items-center gap-2 group">
+                <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            </a>
+
+            <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
+
+            <div class="hidden lg:flex space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
+                <a href="/initiatives/" class="nav-link active">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
+            </div>
+
+            <div class="hidden lg:block">
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
+                    Let's Talk
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+        <div class="p-6 flex justify-between items-center border-b border-gray-100">
+            <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
+            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+        </div>
+    </div>
+
+    <main class="flex-grow">
+        
+        <section class="pt-20 pb-16 bg-white text-center px-6 fade-up">
+            <span class="text-brand-blue font-heading font-bold uppercase tracking-widest text-xs mb-3 block">My Vision For Seychelles</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-dark mb-6 max-w-4xl mx-auto leading-tight">
+                A nation built on active participation and progressive reform.
+            </h1>
+            <p class="text-brand-muted text-lg max-w-2xl mx-auto leading-relaxed">
+                The ultimate dream is a Republic where young Seychellois are not just observers, but active architects of our democracy and government decision-making.
+            </p>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up delay-100">
+                <div class="bg-brand-light rounded-3xl p-10 md:p-16 relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-white opacity-40 rounded-full blur-2xl"></div>
+                    
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div class="w-12 h-12 bg-white text-brand-blue rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-book-open-reader"></i></div>
+                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4">The Education Reform Agenda</h2>
+                            <p class="text-brand-dark font-medium leading-relaxed mb-4">
+                                Our current educational framework places immense pressure on students, prioritizing rigid grading over genuine learning and personal discovery.
+                            </p>
+                            <p class="text-brand-muted leading-relaxed">
+                                I advocate for an educational system where students feel happy, motivated, and supported when they go to school—not depressed, anxious, or perpetually exhausted. We must shift the paradigm so that schools become incubators of talent and well-being, fostering critical thinking and mental health above mere test scores.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="w-12 h-12 bg-white text-brand-blue rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"><i class="fa-solid fa-landmark-dome"></i></div>
+                            <h2 class="text-3xl font-heading font-bold text-brand-dark mb-4">Democratic Integration</h2>
+                            <p class="text-brand-dark font-medium leading-relaxed mb-4">
+                                The youth of Seychelles represent the future of this nation, yet they are often left out of the rooms where the future is decided.
+                            </p>
+                            <p class="text-brand-muted leading-relaxed">
+                                My vision is the total integration of youth into government duties, civic operations, and national decision-making. We cannot build a sustainable democracy without the active, respected, and institutionalized participation of the next generation in our legislative processes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50 border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 fade-up delay-200">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">The Four Strategic Pillars</h2>
+                    <p class="text-brand-muted text-base leading-relaxed">
+                        To achieve this overarching vision, my public service work within the Seychelles National Youth Assembly and the broader community is categorized into four primary areas of action.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-up delay-300">
+                    
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-bullhorn"></i></div>
+                            <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 01</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Youth Empowerment</h3>
+                        <p class="text-brand-muted leading-relaxed text-sm">
+                            Advocating for policies that give young Seychellois true economic and social mobility. This means securing better funding for youth-led enterprises, ensuring access to modern digital infrastructure, and dismantling the barriers that prevent young professionals from succeeding in the modern economy.
+                        </p>
+                    </div>
+
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-scale-balanced"></i></div>
+                            <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 02</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Public Service</h3>
+                        <p class="text-brand-muted leading-relaxed text-sm">
+                            Operating with absolute transparency and dedication within the Seychelles National Youth Assembly. My commitment is to draft, review, and fiercely debate resolutions that serve the public interest, ensuring that legislative momentum always aligns with the needs of the people.
+                        </p>
+                    </div>
+
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-handshake-angle"></i></div>
+                            <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 03</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Community Engagement</h3>
+                        <p class="text-brand-muted leading-relaxed text-sm">
+                            A leader must remain connected to the grassroots. This pillar focuses on direct dialogue with citizens, organizing local interventions, and ensuring that the real, everyday struggles of Seychellois communities are elevated directly to the highest levels of national governance.
+                        </p>
+                    </div>
+
+                    <div class="policy-card bg-white p-10 rounded-2xl shadow-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-[#F3F4F6] text-brand-dark rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                            <span class="text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-3 py-1 rounded-full">Pillar 04</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Leadership Development</h3>
+                        <p class="text-brand-muted leading-relaxed text-sm">
+                            True leadership is about building more leaders, not followers. I am committed to creating mentorship pipelines and support systems that identify ambitious young Seychellois and equip them with the skills required to take the helm in both the public and private sectors.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white border-t border-gray-200 text-center">
+            <div class="max-w-3xl mx-auto px-6 fade-up">
+                <h2 class="text-3xl font-heading font-bold text-brand-dark mb-6">Want to contribute to the vision?</h2>
+                <p class="text-brand-muted mb-8">Whether you have a policy suggestion, a community concern, or wish to collaborate on an initiative, the Office is always open.</p>
+                <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-4 rounded-xl font-heading font-bold transition-all shadow-soft hover:shadow-md transform hover:-translate-y-1">
+                    Contact The Office Today
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            
+            <div class="md:col-span-4">
+                <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
+                <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                    Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
+                </p>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-threads"></i></a>
+                    <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-3">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-3">
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <ul class="space-y-4 text-sm font-medium text-brand-muted">
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors">tyler.nicholasefs@gmail.com</a></li>
+                    <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
+            <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+            <div class="flex gap-6">
+                <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
+        });
+
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+
+        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
+        mobileBtn.addEventListener('click', toggleMenu);
+        mobileClose.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>
