@@ -129,12 +129,12 @@
     <div id="search-overlay" class="fixed inset-0 bg-white/95 backdrop-blur-md z-[200] hidden flex flex-col items-center justify-center p-6">
         <button onclick="toggleSearch()" class="absolute top-8 right-8 text-4xl text-brand-muted hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
         <div class="w-full max-w-3xl">
-            <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Search the Office Directory</h3>
+            <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="searchTitle">Search the Office Directory</h3>
             <div class="relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
-                <input type="text" id="search-input" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
+                <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
             </div>
-            <p class="text-brand-muted text-sm mt-4 ml-2">Press <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> to search.</p>
+            <p class="text-brand-muted text-sm mt-4 ml-2"><span data-i18n="searchHint1">Press</span> <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> <span data-i18n="searchHint2">to search.</span></p>
         </div>
     </div>
 
@@ -153,7 +153,7 @@
     </div>
 
     <div id="accessibility-panel" class="shadow-lg rounded-r-xl overflow-hidden bg-white border border-l-0 border-gray-200">
-        <div class="bg-brand-dark text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-2 text-center w-12">Read</div>
+        <div class="bg-brand-dark text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-2 text-center w-12" data-i18n="accRead">Read</div>
         <div class="acc-btn" onclick="adjustTextSize(1)" title="Increase Text Size"><i class="fa-solid fa-a text-lg"></i><i class="fa-solid fa-plus text-[10px] ml-0.5"></i></div>
         <div class="acc-btn" onclick="adjustTextSize(-1)" title="Decrease Text Size"><i class="fa-solid fa-a text-sm"></i><i class="fa-solid fa-minus text-[10px] ml-0.5"></i></div>
         <div class="acc-btn" onclick="toggleHighContrast()" title="Toggle High Contrast"><i class="fa-solid fa-circle-half-stroke text-lg"></i></div>
@@ -164,7 +164,7 @@
         <section class="pt-20 pb-16 bg-white text-center px-6 fade-up">
             <div class="max-w-5xl mx-auto">
                 <i class="fa-solid fa-quote-left text-4xl md:text-5xl text-brand-blue/20 mb-6"></i>
-                <h1 class="text-4xl md:text-5xl lg:text-[64px] font-quote font-black text-brand-dark leading-[1.1] tracking-tight mb-8">
+                <h1 class="text-4xl md:text-5xl lg:text-[64px] font-quote font-black text-brand-dark leading-[1.1] tracking-tight mb-8" data-i18n="slogan">
                     “Ask not what your country can do for you, ask what you can do for your country.”
                 </h1>
                 <div class="h-2 w-48 mx-auto seychelles-gradient rounded-full"></div>
@@ -180,24 +180,24 @@
                 </div>
 
                 <div id="bio-read-area" class="w-full lg:w-[60%] read-area text-lvl-1 p-8 rounded-2xl fade-up delay-200 bg-transparent">
-                    <h2 class="text-3xl font-heading font-bold text-brand-dark mb-8 leading-snug">
+                    <h2 class="text-3xl font-heading font-bold text-brand-dark mb-8 leading-snug" data-i18n="bioTitle">
                         A modern leader bridging civic duty, digital innovation, and youth empowerment.
                     </h2>
                     
                     <div class="space-y-6 text-brand-muted">
-                        <p>
+                        <p data-i18n="bioP1">
                             Tyler Nicholas is an emerging public service leader deeply committed to the structural and social development of the Republic of Seychelles. Currently serving as an Honorable Member Elect of the 21st Cohort of the Seychelles National Youth Assembly, he acts as a vital conduit between the nation's youth and high-level legislative dialogue.
                         </p>
-                        <p>
+                        <p data-i18n="bioP2">
                             His entry into public service is driven by a profound belief in educational reform. Tyler advocates for a paradigm shift in how we educate our youth—moving away from a high-pressure system fixated solely on grading, toward a holistic environment where genuine learning, critical thinking, and mental well-being are prioritized. He believes that students should feel inspired and supported, rather than depressed and exhausted by academic demands.
                         </p>
-                        <p>
+                        <p data-i18n="bioP3">
                             Beyond his civic mandate, Tyler possesses a formidable background in corporate leadership and digital infrastructure. As the Chairman of the Board for the Tyler Nicholas Group and the Founder & Web Developer of BlueWave Digital, he brings a sharp, entrepreneurial, and solutions-oriented methodology to his public work. He understands that building a sustainable future requires both policy reform and robust digital integration.
                         </p>
-                        <p>
+                        <p data-i18n="bioP4">
                             This dual expertise is complemented by his extensive community and aviation operations experience. From his roles within Air Seychelles to his hands-on community engagement as a Volunteer Technology Coordinator for FoodShare Seychelles, Tyler has consistently demonstrated an ability to lead teams, manage complex operations, and serve the public interest simultaneously.
                         </p>
-                        <p>
+                        <p data-i18n="bioP5">
                             The ultimate vision is clear: the total integration of youth into democratic processes and government decision-making. Through his foundation and public office, Tyler Nicholas is working tirelessly to ensure the next generation of Seychellois are not just participants, but active architects of the nation's future.
                         </p>
                     </div>
@@ -211,12 +211,12 @@
                 
                 <div class="flex flex-col sm:flex-row justify-between items-center sm:items-end mb-16 gap-6">
                     <div class="text-center sm:text-left">
-                        <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1">Career & Leadership</h2>
-                        <h3 class="text-3xl font-heading font-bold text-brand-dark">Civic & Public Service</h3>
-                        <p class="text-brand-muted mt-2">A comprehensive overview of my current public service and civic leadership roles.</p>
+                        <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1" data-i18n="careerSub">Career & Leadership</h2>
+                        <h3 class="text-3xl font-heading font-bold text-brand-dark" data-i18n="careerTitle">Civic & Public Service</h3>
+                        <p class="text-brand-muted mt-2" data-i18n="careerDesc">A comprehensive overview of my current public service and civic leadership roles.</p>
                     </div>
                     <a href="https://tyler-nicholas.online" target="_blank" class="shrink-0 bg-white border border-gray-200 hover:border-brand-blue text-brand-dark hover:text-brand-blue font-heading font-semibold py-3 px-6 rounded-lg transition-all shadow-sm flex items-center text-sm text-center">
-                        View Full Business & Enterprise CV <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                        <span data-i18n="careerBtn">View Full Business & Enterprise CV</span> <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
                     </a>
                 </div>
 
@@ -249,38 +249,38 @@
         <section class="py-24 bg-white border-t border-gray-100">
             <div class="max-w-4xl mx-auto px-6 md:px-12 fade-up">
                 <div class="text-center mb-12">
-                    <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1">Inquiries</h2>
-                    <h3 class="text-3xl font-heading font-bold text-brand-dark">Frequently Asked Questions</h3>
+                    <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1" data-i18n="faqSub">Inquiries</h2>
+                    <h3 class="text-3xl font-heading font-bold text-brand-dark" data-i18n="faqTitle">Frequently Asked Questions</h3>
                 </div>
 
                 <div id="faq-read-area" class="read-area text-lvl-1 p-6 rounded-2xl bg-transparent space-y-4">
                     <div class="border border-gray-200 rounded-xl overflow-hidden bg-white">
                         <button class="faq-btn w-full px-6 py-5 text-left font-heading font-semibold text-brand-dark flex justify-between items-center focus:outline-none hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
-                            How can I get involved or volunteer with your initiatives?
+                            <span data-i18n="faq1Q">How can I get involved or volunteer with your initiatives?</span>
                             <i class="fa-solid fa-chevron-down text-brand-muted transition-transform duration-300"></i>
                         </button>
                         <div class="faq-content bg-white px-6">
-                            <p class="text-brand-muted pb-6">We are always looking for passionate youth to drive local change. You can apply to become an Office Ambassador via our <a href="/contact/" class="text-brand-blue font-semibold hover:underline">Contact Page</a>, or explore volunteer opportunities through the <a href="https://tyler-nicholas-foundation.online" target="_blank" class="text-brand-blue font-semibold hover:underline">Tyler Nicholas Foundation</a>.</p>
+                            <p class="text-brand-muted pb-6" data-i18n="faq1A">We are always looking for passionate youth to drive local change. You can apply to become an Office Ambassador via our <a href="/contact/" class="text-brand-blue font-semibold hover:underline">Contact Page</a>, or explore volunteer opportunities through the <a href="https://tyler-nicholas-foundation.online" target="_blank" class="text-brand-blue font-semibold hover:underline">Tyler Nicholas Foundation</a>.</p>
                         </div>
                     </div>
 
                     <div class="border border-gray-200 rounded-xl overflow-hidden bg-white">
                         <button class="faq-btn w-full px-6 py-5 text-left font-heading font-semibold text-brand-dark flex justify-between items-center focus:outline-none hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
-                            What is your primary focus in the National Youth Assembly?
+                            <span data-i18n="faq2Q">What is your primary focus in the National Youth Assembly?</span>
                             <i class="fa-solid fa-chevron-down text-brand-muted transition-transform duration-300"></i>
                         </button>
                         <div class="faq-content bg-white px-6">
-                            <p class="text-brand-muted pb-6">My legislative focus is centered on educational reform—specifically advocating for systems that prioritize mental health and genuine learning over rigid grading—and the total integration of youth into government decision-making processes.</p>
+                            <p class="text-brand-muted pb-6" data-i18n="faq2A">My legislative focus is centered on educational reform—specifically advocating for systems that prioritize mental health and genuine learning over rigid grading—and the total integration of youth into government decision-making processes.</p>
                         </div>
                     </div>
 
                     <div class="border border-gray-200 rounded-xl overflow-hidden bg-white">
                         <button class="faq-btn w-full px-6 py-5 text-left font-heading font-semibold text-brand-dark flex justify-between items-center focus:outline-none hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
-                            Where can I learn more about your business and entrepreneurial ventures?
+                            <span data-i18n="faq3Q">Where can I learn more about your business and entrepreneurial ventures?</span>
                             <i class="fa-solid fa-chevron-down text-brand-muted transition-transform duration-300"></i>
                         </button>
                         <div class="faq-content bg-white px-6">
-                            <p class="text-brand-muted pb-6">This office website is dedicated strictly to my public and civic service duties. For a complete portfolio of my corporate enterprise work, including Tyler Nicholas Group and BlueWave Digital, please visit my <a href="https://tyler-nicholas.online" target="_blank" class="text-brand-blue font-semibold hover:underline">personal website</a>.</p>
+                            <p class="text-brand-muted pb-6" data-i18n="faq3A">This office website is dedicated strictly to my public and civic service duties. For a complete portfolio of my corporate enterprise work, including Tyler Nicholas Group and BlueWave Digital, please visit my <a href="https://tyler-nicholas.online" target="_blank" class="text-brand-blue font-semibold hover:underline">personal website</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -290,8 +290,8 @@
         <section class="py-24 bg-[#F9FAFB] border-t border-gray-100">
             <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up">
                 <div class="text-center mb-12 max-w-3xl mx-auto">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Social Directory</h2>
-                    <p class="text-brand-muted text-sm leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4" data-i18n="socialTitle">Social Directory</h2>
+                    <p class="text-brand-muted text-sm leading-relaxed" data-i18n="socialDesc">
                         Please note: The following channels are maintained strictly for my public and civic profile under the banner <strong class="text-brand-dark">Tyler Nicholas In Service</strong>. For my personal social media accounts, please refer to my personal website.
                     </p>
                 </div>
@@ -331,9 +331,9 @@
         <section class="py-24 bg-white border-t border-gray-100">
             <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up delay-100">
                 <div class="text-center mb-16 max-w-3xl mx-auto">
-                    <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-2">Our People</h2>
-                    <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Meet the Team</h3>
-                    <p class="text-brand-muted text-base leading-relaxed">Dedicated individuals working behind the scenes to drive public service initiatives and support the youth of Seychelles.</p>
+                    <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-2" data-i18n="teamSub">Our People</h2>
+                    <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4" data-i18n="teamTitle">Meet the Team</h3>
+                    <p class="text-brand-muted text-base leading-relaxed" data-i18n="teamDesc">Dedicated individuals working behind the scenes to drive public service initiatives and support the youth of Seychelles.</p>
                 </div>
 
                 <div class="flex justify-center mb-12">
@@ -342,7 +342,7 @@
                             <img src="https://tyler.tylernicholasgroup.com/tyler%20n.jpg" alt="His Honorable Tyler Nicholas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <h4 class="font-heading font-bold text-xl text-brand-dark mb-1">His Honorable Tyler Nicholas</h4>
-                        <p class="text-brand-blue font-heading text-[10px] font-bold uppercase tracking-widest mb-5">Principal</p>
+                        <p class="text-brand-blue font-heading text-[10px] font-bold uppercase tracking-widest mb-5" data-i18n="teamPrincipal">Principal</p>
                         <a href="mailto:tylernicholas.civic@gmail.com" class="text-brand-muted hover:text-brand-blue transition-colors flex items-center text-sm font-medium">
                             <i class="fa-solid fa-envelope mr-2"></i> tylernicholas.civic@gmail.com
                         </a>
@@ -355,18 +355,18 @@
                             <img src="https://media.istockphoto.com/id/521573873/vector/unknown-person-silhouette-whith-blue-tie.jpg?s=612x612&w=0&k=20&c=5Ax4LbSxC0swuxzNmRarYD5R0bxE5u7p31AHfy9Iqd8=" alt="Ambassador Daniel Thompson" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <h4 class="font-heading font-bold text-lg text-brand-dark mb-1">Ambassador Daniel Thompson</h4>
-                        <p class="text-slate-400 font-heading text-[10px] font-bold uppercase tracking-widest mb-5">Office Ambassador</p>
+                        <p class="text-slate-400 font-heading text-[10px] font-bold uppercase tracking-widest mb-5" data-i18n="teamAmbassador">Office Ambassador</p>
                         <button onclick="showToast('Email contact is currently not available for this staff member.', 'error')" class="text-brand-muted hover:text-red-500 transition-colors flex items-center text-sm font-medium">
-                            <i class="fa-solid fa-envelope mr-2"></i> Contact via Office
+                            <i class="fa-solid fa-envelope mr-2"></i> <span data-i18n="teamContactBtn">Contact via Office</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="mt-20 text-center bg-brand-light border border-blue-100 rounded-3xl p-10 max-w-3xl mx-auto shadow-sm">
                     <div class="w-12 h-12 bg-white text-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm"><i class="fa-solid fa-handshake-angle"></i></div>
-                    <h4 class="font-heading font-bold text-xl text-brand-dark mb-3">Want to join the mission?</h4>
-                    <p class="text-brand-muted text-sm mb-8 max-w-md mx-auto leading-relaxed">We are always looking for passionate Seychellois youth to help drive our community initiatives and civic projects forward.</p>
-                    <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-3.5 rounded-xl font-heading font-semibold transition-all shadow-soft text-sm">
+                    <h4 class="font-heading font-bold text-xl text-brand-dark mb-3" data-i18n="joinTitle">Want to join the mission?</h4>
+                    <p class="text-brand-muted text-sm mb-8 max-w-md mx-auto leading-relaxed" data-i18n="joinDesc">We are always looking for passionate Seychellois youth to help drive our community initiatives and civic projects forward.</p>
+                    <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-3.5 rounded-xl font-heading font-semibold transition-all shadow-soft text-sm" data-i18n="joinBtn">
                         Contact us to become an Office Ambassador
                     </a>
                 </div>
@@ -380,7 +380,7 @@
             <div class="md:col-span-4">
                 <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
                 <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
-                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs" data-i18n="footerDesc">
                     Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
                 </p>
                 <div class="flex flex-wrap gap-3">
@@ -394,24 +394,24 @@
                 </div>
             </div>
             <div class="md:col-span-2">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerDir">Directory</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
-                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
-                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
-                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                    <li><a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors" data-i18n="navContact">Contact</a></li>
                 </ul>
             </div>
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerAffil">Affiliations</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerPersonalWeb">Personal Website</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerFoundation">Tyler Nicholas Foundation</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
                 </ul>
             </div>
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerContact">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
                     <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors break-all">tyler@nicholasoffice.online</a></li>
                     <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors break-all">tylernicholas.civic@gmail.com</a></li>
@@ -421,10 +421,10 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
-            <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+            <p data-i18n="footerRights">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerPrivacy">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerCookie">Cookie Policy</a>
             </div>
         </div>
     </footer>
@@ -432,28 +432,108 @@
     <div id="toast-container"></div>
 
     <script>
-        // --- TRANSLATION DICTIONARY ---
+        // --- COMPREHENSIVE TRANSLATION DICTIONARY FOR ABOUT PAGE ---
         const translations = {
             en: {
                 banner: "<i class='fa-solid fa-landmark mr-2'></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly",
-                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk"
+                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk",
+                searchTitle: "Search the Office Directory", searchHint1: "Press", searchHint2: "to search.", searchPlaceholder: "Type keywords and press Enter...",
+                accRead: "Read",
+                slogan: "“Ask not what your country can do for you, ask what you can do for your country.”",
+                bioTitle: "A modern leader bridging civic duty, digital innovation, and youth empowerment.",
+                bioP1: "Tyler Nicholas is an emerging public service leader deeply committed to the structural and social development of the Republic of Seychelles. Currently serving as an Honorable Member Elect of the 21st Cohort of the Seychelles National Youth Assembly, he acts as a vital conduit between the nation's youth and high-level legislative dialogue.",
+                bioP2: "His entry into public service is driven by a profound belief in educational reform. Tyler advocates for a paradigm shift in how we educate our youth—moving away from a high-pressure system fixated solely on grading, toward a holistic environment where genuine learning, critical thinking, and mental well-being are prioritized. He believes that students should feel inspired and supported, rather than depressed and exhausted by academic demands.",
+                bioP3: "Beyond his civic mandate, Tyler possesses a formidable background in corporate leadership and digital infrastructure. As the Chairman of the Board for the Tyler Nicholas Group and the Founder & Web Developer of BlueWave Digital, he brings a sharp, entrepreneurial, and solutions-oriented methodology to his public work. He understands that building a sustainable future requires both policy reform and robust digital integration.",
+                bioP4: "This dual expertise is complemented by his extensive community and aviation operations experience. From his roles within Air Seychelles to his hands-on community engagement as a Volunteer Technology Coordinator for FoodShare Seychelles, Tyler has consistently demonstrated an ability to lead teams, manage complex operations, and serve the public interest simultaneously.",
+                bioP5: "The ultimate vision is clear: the total integration of youth into democratic processes and government decision-making. Through his foundation and public office, Tyler Nicholas is working tirelessly to ensure the next generation of Seychellois are not just participants, but active architects of the nation's future.",
+                careerSub: "Career & Leadership", careerTitle: "Civic & Public Service", careerDesc: "A comprehensive overview of my current public service and civic leadership roles.", careerBtn: "View Full Business & Enterprise CV",
+                faqSub: "Inquiries", faqTitle: "Frequently Asked Questions",
+                faq1Q: "How can I get involved or volunteer with your initiatives?",
+                faq1A: "We are always looking for passionate youth to drive local change. You can apply to become an Office Ambassador via our <a href='/contact/' class='text-brand-blue font-semibold hover:underline'>Contact Page</a>, or explore volunteer opportunities through the <a href='https://tyler-nicholas-foundation.online' target='_blank' class='text-brand-blue font-semibold hover:underline'>Tyler Nicholas Foundation</a>.",
+                faq2Q: "What is your primary focus in the National Youth Assembly?",
+                faq2A: "My legislative focus is centered on educational reform—specifically advocating for systems that prioritize mental health and genuine learning over rigid grading—and the total integration of youth into government decision-making processes.",
+                faq3Q: "Where can I learn more about your business and entrepreneurial ventures?",
+                faq3A: "This office website is dedicated strictly to my public and civic service duties. For a complete portfolio of my corporate enterprise work, including Tyler Nicholas Group and BlueWave Digital, please visit my <a href='https://tyler-nicholas.online' target='_blank' class='text-brand-blue font-semibold hover:underline'>personal website</a>.",
+                socialTitle: "Social Directory", socialDesc: "Please note: The following channels are maintained strictly for my public and civic profile under the banner <strong class='text-brand-dark'>Tyler Nicholas In Service</strong>. For my personal social media accounts, please refer to my personal website.",
+                teamSub: "Our People", teamTitle: "Meet the Team", teamDesc: "Dedicated individuals working behind the scenes to drive public service initiatives and support the youth of Seychelles.",
+                teamPrincipal: "Principal", teamAmbassador: "Office Ambassador", teamContactBtn: "Contact via Office",
+                joinTitle: "Want to join the mission?", joinDesc: "We are always looking for passionate Seychellois youth to help drive our community initiatives and civic projects forward.", joinBtn: "Contact us to become an Office Ambassador",
+                footerDesc: "Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.",
+                footerDir: "Directory", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Personal Website", footerFoundation: "Tyler Nicholas Foundation",
+                footerRights: "&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy"
             },
             fr: {
                 banner: "<i class='fa-solid fa-landmark mr-2'></i> Membre Honorable Élu pour la 21e Cohorte de l'Assemblée Nationale des Jeunes des Seychelles",
-                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en"
+                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en",
+                searchTitle: "Rechercher dans l'Annuaire", searchHint1: "Appuyez sur", searchHint2: "pour rechercher.", searchPlaceholder: "Tapez des mots-clés et appuyez sur Entrée...",
+                accRead: "Lire",
+                slogan: "« Ne demandez pas ce que votre pays peut faire pour vous, demandez ce que vous pouvez faire pour votre pays. »",
+                bioTitle: "Un leader moderne alliant devoir civique, innovation numérique et autonomisation des jeunes.",
+                bioP1: "Tyler Nicholas est un jeune leader du service public profondément engagé dans le développement structurel et social de la République des Seychelles. En tant que Membre Honorable Élu de la 21e cohorte de l'Assemblée Nationale des Jeunes, il agit comme un lien vital entre la jeunesse du pays et le dialogue législatif de haut niveau.",
+                bioP2: "Son entrée dans le service public est motivée par une conviction profonde dans la réforme de l'éducation. Tyler plaide pour un changement de paradigme—s'éloigner d'un système sous haute pression centré uniquement sur les notes, vers un environnement où le véritable apprentissage et la santé mentale sont prioritaires.",
+                bioP3: "Au-delà de son mandat civique, Tyler possède une solide expérience en leadership d'entreprise et en infrastructure numérique. En tant que président du groupe Tyler Nicholas, il apporte une méthodologie entrepreneuriale à son travail public.",
+                bioP4: "Cette double expertise est complétée par sa vaste expérience communautaire. De ses rôles au sein d'Air Seychelles à son engagement en tant que coordinateur technologique bénévole pour FoodShare Seychelles.",
+                bioP5: "La vision ultime est claire : l'intégration totale des jeunes dans les processus démocratiques. Par le biais de sa fondation et de ses fonctions publiques, Tyler Nicholas travaille sans relâche pour s'assurer que la prochaine génération de Seychellois soit les architectes actifs de l'avenir de la nation.",
+                careerSub: "Carrière et Leadership", careerTitle: "Service Civique et Public", careerDesc: "Un aperçu complet de mes rôles actuels dans le service public.", careerBtn: "Voir le CV complet",
+                faqSub: "Demandes", faqTitle: "Foire Aux Questions",
+                faq1Q: "Comment puis-je m'impliquer ou faire du bénévolat ?",
+                faq1A: "Nous recherchons toujours des jeunes passionnés. Vous pouvez postuler pour devenir Ambassadeur via notre <a href='/contact/' class='text-brand-blue font-semibold hover:underline'>Page de Contact</a>.",
+                faq2Q: "Quel est votre objectif principal à l'Assemblée Nationale des Jeunes ?",
+                faq2A: "Mon objectif législatif est centré sur la réforme de l'éducation et l'intégration totale des jeunes dans les processus décisionnels gouvernementaux.",
+                faq3Q: "Où puis-je en savoir plus sur vos projets d'entreprise ?",
+                faq3A: "Ce site est dédié strictement à mes fonctions publiques. Pour mon travail d'entreprise, veuillez visiter mon <a href='https://tyler-nicholas.online' target='_blank' class='text-brand-blue font-semibold hover:underline'>site personnel</a>.",
+                socialTitle: "Annuaire Social", socialDesc: "Veuillez noter : Ces canaux sont maintenus strictement pour mon profil public sous la bannière <strong class='text-brand-dark'>Tyler Nicholas In Service</strong>.",
+                teamSub: "Notre Équipe", teamTitle: "Rencontrez l'Équipe", teamDesc: "Des personnes dévouées travaillant en coulisses pour soutenir la jeunesse des Seychelles.",
+                teamPrincipal: "Principal", teamAmbassador: "Ambassadeur", teamContactBtn: "Contacter via le Bureau",
+                joinTitle: "Voulez-vous rejoindre la mission ?", joinDesc: "Nous recherchons des jeunes Seychellois passionnés pour faire avancer nos initiatives communautaires.", joinBtn: "Postuler pour devenir Ambassadeur",
+                footerDesc: "Engagé envers le service public, le leadership des jeunes et le développement durable de la République des Seychelles.",
+                footerDir: "Annuaire", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Site Personnel", footerFoundation: "Fondation Tyler Nicholas",
+                footerRights: "&copy; 2026 Bureau de Tyler Nicholas. Tous droits réservés.", footerPrivacy: "Politique de Confidentialité", footerCookie: "Politique des Cookies"
             },
             crs: {
                 banner: "<i class='fa-solid fa-landmark mr-2'></i> Manm Onorab Elekte pour 21enm Lakohort Lasanble Nasyonal Lazenes Sesel",
-                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze"
+                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze",
+                searchTitle: "Rod dan Lalis", searchHint1: "Pese", searchHint2: "pour rode.", searchPlaceholder: "Tap ou mo isi...",
+                accRead: "Lir",
+                slogan: "« Pa demann sa ki ou pei kapab fer pour ou, demann sa ki ou kapab fer pour ou pei. »",
+                bioTitle: "En lider modern ki pe anmenn ansanm devwar sivik, linovasyon dizital, ek lafors lazenes.",
+                bioP1: "Tyler Nicholas i en zenn lider dan servis piblik ki devwe pour devlopman Repiblik Sesel. Koman en Manm Onorab Elekte dan Lasanble Nasyonal Lazenes, i azir koman en lavwa enportan ant lazenes ek gouvernman.",
+                bioP2: "Son bi prensipal i reform ledikasyon. Tyler i anvi vwar en sistenm kot zelev i kontan pour al lekol, e kot lasante mantal i pli enportan ki zis pas legzanmen.",
+                bioP3: "An plis ki son travay piblik, Tyler i annan en bon leksperyans dan biznes. Koman Tyermenn Tyler Nicholas Group, i servi son leksperyans antreprener pour rezourd bann problenm nasyonal.",
+                bioP4: "Sa i ganny siporte par son leksperyans dan kominote ek laviyasyon, tel ki son travay koman volonter avek FoodShare Seychelles.",
+                bioP5: "Son gran vizyon i kler: lazenes i bezwen ganny enkli dan tou desizyon gouvernman. A traver son fondasyon, Tyler pe travay pour asire ki zenn i bann vre arsitek lavenir Sesel.",
+                careerSub: "Karyer ek Ledersip", careerTitle: "Servis Piblik ek Sivik", careerDesc: "En lalis konple bann rol piblik ki mon annan konmela.", careerBtn: "Vwar CV Biznes",
+                faqSub: "Kestyon", faqTitle: "Bann Kestyon Ki Souvan Demande",
+                faq1Q: "Koman mon kapab ede ou travay koman volonter?",
+                faq1A: "Ou kapab aplik pour vin en Anbasader lo nou <a href='/contact/' class='text-brand-blue font-semibold hover:underline'>Paz Kontak</a>.",
+                faq2Q: "Ki ou lobzektif prensipal dan Lasanble Nasyonal Lazenes?",
+                faq2A: "Mon lobzektif i reform ledikasyon e asire ki lazenes i vreman annan en par dan desizyon nasyonal.",
+                faq3Q: "Kote mon kapab ganny plis lenformasyon lo ou bann biznes?",
+                faq3A: "Sa sitweb i zis pour mon travay piblik. Pour mon travay biznes, silvouple vizit mon <a href='https://tyler-nicholas.online' target='_blank' class='text-brand-blue font-semibold hover:underline'>sitweb personel</a>.",
+                socialTitle: "Lalis Sosyal", socialDesc: "Atansyon: Sa bann paz sosyal i strikteman pour mon travay piblik anba non <strong class='text-brand-dark'>Tyler Nicholas In Service</strong>.",
+                teamSub: "Nou Lekip", teamTitle: "Rankontre Lekip", teamDesc: "Bann dimoun ki travay dir pour siport lazenes Sesel.",
+                teamPrincipal: "Prensipal", teamAmbassador: "Anbasader", teamContactBtn: "Kontak via Lobi",
+                joinTitle: "Ou anvi zwenn nou misyon?", joinDesc: "Nou touzour pe rode bann zenn Seselwa pour ed nou avans nou bann proze.", joinBtn: "Aplik pour vin en Anbasader",
+                footerDesc: "Angaze pour servis piblik, ledersip lazenes, ek devlopman dirab Repiblik Sesel.",
+                footerDir: "Lalis", footerAffil: "Afilysyon", footerContact: "Kontak", footerPersonalWeb: "Sitweb Personel", footerFoundation: "Fondasyon Tyler Nicholas",
+                footerRights: "&copy; 2026 Lobi Tyler Nicholas. Tou drwa rezerve.", footerPrivacy: "Polisi Konfidansyalite", footerCookie: "Polisi Cookie"
             }
         };
 
         function changeLang(lang) {
             document.getElementById('current-lang').innerText = lang.toUpperCase();
+            
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
                     el.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
                 }
             });
         }
