@@ -70,9 +70,15 @@
             background: linear-gradient(to right, #003F87 20%, #FCD856 20% 40%, #D62828 40% 60%, #FFFFFF 60% 80%, #007A3D 80% 100%);
         }
         
-        /* Social Card Hover Effect */
         .social-card { transition: all 0.3s ease; }
         .social-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: #00AEEF; }
+
+        /* Custom Toast Notification */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: white; color: #111827; padding: 16px 24px; border-radius: 8px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1); border-left: 4px solid #00AEEF; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 12px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10B981; }
+        .toast.error { border-left-color: #EF4444; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark">
@@ -176,43 +182,88 @@
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    
                     <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-linkedin text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">LinkedIn</span>
                     </a>
-
                     <a href="https://x.com/tylerninservice" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-x-twitter text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">X (Twitter)</span>
                     </a>
-
                     <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-instagram text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">Instagram</span>
                     </a>
-
                     <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-facebook text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">Facebook</span>
                     </a>
-
                     <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-youtube text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">YouTube</span>
                     </a>
-
                     <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-tiktok text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">TikTok</span>
                     </a>
-
                     <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="social-card bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-card group">
                         <i class="fa-brands fa-threads text-4xl text-brand-dark group-hover:text-brand-blue transition-colors mb-4"></i>
                         <span class="font-heading font-semibold text-brand-dark text-sm">Threads</span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white border-t border-gray-100">
+            <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up delay-100">
+                
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-2">Our People</h2>
+                    <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Meet the Team</h3>
+                    <p class="text-brand-muted text-base leading-relaxed">
+                        Dedicated individuals working behind the scenes to drive public service initiatives and support the youth of Seychelles.
+                    </p>
+                </div>
+
+                <div class="flex justify-center mb-12">
+                    <div class="w-full max-w-sm bg-[#F9FAFB] border border-gray-100 rounded-3xl p-10 flex flex-col items-center text-center shadow-card hover:shadow-soft transition-all duration-300 group">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-white shadow-md">
+                            <img src="https://tyler.tylernicholasgroup.com/tyler%20n.jpg" alt="His Honorable Tyler Nicholas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-brand-dark mb-1">His Honorable Tyler Nicholas</h4>
+                        <p class="text-brand-blue font-heading text-[10px] font-bold uppercase tracking-widest mb-5">Principal</p>
+                        <a href="mailto:tylernicholas.civic@gmail.com" class="text-brand-muted hover:text-brand-blue transition-colors flex items-center text-sm font-medium">
+                            <i class="fa-solid fa-envelope mr-2"></i> tylernicholas.civic@gmail.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
+                    
+                    <div class="bg-[#F9FAFB] border border-gray-100 rounded-3xl p-8 flex flex-col items-center text-center shadow-card hover:shadow-soft transition-all duration-300 group md:col-start-2">
+                        <div class="w-28 h-28 rounded-full overflow-hidden mb-6 border-4 border-white shadow-md">
+                            <img src="https://media.istockphoto.com/id/521573873/vector/unknown-person-silhouette-whith-blue-tie.jpg?s=612x612&w=0&k=20&c=5Ax4LbSxC0swuxzNmRarYD5R0bxE5u7p31AHfy9Iqd8=" alt="Ambassador Daniel Thompson" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-brand-dark mb-1">Ambassador Daniel Thompson</h4>
+                        <p class="text-slate-400 font-heading text-[10px] font-bold uppercase tracking-widest mb-5">Office Ambassador</p>
+                        <button onclick="showToast('Email contact is currently not available for this staff member.', 'error')" class="text-brand-muted hover:text-red-500 transition-colors flex items-center text-sm font-medium">
+                            <i class="fa-solid fa-envelope mr-2"></i> Contact via Office
+                        </button>
+                    </div>
 
                 </div>
+
+                <div class="mt-20 text-center bg-brand-light border border-blue-100 rounded-3xl p-10 max-w-3xl mx-auto shadow-sm">
+                    <div class="w-12 h-12 bg-white text-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <h4 class="font-heading font-bold text-xl text-brand-dark mb-3">Want to join the mission?</h4>
+                    <p class="text-brand-muted text-sm mb-8 max-w-md mx-auto leading-relaxed">
+                        We are always looking for passionate Seychellois youth to help drive our community initiatives and civic projects forward.
+                    </p>
+                    <a href="/contact/" class="inline-block bg-brand-blue hover:bg-[#0096D1] text-white px-8 py-3.5 rounded-xl font-heading font-semibold transition-all shadow-soft text-sm">
+                        Contact us to become an Office Ambassador
+                    </a>
+                </div>
+
             </div>
         </section>
 
@@ -259,7 +310,7 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
+        <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
             <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
                 <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
@@ -268,15 +319,13 @@
         </div>
     </footer>
 
+    <div id="toast-container"></div>
+
     <script>
         // --- NAVBAR SHADOW ON SCROLL ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) {
-                nav.classList.add('shadow-sm');
-            } else {
-                nav.classList.remove('shadow-sm');
-            }
+            if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
         });
 
         // --- MOBILE MENU LOGIC ---
@@ -284,12 +333,28 @@
         const mobileClose = document.getElementById('mobile-menu-close');
         const mobileMenu = document.getElementById('mobile-menu-overlay');
 
-        function toggleMenu() {
-            mobileMenu.classList.toggle('translate-x-full');
-        }
-
+        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
         mobileBtn.addEventListener('click', toggleMenu);
         mobileClose.addEventListener('click', toggleMenu);
+
+        // --- TOAST NOTIFICATION SYSTEM ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-[#10B981] text-xl"></i>' : '<i class="fa-solid fa-circle-exclamation text-[#EF4444] text-xl"></i>';
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400); 
+            }, 4000);
+        }
     </script>
 </body>
 </html>
