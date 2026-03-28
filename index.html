@@ -104,8 +104,9 @@
             <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4">Search the Office Directory</h3>
             <div class="relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
-                <input type="text" placeholder="Type keywords..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-2xl font-heading outline-none transition-all">
+                <input type="text" id="search-input" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
             </div>
+            <p class="text-brand-muted text-sm mt-4 ml-2">Press <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> to search.</p>
         </div>
     </div>
 
@@ -253,6 +254,8 @@
                     <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-youtube"></i></a>
                     <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-threads"></i></a>
+                    <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
             <div class="md:col-span-2">
@@ -276,6 +279,8 @@
                 <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
                     <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors">tyler.nicholasefs@gmail.com</a></li>
                     <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
                 </ul>
             </div>
@@ -284,6 +289,7 @@
             <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
                 <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
             </div>
         </div>
     </footer>
@@ -373,11 +379,26 @@
         }
         fetchDiscordStats();
 
-        // --- SEARCH OVERLAY ---
+        // --- SEARCH LOGIC (FINAL FIX) ---
         function toggleSearch() {
             const overlay = document.getElementById('search-overlay');
             overlay.classList.toggle('hidden');
             overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function executeSearch(e) {
+            if (e.key === 'Enter') {
+                const query = document.getElementById('search-input').value.trim();
+                if (query) {
+                    // Redirect instantly to the search page with the user's query
+                    window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+                } else {
+                    showToast('Please enter a search term.', 'error');
+                }
+            }
         }
 
         // --- TOAST NOTIFICATION ---
@@ -493,7 +514,7 @@
             } catch(err) {
                 showToast(err.message || 'Error subscribing. Try again.', 'error');
             } finally {
-                btn.innerHTML = `SUBSCRIBE`;
+                btn.innerHTML = `Subscribe`;
             }
         }
     </script>
