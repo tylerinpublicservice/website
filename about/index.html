@@ -73,13 +73,14 @@
         #search-overlay { transition: opacity 0.3s ease; }
         #search-overlay.hidden { opacity: 0; pointer-events: none; }
         #search-overlay.active { opacity: 1; pointer-events: auto; }
-
-        /* Timeline Styles */
-        .timeline-dot { @apply absolute w-4 h-4 rounded-full bg-white border-4 border-brand-blue left-[-8px] top-1.5 shadow-sm; }
         
         /* FAQ Accordion */
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .faq-btn.active i { transform: rotate(180deg); }
+        
+        /* Social Card */
+        .social-card { transition: all 0.3s ease; }
+        .social-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: #00AEEF; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark">
@@ -90,18 +91,23 @@
 
     <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300 border-b border-gray-100" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
             <a href="/" class="flex items-center gap-2 group">
                 <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
             </a>
+
             <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
+
             <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
                 <a href="/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navHome">Home</a>
                 <a href="/about/" class="nav-link active" data-i18n="navAbout">About</a>
                 <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navInit">Initiatives</a>
                 <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navNews">Newsroom</a>
             </div>
+
             <div class="hidden lg:flex items-center space-x-6">
                 <button onclick="toggleSearch()" class="text-brand-muted hover:text-brand-blue transition-colors text-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
                 <div class="relative group">
                     <button class="flex items-center text-sm font-heading font-semibold text-brand-dark hover:text-brand-blue">
                         <i class="fa-solid fa-globe mr-1.5 text-brand-muted"></i> <span id="current-lang">EN</span> <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
@@ -112,6 +118,7 @@
                         <button onclick="changeLang('crs')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Seselwa</button>
                     </div>
                 </div>
+
                 <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block" data-i18n="navContact">
                     Let's Talk
                 </a>
@@ -127,6 +134,7 @@
                 <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
                 <input type="text" id="search-input" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
             </div>
+            <p class="text-brand-muted text-sm mt-4 ml-2">Press <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> to search.</p>
         </div>
     </div>
 
@@ -136,11 +144,11 @@
             <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+            <a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft" data-i18n="navContact">Let's Talk</a>
         </div>
     </div>
 
@@ -199,95 +207,38 @@
         </section>
 
         <section class="py-24 bg-[#F9FAFB] border-t border-gray-100">
-            <div class="max-w-5xl mx-auto px-6 md:px-12 fade-up">
+            <div class="max-w-4xl mx-auto px-6 md:px-12 fade-up">
                 
                 <div class="flex flex-col sm:flex-row justify-between items-center sm:items-end mb-16 gap-6">
                     <div class="text-center sm:text-left">
                         <h2 class="text-sm font-heading font-bold text-brand-blue uppercase tracking-widest mb-1">Career & Leadership</h2>
-                        <h3 class="text-3xl font-heading font-bold text-brand-dark">Public & Professional Record</h3>
-                        <p class="text-brand-muted mt-2 max-w-lg">A comprehensive overview of current and past roles across corporate enterprise, civic leadership, and digital operations.</p>
+                        <h3 class="text-3xl font-heading font-bold text-brand-dark">Civic & Public Service</h3>
+                        <p class="text-brand-muted mt-2">A comprehensive overview of my current public service and civic leadership roles.</p>
                     </div>
-                    <a href="https://tyler-nicholas.online" target="_blank" class="shrink-0 bg-white border border-gray-200 hover:border-brand-blue text-brand-dark hover:text-brand-blue font-heading font-semibold py-3 px-6 rounded-lg transition-all shadow-sm flex items-center">
-                        View Full CV & Portfolio <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                    <a href="https://tyler-nicholas.online" target="_blank" class="shrink-0 bg-white border border-gray-200 hover:border-brand-blue text-brand-dark hover:text-brand-blue font-heading font-semibold py-3 px-6 rounded-lg transition-all shadow-sm flex items-center text-sm text-center">
+                        View Full Business & Enterprise CV <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
                     </a>
                 </div>
 
-                <div class="space-y-16">
-                    <div>
-                        <h4 class="text-xl font-heading font-bold text-brand-dark mb-6 flex items-center"><i class="fa-solid fa-landmark text-brand-blue mr-3"></i> Civic & Public Service</h4>
-                        <div class="border-l-2 border-gray-200 ml-3 pl-8 space-y-8 relative">
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Honorable Member Elected, 21st Cohort</h5>
-                                <p class="text-sm font-medium text-brand-blue">Seychelles National Youth Assembly</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Youth Ambassador</h5>
-                                <p class="text-sm font-medium text-brand-blue">Republic of Seychelles</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Membre du CVL (Conseil de la Vie Lycéenne)</h5>
-                                <p class="text-sm font-medium text-brand-blue">École Française des Seychelles</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Volunteer Technology Coordinator & Recruiter</h5>
-                                <p class="text-sm font-medium text-brand-blue">FoodShare Seychelles</p>
-                            </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-heading font-bold text-brand-dark">Honorable Member Elect, 21st Cohort</h4>
+                            <p class="text-brand-blue font-medium text-sm">Seychelles National Youth Assembly</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-heading font-bold text-brand-dark">Membre du CVL (Conseil de la Vie Lycéenne)</h4>
+                            <p class="text-brand-blue font-medium text-sm">École Française des Seychelles</p>
                         </div>
                     </div>
 
-                    <div>
-                        <h4 class="text-xl font-heading font-bold text-brand-dark mb-6 flex items-center"><i class="fa-solid fa-briefcase text-brand-blue mr-3"></i> Business & Enterprise</h4>
-                        <div class="border-l-2 border-gray-200 ml-3 pl-8 space-y-8 relative">
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Chairman of The Board</h5>
-                                <p class="text-sm font-medium text-brand-blue">Tyler Nicholas Group</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Chief Executive Officer</h5>
-                                <p class="text-sm font-medium text-brand-blue">Tyler Nicholas Foundation</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Founder & Web Developer</h5>
-                                <p class="text-sm font-medium text-brand-blue">BlueWave Digital</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-xl font-heading font-bold text-brand-dark mb-6 flex items-center"><i class="fa-solid fa-plane text-brand-blue mr-3"></i> Aviation & Digital Operations</h4>
-                        <div class="border-l-2 border-gray-200 ml-3 pl-8 space-y-8 relative">
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Owner & Founder, Former Chairman of The Board</h5>
-                                <p class="text-sm font-medium text-brand-blue">Emirates Group Roblox (EGR Branch)</p>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot"></div>
-                                <span class="bg-green-100 text-green-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Present</span>
-                                <h5 class="text-lg font-heading font-bold text-brand-dark">Guest Service (INT)</h5>
-                                <p class="text-sm font-medium text-brand-blue">Air Seychelles Domestic & International Operations</p>
-                            </div>
-                            <div class="relative">
-                                <div class="absolute w-4 h-4 rounded-full bg-white border-4 border-gray-400 left-[-32px] top-1.5 shadow-sm"></div>
-                                <span class="bg-gray-100 text-gray-600 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest mb-2 inline-block">Finished</span>
-                                <h5 class="text-lg font-heading font-bold text-gray-500">Operations Control Center (INT) - Flight Dispatcher & Crew Manager</h5>
-                                <p class="text-sm font-medium text-gray-400">Air Seychelles</p>
-                            </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-heading font-bold text-brand-dark">Volunteer Technology Coordinator & Recruiter</h4>
+                            <p class="text-brand-blue font-medium text-sm">FoodShare Seychelles</p>
                         </div>
                     </div>
                 </div>
@@ -303,7 +254,6 @@
                 </div>
 
                 <div id="faq-read-area" class="read-area text-lvl-1 p-6 rounded-2xl bg-transparent space-y-4">
-                    
                     <div class="border border-gray-200 rounded-xl overflow-hidden bg-white">
                         <button class="faq-btn w-full px-6 py-5 text-left font-heading font-semibold text-brand-dark flex justify-between items-center focus:outline-none hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
                             How can I get involved or volunteer with your initiatives?
@@ -333,7 +283,6 @@
                             <p class="text-brand-muted pb-6">This office website is dedicated strictly to my public and civic service duties. For a complete portfolio of my corporate enterprise work, including Tyler Nicholas Group and BlueWave Digital, please visit my <a href="https://tyler-nicholas.online" target="_blank" class="text-brand-blue font-semibold hover:underline">personal website</a>.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -434,6 +383,15 @@
                 <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
                     Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
                 </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-threads"></i></a>
+                    <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
             <div class="md:col-span-2">
                 <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
@@ -455,7 +413,9 @@
             <div class="md:col-span-3">
                 <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors break-all">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors break-all">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors break-all">tyler.nicholasefs@gmail.com</a></li>
                     <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
                 </ul>
             </div>
@@ -472,6 +432,32 @@
     <div id="toast-container"></div>
 
     <script>
+        // --- TRANSLATION DICTIONARY ---
+        const translations = {
+            en: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly",
+                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk"
+            },
+            fr: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Membre Honorable Élu pour la 21e Cohorte de l'Assemblée Nationale des Jeunes des Seychelles",
+                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en"
+            },
+            crs: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Manm Onorab Elekte pour 21enm Lakohort Lasanble Nasyonal Lazenes Sesel",
+                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze"
+            }
+        };
+
+        function changeLang(lang) {
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
         // --- SEARCH LOGIC ---
         function toggleSearch() {
             const overlay = document.getElementById('search-overlay');
@@ -541,6 +527,12 @@
                 }
             });
         }
+
+        // --- NAVBAR SHADOW ON SCROLL ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
+        });
     </script>
 </body>
 </html>
