@@ -18,47 +18,44 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'], 
-                        heading: ['Poppins', 'sans-serif'] 
-                    },
-                    colors: {
-                        brand: { 
-                            blue: '#00AEEF',      
-                            dark: '#111827',      
-                            light: '#E6F6FE',     
-                            muted: '#6B7280'      
-                        }
-                    },
-                    boxShadow: { 
-                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' 
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
+                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #FFFFFF; -webkit-font-smoothing: antialiased; }
-        
+        body { background-color: #F9FAFB; -webkit-font-smoothing: antialiased; }
         .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-        
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
-            background-color: #00AEEF; transition: width 0.3s ease;
-        }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
         .nav-link:hover::after { width: 100%; }
+
+        /* Custom Toast Notification */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: white; color: #111827; padding: 16px 24px; border-radius: 8px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1); border-left: 4px solid #00AEEF; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 12px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10B981; } .toast.error { border-left-color: #EF4444; }
+
+        /* Search Overlay */
+        #search-overlay { transition: opacity 0.3s ease; }
+        #search-overlay.hidden { opacity: 0; pointer-events: none; }
+        #search-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        /* Discord Popup */
+        #discord-popup { transition: opacity 0.4s ease, transform 0.4s ease; }
+        #discord-popup.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        #discord-popup.hide { opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-brand-dark">
 
-    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
-        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly!
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide" data-i18n="banner">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
     </div>
 
     <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300 border-b border-gray-100" id="navbar">
@@ -70,20 +67,57 @@
 
             <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
 
-            <div class="hidden lg:flex space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
-                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
-                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
-                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
-                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
+            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navHome">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navAbout">About</a>
+                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navInit">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors" data-i18n="navNews">Newsroom</a>
             </div>
 
-            <div class="hidden lg:block">
-                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
+            <div class="hidden lg:flex items-center space-x-6">
+                <button onclick="toggleSearch()" class="text-brand-muted hover:text-brand-blue transition-colors text-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+                <div class="relative group">
+                    <button class="flex items-center text-sm font-heading font-semibold text-brand-dark hover:text-brand-blue">
+                        <i class="fa-solid fa-globe mr-1.5 text-brand-muted"></i> <span id="current-lang">EN</span> <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-soft opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-gray-100 overflow-hidden">
+                        <button onclick="changeLang('en')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">English</button>
+                        <button onclick="changeLang('fr')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Français</button>
+                        <button onclick="changeLang('crs')" class="w-full text-left px-4 py-2 hover:bg-brand-light text-sm font-medium">Seselwa</button>
+                    </div>
+                </div>
+
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block" data-i18n="navContact">
                     Let's Talk
                 </a>
             </div>
         </div>
     </nav>
+
+    <div id="search-overlay" class="fixed inset-0 bg-white/95 backdrop-blur-md z-[200] hidden flex flex-col items-center justify-center p-6">
+        <button onclick="toggleSearch()" class="absolute top-8 right-8 text-4xl text-brand-muted hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-full max-w-3xl">
+            <h3 class="text-2xl font-heading font-bold text-brand-dark mb-4" data-i18n="searchTitle">Search the Office Directory</h3>
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-2xl text-brand-muted"></i>
+                <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" onkeydown="executeSearch(event)" placeholder="Type keywords and press Enter..." class="w-full bg-gray-100 border-2 border-transparent focus:border-brand-blue rounded-2xl py-6 pl-16 pr-6 text-xl md:text-2xl font-heading outline-none transition-all shadow-inner">
+            </div>
+            <p class="text-brand-muted text-sm mt-4 ml-2"><span data-i18n="searchHint1">Press</span> <kbd class="bg-gray-200 px-2 py-1 rounded text-xs font-mono">Enter</kbd> <span data-i18n="searchHint2">to search.</span></p>
+        </div>
+    </div>
+
+    <div id="discord-popup" class="fixed bottom-6 left-6 z-[90] w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 hide">
+        <button onclick="closeDiscordPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        <div class="w-12 h-12 bg-[#5865F2]/10 text-[#5865F2] rounded-xl flex items-center justify-center text-2xl mb-4">
+            <i class="fa-brands fa-discord"></i>
+        </div>
+        <h4 class="font-heading font-bold text-lg text-brand-dark mb-2" data-i18n="discordTitle">Join the Conversation</h4>
+        <p class="text-sm text-brand-muted mb-4 leading-relaxed" data-i18n="discordDesc">Engage in community discussions, live updates, and connect with the Tyler Nicholas Foundation.</p>
+        <a href="https://discord.gg/DMaJmWChP4" target="_blank" onclick="closeDiscordPopup()" class="block w-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-center font-heading font-bold py-3 rounded-lg transition-colors text-sm" data-i18n="discordBtn">
+            Join Discord Server
+        </a>
+    </div>
 
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
         <div class="p-6 flex justify-between items-center border-b border-gray-100">
@@ -91,11 +125,11 @@
             <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+            <a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft" data-i18n="navContact">Let's Talk</a>
         </div>
     </div>
 
@@ -108,17 +142,17 @@
             </div>
             
             <h1 class="font-heading font-bold text-7xl md:text-9xl text-brand-dark mb-2 tracking-tighter">404</h1>
-            <h2 class="font-heading font-bold text-2xl md:text-3xl text-brand-dark mb-6">Directory Not Found</h2>
+            <h2 class="font-heading font-bold text-2xl md:text-3xl text-brand-dark mb-6" data-i18n="errSub">Directory Not Found</h2>
             
-            <p class="text-brand-muted text-base md:text-lg mb-10 leading-relaxed max-w-lg mx-auto">
+            <p class="text-brand-muted text-base md:text-lg mb-10 leading-relaxed max-w-lg mx-auto" data-i18n="errDesc">
                 The requested page could not be located. It may have been moved, renamed, or temporarily removed from the public directory.
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="/" class="w-full sm:w-auto bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-semibold py-3.5 px-8 rounded-lg transition-all shadow-soft text-center text-sm">
+                <a href="/" class="w-full sm:w-auto bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-semibold py-3.5 px-8 rounded-lg transition-all shadow-soft text-center text-sm" data-i18n="errHomeBtn">
                     <i class="fa-solid fa-house mr-2"></i> Return Home
                 </a>
-                <a href="/contact/" class="w-full sm:w-auto bg-white border border-gray-200 text-brand-dark hover:border-brand-blue hover:text-brand-blue font-heading font-semibold py-3.5 px-8 rounded-lg transition-all text-center text-sm shadow-sm">
+                <a href="/contact/" class="w-full sm:w-auto bg-white border border-gray-200 text-brand-dark hover:border-brand-blue hover:text-brand-blue font-heading font-semibold py-3.5 px-8 rounded-lg transition-all text-center text-sm shadow-sm" data-i18n="errContactBtn">
                     Contact Office
                 </a>
             </div>
@@ -127,14 +161,12 @@
 
     <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            
             <div class="md:col-span-4">
                 <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
                 <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
-                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
+                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs" data-i18n="footerDesc">
                     Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
                 </p>
-                
                 <div class="flex flex-wrap gap-3">
                     <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
                     <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
@@ -145,55 +177,172 @@
                     <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 text-brand-muted flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
-            
             <div class="md:col-span-2">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerDir">Directory</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
-                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
-                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
-                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
+                    <li><a href="/" class="hover:text-brand-blue transition-colors" data-i18n="navHome">Home</a></li>
+                    <li><a href="/about/" class="hover:text-brand-blue transition-colors" data-i18n="navAbout">About</a></li>
+                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors" data-i18n="navInit">Initiatives</a></li>
+                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors" data-i18n="navNews">Newsroom</a></li>
+                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors" data-i18n="navContact">Contact</a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerAffil">Affiliations</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerPersonalWeb">Personal Website</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
+                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors"><span data-i18n="footerFoundation">Tyler Nicholas Foundation</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
                 </ul>
             </div>
-
             <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
+                <h4 class="text-brand-dark font-heading font-bold text-base mb-6" data-i18n="footerContact">Contact</h4>
                 <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
-                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors">tylernicholas.civic@gmail.com</a></li>
-                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors">tyler.nicholasefs@gmail.com</a></li>
+                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors break-all">tyler@nicholasoffice.online</a></li>
+                    <li><a href="mailto:tylernicholas.civic@gmail.com" class="hover:text-brand-blue transition-colors break-all">tylernicholas.civic@gmail.com</a></li>
+                    <li><a href="mailto:tyler.nicholasefs@gmail.com" class="hover:text-brand-blue transition-colors break-all">tyler.nicholasefs@gmail.com</a></li>
                     <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-brand-muted">
-            <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+            <p data-i18n="footerRights">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
             <div class="flex gap-6">
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Privacy Policy</a>
-                <a href="/legal/" class="hover:text-brand-blue transition-colors">Cookie Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerPrivacy">Privacy Policy</a>
+                <a href="/legal/" class="hover:text-brand-blue transition-colors" data-i18n="footerCookie">Cookie Policy</a>
             </div>
         </div>
     </footer>
 
-    <script>
-        // --- MOBILE MENU LOGIC ---
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu-overlay');
+    <div id="toast-container"></div>
 
-        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
-        mobileBtn.addEventListener('click', toggleMenu);
-        mobileClose.addEventListener('click', toggleMenu);
+    <script>
+        // --- COMPREHENSIVE TRANSLATION DICTIONARY FOR 404 PAGE ---
+        const translations = {
+            en: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly",
+                navHome: "Home", navAbout: "About", navInit: "Initiatives", navNews: "Newsroom", navContact: "Let's Talk",
+                searchTitle: "Search the Office Directory", searchHint1: "Press", searchHint2: "to search.", searchPlaceholder: "Type keywords and press Enter...",
+                discordTitle: "Join the Conversation", discordDesc: "Engage in community discussions, live updates, and connect with the Tyler Nicholas Foundation.", discordBtn: "Join Discord Server",
+                errSub: "Directory Not Found",
+                errDesc: "The requested page could not be located. It may have been moved, renamed, or temporarily removed from the public directory.",
+                errHomeBtn: "<i class='fa-solid fa-house mr-2'></i> Return Home",
+                errContactBtn: "Contact Office",
+                footerDesc: "Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.",
+                footerDir: "Directory", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Personal Website", footerFoundation: "Tyler Nicholas Foundation",
+                footerRights: "&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy"
+            },
+            fr: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Membre Honorable Élu pour la 21e Cohorte de l'Assemblée Nationale des Jeunes des Seychelles",
+                navHome: "Accueil", navAbout: "À propos", navInit: "Initiatives", navNews: "Actualités", navContact: "Parlons-en",
+                searchTitle: "Rechercher dans l'Annuaire", searchHint1: "Appuyez sur", searchHint2: "pour rechercher.", searchPlaceholder: "Tapez des mots-clés et appuyez sur Entrée...",
+                discordTitle: "Rejoignez la Conversation", discordDesc: "Participez aux discussions communautaires et connectez-vous avec la Fondation Tyler Nicholas.", discordBtn: "Rejoindre le Serveur",
+                errSub: "Répertoire Introuvable",
+                errDesc: "La page demandée n'a pas pu être trouvée. Elle a peut-être été déplacée, renommée ou temporairement retirée du répertoire public.",
+                errHomeBtn: "<i class='fa-solid fa-house mr-2'></i> Retour à l'accueil",
+                errContactBtn: "Contacter le Bureau",
+                footerDesc: "Engagé envers le service public, le leadership des jeunes et le développement durable de la République des Seychelles.",
+                footerDir: "Annuaire", footerAffil: "Affiliations", footerContact: "Contact", footerPersonalWeb: "Site Personnel", footerFoundation: "Fondation Tyler Nicholas",
+                footerRights: "&copy; 2026 Bureau de Tyler Nicholas. Tous droits réservés.", footerPrivacy: "Politique de Confidentialité", footerCookie: "Politique des Cookies"
+            },
+            crs: {
+                banner: "<i class='fa-solid fa-landmark mr-2'></i> Manm Onorab Elekte pour 21enm Lakohort Lasanble Nasyonal Lazenes Sesel",
+                navHome: "Akey", navAbout: "Apropo", navInit: "Inisyativ", navNews: "Nouvel", navContact: "Annou Koze",
+                searchTitle: "Rod dan Lalis", searchHint1: "Pese", searchHint2: "pour rode.", searchPlaceholder: "Tap ou mo isi...",
+                discordTitle: "Zwenn nou Konversasyon", discordDesc: "Pran par dan diskisyon kominote, e ganny konekte avek Fondasyon Tyler Nicholas.", discordBtn: "Zwenn Servir Discord",
+                errSub: "Paz Pa'n Ganny Trouve",
+                errDesc: "Sa paz ki ou pe rode pa'n ganny trouve. I posib ki i'n ganny bouze, sanz non, oubyen ganny tire tanporerman.",
+                errHomeBtn: "<i class='fa-solid fa-house mr-2'></i> Retourn Kot Akey",
+                errContactBtn: "Kontakte Lobi",
+                footerDesc: "Angaze pour servis piblik, ledersip lazenes, ek devlopman dirab Repiblik Sesel.",
+                footerDir: "Lalis", footerAffil: "Afilysyon", footerContact: "Kontak", footerPersonalWeb: "Sitweb Personel", footerFoundation: "Fondasyon Tyler Nicholas",
+                footerRights: "&copy; 2026 Lobi Tyler Nicholas. Tou drwa rezerve.", footerPrivacy: "Polisi Konfidansyalite", footerCookie: "Polisi Cookie"
+            }
+        };
+
+        let currentLangCode = 'en';
+
+        function changeLang(lang) {
+            currentLangCode = lang;
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            
+            // Translate HTML elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Translate placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+        }
+
+        // --- DISCORD POPUP LOGIC ---
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('discordPopupSeen')) {
+                setTimeout(() => {
+                    const popup = document.getElementById('discord-popup');
+                    popup.classList.remove('hide');
+                    popup.classList.add('show');
+                }, 2000); 
+            }
+        });
+
+        function closeDiscordPopup() {
+            const popup = document.getElementById('discord-popup');
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            localStorage.setItem('discordPopupSeen', 'true');
+        }
+
+        // --- SEARCH LOGIC ---
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function executeSearch(e) {
+            if (e.key === 'Enter') {
+                const query = document.getElementById('search-input').value.trim();
+                if (query) {
+                    window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+                } else {
+                    showToast('Please enter a search term.', 'error');
+                }
+            }
+        }
+
+        // --- MOBILE MENU ---
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+
+        // --- TOAST NOTIFICATION ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-[#10B981] text-xl"></i>' : '<i class="fa-solid fa-circle-exclamation text-[#EF4444] text-xl"></i>';
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4000);
+        }
+
+        // --- NAVBAR SHADOW ON SCROLL ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
+        });
     </script>
 </body>
 </html>
