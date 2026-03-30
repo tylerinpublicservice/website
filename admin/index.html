@@ -17,8 +17,8 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
-                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
-                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)', 'card': '0 4px 20px rgba(0,0,0,0.05)' }
+                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280', panel: '#0B1120' } },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)', 'card': '0 4px 20px rgba(0,0,0,0.05)', 'sidebar': '4px 0 24px rgba(0,0,0,0.05)' }
                 }
             }
         }
@@ -45,10 +45,17 @@
         /* Custom Inputs */
         .admin-input { @apply w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none focus:bg-white focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all; }
         
-        /* Sidebar Styling */
-        .nav-item { @apply flex items-center w-full px-5 py-3.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-all font-medium text-sm mb-2; }
-        .nav-item.active { @apply bg-brand-blue text-white shadow-soft; }
-        .nav-item i { @apply w-6 text-lg; }
+        /* Modern Sidebar Styling */
+        .nav-item { @apply flex items-center w-full px-5 py-3.5 rounded-xl text-gray-400 hover:text-white transition-all font-medium text-sm mb-2 group relative overflow-hidden; }
+        .nav-item:hover { background-color: rgba(255,255,255,0.05); transform: translateX(4px); }
+        .nav-item.active { @apply text-white shadow-md transform-none; background: linear-gradient(135deg, #00AEEF 0%, #0077A3 100%); }
+        .nav-item i { @apply w-7 text-lg transition-transform duration-300 group-hover:scale-110; }
+        
+        /* Custom Scrollbar for Sidebar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+        .dark-scroll::-webkit-scrollbar-thumb { background: #1F2937; }
     </style>
 </head>
 <body>
@@ -84,33 +91,37 @@
 
     <div id="app-screen" class="screen-layer hidden-screen w-full bg-[#F9FAFB]">
         
-        <aside class="w-72 bg-brand-dark h-screen p-6 flex flex-col fixed left-0 top-0 z-20 shadow-2xl">
-            <div class="mb-12 px-2 pt-4">
-                <h2 class="font-heading font-bold text-3xl text-white tracking-tight">Tyler<span class="text-brand-blue">.</span></h2>
-                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-2 border-b border-gray-700 pb-4">Command Center</p>
+        <aside class="w-72 bg-brand-panel h-screen flex flex-col fixed left-0 top-0 z-20 shadow-sidebar border-r border-gray-800">
+            <div class="p-8 pb-6">
+                <h2 class="font-heading font-bold text-3xl text-white tracking-tight flex items-center">
+                    Tyler<span class="text-brand-blue">.</span>
+                </h2>
+                <div class="flex items-center mt-3 gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">System Online</p>
+                </div>
             </div>
 
-            <nav class="flex-grow space-y-1">
+            <nav class="flex-grow px-4 space-y-1 overflow-y-auto dark-scroll">
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 mt-4">Command Center</p>
                 <button onclick="switchView('dashboard', this)" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</button>
                 <button onclick="switchView('inquiries', this)" class="nav-item"><i class="fa-solid fa-inbox"></i> Inquiries</button>
                 <button onclick="switchView('news', this)" class="nav-item"><i class="fa-solid fa-newspaper"></i> Newsroom</button>
                 <button onclick="switchView('media', this)" class="nav-item"><i class="fa-solid fa-images"></i> Media Gallery</button>
+                
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 mt-8">Audience</p>
                 <button onclick="switchView('subscribers', this)" class="nav-item"><i class="fa-solid fa-users"></i> Mailing List</button>
             </nav>
 
-            <div class="mt-auto bg-gray-800/50 rounded-2xl p-4 border border-gray-700">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold text-xs">TN</div>
-                        <div class="text-left">
-                            <p class="text-xs font-bold text-white leading-tight">Admin Active</p>
-                            <p class="text-[9px] text-gray-400 uppercase tracking-wider">Secure Session</p>
-                        </div>
+            <div class="p-4 mt-auto border-t border-gray-800 bg-black/20">
+                <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer" onclick="handleLogout()" title="Click to Sign Out">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-blue to-purple-500 flex items-center justify-center text-white font-bold shadow-md">TN</div>
+                    <div class="flex-grow">
+                        <p class="text-sm font-bold text-white leading-tight group-hover:text-red-400 transition-colors">Admin Active</p>
+                        <p class="text-[10px] text-gray-400 font-medium">Click to Sign Out</p>
                     </div>
+                    <i class="fa-solid fa-power-off text-gray-500 group-hover:text-red-400 transition-colors"></i>
                 </div>
-                <button onclick="handleLogout()" class="w-full bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors">
-                    Sign Out
-                </button>
             </div>
         </aside>
 
@@ -163,6 +174,7 @@
                                 <th class="px-8 py-5">Date</th>
                                 <th class="px-8 py-5">Sender Details</th>
                                 <th class="px-8 py-5">Message Preview</th>
+                                <th class="px-8 py-5">Status</th>
                                 <th class="px-8 py-5 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -223,15 +235,15 @@
                 <div>
                     <p class="text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1" id="msg-view-date">Date</p>
                     <h3 class="font-heading font-bold text-2xl text-brand-dark" id="msg-view-name">Sender Name</h3>
-                    <a href="#" id="msg-view-email" class="text-sm text-brand-muted hover:text-brand-blue transition-colors"><i class="fa-solid fa-reply mr-1"></i> sender@email.com</a>
+                    <a href="#" id="msg-view-email" class="text-sm font-medium text-brand-muted hover:text-brand-blue transition-colors"><i class="fa-solid fa-reply mr-1"></i> <span>sender@email.com</span></a>
                 </div>
-                <button onclick="closeModal('msg-modal')" class="w-10 h-10 bg-white rounded-full border border-gray-200 text-gray-400 hover:text-brand-dark flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeModal('msg-modal')" class="w-10 h-10 bg-white rounded-full border border-gray-200 text-gray-400 hover:text-brand-dark flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-8 max-h-[60vh] overflow-y-auto">
-                <p class="text-brand-dark whitespace-pre-wrap leading-relaxed" id="msg-view-body">Message body goes here...</p>
+                <p class="text-brand-dark whitespace-pre-wrap leading-relaxed text-base" id="msg-view-body">Message body goes here...</p>
             </div>
             <div class="p-6 border-t border-gray-100 bg-gray-50 flex justify-end">
-                <button onclick="closeModal('msg-modal')" class="px-6 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-brand-dark hover:bg-gray-100 transition-colors">Close Reader</button>
+                <button onclick="closeModal('msg-modal')" class="px-8 py-3 bg-brand-dark rounded-xl text-sm font-bold text-white hover:bg-brand-blue transition-colors shadow-md">Close Reader</button>
             </div>
         </div>
     </div>
@@ -263,7 +275,7 @@
                     </div>
                 </div>
                 <div class="pt-4 flex justify-end gap-3">
-                    <button type="button" onclick="closeModal('news-modal')" class="px-6 py-3.5 font-heading font-bold text-gray-500 hover:text-brand-dark bg-white border border-gray-200 rounded-xl transition-colors text-sm">Cancel</button>
+                    <button type="button" onclick="closeModal('news-modal')" class="px-6 py-3.5 font-heading font-bold text-gray-500 hover:text-brand-dark bg-white border border-gray-200 rounded-xl transition-colors text-sm shadow-sm">Cancel</button>
                     <button type="submit" id="btn-submit-news" class="px-8 py-3.5 bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-bold rounded-xl shadow-md transition-colors text-sm">Save & Publish</button>
                 </div>
             </form>
@@ -383,10 +395,11 @@
             await Promise.all([fetchMessages(), fetchNews(), fetchMedia(), fetchSubscribers()]);
         }
 
-        // 1. MESSAGES
+        // 1. MESSAGES (Fixed column schema: submitted_at)
         async function fetchMessages() {
             try {
-                const { data, error } = await supabase.from('tn_messages').select('*').order('created_at', { ascending: false });
+                // IMPORTANT: Schema uses 'submitted_at' not 'created_at'
+                const { data, error } = await supabase.from('tn_messages').select('*').order('submitted_at', { ascending: false });
                 if (error) throw error;
                 
                 globalMessages = data || [];
@@ -394,23 +407,32 @@
 
                 const tbody = document.getElementById('messages-tbody');
                 if (globalMessages.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="px-8 py-12 text-center text-gray-400 font-medium">No inquiries found in the database.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="px-8 py-12 text-center text-gray-400 font-medium">No inquiries found in the database.</td></tr>`;
                     return;
                 }
                 
-                tbody.innerHTML = globalMessages.map((msg, index) => `
+                tbody.innerHTML = globalMessages.map((msg, index) => {
+                    const date = new Date(msg.submitted_at).toLocaleDateString();
+                    const statusText = msg.status || 'New';
+                    const statusBadge = statusText.toLowerCase() === 'new' 
+                        ? `<span class="bg-blue-100 text-brand-blue px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-widest">${statusText}</span>` 
+                        : `<span class="bg-gray-100 text-gray-500 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-widest">${statusText}</span>`;
+
+                    return `
                     <tr class="hover:bg-brand-light/50 transition-colors group">
-                        <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${new Date(msg.created_at).toLocaleDateString()}</td>
+                        <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${date}</td>
                         <td class="px-8 py-5">
                             <p class="font-bold text-brand-dark mb-0.5">${msg.sender_name}</p>
                             <a href="mailto:${msg.sender_email}" class="text-xs font-medium text-brand-blue hover:underline">${msg.sender_email}</a>
                         </td>
-                        <td class="px-8 py-5 text-gray-500 text-sm max-w-xs truncate">${msg.message_body}</td>
+                        <td class="px-8 py-5 text-gray-500 text-sm max-w-[200px] truncate">${msg.message_body}</td>
+                        <td class="px-8 py-5">${statusBadge}</td>
                         <td class="px-8 py-5 text-right space-x-2">
                             <button onclick="viewMessage(${index})" class="px-4 py-2 bg-white border border-gray-200 text-brand-dark rounded-lg text-xs font-bold hover:border-brand-blue transition-colors shadow-sm">Read</button>
                             <button onclick="deleteRecord('tn_messages', '${msg.id}', fetchMessages)" class="w-8 h-8 rounded-lg text-red-400 hover:text-white hover:bg-red-500 transition-colors"><i class="fa-solid fa-trash"></i></button>
                         </td>
-                    </tr>`).join('');
+                    </tr>`;
+                }).join('');
             } catch (err) {
                 showToast('Failed to load messages: ' + err.message, 'error');
             }
@@ -418,43 +440,50 @@
 
         function viewMessage(index) {
             const msg = globalMessages[index];
-            document.getElementById('msg-view-date').innerText = new Date(msg.created_at).toLocaleString();
+            document.getElementById('msg-view-date').innerText = new Date(msg.submitted_at).toLocaleString();
             document.getElementById('msg-view-name').innerText = msg.sender_name;
-            document.getElementById('msg-view-email').innerText = msg.sender_email;
-            document.getElementById('msg-view-email').href = `mailto:${msg.sender_email}`;
+            
+            const emailLink = document.getElementById('msg-view-email');
+            emailLink.href = `mailto:${msg.sender_email}`;
+            emailLink.innerHTML = `<i class="fa-solid fa-reply mr-1"></i> ${msg.sender_email}`;
+            
             document.getElementById('msg-view-body').innerText = msg.message_body;
             openModal('msg-modal');
         }
 
         // 2. NEWSROOM
         async function fetchNews() {
-            const { data, error } = await supabase.from('tn_updates').select('*').order('published_at', { ascending: false });
-            if (error) return showToast('Error loading news', 'error');
-            
-            globalNews = data || [];
-            document.getElementById('stat-news').innerText = globalNews.length;
-            const container = document.getElementById('news-grid-container');
+            try {
+                const { data, error } = await supabase.from('tn_updates').select('*').order('published_at', { ascending: false });
+                if (error) throw error;
+                
+                globalNews = data || [];
+                document.getElementById('stat-news').innerText = globalNews.length;
+                const container = document.getElementById('news-grid-container');
 
-            if (globalNews.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">No updates published yet.</div>`;
-                return;
-            }
+                if (globalNews.length === 0) {
+                    container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">No updates published yet.</div>`;
+                    return;
+                }
 
-            container.innerHTML = globalNews.map((news, index) => `
-                <div class="bg-white border border-gray-100 rounded-3xl shadow-sm p-8 flex flex-col justify-between group hover:shadow-md transition-shadow">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="bg-gray-100 text-gray-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">${new Date(news.published_at).toLocaleDateString()}</span>
+                container.innerHTML = globalNews.map((news, index) => `
+                    <div class="bg-white border border-gray-100 rounded-3xl shadow-sm p-8 flex flex-col justify-between group hover:shadow-card transition-all duration-300">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-gray-100 text-gray-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">${new Date(news.published_at).toLocaleDateString()}</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-xl text-brand-dark mb-3 leading-snug group-hover:text-brand-blue transition-colors">${news.title}</h4>
+                            <p class="text-sm text-gray-500 line-clamp-2 mb-6">${news.short_summary}</p>
                         </div>
-                        <h4 class="font-heading font-bold text-xl text-brand-dark mb-3 leading-snug">${news.title}</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2 mb-6">${news.short_summary}</p>
+                        <div class="flex gap-3 border-t border-gray-50 pt-4">
+                            <button onclick="editNews(${index})" class="flex-1 bg-gray-50 hover:bg-brand-blue hover:text-white text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-pen mr-2"></i> Edit Document</button>
+                            <button onclick="deleteRecord('tn_updates', '${news.id}', fetchNews)" class="w-12 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-xl flex items-center justify-center transition-colors"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>
-                    <div class="flex gap-3 border-t border-gray-50 pt-4">
-                        <button onclick="editNews(${index})" class="flex-1 bg-gray-50 hover:bg-brand-blue hover:text-white text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors">Edit</button>
-                        <button onclick="deleteRecord('tn_updates', '${news.id}', fetchNews)" class="w-12 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-xl flex items-center justify-center transition-colors"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            } catch (err) {
+                showToast('Failed to load news: ' + err.message, 'error');
+            }
         }
 
         function openNewsModal() {
@@ -481,7 +510,7 @@
         async function submitNews(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-news');
-            btn.innerHTML = 'Saving...';
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
             
             const id = document.getElementById('news-id').value;
             const payload = {
@@ -492,15 +521,15 @@
             };
 
             let res;
-            if (id) { // Update
+            if (id) { // Update existing
                 res = await supabase.from('tn_updates').update(payload).eq('id', id);
-            } else { // Insert
+            } else { // Insert new
                 res = await supabase.from('tn_updates').insert(payload);
             }
 
             if (res.error) showToast(res.error.message, 'error');
             else {
-                showToast(id ? 'Update Saved' : 'Update Published', 'success');
+                showToast(id ? 'Update Saved Successfully' : 'Update Published Successfully', 'success');
                 closeModal('news-modal');
                 fetchNews();
             }
@@ -509,32 +538,36 @@
 
         // 3. MEDIA
         async function fetchMedia() {
-            const { data, error } = await supabase.from('tn_media').select('*').order('created_at', { ascending: false });
-            if (error) return;
+            try {
+                const { data, error } = await supabase.from('tn_media').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
 
-            globalMedia = data || [];
-            const container = document.getElementById('media-grid-container');
+                globalMedia = data || [];
+                const container = document.getElementById('media-grid-container');
 
-            if (globalMedia.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">Gallery is empty.</div>`;
-                return;
-            }
+                if (globalMedia.length === 0) {
+                    container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">Gallery is empty.</div>`;
+                    return;
+                }
 
-            container.innerHTML = globalMedia.map((item, index) => `
-                <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm group hover:shadow-card transition-shadow">
-                    <div class="h-48 bg-gray-100 w-full relative">
-                        <img src="${item.image_url}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-brand-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-                            <button onclick="editMedia(${index})" class="w-10 h-10 bg-white rounded-full text-brand-dark hover:text-brand-blue flex items-center justify-center"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteRecord('tn_media', '${item.id}', fetchMedia)" class="w-10 h-10 bg-red-500 rounded-full text-white hover:bg-red-600 flex items-center justify-center"><i class="fa-solid fa-trash"></i></button>
+                container.innerHTML = globalMedia.map((item, index) => `
+                    <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm group hover:shadow-card transition-shadow">
+                        <div class="h-48 bg-gray-100 w-full relative">
+                            <img src="${item.image_url}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
+                                <button onclick="editMedia(${index})" class="w-12 h-12 bg-white rounded-full text-brand-dark hover:text-brand-blue flex items-center justify-center shadow-lg transition-colors"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteRecord('tn_media', '${item.id}', fetchMedia)" class="w-12 h-12 bg-red-500 rounded-full text-white hover:bg-red-600 flex items-center justify-center shadow-lg transition-colors"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <span class="text-[9px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-2.5 py-1 rounded-md inline-block mb-2">${item.category || 'General'}</span>
+                            <h4 class="font-bold text-sm text-brand-dark truncate">${item.title}</h4>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <span class="text-[9px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-2 py-1 rounded inline-block mb-2">${item.category || 'General'}</span>
-                        <h4 class="font-bold text-sm text-brand-dark truncate">${item.title}</h4>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            } catch (err) {
+                showToast('Failed to load media: ' + err.message, 'error');
+            }
         }
 
         function openMediaModal() {
@@ -559,7 +592,7 @@
         async function submitMedia(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-media');
-            btn.innerHTML = 'Saving...';
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
             
             const id = document.getElementById('media-id').value;
             const payload = {
@@ -574,7 +607,7 @@
 
             if (res.error) showToast(res.error.message, 'error');
             else {
-                showToast('Asset Saved', 'success');
+                showToast('Asset Saved Successfully', 'success');
                 closeModal('media-modal');
                 fetchMedia();
             }
@@ -583,26 +616,30 @@
 
         // 4. SUBSCRIBERS
         async function fetchSubscribers() {
-            const { data, error } = await supabase.from('tn_supporters').select('*').order('joined_at', { ascending: false });
-            const tbody = document.getElementById('subs-tbody');
-            if (error) return;
-            
-            document.getElementById('stat-subs').innerText = data ? data.length : 0;
+            try {
+                const { data, error } = await supabase.from('tn_supporters').select('*').order('joined_at', { ascending: false });
+                if (error) throw error;
+                
+                document.getElementById('stat-subs').innerText = data ? data.length : 0;
+                const tbody = document.getElementById('subs-tbody');
 
-            if (!data || data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="px-8 py-12 text-center text-gray-400">No subscribers yet.</td></tr>`;
-                return;
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="px-8 py-12 text-center text-gray-400 font-medium">No subscribers yet.</td></tr>`;
+                    return;
+                }
+                
+                tbody.innerHTML = data.map(sub => `
+                    <tr class="hover:bg-brand-light/50 transition-colors group">
+                        <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${new Date(sub.joined_at).toLocaleDateString()}</td>
+                        <td class="px-8 py-5 font-medium text-brand-dark">${sub.email}</td>
+                        <td class="px-8 py-5 text-right">
+                            <button onclick="deleteRecord('tn_supporters', '${sub.id}', fetchSubscribers)" class="w-8 h-8 rounded-lg text-red-400 hover:text-white hover:bg-red-500 transition-colors"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                showToast('Failed to load subscribers: ' + err.message, 'error');
             }
-            
-            tbody.innerHTML = data.map(sub => `
-                <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${new Date(sub.joined_at).toLocaleDateString()}</td>
-                    <td class="px-8 py-5 font-medium text-brand-dark">${sub.email}</td>
-                    <td class="px-8 py-5 text-right">
-                        <button onclick="deleteRecord('tn_supporters', '${sub.id}', fetchSubscribers)" class="text-gray-300 hover:text-red-500 transition-colors"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
         }
 
         // --- GLOBAL DELETE ---
