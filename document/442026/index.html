@@ -6,7 +6,10 @@
     <title>Classified Document | Office of Tyler Nicholas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -14,48 +17,79 @@
                 extend: {
                     fontFamily: { 
                         sans: ['Inter', 'sans-serif'], 
+                        heading: ['Poppins', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'] 
                     },
-                    colors: { brand: { dark: '#0f172a', light: '#f8fafc', accent: '#3b82f6' } }
+                    colors: {
+                        brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' }
+                    },
+                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #e2e8f0; }
-        .paper-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { background-color: #f1f5f9; }
+        .paper-shadow { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0,0,0,0.05); }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Subtle scanline effect for the gate */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
+            background-size: 100% 4px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 relative">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8 relative">
 
-    <div id="auth-gate" class="fixed inset-0 bg-brand-dark z-50 flex flex-col items-center justify-center p-6 transition-opacity duration-500">
-        <div class="bg-white p-10 rounded-2xl shadow-2xl max-w-md w-full text-center">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fa-solid fa-lock text-2xl text-brand-dark"></i>
+    <div id="auth-gate" class="fixed inset-0 bg-[#111827] z-50 flex flex-col items-center justify-center p-6 transition-opacity duration-700 overflow-hidden">
+        
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://i.ibb.co/0RCTsPHZ/Seychelles-Flag-removebg-preview.png" alt="Flag" class="w-full h-full object-cover filter blur-sm">
+            <div class="absolute inset-0 bg-brand-dark opacity-80"></div>
+        </div>
+        <div class="scanlines"></div>
+
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-3xl shadow-2xl max-w-md w-full text-center relative z-20">
+            <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/20">
+                <i class="fa-solid fa-shield-halved text-3xl text-brand-blue"></i>
             </div>
-            <h2 class="text-2xl font-bold font-serif mb-2">Protected Document</h2>
-            <p class="text-sm text-gray-500 mb-8">Enter the decryption key to view document #442026.</p>
+            
+            <h2 class="text-3xl font-heading font-bold text-white mb-3">Restricted</h2>
+            <p class="text-sm text-gray-400 mb-10 font-medium">Enter decryption key for Document #442026.</p>
             
             <form id="password-form" onsubmit="checkPassword(event)">
-                <input type="password" id="doc-password" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-center tracking-widest focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all mb-4" placeholder="••••••••" required>
-                <p id="error-msg" class="text-red-500 text-xs font-bold uppercase tracking-widest hidden mb-4">Invalid Key</p>
-                <button type="submit" class="w-full bg-brand-dark hover:bg-black text-white font-bold py-3 rounded-lg uppercase tracking-widest text-xs transition-colors">Decrypt & Open</button>
+                <input type="password" id="doc-password" class="w-full px-5 py-4 bg-black/50 border border-white/20 rounded-xl text-center tracking-[0.5em] text-white focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/30 transition-all mb-4 font-mono text-lg placeholder-gray-600" placeholder="••••••••" required>
+                <p id="error-msg" class="text-red-400 text-[10px] font-bold uppercase tracking-widest hidden mb-4 bg-red-500/10 py-2 rounded border border-red-500/20">Invalid Security Key</p>
+                <button type="submit" class="w-full bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-bold py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-soft mt-2">
+                    Decrypt & Open
+                </button>
             </form>
-            <div class="mt-6 text-xs text-gray-400 uppercase tracking-widest">
-                <a href="/document/" class="hover:text-brand-dark transition-colors"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Vault</a>
+            
+            <div class="mt-8 text-xs text-gray-500 font-heading font-semibold uppercase tracking-widest">
+                <a href="/document/" class="hover:text-white transition-colors"><i class="fa-solid fa-arrow-left mr-2"></i> Return to Directory</a>
             </div>
         </div>
     </div>
 
-    <main id="document-container" class="w-full max-w-4xl mx-auto hidden pt-12 pb-24 fade-in">
-        <div class="mb-6">
-            <a href="/document/" class="text-xs font-bold text-gray-500 hover:text-brand-dark uppercase tracking-widest transition-colors"><i class="fa-solid fa-arrow-left mr-2"></i>Return to Vault</a>
+    <main id="document-container" class="w-full max-w-4xl mx-auto hidden pt-4 pb-24 fade-in">
+        
+        <div class="mb-8 flex justify-between items-center">
+            <a href="/document/" class="text-xs font-heading font-bold text-gray-500 hover:text-brand-dark uppercase tracking-widest transition-colors bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
+                <i class="fa-solid fa-arrow-left mr-2"></i>Vault
+            </a>
+            <button onclick="window.print()" class="text-xs font-heading font-bold text-brand-blue hover:text-brand-dark uppercase tracking-widest transition-colors bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
+                <i class="fa-solid fa-print mr-2"></i>Print
+            </button>
         </div>
 
-        <div id="paper-content" class="bg-white p-12 md:p-20 paper-shadow border-t-8 border-brand-dark rounded-sm min-h-[1056px] relative">
+        <div id="paper-content" class="bg-white p-12 md:p-24 paper-shadow relative min-h-[1122px] w-full">
             </div>
     </main>
 
@@ -63,51 +97,68 @@
         // =====================================================================
         // SECURITY CONFIGURATION
         // =====================================================================
-        const CORRECT_PASSWORD = "EGR2026"; // Change your document password here
+        const CORRECT_PASSWORD = "TNG2026"; 
         
-        // The raw HTML of the letter is stored as an array of strings to obfuscate 
-        // it from simple source-code scraping tools.
+        // Obfuscated Payload Array
         const securePayload = [
-            '<header class="flex flex-col md:flex-row justify-between items-start border-b-2 border-gray-200 pb-8 mb-10">',
+            '<div class="absolute top-0 left-0 w-full h-2" style="background: linear-gradient(to right, #003F87 20%, #FCD856 20% 40%, #D62828 40% 60%, #e5e7eb 60% 80%, #007A3D 80% 100%);"></div>',
+            
+            '<header class="flex flex-col md:flex-row justify-between items-start border-b-2 border-gray-200 pb-10 mb-12 mt-4">',
             '    <div class="mb-6 md:mb-0">',
-            '        <h1 class="text-3xl font-serif font-bold text-brand-dark uppercase tracking-widest mb-1">Office Of Tyler Nicholas</h1>',
-            '        <p class="text-sm text-gray-500 tracking-wider">Victoria, Mahe, Seychelles</p>',
+            '        <h1 class="text-3xl font-serif font-bold text-brand-dark tracking-widest mb-2">Office Of Tyler Nicholas</h1>',
+            '        <p class="text-xs text-gray-500 font-heading font-bold uppercase tracking-widest">Victoria, Mahe, Seychelles</p>',
             '    </div>',
-            '    <div class="text-left md:text-right text-xs text-gray-500 font-mono leading-relaxed">',
+            '    <div class="text-left md:text-right text-xs text-gray-500 font-mono leading-loose">',
             '        <p>+248 2544788</p>',
             '        <p>tyler@nicholasoffice.online</p>',
             '        <p>https://nicholasoffice.online</p>',
             '    </div>',
             '</header>',
-            '<div class="font-serif text-brand-dark leading-loose text-[15px] max-w-3xl">',
-            '    <p class="font-bold mb-8 text-gray-400 font-sans tracking-widest uppercase text-xs">Date: April 4th 2026</p>',
-            '    <p class="mb-6 font-bold">Dear Emirates Group Roblox Board of Directors,</p>',
-            '    <p class="mb-6">I am writing to formally update you on my current professional and academic commitments, and to set clear expectations regarding my day-to-day involvement with Emirates Group Roblox moving forward.</p>',
-            '    <p class="mb-6">Recently, my real-world schedule has expanded significantly. I have been appointed as a Youth Ambassador to the United States and elected as an Honorable member to the Seychelles National Youth Assembly.</p>',
-            '    <p class="mb-6">Alongside these public service roles, I am solely managing the Tyler Nicholas Group, which now operates more than six subsidiary companies—including our most successful venture, BlueWave Digital, as well as the Tyler Nicholas Foundation and FoodShare Seychelles.</p>',
-            '    <p class="mb-6">Additionally, as a student at Ecole Francaise Des Seychelles in Premiere General, I am preparing for my BAC in Maths and Physics this June.</p>',
-            '    <p class="mb-6">This heavy academic load, coupled with frequent travel abroad, demands a substantial amount of my time.</p>',
-            '    <p class="mb-6 font-bold bg-gray-50 p-4 border-l-4 border-brand-dark">I want to be completely transparent with this Board: I am incredibly occupied.</p>',
-            '    <p class="mb-6">While my dedication to Emirates Group Roblox remains steadfast, my daily availability has been reduced significantly compared to the first three years of running this organization.</p>',
-            '    <p class="mb-6">Please be assured that while my active, front-line presence is reduced, I am still actively providing for the group and building its future. Behind the scenes, I am currently developing several critical structural and technological upgrades, including:</p>',
-            '    <ul class="list-disc pl-8 mb-8 space-y-3 font-sans text-sm text-gray-700">',
-            '        <li>Emirates Group Roblox Staff Dashboard</li>',
-            '        <li>Emirates Group Roblox New Hierarchy</li>',
-            '        <li>Emirates Group Roblox New Subsidiary List</li>',
-            '        <li>Emirates Group Roblox Discord Server(s) Overhaul</li>',
-            '        <li>Emirates Group Roblox New Leadership Restructuring</li>',
-            '        <li>And many more background developments.</li>',
-            '    </ul>',
-            '    <p class="mb-10">I trust the Executive Board to continue operating the group efficiently and maintaining our standards while I focus on these foundational projects and my external commitments. Thank you for your continued dedication to EGR.</p>',
-            '    <div class="mt-12">',
-            '        <p class="mb-4">Sincerely,</p>',
-            '        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/John_Hancock_signature.svg/1200px-John_Hancock_signature.svg.png" alt="Signature" class="h-16 mb-4 opacity-80" style="filter: contrast(1.5) grayscale(1);">',
-            '        <p class="font-bold uppercase tracking-widest text-sm font-sans">Tyler Nicholas</p>',
-            '        <p class="text-xs text-gray-500 uppercase tracking-widest font-sans mt-1">Owner & Founder</p>',
+            
+            '<div class="font-serif text-[#1e293b] leading-loose text-[16px] max-w-3xl mx-auto">',
+            '    <p class="font-bold mb-10 text-gray-400 font-heading tracking-widest uppercase text-xs">Date: April 4th, 2026</p>',
+            '    <p class="mb-8 font-bold text-lg text-black">Dear Emirates Group Roblox Board of Directors,</p>',
+            
+            '    <p class="mb-6 text-justify">I am writing to formally update you on my current professional and academic commitments, and to set clear expectations regarding my day-to-day involvement with Emirates Group Roblox moving forward.</p>',
+            
+            '    <p class="mb-6 text-justify">Recently, my real-world schedule has expanded significantly. I have been appointed as a Youth Ambassador to the United States and elected as an Honorable member to the Seychelles National Youth Assembly.</p>',
+            
+            '    <p class="mb-6 text-justify">Alongside these public service roles, I am solely managing the Tyler Nicholas Group, which now operates more than six subsidiary companies—including our most successful venture, BlueWave Digital, as well as the Tyler Nicholas Foundation and FoodShare Seychelles.</p>',
+            
+            '    <p class="mb-6 text-justify">Additionally, as a student at Ecole Francaise Des Seychelles in Premiere General, I am preparing for my BAC in Maths and Physics this June.</p>',
+            
+            '    <p class="mb-8 text-justify">This heavy academic load, coupled with frequent travel abroad, demands a substantial amount of my time.</p>',
+            
+            '    <div class="my-10 p-6 bg-gray-50 border-l-4 border-brand-dark italic text-black font-medium">',
+            '       "I want to be completely transparent with this Board: I am incredibly occupied."',
             '    </div>',
-            '</div>',
-            '<div class="absolute bottom-8 right-12 opacity-10">',
-            '    <i class="fa-solid fa-stamp text-6xl"></i>',
+            
+            '    <p class="mb-6 text-justify">While my dedication to Emirates Group Roblox remains steadfast, my daily availability has been reduced significantly compared to the first three years of running this organization.</p>',
+            
+            '    <p class="mb-6 text-justify">Please be assured that while my active, front-line presence is reduced, I am still actively providing for the group and building its future. Behind the scenes, I am currently developing several critical structural and technological upgrades, including:</p>',
+            
+            '    <ul class="list-none pl-6 mb-10 space-y-4 font-sans text-sm text-gray-700">',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> Emirates Group Roblox Staff Dashboard</li>',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> Emirates Group Roblox New Hierarchy</li>',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> Emirates Group Roblox New Subsidiary List</li>',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> Emirates Group Roblox Discord Server(s) Overhaul</li>',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> Emirates Group Roblox New Leadership Restructuring</li>',
+            '        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-blue text-xs"></i> And many more background developments.</li>',
+            '    </ul>',
+            
+            '    <p class="mb-16 text-justify">I trust the Executive Board to continue operating the group efficiently and maintaining our standards while I focus on these foundational projects and my external commitments. Thank you for your continued dedication to EGR.</p>',
+            
+            '    <div class="mt-16 flex justify-between items-end relative">',
+            '        <div>',
+            '            <p class="mb-2 text-brand-dark">Sincerely,</p>',
+            '            <img src="https://i.ibb.co/9H7q2C9R/Tyler-Nicholas-Signature-BL.png" alt="Signature" class="h-20 mb-2 -ml-2 mix-blend-multiply">',
+            '            <p class="font-heading font-bold uppercase tracking-widest text-sm text-black">Tyler Nicholas</p>',
+            '            <p class="text-xs text-gray-500 uppercase tracking-widest font-heading mt-1">Owner & Founder</p>',
+            '        </div>',
+            '        <div class="opacity-80">',
+            '            <img src="https://i.ibb.co/ns04R2Fj/Screenshot-2026-04-04-162445-removebg-preview.png" alt="Office Stamp" class="w-40 h-auto mix-blend-multiply">',
+            '        </div>',
+            '    </div>',
             '</div>'
         ];
 
@@ -121,23 +172,25 @@
             const gate = document.getElementById('auth-gate');
             const docContainer = document.getElementById('document-container');
             const paper = document.getElementById('paper-content');
+            const btn = e.target.querySelector('button');
 
-            if (input === CORRECT_PASSWORD) {
-                // Success! Inject the payload.
-                paper.innerHTML = securePayload.join('');
-                
-                // Hide Gate, Show Document
-                gate.classList.add('opacity-0');
-                setTimeout(() => {
-                    gate.classList.add('hidden');
-                    docContainer.classList.remove('hidden');
-                }, 500);
-            } else {
-                // Failure
-                errorMsg.classList.remove('hidden');
-                document.getElementById('doc-password').value = '';
-                document.getElementById('doc-password').focus();
-            }
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+            setTimeout(() => {
+                if (input === CORRECT_PASSWORD) {
+                    paper.innerHTML = securePayload.join('');
+                    gate.classList.add('opacity-0');
+                    setTimeout(() => {
+                        gate.classList.add('hidden');
+                        docContainer.classList.remove('hidden');
+                    }, 700);
+                } else {
+                    errorMsg.classList.remove('hidden');
+                    document.getElementById('doc-password').value = '';
+                    document.getElementById('doc-password').focus();
+                    btn.innerHTML = 'Decrypt & Open';
+                }
+            }, 800); // Artificial delay for security feel
         }
     </script>
 </body>
