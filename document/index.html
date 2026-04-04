@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Vault | Office of Tyler Nicholas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: { brand: { dark: '#0f172a', light: '#f8fafc', accent: '#3b82f6' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-light text-brand-dark min-h-screen flex flex-col font-sans">
+
+    <nav class="bg-white border-b border-gray-200 py-5 px-8 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-brand-dark text-white rounded flex items-center justify-center font-serif font-bold text-sm">TN</div>
+                <span class="font-bold tracking-widest uppercase text-sm">Office of Tyler Nicholas</span>
+            </div>
+            <a href="/" class="text-xs font-bold text-gray-400 hover:text-brand-dark uppercase tracking-widest transition-colors">Return to Office</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            
+            <header class="mb-16 border-b border-gray-200 pb-8">
+                <p class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-3"><i class="fa-solid fa-lock mr-2"></i>Secure Portal</p>
+                <h1 class="text-4xl font-serif font-bold text-brand-dark mb-4">Document Vault</h1>
+                <p class="text-gray-500">Official correspondence, memos, and statements from the desk of the Chairman.</p>
+            </header>
+
+            <div class="space-y-4">
+                
+                <a href="/document/442026/" class="block bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-brand-accent transition-all group relative overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-accent transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-red-50 text-red-600 border border-red-100 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded">Restricted Access</span>
+                                <span class="text-xs text-gray-400 font-mono">Ref: #442026</span>
+                            </div>
+                            <h2 class="text-lg font-bold text-brand-dark group-hover:text-brand-accent transition-colors">EGR Board of Directors: Status Update & Future Development</h2>
+                        </div>
+                        <div class="flex items-center gap-6 text-sm text-gray-400">
+                            <span class="font-medium"><i class="fa-regular fa-calendar mr-2"></i> April 4, 2026</span>
+                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 text-center text-xs text-gray-400 uppercase tracking-widest">
+        <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
