@@ -4,69 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Vault | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
-                    colors: { brand: { dark: '#0f172a', light: '#f8fafc', accent: '#3b82f6' } }
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        heading: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    },
+                    colors: {
+                        brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' },
+                        seychelles: { blue: '#003F87', yellow: '#FCD856', red: '#D62828', white: '#FFFFFF', green: '#007A3D' }
+                    },
+                    boxShadow: { 
+                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)',
+                        'card': '0 4px 20px rgba(0,0,0,0.03)'
+                    }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-brand-light text-brand-dark min-h-screen flex flex-col font-sans">
 
-    <nav class="bg-white border-b border-gray-200 py-5 px-8 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-8 h-8 bg-brand-dark text-white rounded flex items-center justify-center font-serif font-bold text-sm">TN</div>
-                <span class="font-bold tracking-widest uppercase text-sm">Office of Tyler Nicholas</span>
+    <style>
+        body { background-color: #FAFAFA; -webkit-font-smoothing: antialiased; }
+        .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .delay-100 { animation-delay: 100ms; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        
+        .seychelles-gradient { background: linear-gradient(to right, #003F87 20%, #FCD856 20% 40%, #D62828 40% 60%, #e5e7eb 60% 80%, #007A3D 80% 100%); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-brand-dark">
+
+    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide" data-i18n="banner">
+        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
+    </div>
+
+    <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300 border-b border-gray-100" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <a href="/" class="flex items-center gap-2 group">
+                <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            </a>
+
+            <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
+
+            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
+                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
+                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
+                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
+                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
             </div>
-            <a href="/" class="text-xs font-bold text-gray-400 hover:text-brand-dark uppercase tracking-widest transition-colors">Return to Office</a>
+
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
+                    Let's Talk
+                </a>
+            </div>
         </div>
     </nav>
 
-    <main class="flex-grow py-20 px-6">
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
+        <div class="p-6 flex justify-between items-center border-b border-gray-100">
+            <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
+            <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
+            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
+            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
+            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
+            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
+            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
+        </div>
+    </div>
+
+    <main class="flex-grow py-20 px-6 fade-up">
         <div class="max-w-4xl mx-auto">
             
-            <header class="mb-16 border-b border-gray-200 pb-8">
-                <p class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-3"><i class="fa-solid fa-lock mr-2"></i>Secure Portal</p>
-                <h1 class="text-4xl font-serif font-bold text-brand-dark mb-4">Document Vault</h1>
-                <p class="text-gray-500">Official correspondence, memos, and statements from the desk of the Chairman.</p>
+            <header class="mb-16 text-center border-b border-gray-200 pb-12">
+                <div class="inline-flex items-center gap-2 bg-red-50 text-red-600 border border-red-100 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6">
+                    <i class="fa-solid fa-lock"></i> Classified Server
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif font-bold text-brand-dark mb-6">Document Vault</h1>
+                <div class="h-1 w-32 mx-auto seychelles-gradient rounded-full mb-6"></div>
+                <p class="text-brand-muted max-w-lg mx-auto">Official correspondence, encrypted memos, and restricted statements from the desk of Tyler Nicholas.</p>
             </header>
 
-            <div class="space-y-4">
+            <div class="space-y-6">
                 
-                <a href="/document/442026/" class="block bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-brand-accent transition-all group relative overflow-hidden">
-                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-accent transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="bg-red-50 text-red-600 border border-red-100 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded">Restricted Access</span>
-                                <span class="text-xs text-gray-400 font-mono">Ref: #442026</span>
-                            </div>
-                            <h2 class="text-lg font-bold text-brand-dark group-hover:text-brand-accent transition-colors">EGR Board of Directors: Status Update & Future Development</h2>
+                <a href="/document/442026/" class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-soft hover:border-brand-blue transition-all duration-300 group">
+                    <div class="mb-4 sm:mb-0">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded">Memo</span>
+                            <span class="text-xs text-brand-blue font-mono font-bold">#442026</span>
                         </div>
-                        <div class="flex items-center gap-6 text-sm text-gray-400">
-                            <span class="font-medium"><i class="fa-regular fa-calendar mr-2"></i> April 4, 2026</span>
-                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-colors">
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
+                        <h2 class="text-xl font-heading font-bold text-brand-dark group-hover:text-brand-blue transition-colors">EGR Board of Directors: Status Update</h2>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Date Published</p>
+                            <p class="text-sm font-medium text-brand-dark">April 4, 2026</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue group-hover:border-brand-blue group-hover:text-white transition-all">
+                            <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
                 </a>
 
-                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-8 text-center text-xs text-gray-400 uppercase tracking-widest">
-        <p>&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+    <footer class="bg-white border-t border-gray-200 py-12 text-center">
+        <p class="text-xs text-gray-400 uppercase tracking-widest font-heading font-bold">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu-overlay');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+    </script>
 </body>
 </html>
