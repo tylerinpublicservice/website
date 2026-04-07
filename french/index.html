@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Class Countdown | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        heading: ['Poppins', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace']
+                    },
+                    colors: {
+                        brand: { blue: '#00AEEF', dark: '#0A0F1C', light: '#E6F6FE', muted: '#6B7280' }
+                    },
+                    boxShadow: { 'glow': '0 0 50px -10px rgba(0,174,239,0.4)' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0A0F1C; color: white; -webkit-font-smoothing: antialiased; overflow: hidden; }
+        
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Intense Scanline & Grid Effect */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .quote-transition { transition: opacity 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <div class="bg-grid"></div>
+    <div class="scanlines"></div>
+
+    <div id="auth-gate" class="fixed inset-0 bg-[#0A0F1C] z-50 flex flex-col items-center justify-center p-6 transition-opacity duration-700">
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-3xl shadow-2xl max-w-md w-full text-center relative z-20">
+            <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-brand-blue/30 shadow-glow">
+                <i class="fa-solid fa-lock text-3xl text-brand-blue"></i>
+            </div>
+            
+            <h2 class="text-3xl font-heading font-black text-white mb-3 uppercase tracking-tight">Focus Protocol</h2>
+            <p class="text-sm text-gray-400 mb-10 font-medium">Authorization required to initiate lockdown sequence.</p>
+            
+            <form id="password-form" onsubmit="checkPassword(event)">
+                <input type="password" id="access-password" class="w-full px-5 py-4 bg-black/60 border border-white/20 rounded-xl text-center tracking-[0.5em] text-white focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/30 transition-all mb-4 font-mono text-lg placeholder-gray-700" placeholder="••••••••" required>
+                <p id="error-msg" class="text-red-400 text-[10px] font-bold uppercase tracking-widest hidden mb-4 bg-red-500/10 py-2 rounded border border-red-500/20">Access Denied</p>
+                <button type="submit" class="w-full bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-bold py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-glow mt-2">
+                    Override & Enter
+                </button>
+            </form>
+            
+            <div class="mt-8 text-xs text-gray-500 font-heading font-semibold uppercase tracking-widest">
+                <a href="/" class="hover:text-white transition-colors"><i class="fa-solid fa-arrow-left mr-2"></i> Exit Protocol</a>
+            </div>
+        </div>
+    </div>
+
+    <main id="countdown-container" class="w-full max-w-5xl mx-auto hidden flex-col items-center justify-center relative z-20 fade-in h-full">
+        
+        <div class="absolute top-8 left-8 right-8 flex justify-between items-center z-30">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-brand-blue text-white rounded flex items-center justify-center font-heading font-bold text-sm">TN</div>
+                <span class="font-bold tracking-widest uppercase text-xs text-gray-400">Office of Tyler Nicholas</span>
+            </div>
+            <a href="/" class="text-xs font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10">
+                <i class="fa-solid fa-person-running"></i> Escape
+            </a>
+        </div>
+
+        <div class="text-center w-full mt-20">
+            <h1 class="text-brand-blue font-heading font-black text-4xl md:text-6xl lg:text-7xl uppercase tracking-tighter mb-4 drop-shadow-[0_0_15px_rgba(0,174,239,0.5)]">
+                Tyler Lock The Fuck In.
+            </h1>
+            
+            <div class="text-gray-400 font-heading font-bold uppercase tracking-[0.3em] text-sm md:text-base mb-12">
+                <i class="fa-solid fa-hourglass-half mr-2 text-brand-blue animate-pulse"></i> Time remaining until 15:05
+            </div>
+
+            <div id="timer-display" class="font-mono font-bold text-7xl md:text-[150px] leading-none tracking-tighter text-white mb-16" style="text-shadow: 0 0 40px rgba(255,255,255,0.2);">
+                00:00:00
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-brand-blue"></div>
+                <i class="fa-solid fa-quote-left text-4xl text-white/10 absolute top-6 left-6"></i>
+                <p id="motivational-quote" class="text-xl md:text-3xl font-heading font-bold text-white leading-snug quote-transition z-10 relative">
+                    "Loading focus protocol..."
+                </p>
+            </div>
+            
+            <div class="w-full max-w-3xl mx-auto mt-12 bg-white/10 rounded-full h-1.5 overflow-hidden">
+                <div id="time-progress" class="bg-brand-blue h-full w-0 transition-all duration-1000 ease-linear shadow-glow"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // =====================================================================
+        // CONFIGURATION
+        // =====================================================================
+        const CORRECT_PASSWORD = "tyler252008"; 
+        
+        // Array of hardcore motivational quotes
+        const quotes = [
+            "Nobody cares about your excuses. Build the fucking empire.",
+            "You said you wanted to be at the top. Fucking act like it.",
+            "Stop bitching and start executing. The clock is ticking.",
+            "Every second you waste is a second someone else gets ahead.",
+            "Focus. Grind. Conquer. Absolutely no bullshit.",
+            "You have an entire Foundation and Enterprise riding on you. Lock in.",
+            "Empires aren't built on comfortable days. Push through the noise.",
+            "Get your head out of the clouds and put your hands in the dirt.",
+            "They are waiting for you to fail. Don't give them the satisfaction.",
+            "Your future self is watching you right now. Don't piss him off.",
+            "Greatness demands absolute, ruthless, unrelenting focus.",
+            "Stop looking at the clock and do the fucking work."
+        ];
+
+        let timerInterval;
+        let quoteInterval;
+
+        // =====================================================================
+        // AUTHENTICATION LOGIC
+        // =====================================================================
+        function checkPassword(e) {
+            e.preventDefault();
+            const input = document.getElementById('access-password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const gate = document.getElementById('auth-gate');
+            const container = document.getElementById('countdown-container');
+            const btn = e.target.querySelector('button');
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+            setTimeout(() => {
+                if (input === CORRECT_PASSWORD) {
+                    gate.classList.add('opacity-0');
+                    setTimeout(() => {
+                        gate.classList.add('hidden');
+                        container.classList.remove('hidden');
+                        container.classList.add('flex');
+                        initiateLockdown();
+                    }, 700);
+                } else {
+                    errorMsg.classList.remove('hidden');
+                    document.getElementById('access-password').value = '';
+                    document.getElementById('access-password').focus();
+                    btn.innerHTML = 'Override & Enter';
+                }
+            }, 500); 
+        }
+
+        // =====================================================================
+        // COUNTDOWN & QUOTE ENGINE
+        // =====================================================================
+        function initiateLockdown() {
+            startTimer();
+            rotateQuote();
+            // Change quote every 60 seconds
+            quoteInterval = setInterval(rotateQuote, 60000); 
+        }
+
+        function rotateQuote() {
+            const quoteEl = document.getElementById('motivational-quote');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            // Fade out, change text, fade in
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.innerText = `"${randomQuote}"`;
+                quoteEl.style.opacity = 1;
+            }, 500);
+        }
+
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            const progressBar = document.getElementById('time-progress');
+            
+            // Set target time to 3:05 PM (15:05:00) today
+            const getTarget = () => {
+                let target = new Date();
+                target.setHours(15, 5, 0, 0);
+                return target;
+            };
+
+            // Assuming class starts around 8:00 AM for progress bar math (change if needed)
+            const classStartTime = new Date();
+            classStartTime.setHours(8, 0, 0, 0);
+
+            const updateClock = () => {
+                const now = new Date();
+                const target = getTarget();
+                const diff = target - now;
+
+                // Total duration for progress bar
+                const totalDuration = target - classStartTime;
+                const timePassed = now - classStartTime;
+
+                if (diff <= 0) {
+                    clearInterval(timerInterval);
+                    clearInterval(quoteInterval);
+                    timerDisplay.innerText = "00:00:00";
+                    timerDisplay.classList.add('text-brand-blue');
+                    document.getElementById('motivational-quote').innerText = "Class dismissed. Get back to running the Enterprise.";
+                    progressBar.style.width = "100%";
+                    return;
+                }
+
+                // Math for HH:MM:SS
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerDisplay.innerText = 
+                    String(h).padStart(2, '0') + ":" + 
+                    String(m).padStart(2, '0') + ":" + 
+                    String(s).padStart(2, '0');
+
+                // Update Progress Bar
+                let percent = (timePassed / totalDuration) * 100;
+                if(percent < 0) percent = 0;
+                if(percent > 100) percent = 100;
+                progressBar.style.width = `${percent}%`;
+            };
+
+            updateClock(); // Run immediately
+            timerInterval = setInterval(updateClock, 1000);
+        }
+    </script>
+</body>
+</html>
