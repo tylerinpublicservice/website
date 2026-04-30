@@ -7,6 +7,12 @@
     
     <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,47 +20,48 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#0f172a',
-                            blue: '#1e3a8a',
-                            light: '#f8fafc',
+                            base: '#010a14',    // Deepest footer navy
+                            navy: '#021326',    // Main dark navy
+                            blue: '#1a365d',    // Accent blue
+                            gray: '#f4f6f8',    // Off-white for section depth
+                            red: '#c8102e',     // Subtle patriotic red
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'], // Added a sophisticated serif
+                        serif: ['Playfair Display', 'serif'],
+                        cursive: ['Great Vibes', 'cursive'],
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-brand-light text-gray-900 font-sans antialiased">
+<body class="bg-white text-gray-900 font-sans antialiased selection:bg-brand-navy selection:text-white">
 
-    <header class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.ibb.co/0RCTsPHZ/Seychelles-Flag-removebg-preview.png" alt="Seychelles Flag" class="h-8 w-auto object-contain" />
-                    <a href="/" class="font-bold text-lg tracking-widest uppercase text-brand-navy">
+    <header class="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-12">
+            <div class="flex justify-between h-24 items-center">
+                <div class="flex items-center gap-5">
+                    <img src="https://i.ibb.co/0RCTsPHZ/Seychelles-Flag-removebg-preview.png" alt="Seychelles Flag" class="h-10 w-auto object-contain" />
+                    <a href="/" class="font-serif font-bold text-2xl tracking-wide text-brand-navy">
                         Tyler Nicholas
                     </a>
                 </div>
                 
-                <nav class="hidden lg:flex space-x-8 text-[13px] font-semibold tracking-wider text-gray-600 uppercase">
-                    <a href="/" class="text-brand-blue">Home</a>
-                    <a href="/about.html" class="hover:text-brand-blue transition">About</a>
-                    <a href="/public-service.html" class="hover:text-brand-blue transition">Public Service</a>
-                    <a href="/priorities.html" class="hover:text-brand-blue transition">Priorities</a>
-                    <a href="/services.html" class="hover:text-brand-blue transition">Services</a>
-                    <a href="/newsroom.html" class="hover:text-brand-blue transition">Newsroom</a>
-                    <a href="/resources.html" class="hover:text-brand-blue transition">Resources</a>
+                <nav class="hidden lg:flex space-x-10 text-[14px] font-medium tracking-wide text-gray-600">
+                    <a href="/" class="text-brand-navy font-semibold border-b-2 border-brand-red pb-1">Home</a>
+                    <a href="/about.html" class="hover:text-brand-navy hover:border-b-2 hover:border-brand-navy pb-1 transition-all duration-200">About</a>
+                    <a href="/public-service.html" class="hover:text-brand-navy hover:border-b-2 hover:border-brand-navy pb-1 transition-all duration-200">Public Service</a>
+                    <a href="/priorities.html" class="hover:text-brand-navy hover:border-b-2 hover:border-brand-navy pb-1 transition-all duration-200">Priorities</a>
+                    <a href="/services.html" class="hover:text-brand-navy hover:border-b-2 hover:border-brand-navy pb-1 transition-all duration-200">Services</a>
+                    <a href="/newsroom.html" class="hover:text-brand-navy hover:border-b-2 hover:border-brand-navy pb-1 transition-all duration-200">Newsroom</a>
                 </nav>
 
                 <div class="hidden md:block">
-                    <a href="/submit-request.html" class="border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white px-6 py-2 rounded-full text-sm font-semibold transition duration-300">
+                    <a href="/submit-request.html" class="bg-brand-navy text-white px-7 py-3 rounded-sm text-sm font-semibold tracking-wide hover:bg-brand-blue transition duration-300 shadow-md">
                         Submit a Request
                     </a>
                 </div>
@@ -62,197 +69,209 @@
         </div>
     </header>
 
-    <section class="relative h-[600px] flex items-center justify-center border-b-[8px] border-brand-blue">
-        <div class="absolute inset-0 bg-[url('https://t4.ftcdn.net/jpg/01/96/03/51/360_F_196035169_TiddErZm2MwPN2N4pfgDO22YMtHK3LGM.jpg')] bg-cover bg-center"></div>
-        <div class="absolute inset-0 bg-brand-navy/60"></div> <div class="relative z-10 text-center px-4 w-full max-w-4xl mt-12 md:mt-0">
-            <h2 class="text-white text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-4">
-                Honorable Member of the Seychelles National Youth Assembly
-            </h2>
-            <h1 class="text-white text-5xl md:text-7xl font-extrabold tracking-tight uppercase drop-shadow-lg mb-2">
+    <section class="relative h-[700px] flex items-center border-b-[10px] border-brand-navy bg-brand-navy">
+        <div class="absolute inset-0 bg-[url('https://www.msccruises.com/int/-/media/global-contents/destinations/ports/seychelles/port-victoria/cruise-to-port-victoria-seychelles.jpg?bc=transparent&as=1&mh=1395&mw=2460&hash=1B965C2117F013491545AA4EC467D72C')] bg-cover bg-center opacity-60"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-transparent"></div>
+
+        <div class="relative z-10 px-8 lg:px-24 w-full max-w-7xl mx-auto mt-12 md:mt-0">
+            <h1 class="text-white text-6xl md:text-[5.5rem] font-serif font-bold tracking-tight mb-4 drop-shadow-xl">
                 Tyler Nicholas
             </h1>
-            <p class="text-gray-200 text-lg md:text-xl font-light tracking-wide mb-10">
+            <p class="text-gray-200 text-lg md:text-2xl font-light tracking-widest uppercase mb-12">
                 Youth Ambassador & Public Service Advocate
             </p>
 
-            <div class="max-w-2xl mx-auto border-t border-b border-white/30 py-6">
-                <p class="text-white text-xl md:text-2xl font-serif italic drop-shadow-md">
-                    “Ask not what your country can do for you — ask what you can do for your country.”
+            <div class="border-l-4 border-brand-red pl-6 md:pl-8 py-2 max-w-3xl">
+                <p class="text-white text-2xl md:text-3xl font-serif italic drop-shadow-md leading-snug">
+                    "Ask not what your country can do for you, ask what you can do for your country."
                 </p>
-                <p class="text-gray-300 text-sm mt-3 font-semibold uppercase tracking-widest">— John F. Kennedy</p>
+                <p class="text-gray-300 text-sm md:text-base mt-4 font-semibold uppercase tracking-widest">
+                    John F. Kennedy
+                </p>
             </div>
         </div>
 
-        <div class="absolute bottom-0 left-1/2 md:left-24 transform -translate-x-1/2 md:translate-x-0 translate-y-1/3 z-20">
-            <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 md:border-8 border-white bg-white overflow-hidden shadow-2xl relative">
-                <div class="absolute inset-0 bg-[url('https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg')] bg-cover opacity-30"></div>
-                <img src="https://i.ibb.co/pjph51fb/IMG-20260227-WA0014-removebg-preview.png" alt="Tyler Nicholas" class="absolute bottom-0 w-full object-cover" />
-            </div>
-        </div>
-    </section>
-
-    <div class="h-24 md:h-32 bg-white"></div>
-
-    <section class="bg-white pb-16">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-gray-200">
-                <div class="md:pr-10 pt-6 md:pt-0">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">01 / Public Service</h3>
-                    <p class="text-gray-700 leading-relaxed">Serving as the Honorable Member of the Seychelles National Youth Assembly, dedicating a platform to civic engagement and national progress.</p>
-                </div>
-                <div class="md:px-10 pt-6 md:pt-0">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">02 / Youth Diplomacy</h3>
-                    <p class="text-gray-700 leading-relaxed">Acting as a Youth Ambassador connected to international initiatives, fostering cultural understanding and leadership on a global scale.</p>
-                </div>
-                <div class="md:pl-10 pt-6 md:pt-0">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">03 / Innovation</h3>
-                    <p class="text-gray-700 leading-relaxed">Bridging the gap between technology and public policy as a founder and digital builder, advocating for modern solutions.</p>
-                </div>
+        <div class="absolute -bottom-32 left-1/2 md:left-32 transform -translate-x-1/2 md:translate-x-0 z-20">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full border-[8px] border-white overflow-hidden shadow-2xl relative bg-brand-navy">
+                <div class="absolute inset-0 bg-[url('https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg')] bg-cover opacity-20 blur-[2px]"></div>
+                <img src="https://i.ibb.co/Gf57Sw7D/tyler-pfpf-removebg-preview.png" alt="Tyler Nicholas" class="absolute bottom-0 w-full object-cover scale-110 translate-y-2" />
             </div>
         </div>
     </section>
 
-    <section class="py-16 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <h2 class="text-2xl font-serif text-brand-navy mb-10">How Can The Office Assist You?</h2>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Request a Meeting</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Invite Tyler to Speak</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Submit a Youth Concern</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Request School Visit</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Media Inquiry</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Partnership Proposal</a>
-                <a href="#" class="px-6 py-3 border border-gray-300 rounded-full text-sm font-semibold text-gray-700 hover:border-brand-blue hover:text-brand-blue transition bg-white shadow-sm">Opportunity Support</a>
+    <div class="h-40 md:h-32 bg-brand-gray"></div>
+
+    <section class="bg-brand-gray pb-20">
+        <div class="max-w-[85rem] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-gray-300">
+                <div class="md:pr-8 pt-8 md:pt-0">
+                    <h3 class="text-sm font-bold text-brand-navy uppercase tracking-widest mb-4">01 / Public Service</h3>
+                    <p class="text-gray-700 leading-loose font-light text-[15px]">Dedicating a platform to civic engagement, transparent representation, and actionable national progress for the youth of Seychelles.</p>
+                </div>
+                <div class="md:px-12 pt-8 md:pt-0">
+                    <h3 class="text-sm font-bold text-brand-navy uppercase tracking-widest mb-4">02 / Youth Diplomacy</h3>
+                    <p class="text-gray-700 leading-loose font-light text-[15px]">Acting as a Youth Ambassador connected to international initiatives, fostering cultural understanding and leadership on a global scale.</p>
+                </div>
+                <div class="md:pl-12 pt-8 md:pt-0">
+                    <h3 class="text-sm font-bold text-brand-navy uppercase tracking-widest mb-4">03 / Innovation</h3>
+                    <p class="text-gray-700 leading-loose font-light text-[15px]">Bridging the gap between modern technology and public policy as a digital builder, advocating for sustainable, forward-thinking solutions.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="md:w-5/12 flex justify-center bg-gray-50 rounded-2xl p-6 shadow-inner">
-                    <img src="https://i.ibb.co/cXStwwFm/image-7.png" alt="Tyler Nicholas Official" class="w-full max-w-sm object-contain drop-shadow-xl" />
+    <section class="py-28 bg-brand-navy text-white relative">
+        <div class="max-w-[85rem] mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+                
+                <div class="md:w-5/12 flex justify-center relative">
+                    <div class="absolute inset-0 bg-white/5 rounded-full blur-3xl transform scale-150"></div>
+                    <img src="https://i.ibb.co/cXStwwFm/image-7.png" alt="Tyler Nicholas Official" class="w-full max-w-md object-contain relative z-10" />
                 </div>
                 
-                <div class="md:w-7/12">
-                    <h2 class="text-3xl md:text-4xl font-serif text-brand-navy mb-6">A Letter to the Citizens & Youth of Seychelles</h2>
-                    <div class="w-12 h-[2px] bg-brand-blue mb-8"></div>
+                <div class="md:w-7/12 relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-8 leading-tight">A Letter to the Citizens & Youth of Seychelles</h2>
+                    <div class="w-16 h-[2px] bg-brand-red mb-10"></div>
                     
-                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                    <div class="space-y-6 text-gray-300 leading-relaxed font-light text-lg">
                         <p>
-                            Welcome to the official digital headquarters of my public service work. As a young Seychellois deeply committed to our nation's progress, I believe that leadership must be accessible, transparent, and completely action-driven. 
+                            Welcome to the official digital headquarters of my public service work. As a young Seychellois deeply committed to our nation's progress, I believe that leadership must be accessible, transparent, and completely action-driven.
                         </p>
                         <p>
-                            My journey—spanning from grassroots entrepreneurship to serving as an Honorable Member of the Seychelles National Youth Assembly—has taught me that real, enduring change requires both vision and execution. We are living in an era of rapid global transformation, and it is imperative that the youth of Seychelles have a decisive, confident voice in the policies that will shape our collective future.
+                            My journey from grassroots entrepreneurship to civic representation has taught me that real, enduring change requires both vision and flawless execution. We are living in an era of rapid global transformation. It is imperative that the youth of Seychelles have a decisive, confident voice in the policies that will shape our collective future. We can no longer afford to sit on the sidelines of progress.
                         </p>
                         <p>
-                            This platform is not merely informational; it is an active bridge. It exists so that students, organizations, and community leaders can raise concerns directly, propose partnerships, and access the resources necessary to thrive. We are here to listen, represent, advocate, and act. Let us build a stronger, more ambitious future together.
+                            This platform is not merely informational, it is an active bridge. It exists so that students, organizations, and community leaders can raise concerns directly, propose meaningful partnerships, and access the resources necessary to thrive. We are here to listen, represent, advocate, and act. Let us build a stronger, more ambitious future together.
                         </p>
                     </div>
 
-                    <div class="mt-10">
-                        <img src="https://i.ibb.co/9H7q2C9R/Tyler-Nicholas-Signature-BL.png" alt="Tyler Nicholas Signature" class="h-16 w-auto opacity-90 mb-2" />
-                        <p class="font-bold text-brand-navy text-lg">Tyler Nicholas</p>
-                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Honorable Member, SNYA</p>
+                    <div class="mt-16">
+                        <div class="relative inline-block select-none">
+                            <span class="font-cursive text-6xl md:text-7xl text-white block mb-[-24px] ml-[-8px] relative z-0 tracking-wide font-normal">Tyler Nicholas</span>
+                            <span class="font-sans font-bold text-xl text-white relative z-10 tracking-wide">Tyler Nicholas</span>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-brand-navy text-white">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-3xl font-serif text-center mb-4">Legislative & Advocacy Priorities</h2>
-            <p class="text-center text-gray-400 mb-12 font-light tracking-wide">Focused on capacity building, policy review, and actionable recommendations.</p>
+    <section class="py-20 bg-white border-b border-gray-200">
+        <div class="max-w-[80rem] mx-auto px-6 text-center">
+            <h2 class="text-3xl font-serif text-brand-navy mb-12">How Can The Office Assist You?</h2>
+            <div class="flex flex-wrap justify-center gap-5">
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Request a Meeting</a>
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Invite Tyler to Speak</a>
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Submit a Youth Concern</a>
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Request School Visit</a>
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Media Inquiry</a>
+                <a href="#" class="px-8 py-4 border border-gray-200 rounded-full text-[14px] font-semibold text-gray-700 hover:border-brand-navy hover:bg-brand-navy hover:text-white transition duration-300 shadow-sm">Partnership Proposal</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-gray">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl font-serif text-brand-navy text-center mb-5">Legislative & Advocacy Priorities</h2>
+            <p class="text-center text-gray-500 mb-16 font-light tracking-wide text-lg">Focused on capacity building, policy review, and actionable recommendations.</p>
             
-            <div class="border-t border-white/20">
-                <div class="py-8 border-b border-white/20 flex flex-col md:flex-row gap-4 md:gap-10">
-                    <h3 class="w-1/3 text-xl font-bold tracking-wide">Education Reform</h3>
-                    <p class="w-2/3 text-gray-300 font-light leading-relaxed">Advocating for modern learning environments, comprehensive student well-being programs, and superior career guidance to prepare youth for life beyond exams.</p>
+            <div class="border-t border-gray-300">
+                <div class="py-10 border-b border-gray-300 flex flex-col md:flex-row gap-6 md:gap-12 hover:bg-white transition duration-300 px-6 rounded-sm">
+                    <h3 class="w-full md:w-1/3 text-2xl font-serif text-brand-navy">Education Reform</h3>
+                    <p class="w-full md:w-2/3 text-gray-600 font-light leading-relaxed text-[16px]">Advocating for modern learning environments, comprehensive student well-being programs, and superior career guidance to prepare youth for life beyond exams.</p>
                 </div>
-                <div class="py-8 border-b border-white/20 flex flex-col md:flex-row gap-4 md:gap-10">
-                    <h3 class="w-1/3 text-xl font-bold tracking-wide">Youth Empowerment</h3>
-                    <p class="w-2/3 text-gray-300 font-light leading-relaxed">Driving access to leadership opportunities, civic education, and scholarships. Ensuring young voices are permanently represented in national decision-making.</p>
+                <div class="py-10 border-b border-gray-300 flex flex-col md:flex-row gap-6 md:gap-12 hover:bg-white transition duration-300 px-6 rounded-sm">
+                    <h3 class="w-full md:w-1/3 text-2xl font-serif text-brand-navy">Youth Empowerment</h3>
+                    <p class="w-full md:w-2/3 text-gray-600 font-light leading-relaxed text-[16px]">Driving access to leadership opportunities, civic education, and scholarships. Ensuring young voices are permanently represented in national decision-making.</p>
                 </div>
-                <div class="py-8 border-b border-white/20 flex flex-col md:flex-row gap-4 md:gap-10">
-                    <h3 class="w-1/3 text-xl font-bold tracking-wide">Mental Health Access</h3>
-                    <p class="w-2/3 text-gray-300 font-light leading-relaxed">Working tirelessly to reduce cultural stigma and expand youth-friendly, school-based support services and accessible national directories.</p>
-                </div>
-                <div class="py-8 border-b border-white/20 flex flex-col md:flex-row gap-4 md:gap-10">
-                    <h3 class="w-1/3 text-xl font-bold tracking-wide">Digital Transformation</h3>
-                    <p class="w-2/3 text-gray-300 font-light leading-relaxed">Championing youth coding initiatives, online safety, and equitable access to technology to secure our place in the global digital economy.</p>
+                <div class="py-10 border-b border-gray-300 flex flex-col md:flex-row gap-6 md:gap-12 hover:bg-white transition duration-300 px-6 rounded-sm">
+                    <h3 class="w-full md:w-1/3 text-2xl font-serif text-brand-navy">Mental Health Access</h3>
+                    <p class="w-full md:w-2/3 text-gray-600 font-light leading-relaxed text-[16px]">Working tirelessly to reduce cultural stigma and expand youth-friendly, school-based support services and accessible national directories.</p>
                 </div>
             </div>
             
-            <div class="text-center mt-12">
-                <a href="/priorities.html" class="inline-block border border-white px-8 py-3 rounded-full hover:bg-white hover:text-brand-navy transition font-semibold">
+            <div class="text-center mt-16">
+                <a href="/priorities.html" class="inline-block border-2 border-brand-navy text-brand-navy px-10 py-4 rounded-sm hover:bg-brand-navy hover:text-white transition duration-300 font-semibold tracking-wide">
                     Review All Priorities
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="py-16 bg-gray-100 border-y border-gray-200">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-2xl font-serif text-brand-navy mb-3">The Office Brief</h2>
-            <p class="text-gray-600 mb-8">Subscribe to receive official statements, public service updates, and youth opportunity bulletins directly to your inbox.</p>
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-serif text-brand-navy mb-4">The Office Brief</h2>
+            <p class="text-gray-500 mb-10 text-lg font-light">Subscribe to receive official statements, public service updates, and youth opportunity bulletins directly to your inbox.</p>
             
-            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-0 justify-center max-w-lg mx-auto shadow-sm rounded-md overflow-hidden border border-gray-300">
-                <input type="email" id="email-input" placeholder="Email address..." required class="flex-1 px-5 py-3 text-gray-900 focus:outline-none bg-white" />
-                <button type="submit" class="bg-brand-navy hover:bg-blue-900 text-white px-8 py-3 font-semibold transition tracking-wide text-sm uppercase">Subscribe</button>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-0 justify-center max-w-2xl mx-auto shadow-lg rounded-sm overflow-hidden border border-gray-200">
+                <input type="email" id="email-input" placeholder="Enter your email address" required class="flex-1 px-6 py-4 text-gray-900 focus:outline-none bg-gray-50 text-[15px]" />
+                <button type="submit" class="bg-brand-navy hover:bg-brand-blue text-white px-10 py-4 font-semibold transition tracking-wider text-sm uppercase">Subscribe</button>
             </form>
-            <p id="form-message" class="mt-4 text-sm font-semibold hidden"></p>
+            <p id="form-message" class="mt-6 text-sm font-semibold hidden"></p>
         </div>
     </section>
 
-    <footer class="bg-brand-navy text-gray-300 pt-16 pb-8 text-sm font-light">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 border-b border-white/10 pb-12">
+    <footer class="bg-brand-base text-[#a0aab2] pt-20 pb-10 text-[14px] font-light border-t-[8px] border-brand-navy">
+        <div class="max-w-[85rem] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
                 
-                <div class="col-span-1 md:col-span-5">
-                    <h3 class="text-white text-lg font-serif mb-4">Office of Tyler Nicholas</h3>
-                    <p class="mb-6 leading-relaxed max-w-sm text-gray-400">
-                        A digital platform engineered for civic engagement, youth representation, community support, and transparent public communication.
+                <div class="col-span-1">
+                    <h3 class="text-white text-xl font-serif mb-6">Tyler Nicholas</h3>
+                    <p class="leading-relaxed">
+                        A digital platform engineered for civic engagement, youth representation, and transparent public communication.
                     </p>
-                    <div class="flex items-center gap-4 mb-6">
-                        <img src="https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg" alt="Foundation Logo" class="h-10 w-auto rounded opacity-80 grayscale hover:grayscale-0 transition" />
-                        <span class="text-xs uppercase tracking-widest text-gray-500">Tyler Nicholas Foundation</span>
-                    </div>
                 </div>
                 
-                <div class="col-span-1 md:col-span-3">
-                    <h4 class="text-white font-semibold mb-5 uppercase tracking-wider text-xs">Directory</h4>
-                    <ul class="space-y-3">
+                <div class="col-span-1">
+                    <h4 class="text-white font-semibold mb-6 text-base">Directory</h4>
+                    <ul class="space-y-4">
+                        <li><a href="/about.html" class="hover:text-white transition">About Tyler</a></li>
                         <li><a href="/public-service.html" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/youth-ambassador.html" class="hover:text-white transition">Youth Ambassador</a></li>
-                        <li><a href="/priorities.html" class="hover:text-white transition">Legislative Priorities</a></li>
-                        <li><a href="/newsroom.html" class="hover:text-white transition">Newsroom & Speeches</a></li>
-                        <li><a href="/contact.html" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/priorities.html" class="hover:text-white transition">Priorities</a></li>
+                        <li><a href="/newsroom.html" class="hover:text-white transition">Newsroom</a></li>
                     </ul>
                 </div>
 
-                <div class="col-span-1 md:col-span-4">
-                    <h4 class="text-white font-semibold mb-5 uppercase tracking-wider text-xs">Connect With The Office</h4>
-                    <div class="grid grid-cols-2 gap-y-3 gap-x-6 text-gray-400">
-                        <a href="https://whatsapp.com/channel/0029VbD1j7Y5kg73vXvLva0f" target="_blank" class="hover:text-white transition flex items-center gap-2">WhatsApp Channel</a>
-                        <a href="https://x.com/tylerninservice" target="_blank" class="hover:text-white transition flex items-center gap-2">X (Twitter)</a>
-                        <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="hover:text-white transition flex items-center gap-2">Instagram</a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="hover:text-white transition flex items-center gap-2">LinkedIn</a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="hover:text-white transition flex items-center gap-2">YouTube</a>
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="hover:text-white transition flex items-center gap-2">Facebook</a>
-                        <a href="https://www.threads.com/@tylernicholasinservice" target="_blank" class="hover:text-white transition flex items-center gap-2">Threads</a>
-                        <a href="https://www.tiktok.com/@tylerinpublicservice" target="_blank" class="hover:text-white transition flex items-center gap-2">TikTok</a>
+                <div class="col-span-1">
+                    <h4 class="text-white font-semibold mb-6 text-base">Legal</h4>
+                    <ul class="space-y-4">
+                        <li><a href="/privacy.html" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:text-white transition">Terms of Use</a></li>
+                        <li><a href="/cookie.html" class="hover:text-white transition">Cookie Policy</a></li>
+                        <li><a href="/accessibility.html" class="hover:text-white transition">Accessibility Statement</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-white font-semibold mb-6 text-base">Connect</h4>
+                    <ul class="space-y-4 mb-8">
+                        <li><a href="/contact.html" class="hover:text-white transition">Contact Us</a></li>
+                    </ul>
+                    
+                    <div class="flex flex-wrap gap-4 mt-4">
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded-full bg-[#1e293b] hover:bg-brand-blue flex items-center justify-center text-white transition duration-300">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/tylernicholasinservice/" target="_blank" class="w-10 h-10 rounded-full bg-[#1e293b] hover:bg-brand-blue flex items-center justify-center text-white transition duration-300">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/tylerninservice" target="_blank" class="w-10 h-10 rounded-full bg-[#1e293b] hover:bg-brand-blue flex items-center justify-center text-white transition duration-300">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="w-10 h-10 rounded-full bg-[#1e293b] hover:bg-brand-blue flex items-center justify-center text-white transition duration-300">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded-full bg-[#1e293b] hover:bg-brand-blue flex items-center justify-center text-white transition duration-300">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 tracking-wide">
+            <div class="pt-8 flex justify-between items-center text-[13px]">
                 <p>&copy; 2026 Office of Tyler Nicholas. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="/privacy.html" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="/disclaimer.html" class="hover:text-white transition">Disclaimer</a>
-                </div>
-                <p>Not an official website of the Government of Seychelles unless expressly stated.</p>
+                <p>By Tyler Nicholas</p>
             </div>
         </div>
     </footer>
@@ -268,7 +287,7 @@
             const messageEl = document.getElementById('form-message');
             
             messageEl.classList.remove('hidden', 'text-red-500');
-            messageEl.classList.add('text-brand-blue');
+            messageEl.classList.add('text-brand-navy');
             messageEl.textContent = 'Subscribing...';
 
             try {
@@ -278,14 +297,14 @@
 
                 if (error) throw error;
 
-                messageEl.classList.remove('text-brand-blue');
+                messageEl.classList.remove('text-brand-navy');
                 messageEl.classList.add('text-green-600');
                 messageEl.textContent = 'Successfully subscribed to The Office Brief.';
                 document.getElementById('email-input').value = '';
                 
             } catch (error) {
                 console.error('Error:', error);
-                messageEl.classList.remove('text-brand-blue', 'text-green-600');
+                messageEl.classList.remove('text-brand-navy', 'text-green-600');
                 messageEl.classList.add('text-red-500');
                 if(error.code === '23505') {
                      messageEl.textContent = 'This email is already subscribed.';
