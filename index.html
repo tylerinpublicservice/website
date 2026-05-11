@@ -166,46 +166,46 @@
     </footer>
 
     <script>
-// 1. Loading Screen Logic (Updated & Fail-Proof)
-document.addEventListener('DOMContentLoaded', function() {
-    const loader = document.getElementById('loader');
-    const body = document.getElementById('body');
-    
-    function hideLoader() {
-        // Prevent it from running twice if it's already hidden
-        if (loader.style.display === 'none') return; 
-        
-        loader.classList.add('fade-out');
-        body.classList.remove('overflow-hidden');
-        
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 500);
-    }
+        // 1. Loading Screen Logic (Fail-Proof version)
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
 
-    // Attempt 1: Hide as soon as the website structure is ready (fastest)
-    setTimeout(hideLoader, 600); 
+            // Attempt 1: Hide as soon as the DOM is ready (fastest)
+            setTimeout(hideLoader, 500); 
 
-    // Attempt 2: Hide when all assets (like images) finish loading
-    window.addEventListener('load', hideLoader);
+            // Attempt 2: Hide when all assets finish loading
+            window.addEventListener('load', hideLoader);
 
-    // Attempt 3 (The Kill Switch): Force hide after 3 seconds no matter what happens
-    setTimeout(hideLoader, 3000);
-});
+            // Attempt 3 (Kill Switch): Force hide after 3 seconds
+            setTimeout(hideLoader, 3000);
+        });
 
         // 2. Supabase Initialization & Backend Connection
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // FIXED ERROR: Changed variable name to 'supabaseClient' so it doesn't conflict with the global 'supabase' object
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Function to fetch active initiatives to prove backend works
         async function fetchSystemStatus() {
             const container = document.getElementById('dynamic-content');
             
             try {
-                // Attempting to query the 'initiatives' table we created in the SQL step
-                const { data, error } = await supabase
+                // Using the newly named supabaseClient
+                const { data, error } = await supabaseClient
                     .from('initiatives')
                     .select('title, status')
                     .limit(3);
@@ -213,11 +213,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (error) throw error;
 
                 if (data && data.length > 0) {
-                    // We found data! Render it.
                     let html = '<div class="grid grid-cols-1 md:grid-cols-3 gap-6">';
                     data.forEach(item => {
                         html += `
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition">
                             <span class="text-xs font-bold uppercase tracking-wider text-brand-green mb-2 block">${item.status}</span>
                             <h4 class="font-bold text-gray-900">${item.title}</h4>
                         </div>`;
@@ -225,15 +224,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     html += '</div>';
                     container.innerHTML = html;
                 } else {
-                    // Connection successful, but table is empty
                     container.innerHTML = `
                         <div class="bg-blue-50 text-brand-blue p-4 rounded-md border border-blue-100 flex items-center">
                             <i class="fa-solid fa-check-circle mr-3"></i>
-                            Backend connected successfully. Database tables are currently empty.
+                            Backend connected successfully. Database tables are currently empty. Add data in Supabase to see it here!
                         </div>`;
                 }
             } catch (err) {
-                // If the tables aren't set up or RLS is blocking it
                 console.error("Supabase Error:", err.message);
                 container.innerHTML = `
                     <div class="bg-red-50 text-red-700 p-4 rounded-md border border-red-100 text-sm flex items-center">
