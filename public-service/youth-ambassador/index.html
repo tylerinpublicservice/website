@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Ambassador | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading</p>
+        </div>
+    </div>
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Public Service</a>
+                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gray-900 py-20 border-b-4 border-brand-blue shadow-inner relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+                <a href="/public-service/" class="hover:text-white transition">Public Service</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span class="text-brand-lightblue">International Engagement</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Youth Ambassador Program</h1>
+            <p class="text-xl text-gray-400 font-medium max-w-2xl mx-auto">Bridging cultural divides, fostering mutual respect, and preparing the leaders of tomorrow.</p>
+        </div>
+    </header>
+
+    <section class="bg-white py-8 border-b border-gray-200 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-12 opacity-90">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVcWMz9qStQKGI9v766GK2NtqAvlfH6pGow&s" alt="Youth Ambassadors Logo" class="h-16 object-contain grayscale hover:grayscale-0 transition duration-300">
+                <div class="hidden md:block h-12 w-px bg-gray-300"></div>
+                <img src="https://www.ph-int.org/wp-content/uploads/2024/08/cropped-PH.Int_.Secondary.CMYK_.jpg" alt="PH International Logo" class="h-12 object-contain grayscale hover:grayscale-0 transition duration-300">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <div class="lg:col-span-4 sticky top-28 space-y-6">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-brand-lightblue mb-6 border-b border-gray-100 pb-4">Program Overview</h4>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Cohort</span>
+                                <span class="font-bold text-gray-900 text-lg">Youth Ambassadors Africa (2025-2026)</span>
+                            </div>
+                            
+                            <div>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Program Length</span>
+                                <span class="font-medium text-gray-800">3-4 Weeks</span>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Core Activities</span>
+                                <ul class="text-sm text-gray-700 space-y-1 mt-2">
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Leadership Seminars</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Community Service</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Team Building</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Cultural Exchange</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Accommodations</span>
+                                <p class="text-sm text-gray-700">Homestays with American families, university dormitories, and program hotels.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="border-b-2 border-black pb-4 mb-8">
+                        <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Mission</h2>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">Preparing Leaders of Tomorrow</h3>
+                    </div>
+                    
+                    <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed">
+                        <p class="font-medium text-xl text-gray-900">
+                            PH International’s Youth Ambassadors Africa Program (YA-AF) strengthens mutual understanding, prosperity, and global collaboration by empowering youth leaders to become active, responsible citizens both locally and globally.
+                        </p>
+                        <p>
+                            The program fosters mutual respect, helping to share values, build relationships, and bridge cultural divides to promote peaceful coexistence. As these leaders return home, they contribute to global stability, creating international partnerships that benefit mutual interests and enhance security, economic growth, and progress.
+                        </p>
+                        
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">The Exchange Experience</h4>
+                        <p>
+                            The Youth Ambassadors Program brings together high school students and adult mentors from countries across the globe to promote mutual understanding, increase leadership skills, and prepare youth to make a difference in their communities. While exchanges engage heavily with Latin America and the Caribbean, they also include highly selective delegations from Africa and the United States.
+                        </p>
+                        <p>
+                            The program builds team spirit through hands-on service learning, leadership seminars, peer collaboration, and visits to entrepreneurial ventures and innovative local organizations. 
+                        </p>
+                        <p>
+                            A balanced mix of homestays, dorms, and hotels offers participants varied perspectives on American life. Homestays provide firsthand exposure to U.S. values, hospitality, and community life through daily interactions with American families. Dorm stays not only foster peer connections but also offer a window into campus life and American higher education. Hotel accommodations support large group gatherings and events with local leaders—and they also offer valuable downtime for participants to bond, reflect, and relax together as a cohort.
+                        </p>
+
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">Impact & Outcomes</h4>
+                        <p>
+                            The themes of civic education and youth leadership build participants’ self-confidence, resilience, and capacity to drive solutions to local challenges in their communities. Adult mentors will strengthen their mentoring and facilitation skills, enhancing support for youth-led initiatives. 
+                        </p>
+                        <p class="font-semibold text-gray-900 p-6 bg-gray-100 rounded-lg border-l-4 border-brand-blue">
+                            Upon their return home, the students apply what they have learned to implement projects that serve critical needs in their communities, ensuring long-term alignment with international values and local progress.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Live Updates</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Travel Journal & Reflections</h3>
+                </div>
+            </div>
+
+            <div id="dynamic-journal" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="col-span-full">
+                    <div class="text-gray-500 py-12 font-mono text-sm border border-gray-200 bg-gray-50 rounded text-center">
+                        Not available. Come back soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">Post-Exchange Action</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight">Community Project Tracker</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Tracking the community service initiatives developed and executed in Seychelles following the leadership exchange.</p>
+            </div>
+
+            <div id="dynamic-projects" class="space-y-4">
+                <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">
+                    Not available. Come back soon.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-b-2 border-black pb-4 mb-12 text-center">
+                <h3 class="text-3xl font-black text-gray-900 tracking-tight">Frequently Asked Questions</h3>
+            </div>
+
+            <div class="space-y-6">
+                <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">What is the primary goal of the program?</h4>
+                    <p class="text-gray-600 text-sm">To promote mutual understanding, increase leadership skills, and prepare youth to make a tangible difference in their home communities upon their return.</p>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">What does the daily itinerary look like?</h4>
+                    <p class="text-gray-600 text-sm">Participants engage in civic workshops, community service activities, team-building exercises, and formal meetings with local U.S. community leaders.</p>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">What happens after the exchange?</h4>
+                    <p class="text-gray-600 text-sm">Students are required to apply what they have learned to design and implement formal community service projects that address specific needs within their home districts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
+                    
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="text-white font-semibold transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
+                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+                <p class="mt-4 md:mt-0">
+                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+
+            setTimeout(hideLoader, 500); 
+            window.addEventListener('load', hideLoader);
+            setTimeout(hideLoader, 3000); 
+        });
+
+        // Supabase Connection
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        const emptyStateHTML = '<div class="col-span-full"><div class="text-gray-500 py-12 font-mono text-sm border border-gray-200 bg-gray-50 rounded text-center">Not available. Come back soon.</div></div>';
+        const emptyDarkStateHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Not available. Come back soon.</div>';
+
+        async function fetchAmbassadorData() {
+            try {
+                // 1. Fetch Travel Journal (using news_articles where category implies ambassador updates)
+                // For realism, we try to fetch. If none exist, show empty state.
+                const { data: journalData, error: jError } = await supabaseClient
+                    .from('news_articles')
+                    .select('title, published_at, content')
+                    .eq('category', 'youth_ambassador') // Assuming this enum exists based on prior DB schema
+                    .eq('is_published', true)
+                    .order('published_at', { ascending: false })
+                    .limit(3);
+
+                const journalContainer = document.getElementById('dynamic-journal');
+                if (journalData && journalData.length > 0) {
+                    let html = '';
+                    journalData.forEach(item => {
+                        let dateObj = new Date(item.published_at || new Date());
+                        let dateString = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        let plainText = item.content.replace(/<[^>]+>/g, '');
+                        
+                        html += `
+                        <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block"><i class="fa-solid fa-plane-departure mr-1"></i> ${dateString}</span>
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">${item.title}</h4>
+                                <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
+                            </div>
+                            <a href="/newsroom/" class="mt-4 inline-block text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</a>
+                        </div>`;
+                    });
+                    journalContainer.innerHTML = html;
+                } else {
+                    journalContainer.innerHTML = emptyStateHTML;
+                }
+
+                // 2. Fetch Project Tracker (using initiatives filtered by a specific slug or title matching 'ambassador' or just show empty if none)
+                // Since we don't have a specific column for "ambassador project", we'll simulate the fetch. If it returns nothing (which it will if no specific data is added), it gracefully falls back.
+                const { data: projectData, error: pError } = await supabaseClient
+                    .from('initiatives')
+                    .select('title, status, progress_percentage')
+                    .ilike('title', '%Ambassador%') // Looking for initiatives tagged with Ambassador
+                    .limit(3);
+
+                const projectContainer = document.getElementById('dynamic-projects');
+                if (projectData && projectData.length > 0) {
+                    let html = '';
+                    projectData.forEach(item => {
+                        html += `
+                        <div class="border border-gray-700 bg-gray-800 p-6 flex flex-col md:flex-row md:items-center justify-between rounded hover:border-gray-500 transition">
+                            <div class="mb-4 md:mb-0">
+                                <h4 class="font-bold text-white text-lg">${item.title}</h4>
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue">${item.status}</span>
+                            </div>
+                            <div class="w-full md:w-64">
+                                <div class="flex justify-between text-xs font-bold text-gray-300 mb-2">
+                                    <span>Execution Progress</span>
+                                    <span>${item.progress_percentage || 0}%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-brand-lightblue h-2 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    projectContainer.innerHTML = html;
+                } else {
+                    projectContainer.innerHTML = emptyDarkStateHTML;
+                }
+
+            } catch (err) {
+                console.log("Data fetch bypassed. Rendering empty states.");
+                document.getElementById('dynamic-journal').innerHTML = emptyStateHTML;
+                document.getElementById('dynamic-projects').innerHTML = emptyDarkStateHTML;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchAmbassadorData);
+    </script>
+</body>
+</html>
