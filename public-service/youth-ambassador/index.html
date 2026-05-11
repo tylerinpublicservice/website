@@ -92,11 +92,17 @@
     </header>
 
     <section class="bg-white py-8 border-b border-gray-200 shadow-sm">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-12 opacity-90">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVcWMz9qStQKGI9v766GK2NtqAvlfH6pGow&s" alt="Youth Ambassadors Logo" class="h-16 object-contain grayscale hover:grayscale-0 transition duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
+                <img src="https://brandingstyleguides.com/wp-content/guidelines/2025/04/US-Department-of-State.jpg" alt="U.S. Department of State" class="h-16 object-contain">
+                
                 <div class="hidden md:block h-12 w-px bg-gray-300"></div>
-                <img src="https://www.ph-int.org/wp-content/uploads/2024/08/cropped-PH.Int_.Secondary.CMYK_.jpg" alt="PH International Logo" class="h-12 object-contain grayscale hover:grayscale-0 transition duration-300">
+                
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVcWMz9qStQKGI9v766GK2NtqAvlfH6pGow&s" alt="Youth Ambassadors Logo" class="h-16 object-contain">
+                
+                <div class="hidden md:block h-12 w-px bg-gray-300"></div>
+                
+                <img src="https://www.ph-int.org/wp-content/uploads/2024/08/cropped-PH.Int_.Secondary.CMYK_.jpg" alt="PH International Logo" class="h-12 object-contain">
             </div>
         </div>
     </section>
@@ -189,7 +195,7 @@
             <div id="dynamic-journal" class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="col-span-full">
                     <div class="text-gray-500 py-12 font-mono text-sm border border-gray-200 bg-gray-50 rounded text-center">
-                        Not available. Come back soon.
+                        Loading updates...
                     </div>
                 </div>
             </div>
@@ -206,7 +212,7 @@
 
             <div id="dynamic-projects" class="space-y-4">
                 <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">
-                    Not available. Come back soon.
+                    Loading project data...
                 </div>
             </div>
         </div>
@@ -314,32 +320,35 @@
 
         async function fetchAmbassadorData() {
             try {
-                // 1. Fetch Travel Journal (using news_articles where category implies ambassador updates)
-                // For realism, we try to fetch. If none exist, show empty state.
+                // 1. Fetch Travel Journal using the NEW dedicated table
                 const { data: journalData, error: jError } = await supabaseClient
-                    .from('news_articles')
-                    .select('title, published_at, content')
-                    .eq('category', 'youth_ambassador') // Assuming this enum exists based on prior DB schema
+                    .from('travel_journal')
+                    .select('title, travel_date, location, content')
                     .eq('is_published', true)
-                    .order('published_at', { ascending: false })
+                    .order('travel_date', { ascending: false })
                     .limit(3);
 
                 const journalContainer = document.getElementById('dynamic-journal');
+                
                 if (journalData && journalData.length > 0) {
                     let html = '';
                     journalData.forEach(item => {
-                        let dateObj = new Date(item.published_at || new Date());
+                        let dateObj = new Date(item.travel_date);
                         let dateString = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        // Strip HTML from rich text content for preview
                         let plainText = item.content.replace(/<[^>]+>/g, '');
                         
                         html += `
                         <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition flex flex-col justify-between">
                             <div>
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block"><i class="fa-solid fa-plane-departure mr-1"></i> ${dateString}</span>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateString}</span>
+                                    <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'Location TBA'}</span>
+                                </div>
                                 <h4 class="text-xl font-bold text-gray-900 mb-3">${item.title}</h4>
                                 <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
                             </div>
-                            <a href="/newsroom/" class="mt-4 inline-block text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</a>
+                            <button class="mt-4 text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</button>
                         </div>`;
                     });
                     journalContainer.innerHTML = html;
@@ -347,31 +356,33 @@
                     journalContainer.innerHTML = emptyStateHTML;
                 }
 
-                // 2. Fetch Project Tracker (using initiatives filtered by a specific slug or title matching 'ambassador' or just show empty if none)
-                // Since we don't have a specific column for "ambassador project", we'll simulate the fetch. If it returns nothing (which it will if no specific data is added), it gracefully falls back.
+                // 2. Fetch Project Tracker using the NEW dedicated table
                 const { data: projectData, error: pError } = await supabaseClient
-                    .from('initiatives')
-                    .select('title, status, progress_percentage')
-                    .ilike('title', '%Ambassador%') // Looking for initiatives tagged with Ambassador
+                    .from('ambassador_projects')
+                    .select('title, description, status, progress_percentage')
+                    .order('created_at', { ascending: false })
                     .limit(3);
 
                 const projectContainer = document.getElementById('dynamic-projects');
+                
                 if (projectData && projectData.length > 0) {
                     let html = '';
                     projectData.forEach(item => {
+                        let statusColor = item.status === 'active' ? 'bg-brand-lightblue' : 'bg-gray-500';
                         html += `
                         <div class="border border-gray-700 bg-gray-800 p-6 flex flex-col md:flex-row md:items-center justify-between rounded hover:border-gray-500 transition">
-                            <div class="mb-4 md:mb-0">
+                            <div class="mb-4 md:mb-0 max-w-lg">
                                 <h4 class="font-bold text-white text-lg">${item.title}</h4>
-                                <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue">${item.status}</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue block mt-1">${item.status}</span>
+                                <p class="text-sm text-gray-400 mt-2 line-clamp-2">${item.description || ''}</p>
                             </div>
-                            <div class="w-full md:w-64">
+                            <div class="w-full md:w-64 mt-4 md:mt-0">
                                 <div class="flex justify-between text-xs font-bold text-gray-300 mb-2">
                                     <span>Execution Progress</span>
                                     <span>${item.progress_percentage || 0}%</span>
                                 </div>
                                 <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="bg-brand-lightblue h-2 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
+                                    <div class="${statusColor} h-2 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
                                 </div>
                             </div>
                         </div>`;
@@ -382,7 +393,7 @@
                 }
 
             } catch (err) {
-                console.log("Data fetch bypassed. Rendering empty states.");
+                console.log("Data fetch error. Rendering empty states.");
                 document.getElementById('dynamic-journal').innerHTML = emptyStateHTML;
                 document.getElementById('dynamic-projects').innerHTML = emptyDarkStateHTML;
             }
