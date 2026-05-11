@@ -320,10 +320,10 @@
 
         async function fetchAmbassadorData() {
             try {
-                // 1. Fetch Travel Journal using the NEW dedicated table
+                // 1. Fetch Travel Journal using the NEW dedicated table, including the image_url
                 const { data: journalData, error: jError } = await supabaseClient
                     .from('travel_journal')
-                    .select('title, travel_date, location, content')
+                    .select('title, travel_date, location, content, image_url')
                     .eq('is_published', true)
                     .order('travel_date', { ascending: false })
                     .limit(3);
@@ -338,17 +338,25 @@
                         // Strip HTML from rich text content for preview
                         let plainText = item.content.replace(/<[^>]+>/g, '');
                         
+                        // Check if an image exists to display at the top of the card
+                        let imageHTML = item.image_url 
+                            ? `<img src="${item.image_url}" alt="${item.title}" class="w-full h-48 object-cover border-b border-gray-100">` 
+                            : '';
+
                         html += `
-                        <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateString}</span>
-                                    <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'Location TBA'}</span>
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                            ${imageHTML}
+                            <div class="p-6 flex flex-col h-full justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateString}</span>
+                                        <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'Location TBA'}</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-3">${item.title}</h4>
+                                    <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
                                 </div>
-                                <h4 class="text-xl font-bold text-gray-900 mb-3">${item.title}</h4>
-                                <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
+                                <button class="mt-4 text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</button>
                             </div>
-                            <button class="mt-4 text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</button>
                         </div>`;
                     });
                     journalContainer.innerHTML = html;
