@@ -206,43 +206,53 @@
         </div>
     </section>
 
-    <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">Legislative & Public Record</h2>
-                <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight">Assembly Activity Log</h3>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Tracking official motions, debated proposals, plenary speeches, and publicly available assembly reports.</p>
+    <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-full overflow-hidden z-0 opacity-[0.03] pointer-events-none flex justify-end items-start pt-10 pr-10">
+            <i class="fa-solid fa-landmark text-[25rem] text-white transform -rotate-12"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-3">Legislative & Public Record</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">Assembly Activity Log</h3>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Tracking official motions, debated proposals, plenary speeches, and publicly available assembly reports.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 
-                <div>
-                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
-                        Motions & Proposals
-                        <i class="fa-solid fa-gavel text-brand-lightblue"></i>
-                    </h4>
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
+                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
+                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
+                            <i class="fa-solid fa-gavel"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white">Motions & Proposals</h4>
+                    </div>
                     <div id="dynamic-motions" class="space-y-4">
-                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading motions...</div>
+                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading motions...</div>
                     </div>
                 </div>
 
-                <div>
-                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
-                        Plenary Speeches
-                        <i class="fa-solid fa-microphone text-brand-lightblue"></i>
-                    </h4>
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
+                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
+                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white">Plenary Speeches</h4>
+                    </div>
                     <div id="dynamic-speeches" class="space-y-4">
-                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading speeches...</div>
+                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading speeches...</div>
                     </div>
                 </div>
 
-                <div>
-                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
-                        Official Reports
-                        <i class="fa-solid fa-file-pdf text-brand-lightblue"></i>
-                    </h4>
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
+                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
+                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white">Official Reports</h4>
+                    </div>
                     <div id="dynamic-reports" class="space-y-4">
-                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading reports...</div>
+                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading reports...</div>
                     </div>
                 </div>
 
