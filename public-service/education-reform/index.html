@@ -99,17 +99,16 @@
         </div>
     </nav>
 
-    <header class="w-full py-24 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
             style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');">
-        <div class="absolute inset-0 bg-gray-900/60"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 text-sm font-bold text-gray-300 uppercase tracking-widest mb-4">
-                <a href="/public-service/" class="hover:text-white transition">Public Service</a>
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
+                <a href="/public-service/" class="hover:text-brand-lightblue transition">Public Service</a>
                 <i class="fa-solid fa-chevron-right text-xs"></i>
                 <span class="text-brand-lightblue">Core Policy</span>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-md">Education Reform</h1>
-            <p class="text-xl text-gray-200 font-medium max-w-3xl mx-auto drop-shadow-sm">Building a student-centered system that prioritizes practical skills, academic wellbeing, and modern teaching methods.</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Education Reform</h1>
+            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">Building a student-centered system that prioritizes practical skills, academic wellbeing, and modern teaching methods.</p>
         </div>
     </header>
 
@@ -428,7 +427,7 @@
 
         async function fetchEducationData() {
             try {
-                // A. Fetch Initiatives (Filtering for education terms)
+                // A. Fetch Initiatives (Cards with images embedded)
                 const { data: initiatives } = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false });
                 if(initiatives) {
                     let eduInits = initiatives.filter(i => 
@@ -442,12 +441,16 @@
                     modalDataStore.initiatives = eduInits;
                     let html = '';
                     eduInits.slice(0,4).forEach((item, idx) => {
+                        let cardImage = item.featured_image_url 
+                            ? `<div class="w-full h-32 overflow-hidden border-b border-white/10"><img src="${item.featured_image_url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div>` 
+                            : '';
+
                         html += `
-                        <div onclick="openDataModal('initiatives', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer">
-                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
-                            <h5 class="text-white font-bold text-[15px] group-hover:text-brand-lightblue transition line-clamp-2 leading-snug pl-2 mb-2">${item.title}</h5>
-                            <div class="pl-2">
-                                <div class="w-full bg-gray-700 rounded-full h-1 mt-2">
+                        <div onclick="openDataModal('initiatives', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer overflow-hidden flex flex-col mb-4">
+                            ${cardImage}
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <h5 class="text-white font-bold text-[15px] group-hover:text-brand-lightblue transition line-clamp-2 leading-snug mb-3">${item.title}</h5>
+                                <div class="w-full bg-gray-700 rounded-full h-1 mt-auto">
                                     <div class="bg-brand-lightblue h-1 rounded-full" style="width: ${item.progress_percentage || 0}%"></div>
                                 </div>
                             </div>
@@ -471,10 +474,10 @@
                     eduMotions.slice(0,4).forEach((item, idx) => {
                         let statusColor = item.status === 'Passed' ? 'text-green-400 bg-green-900/30' : item.status === 'Rejected' ? 'text-red-400 bg-red-900/30' : 'text-brand-lightblue bg-blue-900/30';
                         html += `
-                        <div onclick="openDataModal('motions', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer">
+                        <div onclick="openDataModal('motions', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer mb-4">
                             <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
                             <div class="flex justify-between items-start mb-2 pl-2">
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${statusColor}">${item.status}</span>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-white/5 ${statusColor}">${item.status}</span>
                             </div>
                             <h5 class="text-white font-bold text-[15px] group-hover:text-brand-lightblue transition line-clamp-2 leading-snug pl-2">${item.title}</h5>
                         </div>`;
@@ -482,22 +485,23 @@
                     document.getElementById('dynamic-edu-motions').innerHTML = html || emptyDarkStateHTML;
                 }
 
-                // C. Fetch Reports (Filtering for education)
+                // C. Fetch Reports (Hyper-Forgiving filtering for education)
                 const { data: reports } = await supabaseClient.from('resources').select('*').order('created_at', { ascending: false });
                 if(reports) {
                     let eduReports = reports.filter(r => 
                         r.title.toLowerCase().includes('education') || 
                         r.title.toLowerCase().includes('school') ||
-                        (r.category && r.category.toLowerCase().includes('education'))
+                        (r.category && r.category.toLowerCase().includes('education')) ||
+                        (r.category && r.category.toLowerCase().includes('school'))
                     );
                     if(eduReports.length === 0) eduReports = reports.slice(0,4); // Fallback
                     
                     let html = '';
                     eduReports.slice(0,4).forEach(item => {
                         html += `
-                        <a href="${item.file_url}" target="_blank" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all flex items-center gap-4 shadow-lg overflow-hidden">
+                        <a href="${item.file_url}" target="_blank" class="group block relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg overflow-hidden flex items-center gap-4 mb-4">
                             <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
-                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue group-hover:text-white transition shrink-0 ml-1">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue/30 flex items-center justify-center text-brand-lightblue group-hover:bg-brand-blue group-hover:text-white transition shrink-0 ml-1 border border-brand-blue/50">
                                 <i class="fa-solid fa-download"></i>
                             </div>
                             <div>
