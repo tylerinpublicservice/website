@@ -3,33 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Vault | Office of Tyler Nicholas</title> 
+    <title>Official Document Center | Office of Tyler Nicholas</title>
     
-    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
-    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'], 
-                        heading: ['Poppins', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
                     },
                     colors: {
-                        brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' },
-                        seychelles: { blue: '#003F87', yellow: '#FCD856', red: '#D62828', white: '#FFFFFF', green: '#007A3D' }
-                    },
-                    boxShadow: { 
-                        'soft': '0 10px 40px -10px rgba(0,174,239,0.15)',
-                        'card': '0 4px 20px rgba(0,0,0,0.03)'
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
                     }
                 }
             }
@@ -37,107 +35,282 @@
     </script>
 
     <style>
-        body { background-color: #FAFAFA; -webkit-font-smoothing: antialiased; }
-        .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-        .delay-100 { animation-delay: 100ms; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-        .nav-link { position: relative; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        
-        .seychelles-gradient { background: linear-gradient(to right, #003F87 20%, #FCD856 20% 40%, #D62828 40% 60%, #e5e7eb 60% 80%, #007A3D 80% 100%); }
+        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen text-brand-dark">
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
 
-    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide" data-i18n="banner">
-        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Documents</p>
+        </div>
     </div>
 
-    <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 transition-shadow duration-300 border-b border-gray-100" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            
-            <a href="/" class="flex items-center gap-2 group">
-                <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
-            </a>
-
-            <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
-
-            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
-                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
-                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
-                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
-                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
-            </div>
-
-            <div class="hidden lg:flex items-center space-x-6">
-                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft hover:shadow-md transform hover:-translate-y-0.5 inline-block">
-                    Let's Talk
-                </a>
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
+                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
-        <div class="p-6 flex justify-between items-center border-b border-gray-100">
-            <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
-            <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
+    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Public Records</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Document Center</h1>
+            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">The official repository for downloadable policy briefs, reports, forms, and public documentation.</p>
         </div>
-        <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
-        </div>
-    </div>
+    </header>
 
-    <main class="flex-grow py-20 px-6 fade-up">
-        <div class="max-w-4xl mx-auto">
-            
-            <header class="mb-16 text-center border-b border-gray-200 pb-12">
-                <div class="inline-flex items-center gap-2 bg-red-50 text-red-600 border border-red-100 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6">
-                    <i class="fa-solid fa-lock"></i> Classified Server
-                </div>
-                <h1 class="text-4xl md:text-6xl font-serif font-bold text-brand-dark mb-6">Document Vault</h1>
-                <div class="h-1 w-32 mx-auto seychelles-gradient rounded-full mb-6"></div>
-                <p class="text-brand-muted max-w-lg mx-auto">Official correspondence, encrypted memos, and restricted statements from the desk of Tyler Nicholas.</p>
-            </header>
-
-            <div class="space-y-6">
+    <section class="bg-white border-b border-gray-200 py-6 sticky top-20 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                 
-                <a href="/document/442026/" class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-soft hover:border-brand-blue transition-all duration-300 group">
-                    <div class="mb-4 sm:mb-0">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded">Memo</span>
-                            <span class="text-xs text-brand-blue font-mono font-bold">#442026</span>
-                        </div>
-                        <h2 class="text-xl font-heading font-bold text-brand-dark group-hover:text-brand-blue transition-colors">EGR Board of Directors: Status Update</h2>
-                    </div>
-                    <div class="flex items-center gap-6">
-                        <div class="text-right hidden sm:block">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Date Published</p>
-                            <p class="text-sm font-medium text-brand-dark">April 4, 2026</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue group-hover:border-brand-blue group-hover:text-white transition-all">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </a>
+                <div class="w-full md:w-1/2 relative">
+                    <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="search-doc" placeholder="Search document titles..." class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition placeholder-gray-400 font-medium">
+                </div>
+
+                <div class="w-full md:w-1/3">
+                    <select id="filter-doc" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue transition font-medium appearance-none cursor-pointer">
+                        <option value="All">All Document Types</option>
+                        <option value="Policy Brief">Policy Briefs</option>
+                        <option value="Report">Official Reports</option>
+                        <option value="Form">Forms & Applications</option>
+                        <option value="Guide">Guides & Toolkits</option>
+                    </select>
+                </div>
 
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-white border-t border-gray-200 py-12 text-center">
-        <p class="text-xs text-gray-400 uppercase tracking-widest font-heading font-bold">&copy; 2026 Office of Tyler Nicholas. All Rights Reserved.</p>
+    <section class="bg-gray-50 py-24 min-h-[50vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex justify-between items-end mb-10 border-b-2 border-gray-200 pb-4">
+                <h3 class="text-2xl font-black text-gray-900 tracking-tight">Available Documents</h3>
+                <div class="text-sm font-bold text-gray-500">
+                    <span id="doc-count" class="text-brand-blue">0</span> files
+                </div>
+            </div>
+
+            <div id="document-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
+                    
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
+                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                        <li><a href="/resources/" class="text-white font-semibold transition">Resources</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+                <p class="mt-4 md:mt-0">
+                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
+                </p>
+            </div>
+        </div>
     </footer>
 
     <script>
-        const mobileMenu = document.getElementById('mobile-menu-overlay');
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
-        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        // =====================================================================
+        // 🚨 HOW TO ADD A NEW PDF TO THE WEBSITE 🚨
+        // =====================================================================
+        // 1. Upload your PDF file to your server inside the "/document/" folder.
+        // 2. Add a new block inside the DOCUMENT_ARCHIVE list below.
+        // 3. Make sure 'filename' is the exact name of your uploaded PDF.
+        //
+        // Categories available: "Policy Brief", "Report", "Form", "Guide"
+        // =====================================================================
+
+        const DOCUMENT_ARCHIVE = [
+            {
+                title: "Example Policy Proposal 2026",
+                category: "Policy Brief",
+                date: "May 13, 2026",
+                filename: "example_policy.pdf",
+                size: "1.2 MB"
+            },
+            {
+                title: "Annual Impact Report",
+                category: "Report",
+                date: "January 15, 2026",
+                filename: "impact_report_2025.pdf",
+                size: "3.4 MB"
+            },
+            {
+                title: "Volunteer Registration Form",
+                category: "Form",
+                date: "February 01, 2026",
+                filename: "volunteer_form.pdf",
+                size: "450 KB"
+            }
+            // COPY AND PASTE A BLOCK LIKE THE ONE ABOVE TO ADD A NEW PDF!
+        ];
+
+        // =====================================================================
+        // DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING
+        // =====================================================================
+
+        // System Colors for Categories
+        function getCategoryStyle(category) {
+            switch(category) {
+                case 'Policy Brief': return 'bg-purple-100 text-purple-700 border-purple-200';
+                case 'Report': return 'bg-blue-100 text-blue-700 border-blue-200';
+                case 'Form': return 'bg-green-100 text-green-700 border-green-200';
+                case 'Guide': return 'bg-orange-100 text-orange-700 border-orange-200';
+                default: return 'bg-gray-100 text-gray-700 border-gray-200';
+            }
+        }
+
+        // Render Engine
+        function renderDocuments(docs) {
+            const grid = document.getElementById('document-grid');
+            document.getElementById('doc-count').textContent = docs.length;
+
+            if (docs.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-mono text-sm bg-white rounded-xl border border-gray-200 shadow-sm">No documents match your search.</div>';
+                return;
+            }
+
+            let html = '';
+            docs.forEach(doc => {
+                const colorClass = getCategoryStyle(doc.category);
+                // Dynamically build the path based on your requirement: /document/filename.pdf
+                const fileUrl = `/document/${doc.filename}`;
+
+                html += `
+                <a href="${fileUrl}" target="_blank" class="group bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-brand-lightblue transition duration-300 p-6 flex flex-col relative overflow-hidden">
+                    <div class="flex items-start justify-between mb-4 relative z-10">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-red-50 text-red-500 border border-red-100 group-hover:scale-110 transition duration-300 shadow-sm">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded border ${colorClass}">${doc.category}</span>
+                    </div>
+                    
+                    <div class="relative z-10 flex-grow">
+                        <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-blue transition leading-snug pr-4">${doc.title}</h4>
+                        <div class="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest mt-auto pt-4">
+                            <i class="fa-regular fa-calendar mr-2"></i> ${doc.date}
+                            <span class="mx-2">•</span>
+                            ${doc.size}
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition duration-300 transform translate-x-4 group-hover:translate-x-0 z-0">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-3xl text-gray-100"></i>
+                    </div>
+                </a>`;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        // Search & Filter Engine
+        function filterDocuments() {
+            const searchTerm = document.getElementById('search-doc').value.toLowerCase();
+            const categoryFilter = document.getElementById('filter-doc').value;
+
+            let filtered = DOCUMENT_ARCHIVE;
+
+            if (categoryFilter !== 'All') {
+                filtered = filtered.filter(doc => doc.category === categoryFilter);
+            }
+
+            if (searchTerm) {
+                filtered = filtered.filter(doc => 
+                    doc.title.toLowerCase().includes(searchTerm) || 
+                    doc.filename.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Sort by date descending (rough sort assuming standard format)
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            renderDocuments(filtered);
+        }
+
+        // Event Listeners
+        document.getElementById('search-doc').addEventListener('input', filterDocuments);
+        document.getElementById('filter-doc').addEventListener('change', filterDocuments);
+
+        // Page Load Sequence
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+            
+            setTimeout(hideLoader, 300); 
+            window.addEventListener('load', hideLoader);
+            
+            // Initial Render
+            filterDocuments();
+        });
     </script>
 </body>
 </html>
