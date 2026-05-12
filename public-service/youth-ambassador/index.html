@@ -58,30 +58,42 @@
     </div>
 
     <div id="entry-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeModal('entry-modal')"></div>
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all">
             <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
                 <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
-                <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                <button onclick="closeModal('entry-modal')" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
                     <i class="fa-solid fa-xmark text-2xl"></i>
                 </button>
             </div>
-            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                </div>
+            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
         </div>
     </div>
 
     <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeProjectModal()"></div>
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('project-modal')"></div>
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all border-t-8 border-brand-blue">
             <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
                 <h3 id="project-modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
-                <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                <button onclick="closeModal('project-modal')" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
                     <i class="fa-solid fa-xmark text-2xl"></i>
                 </button>
             </div>
-            <div id="project-modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                </div>
+            <div id="project-modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
+        </div>
+    </div>
+
+    <div id="location-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('location-modal')"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all">
+            <div id="location-modal-image" class="w-full h-48 md:h-64 bg-gray-200 relative bg-cover bg-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <button onclick="closeModal('location-modal')" class="absolute top-6 right-6 text-white hover:text-brand-yellow transition z-20" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl drop-shadow-md"></i>
+                </button>
+                <h3 id="location-modal-title" class="absolute bottom-6 left-6 text-3xl font-black text-white tracking-tight z-20 drop-shadow-lg"></h3>
+            </div>
+            <div id="location-modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
         </div>
     </div>
 
@@ -115,14 +127,21 @@
                 <span class="text-brand-lightblue">International Engagement</span>
             </div>
             <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Youth Ambassador Program</h1>
-            <p class="text-xl text-gray-400 font-medium max-w-2xl mx-auto">Bridging cultural divides, fostering mutual respect, and preparing the leaders of tomorrow.</p>
+            <p class="text-xl text-gray-400 font-medium max-w-2xl mx-auto mb-6">Bridging cultural divides, fostering mutual respect, and preparing the leaders of tomorrow.</p>
+            
+            <div class="mt-4 inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm shadow-lg">
+                <img src="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" alt="Seychelles Flag" class="w-6 h-4 object-cover rounded-sm shadow-sm">
+                <span class="text-sm font-bold text-white tracking-widest uppercase drop-shadow-sm">Representing Seychelles</span>
+            </div>
         </div>
     </header>
 
     <section class="bg-white py-8 border-b border-gray-200 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
-                <img src="https://brandingstyleguides.com/wp-content/guidelines/2025/04/US-Department-of-State.jpg" alt="U.S. Department of State" class="h-16 object-contain">
+                <a href="https://www.state.gov/" target="_blank" class="hover:opacity-80 transition transform hover:scale-105">
+                    <img src="https://brandingstyleguides.com/wp-content/guidelines/2025/04/US-Department-of-State.jpg" alt="U.S. Department of State" class="h-16 object-contain">
+                </a>
                 
                 <div class="hidden md:block h-12 w-px bg-gray-300"></div>
                 
@@ -130,7 +149,9 @@
                 
                 <div class="hidden md:block h-12 w-px bg-gray-300"></div>
                 
-                <img src="https://www.ph-int.org/wp-content/uploads/2024/08/cropped-PH.Int_.Secondary.CMYK_.jpg" alt="PH International Logo" class="h-12 object-contain">
+                <a href="https://www.ph-int.org/" target="_blank" class="hover:opacity-80 transition transform hover:scale-105">
+                    <img src="https://www.ph-int.org/wp-content/uploads/2024/08/cropped-PH.Int_.Secondary.CMYK_.jpg" alt="PH International Logo" class="h-12 object-contain">
+                </a>
             </div>
         </div>
     </section>
@@ -146,27 +167,27 @@
                         <div class="space-y-6">
                             <div>
                                 <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Cohort</span>
-                                <span class="font-bold text-gray-900 text-lg">Youth Ambassadors Africa (2025-2026)</span>
-                            </div>
-                            
-                            <div>
-                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Program Length</span>
-                                <span class="font-medium text-gray-800">3-4 Weeks</span>
+                                <span class="font-bold text-gray-900 text-lg">Youth Ambassadors Africa</span>
                             </div>
 
                             <div>
-                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Core Activities</span>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Management</span>
+                                <span class="font-medium text-gray-800 text-sm">Implemented by PH International, an organization with over $100M in U.S. government funding history and 15,000+ exchange alumni.</span>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Core Objectives</span>
                                 <ul class="text-sm text-gray-700 space-y-1 mt-2">
-                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Leadership Seminars</li>
-                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Community Service</li>
-                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Team Building</li>
-                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Cultural Exchange</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Civic Engagement</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Participatory Democracy</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Adaptive Leadership</li>
+                                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Action Planning</li>
                                 </ul>
                             </div>
 
                             <div>
                                 <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Accommodations</span>
-                                <p class="text-sm text-gray-700">Homestays with American families, university dormitories, and program hotels.</p>
+                                <p class="text-sm text-gray-700">Homestays with American families, university dormitories, and program hotels to offer varied perspectives on U.S. life.</p>
                             </div>
                         </div>
                     </div>
@@ -180,29 +201,26 @@
                     
                     <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed">
                         <p class="font-medium text-xl text-gray-900">
-                            PH International’s Youth Ambassadors Africa Program (YA-AF) strengthens mutual understanding, prosperity, and global collaboration by empowering youth leaders to become active, responsible citizens both locally and globally.
+                            The Youth Ambassadors Program strengthens mutual understanding, prosperity, and global collaboration by empowering youth leaders to become active, responsible citizens both locally and globally.
                         </p>
                         <p>
-                            The program fosters mutual respect, helping to share values, build relationships, and bridge cultural divides to promote peaceful coexistence. As these leaders return home, they contribute to global stability, creating international partnerships that benefit mutual interests and enhance security, economic growth, and progress.
+                            The program fosters mutual respect, helping to share values, build relationships, and bridge cultural divides to promote peaceful coexistence. By developing critical thinking, problem-solving, and civic action skills, participants return home equipped to contribute to stability and progress within their own nations.
                         </p>
                         
                         <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">The Exchange Experience</h4>
                         <p>
-                            The Youth Ambassadors Program brings together high school students and adult mentors from countries across the globe to promote mutual understanding, increase leadership skills, and prepare youth to make a difference in their communities. While exchanges engage heavily with Latin America and the Caribbean, they also include highly selective delegations from Africa and the United States.
+                            The overall theme of the program is civic engagement. The exchange brings together highly selected participants to promote mutual understanding, increase leadership capacities, and prepare youth to implement tangible changes within their local communities.
                         </p>
                         <p>
-                            The program builds team spirit through hands-on service learning, leadership seminars, peer collaboration, and visits to entrepreneurial ventures and innovative local organizations. 
-                        </p>
-                        <p>
-                            A balanced mix of homestays, dorms, and hotels offers participants varied perspectives on American life. Homestays provide firsthand exposure to U.S. values, hospitality, and community life through daily interactions with American families. Dorm stays not only foster peer connections but also offer a window into campus life and American higher education. Hotel accommodations support large group gatherings and events with local leaders—and they also offer valuable downtime for participants to bond, reflect, and relax together as a cohort.
+                            The program builds team spirit through hands-on service learning, leadership seminars, peer collaboration, and visits to entrepreneurial ventures and innovative organizations. Participants learn from diverse environments—ranging from the policy-focused landscape of Washington, D.C. to the grassroots civil rights history of the American South.
                         </p>
 
-                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">Impact & Outcomes</h4>
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">Community Action & Impact</h4>
                         <p>
-                            The themes of civic education and youth leadership build participants’ self-confidence, resilience, and capacity to drive solutions to local challenges in their communities. Adult mentors will strengthen their mentoring and facilitation skills, enhancing support for youth-led initiatives. 
+                            The themes of civic education and youth leadership build participants’ self-confidence and capacity to drive solutions to challenges back home. A central objective of the program is the Action Planning Academy, where participants develop a concrete framework for execution.
                         </p>
                         <p class="font-semibold text-gray-900 p-6 bg-gray-100 rounded-lg border-l-4 border-brand-blue">
-                            Upon their return home, the students apply what they have learned to implement projects that serve critical needs in their communities, ensuring long-term alignment with international values and local progress.
+                            Upon returning to Seychelles, participants are required to apply what they have learned to formally implement a Community Action Plan (Community Impact Project) that serves critical needs, ensuring long-term civic progress.
                         </p>
                     </div>
                 </div>
@@ -218,11 +236,11 @@
                     <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Locations</h2>
                     <h3 class="text-3xl font-black text-gray-900 tracking-tight">Program Destinations</h3>
                 </div>
-                <p class="text-gray-500 max-w-md md:text-right mt-4 md:mt-0">The leadership exchange brings participants across distinct regions of the United States to provide a comprehensive view of American culture, governance, and community life.</p>
+                <p class="text-gray-500 max-w-md md:text-right mt-4 md:mt-0">Click on any destination below to view the specific objectives and curriculum focus for that region.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div onclick="openLocationModal('dc')" class="cursor-pointer group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <div class="h-48 overflow-hidden bg-gray-100 relative">
                         <div class="absolute inset-0 bg-brand-blue/10 group-hover:bg-transparent transition duration-300 z-10"></div>
                         <img src="https://ik.imgkit.net/3vlqs5axxjf/external/ik-seo/http://images.ntmllc.com/v4/destination/United-States/Washington-DC/112121_SCN_Washington-DC_iStock922906670_Z0D819/Washington-DC-Scenery.jpg?tr=w-780%2Ch-437%2Cfo-auto" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Washington D.C.">
@@ -233,7 +251,7 @@
                     </div>
                 </div>
 
-                <div class="group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div onclick="openLocationModal('nyc')" class="cursor-pointer group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <div class="h-48 overflow-hidden bg-gray-100 relative">
                         <div class="absolute inset-0 bg-brand-blue/10 group-hover:bg-transparent transition duration-300 z-10"></div>
                         <img src="https://images.travelandleisureasia.com/wp-content/uploads/sites/7/2024/03/01175504/central-park.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="New York City">
@@ -244,7 +262,7 @@
                     </div>
                 </div>
 
-                <div class="group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div onclick="openLocationModal('vermont')" class="cursor-pointer group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <div class="h-48 overflow-hidden bg-gray-100 relative">
                         <div class="absolute inset-0 bg-brand-blue/10 group-hover:bg-transparent transition duration-300 z-10"></div>
                         <img src="https://www.purevacations.com/wp-content/uploads/2023/08/Beautiful-fall-colours-1024x683.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Vermont">
@@ -255,7 +273,7 @@
                     </div>
                 </div>
 
-                <div class="group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div onclick="openLocationModal('alabama')" class="cursor-pointer group rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <div class="h-48 overflow-hidden bg-gray-100 relative">
                         <div class="absolute inset-0 bg-brand-blue/10 group-hover:bg-transparent transition duration-300 z-10"></div>
                         <img src="https://www.southernliving.com/thmb/i5NITcYPw6sz2wj226mZSO6m85c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-627365420-2000-a86c4b99138f4d4e9a921ad9d91c452b.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Alabama">
@@ -314,18 +332,18 @@
 
             <div class="space-y-6">
                 <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
-                    <h4 class="text-lg font-bold text-gray-900 mb-2">What is the primary goal of the program?</h4>
-                    <p class="text-gray-600 text-sm">To promote mutual understanding, increase leadership skills, and prepare youth to make a tangible difference in their home communities upon their return.</p>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Who funds the Youth Ambassador program?</h4>
+                    <p class="text-gray-600 text-sm">The exchange is fully funded by the U.S. Department of State and the Bureau of Educational and Cultural Affairs. This includes flights, emergency medical insurance, meals, and lodging.</p>
                 </div>
                 
                 <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
-                    <h4 class="text-lg font-bold text-gray-900 mb-2">What does the daily itinerary look like?</h4>
-                    <p class="text-gray-600 text-sm">Participants engage in civic workshops, community service activities, team-building exercises, and formal meetings with local U.S. community leaders.</p>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">What happens after the exchange in the U.S. concludes?</h4>
+                    <p class="text-gray-600 text-sm">During the program in New York, participants create a Community Action Plan. Upon returning home, they must apply what they learned to implement this community impact project locally.</p>
                 </div>
 
                 <div class="border border-gray-200 rounded-lg p-6 hover:border-gray-400 transition">
-                    <h4 class="text-lg font-bold text-gray-900 mb-2">What happens after the exchange?</h4>
-                    <p class="text-gray-600 text-sm">Students are required to apply what they have learned to design and implement formal community service projects that address specific needs within their home districts.</p>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">What is the focus of the Vermont segment?</h4>
+                    <p class="text-gray-600 text-sm">The Vermont curriculum focuses heavily on participatory democracy, local government engagement, public-private partnerships, and the role of the media in a democracy.</p>
                 </div>
             </div>
         </div>
@@ -381,7 +399,7 @@
     </footer>
 
     <script>
-        // 1. Loading Screen Logic
+        // Loading Screen Logic
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.getElementById('loader');
             const body = document.getElementById('body');
@@ -398,12 +416,78 @@
             setTimeout(hideLoader, 3000); 
         });
 
-        // 2. Global Arrays & Modal Logic
+        // Modal Utilities
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+        // Location Modal Data & Logic
+        const locationData = {
+            'dc': {
+                title: 'Washington, D.C.',
+                image: 'https://ik.imgkit.net/3vlqs5axxjf/external/ik-seo/http://images.ntmllc.com/v4/destination/United-States/Washington-DC/112121_SCN_Washington-DC_iStock922906670_Z0D819/Washington-DC-Scenery.jpg?tr=w-780%2Ch-437%2Cfo-auto',
+                content: `
+                    <p class="font-bold text-gray-900 text-lg mb-4">The starting and concluding point of the Youth Ambassador exchange.</p>
+                    <p>Participants arrive in the nation's capital to begin their journey. The initial segment includes a formal welcome session, introductions to the PH International team, and a tour of the U.S. Capitol.</p>
+                    <p>At the conclusion of the program, all cohorts return to Washington, D.C. for a final period of reflection. Activities include exploring the National Mall, debriefing directly with the U.S. Department of State, and celebrating the successful completion of the U.S. program before returning to Seychelles.</p>
+                `
+            },
+            'nyc': {
+                title: 'New York City, New York',
+                image: 'https://images.travelandleisureasia.com/wp-content/uploads/sites/7/2024/03/01175504/central-park.jpeg',
+                content: `
+                    <p class="font-bold text-gray-900 text-lg mb-4">Focus: Community-Led Change and Action Planning.</p>
+                    <p>The New York City segment is heavily focused on actionable, structural change. Participants stay on campus at the Pratt Institute dorms in Brooklyn, experiencing life in a dense, fast-paced metropolitan environment.</p>
+                    <p>The core academic component here is the <strong>Action Planning Academy</strong>. Ambassadors learn the mechanics of community-led change and develop their own Community Action Plan—the very project they will bring back and implement in Seychelles. Cultural excursions, such as experiencing Broadway, round out the New York curriculum.</p>
+                `
+            },
+            'vermont': {
+                title: 'Vermont',
+                image: 'https://www.purevacations.com/wp-content/uploads/2023/08/Beautiful-fall-colours-1024x683.jpg',
+                content: `
+                    <p class="font-bold text-gray-900 text-lg mb-4">Focus: Participatory Democracy and Local Governance.</p>
+                    <p>In the rural setting of Vermont, the focus shifts to how democracy operates at the local level. Participants stay with local American host families, providing a firsthand view of American community life, values, and hospitality.</p>
+                    <p>The curriculum involves meeting with state and local government officials, learning how youth leadership influences policy-making, studying public-private partnerships, and analyzing the critical role of access to information and media in maintaining a healthy democracy.</p>
+                `
+            },
+            'alabama': {
+                title: 'Birmingham, Alabama',
+                image: 'https://www.southernliving.com/thmb/i5NITcYPw6sz2wj226mZSO6m85c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-627365420-2000-a86c4b99138f4d4e9a921ad9d91c452b.jpg',
+                content: `
+                    <p class="font-bold text-gray-900 text-lg mb-4">Focus: Adaptive Leadership, Resilience, and Civil Rights.</p>
+                    <p>Staying on campus at the University of Alabama-Birmingham, participants experience life in a mid-sized Southern city with profound historical significance.</p>
+                    <p>The Birmingham segment is dedicated to community problem-solving and critical thinking. Participants visit organizations that unite communities to solve local issues, take part in hands-on service-learning activities, and study the immense legacy of the American Civil Rights Movement to understand resilience and adaptive leadership.</p>
+                `
+            }
+        };
+
+        function openLocationModal(locId) {
+            const data = locationData[locId];
+            if(!data) return;
+            
+            document.getElementById('location-modal-title').textContent = data.title;
+            document.getElementById('location-modal-image').style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('location-modal-content').innerHTML = data.content;
+            
+            openModal('location-modal');
+        }
+
+        // Global Arrays for Supabase Data
         let globalJournalEntries = [];
         let globalProjectEntries = [];
 
-        // Journal Modal
-        function openModal(index) {
+        // Journal Modal Logic
+        function openJournalModal(index) {
             const entry = globalJournalEntries[index];
             if (!entry) return;
             
@@ -424,22 +508,11 @@
             `;
 
             document.getElementById('modal-content').innerHTML = imageHTML + metaHTML + (entry.content || 'No detailed content available.');
-            
-            const modal = document.getElementById('entry-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.getElementById('body').classList.add('overflow-hidden');
+            openModal('entry-modal');
         }
 
-        function closeModal() {
-            const modal = document.getElementById('entry-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.getElementById('body').classList.remove('overflow-hidden');
-        }
-
-        // Project Modal
-        function openProjectModal(index) {
+        // Project Modal Logic
+        function openProjectModalLogic(index) {
             const project = globalProjectEntries[index];
             if (!project) return;
             
@@ -460,22 +533,11 @@
             `;
 
             document.getElementById('project-modal-content').innerHTML = metaHTML + (project.description || '<p>No detailed description available at this time.</p>');
-            
-            const modal = document.getElementById('project-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.getElementById('body').classList.add('overflow-hidden');
-        }
-
-        function closeProjectModal() {
-            const modal = document.getElementById('project-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.getElementById('body').classList.remove('overflow-hidden');
+            openModal('project-modal');
         }
 
 
-        // 3. Supabase Connection & Fetch Logic
+        // Supabase Connection & Fetch Logic
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -509,7 +571,7 @@
                             : '';
 
                         html += `
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition flex flex-col justify-between cursor-pointer group" onclick="openModal(${index})">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition flex flex-col justify-between cursor-pointer group" onclick="openJournalModal(${index})">
                             ${imageHTML}
                             <div class="p-6 flex flex-col h-full justify-between">
                                 <div>
@@ -547,7 +609,7 @@
                         let statusColor = item.status === 'active' ? 'bg-brand-lightblue' : 'bg-gray-500';
                         
                         html += `
-                        <div class="border border-gray-700 bg-gray-800 p-8 flex flex-col justify-between rounded-lg hover:border-brand-lightblue hover:shadow-2xl transition cursor-pointer group" onclick="openProjectModal(${index})">
+                        <div class="border border-gray-700 bg-gray-800 p-8 flex flex-col justify-between rounded-lg hover:border-brand-lightblue hover:shadow-2xl transition cursor-pointer group" onclick="openProjectModalLogic(${index})">
                             <div class="mb-8">
                                 <div class="flex justify-between items-start mb-4">
                                     <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue bg-blue-900/30 px-3 py-1 rounded-full">${item.status}</span>
