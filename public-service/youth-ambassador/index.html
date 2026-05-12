@@ -57,6 +57,22 @@
         </div>
     </div>
 
+    <div id="entry-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
+                <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                </div>
+        </div>
+    </div>
+
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
@@ -293,7 +309,7 @@
     </footer>
 
     <script>
-        // Loading Screen Logic
+        // 1. Loading Screen Logic
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.getElementById('loader');
             const body = document.getElementById('body');
@@ -310,7 +326,49 @@
             setTimeout(hideLoader, 3000); 
         });
 
-        // Supabase Connection
+        // 2. Modal Logic (Open/Close)
+        let globalJournalEntries = []; // Store fetched entries here
+
+        function openModal(index) {
+            const entry = globalJournalEntries[index];
+            if (!entry) return;
+            
+            let dateObj = new Date(entry.travel_date);
+            let dateString = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            
+            // Set the Title
+            document.getElementById('modal-title').textContent = entry.title;
+            
+            // Build the image (if exists) and the meta information for the top of the body
+            let imageHTML = entry.image_url 
+                ? `<img src="${entry.image_url}" alt="${entry.title}" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-sm mb-6">` 
+                : '';
+            
+            let metaHTML = `
+                <div class="flex items-center gap-6 mb-8 pb-6 border-b border-gray-200 text-sm font-bold text-gray-500 uppercase tracking-wider">
+                    <span><i class="fa-solid fa-calendar-day mr-2 text-brand-lightblue"></i> ${dateString}</span>
+                    <span class="text-brand-blue"><i class="fa-solid fa-location-dot mr-2 text-brand-lightblue"></i> ${entry.location || 'Location TBA'}</span>
+                </div>
+            `;
+
+            // Inject into DOM
+            document.getElementById('modal-content').innerHTML = imageHTML + metaHTML + (entry.content || 'No detailed content available.');
+            
+            // Show Modal and freeze background scrolling
+            const modal = document.getElementById('entry-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('entry-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+        // 3. Supabase Connection & Fetch Logic
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -320,31 +378,32 @@
 
         async function fetchAmbassadorData() {
             try {
-                // 1. Fetch Travel Journal using the NEW dedicated table, including the image_url
+                // Fetch Travel Journal
                 const { data: journalData, error: jError } = await supabaseClient
                     .from('travel_journal')
                     .select('title, travel_date, location, content, image_url')
                     .eq('is_published', true)
                     .order('travel_date', { ascending: false })
-                    .limit(3);
+                    .limit(6); // Fetching up to 6 entries
 
                 const journalContainer = document.getElementById('dynamic-journal');
                 
                 if (journalData && journalData.length > 0) {
+                    globalJournalEntries = journalData; // Save for the modal to use
                     let html = '';
-                    journalData.forEach(item => {
+                    
+                    journalData.forEach((item, index) => {
                         let dateObj = new Date(item.travel_date);
                         let dateString = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                        // Strip HTML from rich text content for preview
+                        // Strip HTML so the preview card is just clean text
                         let plainText = item.content.replace(/<[^>]+>/g, '');
                         
-                        // Check if an image exists to display at the top of the card
                         let imageHTML = item.image_url 
                             ? `<img src="${item.image_url}" alt="${item.title}" class="w-full h-48 object-cover border-b border-gray-100">` 
                             : '';
 
                         html += `
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col justify-between">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col justify-between cursor-pointer" onclick="openModal(${index})">
                             ${imageHTML}
                             <div class="p-6 flex flex-col h-full justify-between">
                                 <div>
@@ -352,10 +411,10 @@
                                         <span class="text-xs font-bold text-gray-400 uppercase tracking-wider"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateString}</span>
                                         <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'Location TBA'}</span>
                                     </div>
-                                    <h4 class="text-xl font-bold text-gray-900 mb-3">${item.title}</h4>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition">${item.title}</h4>
                                     <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
                                 </div>
-                                <a href="/newsroom/" class="mt-4 inline-block text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition">Read Full Entry &rarr;</a>
+                                <button type="button" class="mt-4 text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition focus:outline-none">Read Full Entry &rarr;</button>
                             </div>
                         </div>`;
                     });
@@ -364,7 +423,7 @@
                     journalContainer.innerHTML = emptyStateHTML;
                 }
 
-                // 2. Fetch Project Tracker using the NEW dedicated table
+                // Fetch Project Tracker
                 const { data: projectData, error: pError } = await supabaseClient
                     .from('ambassador_projects')
                     .select('title, description, status, progress_percentage')
