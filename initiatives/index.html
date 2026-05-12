@@ -210,10 +210,17 @@
                     <div class="absolute bottom-4 left-4 right-4"><h4 class="text-white font-bold text-lg leading-tight">Entrepreneurship</h4></div>
                 </a>
 
-                <a href="/initiatives/categories/" class="snap-start shrink-0 w-72 h-40 bg-brand-blue rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:bg-brand-lightblue transition group flex flex-col items-center justify-center text-center p-6 border border-brand-lightblue">
-                    <i class="fa-solid fa-layer-group text-3xl text-white mb-3 group-hover:scale-110 transition duration-300"></i>
-                    <h4 class="text-white font-bold text-lg leading-tight">View All Categories</h4>
-                    <p class="text-blue-200 text-xs mt-1">Deep dive into all sectors</p>
+                <a href="/initiatives/more/" class="snap-start shrink-0 w-72 h-40 relative rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition group border-2 border-brand-lightblue">
+                    <img src="https://escales.ponant.com/wp-content/uploads/2021/11/iStock-1161121860-1.jpg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-brand-blue/30 group-hover:bg-brand-blue/10 transition duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-2 group-hover:bg-brand-blue transition">
+                            <i class="fa-solid fa-arrow-right text-xl text-white transform group-hover:translate-x-1 transition"></i>
+                        </div>
+                        <h4 class="text-white font-black text-xl tracking-tight drop-shadow-md">Explore More</h4>
+                        <p class="text-gray-200 text-xs font-bold uppercase tracking-widest mt-1">View all categories</p>
+                    </div>
                 </a>
 
             </div>
@@ -245,7 +252,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 border-b-2 border-brand-lightblue pb-4">
                 <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Upcoming & Proposed</h3>
-                <p class="text-gray-600 mt-4 text-lg">Projects in the planning, funding, or legislative review phase. Review our strategic goals and resource requirements.</p>
+                <p class="text-gray-600 mt-4 text-lg">Projects in the planning, funding, or legislative review phase.</p>
             </div>
 
             <div id="dynamic-proposed" class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -265,11 +272,11 @@
                     <i class="fa-solid fa-check-double"></i> Verified Impact
                 </div>
                 <h3 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-lg">Completed Initiatives</h3>
-                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Review the hard data, post-action reports, and community impact of our successfully executed campaigns.</p>
+                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Review the hard data and history of our successfully executed campaigns.</p>
             </div>
 
             <div id="dynamic-completed" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="col-span-full py-12 text-center text-gray-400 font-mono text-sm dark-glass rounded-xl border border-white/10">Loading completed projects...</div>
+                <div class="col-span-full py-12 text-center text-gray-400 font-mono text-sm dark-glass rounded-xl">Loading completed projects...</div>
             </div>
         </div>
     </section>
@@ -342,7 +349,7 @@
         });
 
         // 2. Data Stores & Modal Management
-        let globalInitiatives = [];
+        let globalInitiatives = []; // Store all fetched records
 
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
@@ -371,19 +378,21 @@
             
             let statusColor = item.status === 'active' ? 'bg-green-500' : item.status === 'completed' ? 'bg-brand-blue' : 'bg-brand-lightblue';
             
+            // Build the immersive header image
             let heroHTML = item.featured_image_url ? `
                 <div class="w-full h-72 md:h-96 relative bg-gray-900">
                     <img src="${item.featured_image_url}" class="w-full h-full object-cover opacity-80">
                     <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-gray-50 to-transparent"></div>
                 </div>
-            ` : '<div class="w-full h-24 bg-gray-100 border-b border-gray-200"></div>';
+            ` : '<div class="w-full h-24 bg-gray-100"></div>';
 
+            // Build Advanced UI Components (Strictly Supabase Data)
             let advancedUI = `
                 <div class="px-8 md:px-12 -mt-12 relative z-10 pb-12">
                     
                     <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div>
-                            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white ${statusColor}">${item.status}</span>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white ${statusColor} mb-2">${item.status}</span>
                         </div>
                         <div class="w-full md:w-1/2">
                             <div class="flex justify-between text-xs font-bold text-gray-600 mb-2">
@@ -401,7 +410,7 @@
                         <div class="${item.status === 'active' ? 'lg:col-span-2' : 'col-span-full'} space-y-8">
                             <div class="prose prose-lg text-gray-700 max-w-none">
                                 <h4 class="text-2xl font-bold text-gray-900 border-b-2 border-black pb-2 mb-4">Strategic Overview</h4>
-                                ${item.full_description || item.summary || '<p>Detailed brief is currently being drafted by the policy team.</p>'}
+                                ${item.full_description || item.summary || '<p>Detailed brief is currently being drafted.</p>'}
                             </div>
                         </div>
 
@@ -409,7 +418,7 @@
                         <div class="space-y-6">
                             <div class="bg-brand-blue text-white rounded-xl p-6 shadow-lg">
                                 <h4 class="font-black text-xl mb-2">Get Involved</h4>
-                                <p class="text-sm text-blue-100 mb-4">We are currently accepting volunteers to assist with the execution of this project.</p>
+                                <p class="text-sm text-blue-100 mb-4">We are currently accepting volunteers for execution phases.</p>
                                 <button onclick="openVolunteer('${item.title.replace(/'/g, "\\'")}')" class="w-full py-3 bg-white text-brand-blue font-bold rounded hover:bg-gray-100 transition shadow">Sign Up Now</button>
                             </div>
                         </div>
@@ -429,7 +438,7 @@
         
         async function fetchAllInitiatives() {
             try {
-                // Fetch ALL initiatives with no limit
+                // Fech ALL initiatives, no limits
                 const { data, error } = await supabaseClient
                     .from('initiatives')
                     .select('*')
@@ -467,15 +476,13 @@
                                     </div>
 
                                     <div class="mt-auto grid grid-cols-2 gap-4">
-                                        <button onclick="openInitiativeDetails(${idx})" class="w-full py-3 bg-gray-100 text-gray-800 font-bold rounded hover:bg-gray-200 transition text-sm">View Strategy</button>
+                                        <button onclick="openInitiativeDetails(${idx})" class="w-full py-3 bg-gray-100 text-gray-800 font-bold rounded hover:bg-gray-200 transition text-sm">View Details</button>
                                         <button onclick="openVolunteer('${item.title.replace(/'/g, "\\'")}')" class="w-full py-3 bg-brand-blue text-white font-bold rounded hover:bg-brand-lightblue transition text-sm shadow-md"><i class="fa-solid fa-hand-holding-heart mr-2"></i> Volunteer</button>
                                     </div>
                                 </div>
                             </div>`;
                         });
                         activeContainer.innerHTML = html;
-                    } else {
-                        activeContainer.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-gray-50 rounded-xl border border-gray-200">No active projects currently available.</div>';
                     }
 
                     // 2. Render Proposed (Compact Cards)
@@ -492,8 +499,6 @@
                             </div>`;
                         });
                         propContainer.innerHTML = html;
-                    } else {
-                        propContainer.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-white rounded-xl border border-gray-200">No proposed projects currently on file.</div>';
                     }
 
                     // 3. Render Completed (Dark Glassmorphism)
@@ -514,8 +519,6 @@
                             </div>`;
                         });
                         compContainer.innerHTML = html;
-                    } else {
-                        compContainer.innerHTML = '<div class="col-span-full py-12 text-center text-gray-400 font-mono text-sm dark-glass rounded-xl border border-white/10">No completed projects currently on file.</div>';
                     }
 
                 }
