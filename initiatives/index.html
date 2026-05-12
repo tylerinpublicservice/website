@@ -60,6 +60,8 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
@@ -160,16 +162,13 @@
         </div>
     </header>
 
-    <section class="bg-gray-100 py-16 border-b border-gray-200">
+    <section class="bg-gray-100 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-8">
                 <div>
                     <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Explore By Sector</h2>
                     <h3 class="text-2xl font-black text-gray-900 tracking-tight">Initiative Categories</h3>
                 </div>
-                <a href="#active-projects" class="hidden md:inline-flex items-center text-sm font-bold text-gray-500 hover:text-brand-blue transition">
-                    Jump to live projects <i class="fa-solid fa-arrow-down ml-2"></i>
-                </a>
             </div>
 
             <div class="flex overflow-x-auto gap-6 pb-6 snap-x hide-scroll">
@@ -209,28 +208,26 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 right-4"><h4 class="text-white font-bold text-lg leading-tight">Entrepreneurship</h4></div>
                 </a>
-
-                <a href="/initiatives/more/" class="snap-start shrink-0 w-72 h-40 relative rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition group border-2 border-brand-lightblue">
-                    <img src="https://escales.ponant.com/wp-content/uploads/2021/11/iStock-1161121860-1.jpg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-brand-blue/30 group-hover:bg-brand-blue/10 transition duration-500"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
-                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-2 group-hover:bg-brand-blue transition">
-                            <i class="fa-solid fa-arrow-right text-xl text-white transform group-hover:translate-x-1 transition"></i>
-                        </div>
-                        <h4 class="text-white font-black text-xl tracking-tight drop-shadow-md">Explore More</h4>
-                        <p class="text-gray-200 text-xs font-bold uppercase tracking-widest mt-1">View all categories</p>
-                    </div>
-                </a>
-
             </div>
         </div>
     </section>
 
-    <style>
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <section class="bg-gray-100 pb-16 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="/initiatives/categories/" class="relative block w-full h-48 md:h-64 rounded-2xl overflow-hidden shadow-2xl hover:shadow-brand-blue/30 transition duration-500 group border-4 border-brand-lightblue">
+                <img src="https://escales.ponant.com/wp-content/uploads/2021/11/iStock-1161121860-1.jpg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                <div class="absolute inset-0 bg-brand-blue/40 group-hover:bg-brand-blue/20 transition duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                    <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-blue transition shadow-lg">
+                        <i class="fa-solid fa-arrow-right text-2xl text-white transform group-hover:translate-x-2 transition duration-300"></i>
+                    </div>
+                    <h4 class="text-white font-black text-3xl md:text-4xl tracking-tight drop-shadow-lg">Explore All Categories</h4>
+                    <p class="text-gray-200 text-sm font-bold uppercase tracking-widest mt-2 drop-shadow-md">Deep dive into every public service sector</p>
+                </div>
+            </a>
+        </div>
+    </section>
 
     <section id="active-projects" class="bg-white py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -272,7 +269,7 @@
                     <i class="fa-solid fa-check-double"></i> Verified Impact
                 </div>
                 <h3 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-lg">Completed Initiatives</h3>
-                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Review the hard data and history of our successfully executed campaigns.</p>
+                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Review the history of our successfully executed campaigns.</p>
             </div>
 
             <div id="dynamic-completed" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -333,7 +330,7 @@
     </footer>
 
     <script>
-        // 1. Loading Screen
+        // Loading Screen
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.getElementById('loader');
             const body = document.getElementById('body');
@@ -348,8 +345,8 @@
             setTimeout(hideLoader, 3000); 
         });
 
-        // 2. Data Stores & Modal Management
-        let globalInitiatives = []; // Store all fetched records
+        // Modal Management
+        let globalInitiatives = []; 
 
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
@@ -363,7 +360,6 @@
             document.getElementById('body').classList.remove('overflow-hidden');
         }
 
-        // Open Volunteer Form mapped to a specific project
         function openVolunteer(projectTitle) {
             document.getElementById('vol-project').value = projectTitle;
             openModal('volunteer-modal');
@@ -375,25 +371,19 @@
             if(!item) return;
 
             document.getElementById('modal-title').textContent = item.title;
-            
             let statusColor = item.status === 'active' ? 'bg-green-500' : item.status === 'completed' ? 'bg-brand-blue' : 'bg-brand-lightblue';
             
-            // Build the immersive header image
             let heroHTML = item.featured_image_url ? `
                 <div class="w-full h-72 md:h-96 relative bg-gray-900">
                     <img src="${item.featured_image_url}" class="w-full h-full object-cover opacity-80">
                     <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-gray-50 to-transparent"></div>
                 </div>
-            ` : '<div class="w-full h-24 bg-gray-100"></div>';
+            ` : '<div class="w-full h-24 bg-gray-100 border-b border-gray-200"></div>';
 
-            // Build Advanced UI Components (Strictly Supabase Data)
             let advancedUI = `
                 <div class="px-8 md:px-12 -mt-12 relative z-10 pb-12">
-                    
                     <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white ${statusColor} mb-2">${item.status}</span>
-                        </div>
+                        <div><span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white ${statusColor}">${item.status}</span></div>
                         <div class="w-full md:w-1/2">
                             <div class="flex justify-between text-xs font-bold text-gray-600 mb-2">
                                 <span>Execution Progress</span>
@@ -406,14 +396,12 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        
                         <div class="${item.status === 'active' ? 'lg:col-span-2' : 'col-span-full'} space-y-8">
                             <div class="prose prose-lg text-gray-700 max-w-none">
                                 <h4 class="text-2xl font-bold text-gray-900 border-b-2 border-black pb-2 mb-4">Strategic Overview</h4>
                                 ${item.full_description || item.summary || '<p>Detailed brief is currently being drafted.</p>'}
                             </div>
                         </div>
-
                         ${item.status === 'active' ? `
                         <div class="space-y-6">
                             <div class="bg-brand-blue text-white rounded-xl p-6 shadow-lg">
@@ -421,8 +409,7 @@
                                 <p class="text-sm text-blue-100 mb-4">We are currently accepting volunteers for execution phases.</p>
                                 <button onclick="openVolunteer('${item.title.replace(/'/g, "\\'")}')" class="w-full py-3 bg-white text-brand-blue font-bold rounded hover:bg-gray-100 transition shadow">Sign Up Now</button>
                             </div>
-                        </div>
-                        ` : ''}
+                        </div>` : ''}
                     </div>
                 </div>
             `;
@@ -431,28 +418,23 @@
             openModal('initiative-modal');
         }
 
-        // 3. Supabase Integration
+        // Supabase Integration
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         async function fetchAllInitiatives() {
             try {
-                // Fech ALL initiatives, no limits
-                const { data, error } = await supabaseClient
-                    .from('initiatives')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                const { data, error } = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false });
 
                 if (data) {
                     globalInitiatives = data;
                     
-                    // Filter arrays
                     const active = data.filter(d => d.status.toLowerCase() === 'active');
                     const proposed = data.filter(d => d.status.toLowerCase() === 'proposed');
                     const completed = data.filter(d => d.status.toLowerCase() === 'completed');
 
-                    // 1. Render Active (Large Cards with Volunteer Buttons)
+                    // Active
                     const activeContainer = document.getElementById('dynamic-active');
                     if(active.length > 0) {
                         let html = '';
@@ -470,11 +452,9 @@
                                     </div>
                                     <h4 class="text-2xl font-bold text-gray-900 mb-3">${item.title}</h4>
                                     <p class="text-gray-600 mb-6 line-clamp-3">${item.summary || ''}</p>
-                                    
                                     <div class="w-full bg-gray-100 rounded-full h-2 mb-8">
                                         <div class="bg-green-500 h-2 rounded-full" style="width: ${item.progress_percentage || 0}%"></div>
                                     </div>
-
                                     <div class="mt-auto grid grid-cols-2 gap-4">
                                         <button onclick="openInitiativeDetails(${idx})" class="w-full py-3 bg-gray-100 text-gray-800 font-bold rounded hover:bg-gray-200 transition text-sm">View Details</button>
                                         <button onclick="openVolunteer('${item.title.replace(/'/g, "\\'")}')" class="w-full py-3 bg-brand-blue text-white font-bold rounded hover:bg-brand-lightblue transition text-sm shadow-md"><i class="fa-solid fa-hand-holding-heart mr-2"></i> Volunteer</button>
@@ -485,7 +465,7 @@
                         activeContainer.innerHTML = html;
                     }
 
-                    // 2. Render Proposed (Compact Cards)
+                    // Proposed
                     const propContainer = document.getElementById('dynamic-proposed');
                     if(proposed.length > 0) {
                         let html = '';
@@ -501,7 +481,7 @@
                         propContainer.innerHTML = html;
                     }
 
-                    // 3. Render Completed (Dark Glassmorphism)
+                    // Completed
                     const compContainer = document.getElementById('dynamic-completed');
                     if(completed.length > 0) {
                         let html = '';
@@ -520,14 +500,12 @@
                         });
                         compContainer.innerHTML = html;
                     }
-
                 }
             } catch (err) {
                 console.log(err);
             }
         }
 
-        // 4. Handle Volunteer Signup
         async function handleVolunteerSubmit(e) {
             e.preventDefault();
             const project = document.getElementById('vol-project').value;
@@ -542,23 +520,14 @@
             msgEl.classList.add('hidden');
 
             try {
-                // Using youth_concerns table as the inbox for forms
-                const { error } = await supabaseClient
-                    .from('youth_concerns')
-                    .insert([{ 
-                        subject: `[VOLUNTEER SIGNUP] ${project}`, 
-                        district: name, // storing name here
-                        description: `Contact: ${contact}\nSkills/Availability: ${skills}`,
-                        status: 'new'
-                    }]);
-
+                const { error } = await supabaseClient.from('youth_concerns').insert([{ 
+                    subject: `[VOLUNTEER SIGNUP] ${project}`, district: name, description: `Contact: ${contact}\nSkills/Availability: ${skills}`, status: 'new'
+                }]);
                 if (error) throw error;
-                
                 msgEl.textContent = "Thank you. Our team will contact you shortly.";
                 msgEl.className = "text-sm font-semibold text-green-600 text-center mt-3 block";
                 document.getElementById('volunteer-form').reset();
                 setTimeout(() => closeModal('volunteer-modal'), 3000);
-                
             } catch (err) {
                 msgEl.textContent = "System error. Please try again later.";
                 msgEl.className = "text-sm font-semibold text-red-600 text-center mt-3 block";
