@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initiatives, Policies & Youth Resources | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+        
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Hub</p>
+        </div>
+    </div>
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
+                    <a href="/initiatives/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Initiatives, Policies & Youth Resources</h1>
+            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">A central platform for youth-focused initiatives, public service priorities, community projects, and support resources across Seychelles.</p>
+            
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#core-policies" class="bg-white text-brand-blue font-bold px-6 py-3 rounded-full hover:bg-gray-100 transition shadow-lg">Explore Core Policies</a>
+                <a href="#foundation" class="bg-brand-blue text-white font-bold px-6 py-3 rounded-full hover:bg-brand-lightblue transition shadow-lg border border-brand-lightblue/50">Visit the Foundation</a>
+                <a href="#hotlines" class="bg-gray-900 text-white font-bold px-6 py-3 rounded-full hover:bg-black transition shadow-lg">View Youth Resources</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fa-solid fa-layer-group text-5xl text-brand-lightblue/30 mb-6"></i>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-8">Connecting Service to Real Needs</h2>
+            <div class="prose prose-lg text-gray-700 leading-relaxed mx-auto text-left md:text-center">
+                <p>The Office of Tyler Nicholas is built around a simple but powerful belief: public service must be visible, accessible, and connected to the real needs of people.</p>
+                <p>This page serves as a central hub for the Office’s major initiatives, policy priorities, community projects, and youth-focused resources. The purpose of this page is not only to present ideas. It is to create a clear and organised space where young people, students, families, educators, community organisations, and national partners can understand what the Office stands for, what issues it is focused on, and how these priorities connect to the future of Seychelles.</p>
+                <p>Young people should not have to search through multiple disconnected platforms to find help, opportunities, guidance, or information. Support must be easier to find. Opportunities must be easier to access. Public service must be easier to understand. This page is part of that wider effort.</p>
+                <p>The Office recognises that the challenges facing young people are not isolated. Education, mental health, employment, digital access, civic participation, and community development are all connected. This page exists to help build that connection.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="foundation" class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-100">
+                <div class="md:w-5/12 relative min-h-[300px]">
+                    <img src="https://safety4sea.com/wp-content/uploads/2019/03/seychelles-e1553266708632.png" alt="Seychelles Coast" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent flex flex-col justify-end p-8">
+                        <img src="https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg" alt="TNF Logo" class="w-32 h-auto rounded shadow-lg mb-4 bg-white p-1">
+                    </div>
+                </div>
+                <div class="md:w-7/12 p-8 md:p-12 flex flex-col justify-center">
+                    <h3 class="text-xs font-bold tracking-widest text-brand-lightblue uppercase mb-2">Humanitarian Arm</h3>
+                    <h4 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-6">Tyler Nicholas Foundation</h4>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                        The Tyler Nicholas Foundation represents the humanitarian, community-focused, and long-term social impact work connected to the wider vision of service, youth empowerment, and national contribution.
+                    </p>
+                    <p class="text-gray-600 mb-8">
+                        The Foundation is built on the belief that service should be practical, compassionate, and focused on real needs. It connects youth empowerment, education, mental health awareness, digital inclusion, community service, cultural preservation, and opportunity-building. It is not only about charity. It is about building systems of support.
+                    </p>
+                    <div>
+                        <a href="https://tyler-nicholas-foundation.online" target="_blank" class="inline-flex items-center bg-brand-blue text-white font-bold px-6 py-3 rounded hover:bg-brand-lightblue transition shadow-md">
+                            Visit Foundation Website <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-900 text-white py-24 relative overflow-hidden border-b-4 border-brand-blue">
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-5 pointer-events-none flex items-center justify-end">
+            <i class="fa-solid fa-network-wired text-[30rem] mr-[-10rem]"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Main Initiative Proposal</h2>
+                <h3 class="text-3xl md:text-5xl font-black tracking-tight mb-6">National Youth Resources & Opportunity Hub</h3>
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                    A proposed digital platform designed to bring together youth support, educational resources, opportunities, guidance, hotlines, public services, and essential directories into one accessible space for young people in Seychelles.
+                </p>
+                <p class="text-gray-400 mb-8">
+                    The idea is simple: support exists, but it is often scattered. The Hub would bring these areas together into one clear, searchable, youth-friendly platform, serving students, school leavers, young workers, youth leaders, volunteers, and entrepreneurs. Access to information is a form of empowerment.
+                </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-md shadow-2xl">
+                <h4 class="font-bold text-xl mb-6 text-white border-b border-white/10 pb-4">Proposed Hub Sections</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-300 text-sm">
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Education Library</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Youth Opportunities</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Scholarships & Training</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Mental Health Support</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Emergency Contacts</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Volunteer Directories</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Civic Education</div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-lightblue"></i> Entrepreneurship Resources</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="core-policies" class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">The Framework</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Core Policy Areas</h3>
+                <p class="text-gray-600 mt-4 text-lg">Click on any priority area below to review the full policy briefing, objectives, and proposed actions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="/public-service/education-reform/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/FbdSGnDd/Education-Reform.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Education Reform</h4></div>
+                </a>
+                <a href="/public-service/youth-participation/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/33R4YpV/Youth-Participation.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Youth Participation</h4></div>
+                </a>
+                <a href="/public-service/digital-access/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/rf0GmzWc/Digital-Access.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Digital Access</h4></div>
+                </a>
+                <a href="/public-service/mental-health/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/W4g61F5X/Mental-Health.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Mental Health</h4></div>
+                </a>
+                <a href="/public-service/community-service/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/KpVb3PLB/Community-Service.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Community Service</h4></div>
+                </a>
+                <a href="/public-service/national-development/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/m79rGjn/National-Development.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">National Development</h4></div>
+                </a>
+                <a href="/public-service/student-wellbeing/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/ynFqpFvj/Student-Wellbeing.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Student Wellbeing</h4></div>
+                </a>
+                <a href="/public-service/innovation-enterprise/" class="group bg-white rounded-xl overflow-hidden shadow border border-gray-200 hover:shadow-xl transition">
+                    <div class="h-32 w-full overflow-hidden bg-gray-100 border-b border-gray-100"><img src="https://i.ibb.co/5WyLxs9Y/Innovation-Enterprise.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+                    <div class="p-5"><h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">Innovation & Enterprise</h4></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="hotlines" class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Real-Life Support</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Support, Hotlines & Resources</h3>
+                <p class="text-gray-600 mt-4 text-lg">The Office of Tyler Nicholas aims to make support easier to find. Use this starting point for emergency contacts, youth support, social services, and guidance in Seychelles.</p>
+            </div>
+
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-12 shadow-sm max-w-4xl mx-auto text-sm text-red-900">
+                <strong>Disclaimer:</strong> The resources listed on this website are provided for public information and youth support purposes only. The Office of Tyler Nicholas does not replace emergency services, medical professionals, social workers, counsellors, police, or government agencies. <strong>In an emergency, please contact official emergency services directly.</strong>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-8">
+                    <div class="flex items-center gap-4 border-b border-gray-200 pb-4 mb-4">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-phone-volume"></i></div>
+                        <h4 class="text-xl font-bold text-gray-900">Emergency Contacts</h4>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex justify-between items-center"><span class="font-medium">Police, Fire & General Emergency:</span> <span class="font-black text-xl text-red-600">999</span></li>
+                        <li class="flex justify-between items-center"><span class="font-medium">Ambulance / Medical Emergency:</span> <span class="font-black text-xl text-red-600">151</span></li>
+                        <li class="flex justify-between items-center"><span class="font-medium">Seychelles Hospital:</span> <span class="font-bold text-lg text-gray-900">4388000</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-8">
+                    <div class="flex items-center gap-4 border-b border-gray-200 pb-4 mb-4">
+                        <div class="w-12 h-12 bg-blue-100 text-brand-blue rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-comments"></i></div>
+                        <h4 class="text-xl font-bold text-gray-900">Youth Support</h4>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li>
+                            <div class="flex justify-between items-center mb-1"><span class="font-medium">SNYC Youth Helpline:</span> <span class="font-black text-xl text-brand-blue">2 725 725</span></div>
+                            <p class="text-xs text-gray-500">Free psychosocial support, info, and basic counselling for ages 15-35 (Calls, Text, WhatsApp).</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-8">
+                    <div class="flex items-center gap-4 border-b border-gray-200 pb-4 mb-4">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-child-reaching"></i></div>
+                        <h4 class="text-xl font-bold text-gray-900">Child Protection & Guidance</h4>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li>
+                            <div class="flex justify-between items-center mb-1"><span class="font-medium">Child Helpline:</span> <span class="font-black text-xl text-green-600">116</span></div>
+                            <p class="text-xs text-gray-500">For children needing advice/support, or adults reporting child abuse concerns.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-8">
+                    <div class="flex items-center gap-4 border-b border-gray-200 pb-4 mb-4">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div>
+                        <h4 class="text-xl font-bold text-gray-900">Social Affairs & Family</h4>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        The Social Affairs Department manages the <strong>Family Support Unit</strong>, <strong>Child Protection Unit</strong>, and <strong>Community Social Work Unit</strong>. For domestic violence assistance, the Family Squad at the Central Police Station provides primary support.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-[#0a1930] to-gray-900 border-t-4 border-brand-blue">
+        <div class="absolute top-10 -right-20 text-[35rem] text-white opacity-[0.02] pointer-events-none transform -rotate-12 z-0"><i class="fa-solid fa-bars-progress"></i></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-brand-blue/20 border border-brand-blue/30 text-brand-lightblue font-bold text-xs uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(0,94,184,0.3)]">
+                    <i class="fa-solid fa-chart-line"></i> Work In Progress
+                </div>
+                <h3 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-lg">Platform Development</h3>
+                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">A live look at proposals, policy research, and features currently being developed by the Office.</p>
+            </div>
+            <div id="dynamic-wip" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full py-12 text-center text-gray-400 font-mono text-sm dark-glass rounded-xl border border-white/10">Loading active tasks...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Collaboration</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Work With The Office</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <div class="bg-white border border-gray-200 p-8 md:p-10 rounded-2xl shadow-xl">
+                    <h4 class="text-2xl font-black text-gray-900 mb-2">Submit a Resource</h4>
+                    <p class="text-gray-600 text-sm mb-8">Help us build the National Youth Hub by submitting useful links, guides, or public service directories.</p>
+                    <form id="resource-form" class="space-y-5" onsubmit="handleResourceSubmit(event)">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Resource Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="res-name" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Submitted By</label>
+                                <input type="text" id="res-submitter" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" placeholder="Your Name/Org">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Category <span class="text-red-500">*</span></label>
+                                <select id="res-category" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required>
+                                    <option value="" disabled selected>Select Category...</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Mental Health">Mental Health</option>
+                                    <option value="Youth Support">Youth Support</option>
+                                    <option value="Digital Skill">Digital Skill</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Link or Description <span class="text-red-500">*</span></label>
+                            <textarea id="res-desc" rows="4" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required placeholder="URL or details about this resource..."></textarea>
+                        </div>
+                        <button type="submit" id="res-btn" class="w-full py-4 bg-gray-900 text-white font-bold rounded hover:bg-black transition shadow-md">Submit Resource</button>
+                        <p id="res-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
+                    </form>
+                </div>
+
+                <div class="bg-white border border-gray-200 p-8 md:p-10 rounded-2xl shadow-xl">
+                    <h4 class="text-2xl font-black text-gray-900 mb-2">Partner With Us</h4>
+                    <p class="text-gray-600 text-sm mb-8">We welcome collaboration with schools, NGOs, professionals, and community groups for youth development.</p>
+                    <form id="partner-form" class="space-y-5" onsubmit="handlePartnerSubmit(event)">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Organization Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="part-org" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Contact Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="part-email" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Area of Partnership</label>
+                                <select id="part-area" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none">
+                                    <option value="" disabled selected>Select Area...</option>
+                                    <option value="Youth Programmes">Youth Programmes</option>
+                                    <option value="Community Service">Community Service</option>
+                                    <option value="Mental Health">Mental Health Awareness</option>
+                                    <option value="Career Guidance">Career Guidance</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Proposed Collaboration <span class="text-red-500">*</span></label>
+                            <textarea id="part-desc" rows="4" class="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:border-brand-blue outline-none" required placeholder="How can we work together?"></textarea>
+                        </div>
+                        <button type="submit" id="part-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded hover:bg-brand-lightblue transition shadow-md">Propose Partnership</button>
+                        <p id="part-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-900 py-24 text-center border-t border-gray-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-8">Service, Responsibility, Potential</h3>
+            <p class="text-gray-300 text-xl leading-relaxed mb-10">
+                Seychelles’ future will be shaped by the opportunities we create, the support we provide, the voices we recognise, and the systems we build today. This page brings that mission together. It is a space for policy, action, resources, service, and progress. Youth empowerment is not only about inspiration—it is about access, structure, support, and real opportunity.
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-10 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="text-white font-semibold transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="text-white font-semibold transition">Initiatives</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+            setTimeout(hideLoader, 500); 
+            window.addEventListener('load', hideLoader);
+            setTimeout(hideLoader, 3000); 
+        });
+
+        // Supabase Integration
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        async function fetchWIPData() {
+            try {
+                // Fetch initiatives for the Tracker
+                const { data, error } = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false }).limit(6);
+
+                if (data && data.length > 0) {
+                    let html = '';
+                    data.forEach(item => {
+                        html += `
+                        <div class="dark-glass p-6 rounded-xl hover:bg-white/10 transition border border-white/10 flex flex-col h-full">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-lightblue mb-2 block">${item.status}</span>
+                            <h4 class="text-lg font-bold text-white mb-2 leading-tight">${item.title}</h4>
+                            <p class="text-sm text-gray-400 line-clamp-2 mb-4">${item.summary || 'In active development.'}</p>
+                            <div class="w-full bg-white/10 rounded-full h-1 mt-auto">
+                                <div class="bg-brand-lightblue h-1 rounded-full" style="width: ${item.progress_percentage || 0}%"></div>
+                            </div>
+                        </div>`;
+                    });
+                    document.getElementById('dynamic-wip').innerHTML = html;
+                } else {
+                    document.getElementById('dynamic-wip').innerHTML = '<div class="col-span-full py-12 text-center text-gray-400 font-mono text-sm dark-glass rounded-xl border border-white/10">No ongoing updates available.</div>';
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        // Handle Forms
+        async function handleResourceSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('res-btn');
+            const msgEl = document.getElementById('res-msg');
+            btn.disabled = true; btn.innerHTML = 'Submitting...'; msgEl.classList.add('hidden');
+
+            try {
+                const { error } = await supabaseClient.from('youth_concerns').insert([{ 
+                    subject: `[RESOURCE SUBMISSION - ${document.getElementById('res-category').value}] ${document.getElementById('res-name').value}`, 
+                    district: document.getElementById('res-submitter').value || 'Anonymous',
+                    description: document.getElementById('res-desc').value,
+                    status: 'new'
+                }]);
+                if (error) throw error;
+                msgEl.textContent = "Resource submitted successfully.";
+                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-4 block";
+                document.getElementById('resource-form').reset();
+            } catch (err) {
+                msgEl.textContent = "System error. Please try again.";
+                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-4 block";
+            } finally {
+                btn.disabled = false; btn.innerHTML = 'Submit Resource';
+            }
+        }
+
+        async function handlePartnerSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('part-btn');
+            const msgEl = document.getElementById('part-msg');
+            btn.disabled = true; btn.innerHTML = 'Submitting...'; msgEl.classList.add('hidden');
+
+            try {
+                const { error } = await supabaseClient.from('youth_concerns').insert([{ 
+                    subject: `[PARTNERSHIP - ${document.getElementById('part-area').value || 'General'}] ${document.getElementById('part-org').value}`, 
+                    district: document.getElementById('part-email').value,
+                    description: document.getElementById('part-desc').value,
+                    status: 'new'
+                }]);
+                if (error) throw error;
+                msgEl.textContent = "Partnership proposal submitted successfully.";
+                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-4 block";
+                document.getElementById('partner-form').reset();
+            } catch (err) {
+                msgEl.textContent = "System error. Please try again.";
+                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-4 block";
+            } finally {
+                btn.disabled = false; btn.innerHTML = 'Propose Partnership';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchWIPData);
+    </script>
+</body>
+</html>
