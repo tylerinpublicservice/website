@@ -295,11 +295,9 @@
     <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
                 <div class="md:col-span-6">
                     <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
                     <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
-                    
                     <div class="flex flex-wrap gap-5 text-xl">
                         <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
@@ -329,7 +327,6 @@
                         <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
@@ -371,8 +368,8 @@
 
             document.getElementById('modal-title').textContent = dataObj.title;
             
-            // Format content based on if it's a motion or a speech
             let contentHTML = '';
+            
             if(type === 'motion') {
                 let statusColor = dataObj.status === 'Passed' ? 'text-green-600 bg-green-50' : 
                                   dataObj.status === 'Rejected' ? 'text-red-600 bg-red-50' : 'text-brand-lightblue bg-blue-50';
@@ -392,6 +389,24 @@
                     </div>
                     <div class="text-gray-800">${dataObj.transcript.replace(/\n/g, '<br>')}</div>
                 `;
+
+                // Add Links for Video / PDF dynamically if they exist
+                if(dataObj.video_url || dataObj.pdf_url) {
+                    contentHTML += `<div class="mt-10 pt-6 border-t border-gray-100 flex flex-wrap gap-4">`;
+                    if(dataObj.video_url) {
+                        contentHTML += `
+                        <a href="${dataObj.video_url}" target="_blank" class="px-6 py-3 bg-red-600 text-white text-sm font-bold uppercase tracking-wide rounded hover:bg-red-700 transition shadow-sm">
+                            <i class="fa-brands fa-youtube mr-2 text-lg"></i> Watch Video
+                        </a>`;
+                    }
+                    if(dataObj.pdf_url) {
+                        contentHTML += `
+                        <a href="${dataObj.pdf_url}" target="_blank" class="px-6 py-3 bg-white text-gray-800 border border-gray-300 text-sm font-bold uppercase tracking-wide rounded hover:bg-gray-50 transition shadow-sm">
+                            <i class="fa-solid fa-file-pdf mr-2 text-brand-lightblue text-lg"></i> Download PDF
+                        </a>`;
+                    }
+                    contentHTML += `</div>`;
+                }
             }
 
             document.getElementById('modal-content').innerHTML = contentHTML;
@@ -446,10 +461,16 @@
                     globalSpeeches = speeches;
                     let html = '';
                     speeches.forEach((item, idx) => {
+                        // Small UI indicator if video/pdf is attached
+                        let icons = '';
+                        if(item.video_url) icons += '<i class="fa-brands fa-youtube text-red-500 ml-2" title="Video Available"></i>';
+                        if(item.pdf_url) icons += '<i class="fa-solid fa-file-pdf text-brand-lightblue ml-2" title="PDF Available"></i>';
+
                         html += `
-                        <div onclick="openDataModal('speech', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
+                        <div onclick="openDataModal('speech', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition relative">
+                            <div class="absolute top-4 right-4 flex text-lg">${icons}</div>
                             <span class="text-xs font-bold text-gray-400 uppercase mb-2 block">${new Date(item.speech_date).toLocaleDateString()}</span>
-                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2">${item.title}</h5>
+                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2 pr-12">${item.title}</h5>
                             <span class="text-xs text-gray-500 font-medium"><i class="fa-solid fa-microphone text-gray-600 mr-1"></i> Read Transcript</span>
                         </div>`;
                     });
@@ -458,8 +479,8 @@
                     speechesContainer.innerHTML = emptyDarkStateHTML;
                 }
 
-                // 3. Fetch Reports (using resources table with 'assembly_report' category)
-                const { data: reports } = await supabaseClient.from('resources').select('*').eq('category', 'assembly_report').order('created_at', { ascending: false }).limit(4);
+                // 3. Fetch Reports (Forgiving matching: looks for anything containing the word 'assembly')
+                const { data: reports } = await supabaseClient.from('resources').select('*').ilike('category', '%assembly%').order('created_at', { ascending: false }).limit(4);
                 const reportsContainer = document.getElementById('dynamic-reports');
                 if (reports && reports.length > 0) {
                     let html = '';
@@ -499,7 +520,6 @@
             msgEl.classList.add('hidden');
 
             try {
-                // Uses the youth_concerns table we created on day 1
                 const { error } = await supabaseClient
                     .from('youth_concerns')
                     .insert([{ 
