@@ -59,7 +59,6 @@
 
     <div id="entry-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all">
             <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
                 <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
@@ -67,8 +66,21 @@
                     <i class="fa-solid fa-xmark text-2xl"></i>
                 </button>
             </div>
-            
             <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                </div>
+        </div>
+    </div>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeProjectModal()"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all border-t-8 border-brand-blue">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+                <h3 id="project-modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
+                <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div id="project-modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed">
                 </div>
         </div>
     </div>
@@ -219,16 +231,18 @@
     </section>
 
     <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">Post-Exchange Action</h2>
                 <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight">Community Project Tracker</h3>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Tracking the community service initiatives developed and executed in Seychelles following the leadership exchange.</p>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Tracking the community service initiatives developed and executed in Seychelles following the leadership exchange. Click on any project to view its full details.</p>
             </div>
 
-            <div id="dynamic-projects" class="space-y-4">
-                <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">
-                    Loading project data...
+            <div id="dynamic-projects" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="col-span-full">
+                    <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">
+                        Loading project data...
+                    </div>
                 </div>
             </div>
         </div>
@@ -326,9 +340,11 @@
             setTimeout(hideLoader, 3000); 
         });
 
-        // 2. Modal Logic (Open/Close)
-        let globalJournalEntries = []; // Store fetched entries here
+        // 2. Global Arrays & Modal Logic
+        let globalJournalEntries = [];
+        let globalProjectEntries = [];
 
+        // Journal Modal
         function openModal(index) {
             const entry = globalJournalEntries[index];
             if (!entry) return;
@@ -336,10 +352,8 @@
             let dateObj = new Date(entry.travel_date);
             let dateString = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             
-            // Set the Title
             document.getElementById('modal-title').textContent = entry.title;
             
-            // Build the image (if exists) and the meta information for the top of the body
             let imageHTML = entry.image_url 
                 ? `<img src="${entry.image_url}" alt="${entry.title}" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-sm mb-6">` 
                 : '';
@@ -351,10 +365,8 @@
                 </div>
             `;
 
-            // Inject into DOM
             document.getElementById('modal-content').innerHTML = imageHTML + metaHTML + (entry.content || 'No detailed content available.');
             
-            // Show Modal and freeze background scrolling
             const modal = document.getElementById('entry-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -368,13 +380,50 @@
             document.getElementById('body').classList.remove('overflow-hidden');
         }
 
+        // Project Modal
+        function openProjectModal(index) {
+            const project = globalProjectEntries[index];
+            if (!project) return;
+            
+            document.getElementById('project-modal-title').textContent = project.title;
+            let statusColor = project.status === 'active' ? 'bg-brand-lightblue' : 'bg-gray-500';
+
+            let metaHTML = `
+                <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
+                    <span class="text-xs font-bold uppercase tracking-wider px-4 py-1.5 bg-blue-50 text-brand-lightblue rounded-full">${project.status}</span>
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Execution Progress</div>
+                        <div class="text-2xl font-black text-gray-900">${project.progress_percentage || 0}%</div>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3 mb-8">
+                    <div class="${statusColor} h-3 rounded-full" style="width: ${project.progress_percentage || 0}%"></div>
+                </div>
+            `;
+
+            document.getElementById('project-modal-content').innerHTML = metaHTML + (project.description || '<p>No detailed description available at this time.</p>');
+            
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+
         // 3. Supabase Connection & Fetch Logic
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         const emptyStateHTML = '<div class="col-span-full"><div class="text-gray-500 py-12 font-mono text-sm border border-gray-200 bg-gray-50 rounded text-center">Not available. Come back soon.</div></div>';
-        const emptyDarkStateHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Not available. Come back soon.</div>';
+        const emptyDarkStateHTML = '<div class="col-span-full"><div class="text-gray-400 py-12 font-mono text-sm border border-gray-700 bg-gray-800 rounded text-center">Not available. Come back soon.</div></div>';
 
         async function fetchAmbassadorData() {
             try {
@@ -384,18 +433,17 @@
                     .select('title, travel_date, location, content, image_url')
                     .eq('is_published', true)
                     .order('travel_date', { ascending: false })
-                    .limit(6); // Fetching up to 6 entries
+                    .limit(6);
 
                 const journalContainer = document.getElementById('dynamic-journal');
                 
                 if (journalData && journalData.length > 0) {
-                    globalJournalEntries = journalData; // Save for the modal to use
+                    globalJournalEntries = journalData;
                     let html = '';
                     
                     journalData.forEach((item, index) => {
                         let dateObj = new Date(item.travel_date);
                         let dateString = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                        // Strip HTML so the preview card is just clean text
                         let plainText = item.content.replace(/<[^>]+>/g, '');
                         
                         let imageHTML = item.image_url 
@@ -403,18 +451,20 @@
                             : '';
 
                         html += `
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col justify-between cursor-pointer" onclick="openModal(${index})">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition flex flex-col justify-between cursor-pointer group" onclick="openModal(${index})">
                             ${imageHTML}
                             <div class="p-6 flex flex-col h-full justify-between">
                                 <div>
-                                    <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center justify-between mb-3">
                                         <span class="text-xs font-bold text-gray-400 uppercase tracking-wider"><i class="fa-solid fa-calendar-day mr-1"></i> ${dateString}</span>
-                                        <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'Location TBA'}</span>
+                                        <span class="text-xs font-bold text-brand-lightblue uppercase tracking-wider"><i class="fa-solid fa-location-dot mr-1"></i> ${item.location || 'TBA'}</span>
                                     </div>
                                     <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition">${item.title}</h4>
                                     <p class="text-sm text-gray-600 line-clamp-3">${plainText}</p>
                                 </div>
-                                <button type="button" class="mt-4 text-left text-sm font-bold text-brand-blue hover:text-brand-lightblue transition focus:outline-none">Read Full Entry &rarr;</button>
+                                <div class="mt-6 text-left text-sm font-bold text-brand-blue group-hover:text-brand-lightblue transition flex items-center">
+                                    Read Full Entry <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                                </div>
                             </div>
                         </div>`;
                     });
@@ -423,33 +473,38 @@
                     journalContainer.innerHTML = emptyStateHTML;
                 }
 
-                // Fetch Project Tracker
+                // Fetch Project Tracker (Now displayed as a beautiful 3-column Grid)
                 const { data: projectData, error: pError } = await supabaseClient
                     .from('ambassador_projects')
                     .select('title, description, status, progress_percentage')
                     .order('created_at', { ascending: false })
-                    .limit(3);
+                    .limit(6);
 
                 const projectContainer = document.getElementById('dynamic-projects');
                 
                 if (projectData && projectData.length > 0) {
+                    globalProjectEntries = projectData;
                     let html = '';
-                    projectData.forEach(item => {
+                    projectData.forEach((item, index) => {
                         let statusColor = item.status === 'active' ? 'bg-brand-lightblue' : 'bg-gray-500';
+                        
                         html += `
-                        <div class="border border-gray-700 bg-gray-800 p-6 flex flex-col md:flex-row md:items-center justify-between rounded hover:border-gray-500 transition">
-                            <div class="mb-4 md:mb-0 max-w-lg">
-                                <h4 class="font-bold text-white text-lg">${item.title}</h4>
-                                <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue block mt-1">${item.status}</span>
-                                <p class="text-sm text-gray-400 mt-2 line-clamp-2">${item.description || ''}</p>
+                        <div class="border border-gray-700 bg-gray-800 p-8 flex flex-col justify-between rounded-lg hover:border-brand-lightblue hover:shadow-2xl transition cursor-pointer group" onclick="openProjectModal(${index})">
+                            <div class="mb-8">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue bg-blue-900/30 px-3 py-1 rounded-full">${item.status}</span>
+                                    <span class="text-gray-500 group-hover:text-white transition"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                                </div>
+                                <h4 class="font-bold text-white text-xl mb-3 group-hover:text-brand-lightblue transition leading-tight">${item.title}</h4>
+                                <p class="text-sm text-gray-400 line-clamp-2">${item.description.replace(/<[^>]+>/g, '') || ''}</p>
                             </div>
-                            <div class="w-full md:w-64 mt-4 md:mt-0">
+                            <div class="w-full mt-auto">
                                 <div class="flex justify-between text-xs font-bold text-gray-300 mb-2">
-                                    <span>Execution Progress</span>
+                                    <span>Progress</span>
                                     <span>${item.progress_percentage || 0}%</span>
                                 </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2">
-                                    <div class="${statusColor} h-2 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                    <div class="${statusColor} h-1.5 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
                                 </div>
                             </div>
                         </div>`;
