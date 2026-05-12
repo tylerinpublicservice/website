@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>National Youth Assembly | Office of Tyler Nicholas</title> 
+    <title>National Youth Assembly | Office of Tyler Nicholas</title>
     
     <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
 
@@ -46,6 +46,14 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+        
+        /* Premium Glassmorphism for the Assembly Log Section */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
@@ -206,53 +214,63 @@
         </div>
     </section>
 
-    <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-full h-full overflow-hidden z-0 opacity-[0.03] pointer-events-none flex justify-end items-start pt-10 pr-10">
-            <i class="fa-solid fa-landmark text-[25rem] text-white transform -rotate-12"></i>
-        </div>
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-[#0a1930] to-gray-900 border-t-4 border-brand-blue">
         
+        <div class="absolute top-10 -right-20 text-[35rem] text-white opacity-[0.02] pointer-events-none transform -rotate-12 z-0">
+            <i class="fa-solid fa-landmark-dome"></i>
+        </div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-3">Legislative & Public Record</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">Assembly Activity Log</h3>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Tracking official motions, debated proposals, plenary speeches, and publicly available assembly reports.</p>
+            
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-brand-blue/20 border border-brand-blue/30 text-brand-lightblue font-bold text-xs uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(0,94,184,0.3)]">
+                    <i class="fa-solid fa-tower-observation"></i> Legislative & Public Record
+                </div>
+                <h3 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-lg">Assembly Activity Log</h3>
+                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Tracking official motions, debated proposals, plenary speeches, and publicly available assembly reports.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
-                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
-                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
-                            <i class="fa-solid fa-gavel"></i>
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-gavel text-xl"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white">Motions & Proposals</h4>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Motions</h4>
                     </div>
-                    <div id="dynamic-motions" class="space-y-4">
-                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading motions...</div>
+                    <div id="dynamic-motions" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading motions...</div>
                     </div>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
-                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
-                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
-                            <i class="fa-solid fa-microphone-lines"></i>
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-microphone-lines text-xl"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white">Plenary Speeches</h4>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Speeches</h4>
                     </div>
-                    <div id="dynamic-speeches" class="space-y-4">
-                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading speeches...</div>
+                    <div id="dynamic-speeches" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading speeches...</div>
                     </div>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
-                    <div class="flex items-center gap-4 mb-8 border-b border-gray-700 pb-4">
-                        <div class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center text-brand-lightblue">
-                            <i class="fa-solid fa-file-pdf"></i>
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-file-pdf text-xl"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white">Official Reports</h4>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Reports</h4>
                     </div>
-                    <div id="dynamic-reports" class="space-y-4">
-                        <div class="text-gray-500 py-8 font-mono text-sm text-center">Loading reports...</div>
+                    <div id="dynamic-reports" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading reports...</div>
                     </div>
                 </div>
 
@@ -366,7 +384,7 @@
             setTimeout(hideLoader, 3000); 
         });
 
-        // Modal Logic for reading Motions/Speeches
+        // Modal Logic
         let globalMotions = [];
         let globalSpeeches = [];
 
@@ -400,7 +418,6 @@
                     <div class="text-gray-800">${dataObj.transcript.replace(/\n/g, '<br>')}</div>
                 `;
 
-                // Add Links for Video / PDF dynamically if they exist
                 if(dataObj.video_url || dataObj.pdf_url) {
                     contentHTML += `<div class="mt-10 pt-6 border-t border-gray-100 flex flex-wrap gap-4">`;
                     if(dataObj.video_url) {
@@ -438,8 +455,6 @@
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        const emptyDarkStateHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Not available. Come back soon.</div>';
 
         async function fetchAssemblyData() {
             try {
@@ -450,18 +465,22 @@
                     globalMotions = motions;
                     let html = '';
                     motions.forEach((item, idx) => {
+                        let statusColor = item.status === 'Passed' ? 'text-green-400 bg-green-900/30 border-green-400/20' : 
+                                          item.status === 'Rejected' ? 'text-red-400 bg-red-900/30 border-red-400/20' : 'text-brand-lightblue bg-blue-900/30 border-blue-400/20';
+                        
                         html += `
-                        <div onclick="openDataModal('motion', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="text-xs font-bold text-gray-400 uppercase">${new Date(item.date_submitted).toLocaleDateString()}</span>
-                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-gray-700 text-gray-300 group-hover:bg-brand-lightblue group-hover:text-white transition">${item.status}</span>
+                        <div onclick="openDataModal('motion', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
+                            <div class="flex justify-between items-start mb-4 pl-2">
+                                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider"><i class="fa-regular fa-calendar mr-1"></i> ${new Date(item.date_submitted).toLocaleDateString()}</span>
+                                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border ${statusColor}">${item.status}</span>
                             </div>
-                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2">${item.title}</h5>
+                            <h5 class="text-white font-bold text-lg group-hover:text-brand-lightblue transition line-clamp-2 leading-snug pl-2">${item.title}</h5>
                         </div>`;
                     });
                     motionsContainer.innerHTML = html;
                 } else {
-                    motionsContainer.innerHTML = emptyDarkStateHTML;
+                    motionsContainer.innerHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-white/10 bg-white/5 rounded-xl text-center shadow-inner">No active motions.</div>';
                 }
 
                 // 2. Fetch Speeches
@@ -471,46 +490,56 @@
                     globalSpeeches = speeches;
                     let html = '';
                     speeches.forEach((item, idx) => {
-                        // Small UI indicator if video/pdf is attached
                         let icons = '';
-                        if(item.video_url) icons += '<i class="fa-brands fa-youtube text-red-500 ml-2" title="Video Available"></i>';
-                        if(item.pdf_url) icons += '<i class="fa-solid fa-file-pdf text-brand-lightblue ml-2" title="PDF Available"></i>';
+                        if(item.video_url) icons += '<i class="fa-brands fa-youtube text-red-400 ml-3" title="Video Available"></i>';
+                        if(item.pdf_url) icons += '<i class="fa-solid fa-file-pdf text-brand-lightblue ml-3" title="PDF Available"></i>';
 
                         html += `
-                        <div onclick="openDataModal('speech', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition relative">
-                            <div class="absolute top-4 right-4 flex text-lg">${icons}</div>
-                            <span class="text-xs font-bold text-gray-400 uppercase mb-2 block">${new Date(item.speech_date).toLocaleDateString()}</span>
-                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2 pr-12">${item.title}</h5>
-                            <span class="text-xs text-gray-500 font-medium"><i class="fa-solid fa-microphone text-gray-600 mr-1"></i> Read Transcript</span>
+                        <div onclick="openDataModal('speech', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
+                            <div class="absolute top-5 right-4 flex text-lg opacity-80">${icons}</div>
+                            <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3 block pl-2"><i class="fa-regular fa-calendar mr-1"></i> ${new Date(item.speech_date).toLocaleDateString()}</span>
+                            <h5 class="text-white font-bold text-lg group-hover:text-brand-lightblue transition line-clamp-2 mb-4 pr-10 leading-snug pl-2">${item.title}</h5>
+                            <span class="text-xs text-brand-lightblue font-bold uppercase tracking-wider group-hover:text-white transition pl-2"><i class="fa-solid fa-align-left mr-2"></i> Read Transcript</span>
                         </div>`;
                     });
                     speechesContainer.innerHTML = html;
                 } else {
-                    speechesContainer.innerHTML = emptyDarkStateHTML;
+                    speechesContainer.innerHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-white/10 bg-white/5 rounded-xl text-center shadow-inner">No speeches available.</div>';
                 }
 
-                // 3. Fetch Reports (Forgiving matching: looks for anything containing the word 'assembly')
-                const { data: reports } = await supabaseClient.from('resources').select('*').ilike('category', '%assembly%').order('created_at', { ascending: false }).limit(4);
+                // 3. Fetch Reports (GUARANTEED NO-FILTER FETCH)
+                const { data: reports, error: reportsErr } = await supabaseClient
+                    .from('resources')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(4);
+
                 const reportsContainer = document.getElementById('dynamic-reports');
+                
                 if (reports && reports.length > 0) {
                     let html = '';
                     reports.forEach(item => {
                         html += `
-                        <a href="${item.file_url}" target="_blank" class="block group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
-                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2">${item.title}</h5>
-                            <span class="text-xs text-brand-lightblue font-bold uppercase"><i class="fa-solid fa-download mr-1"></i> Download PDF</span>
+                        <a href="${item.file_url}" target="_blank" class="group block relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg overflow-hidden flex items-center gap-4">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-brand-blue/30 border border-brand-blue/50 flex items-center justify-center text-brand-lightblue group-hover:bg-brand-blue group-hover:text-white transition-all shrink-0 ml-1 shadow-inner">
+                                <i class="fa-solid fa-download text-lg"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold text-sm group-hover:text-brand-lightblue transition line-clamp-2 leading-snug mb-1">${item.title}</h5>
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">${item.category ? item.category.replace('_', ' ') : 'Official Document'}</span>
+                            </div>
                         </a>`;
                     });
                     reportsContainer.innerHTML = html;
                 } else {
-                    reportsContainer.innerHTML = emptyDarkStateHTML;
+                    reportsContainer.innerHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-white/10 bg-white/5 rounded-xl text-center shadow-inner">No reports available.</div>';
+                    if(reportsErr) console.error("Reports Fetch Error:", reportsErr);
                 }
 
             } catch (err) {
-                console.log("Fetch bypassed. Showing empty states.");
-                document.getElementById('dynamic-motions').innerHTML = emptyDarkStateHTML;
-                document.getElementById('dynamic-speeches').innerHTML = emptyDarkStateHTML;
-                document.getElementById('dynamic-reports').innerHTML = emptyDarkStateHTML;
+                console.error("Master Fetch Error:", err);
             }
         }
 
