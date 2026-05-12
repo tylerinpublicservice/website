@@ -42,13 +42,6 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
-        
-        .dark-glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
@@ -66,7 +59,7 @@
             
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-gray-100 bg-white sticky top-0 z-20">
                 <div class="flex items-center gap-3">
-                    <span id="modal-category" class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold uppercase tracking-wider rounded-full">News</span>
+                    <span id="modal-category" class="px-3 py-1 bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wider rounded-full">News</span>
                     <span id="modal-date" class="text-xs font-bold text-gray-400 uppercase tracking-widest"></span>
                 </div>
                 <button onclick="closeModal('article-modal')" class="text-gray-400 hover:text-red-600 transition bg-gray-50 w-10 h-10 rounded-full flex items-center justify-center" aria-label="Close">
@@ -120,15 +113,44 @@
                     <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Latest News</h3>
                 </div>
                 
-                <div class="hidden lg:flex gap-2 mt-4 md:mt-0">
-                    <button class="px-4 py-2 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md">All</button>
-                    <button class="px-4 py-2 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Press Releases</button>
-                    <button class="px-4 py-2 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Statements</button>
+                <div class="hidden lg:flex gap-2 mt-4 md:mt-0" id="news-filters">
+                    <button onclick="renderNews('All')" class="filter-btn active px-5 py-2 bg-gray-900 text-white border border-gray-900 text-xs font-bold uppercase tracking-wider rounded-full shadow-md transition">All</button>
+                    <button onclick="renderNews('Press Release')" class="filter-btn px-5 py-2 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Press Releases</button>
+                    <button onclick="renderNews('Statement')" class="filter-btn px-5 py-2 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Statements</button>
                 </div>
             </div>
 
             <div id="dynamic-news" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="col-span-full py-16 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">Connecting to secure press database...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 border-b-2 border-black pb-4">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Calendar</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Upcoming Events</h3>
+            </div>
+            
+            <div id="dynamic-events" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-gray-50 rounded-xl border border-gray-200">Loading events calendar...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 border-b-2 border-brand-lightblue pb-4 flex justify-between items-end">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Active Work</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Featured Initiatives</h3>
+                </div>
+                <a href="/initiatives/" class="hidden md:inline-block text-sm font-bold text-gray-500 hover:text-brand-blue transition">View All <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+            
+            <div id="dynamic-initiatives" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-white rounded-xl border border-gray-200">Loading initiatives...</div>
             </div>
         </div>
     </section>
@@ -147,10 +169,9 @@
 
             <div class="bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden">
                 <div class="hidden md:grid grid-cols-12 gap-4 bg-gray-50 p-4 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <div class="col-span-2">Date</div>
+                    <div class="col-span-3">Date</div>
                     <div class="col-span-6">Title / Subject</div>
-                    <div class="col-span-2">Category</div>
-                    <div class="col-span-2 text-right">Action</div>
+                    <div class="col-span-3">Category</div>
                 </div>
                 
                 <div id="dynamic-speeches" class="divide-y divide-gray-100">
@@ -166,71 +187,42 @@
                 
                 <div>
                     <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">For Journalists</h2>
-                    <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">Press & Media Kit</h3>
+                    <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">Press Inquiries</h3>
                     <p class="text-gray-300 text-lg leading-relaxed mb-8">
-                        Official assets, high-resolution photography, brand guidelines, and direct contact channels for journalists, publishers, and media organizations.
+                        The Office of Tyler Nicholas is committed to transparency and clear communication with the public and the press.
                     </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="#" class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition group flex items-center">
-                            <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition"><i class="fa-solid fa-image"></i></div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Official Headshots</h4>
-                                <p class="text-xs text-gray-400">High-Res ZIP</p>
-                            </div>
-                        </a>
-                        <a href="#" class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition group flex items-center">
-                            <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition"><i class="fa-solid fa-file-pdf"></i></div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Bio & Backgrounder</h4>
-                                <p class="text-xs text-gray-400">PDF Document</p>
-                            </div>
-                        </a>
-                        <a href="#" class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition group flex items-center">
-                            <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition"><i class="fa-solid fa-shield"></i></div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Brand & Logos</h4>
-                                <p class="text-xs text-gray-400">Vector Files</p>
-                            </div>
-                        </a>
-                        <a href="#" class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition group flex items-center">
-                            <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition"><i class="fa-solid fa-rss"></i></div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">RSS Feed</h4>
-                                <p class="text-xs text-gray-400">News Syndication</p>
-                            </div>
-                        </a>
-                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed border-l-2 border-gray-700 pl-4">
+                        For official comments, media requests, interview scheduling, or statement clarifications, please submit your request directly to the communications team using the secure portal. We aim to respond to all credentialed media within 24 hours.
+                    </p>
                 </div>
 
                 <div class="bg-white p-8 md:p-10 rounded-2xl shadow-2xl text-gray-900">
                     <div class="flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
-                        <h4 class="text-2xl font-black tracking-tight">Press Inquiries</h4>
+                        <h4 class="text-2xl font-black tracking-tight">Contact The Press Office</h4>
                         <i class="fa-solid fa-envelope-open-text text-brand-lightblue text-2xl"></i>
                     </div>
-                    <p class="text-sm text-gray-600 mb-6">For media requests, interview scheduling, or statement clarifications, please contact the communications team directly.</p>
                     
                     <form id="press-form" class="space-y-4" onsubmit="handlePressSubmit(event)">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Name</label>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Name <span class="text-red-500">*</span></label>
                                 <input type="text" id="press-name" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded outline-none focus:border-brand-blue transition" required>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Outlet / Media</label>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Media Outlet <span class="text-red-500">*</span></label>
                                 <input type="text" id="press-outlet" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded outline-none focus:border-brand-blue transition" required>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Email</label>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Email <span class="text-red-500">*</span></label>
                             <input type="email" id="press-email" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded outline-none focus:border-brand-blue transition" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Inquiry Deadline / Details</label>
-                            <textarea id="press-desc" rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded outline-none focus:border-brand-blue transition" required></textarea>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Inquiry Deadline / Details <span class="text-red-500">*</span></label>
+                            <textarea id="press-desc" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded outline-none focus:border-brand-blue transition" required placeholder="Provide your questions or interview request details..."></textarea>
                         </div>
                         <button type="submit" id="press-btn" class="w-full py-4 bg-gray-900 text-white font-bold rounded hover:bg-black transition shadow-md">
-                            Submit to Press Secretary
+                            Submit Request
                         </button>
                         <p id="press-msg" class="text-sm font-semibold text-center mt-3 hidden"></p>
                     </form>
@@ -311,7 +303,6 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         let globalNews = [];
-        let globalSpeeches = [];
 
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
@@ -319,156 +310,191 @@
             document.getElementById('body').classList.remove('overflow-hidden');
         }
 
-        // Open Dedicated Article Page (Modal)
-        function openArticle(index, type) {
-            let item;
-            let dateStr;
-            let readTime = 3; 
-
-            if (type === 'news') {
-                item = globalNews[index];
-                dateStr = new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                document.getElementById('modal-category').textContent = item.category || 'Press Release';
-                document.getElementById('modal-category').className = 'px-3 py-1 bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wider rounded-full';
-            } else {
-                item = globalSpeeches[index];
-                dateStr = new Date(item.date_submitted || item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                document.getElementById('modal-category').textContent = 'Official Record';
-                document.getElementById('modal-category').className = 'px-3 py-1 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full';
-            }
-
+        // Display Full Article Modal
+        function openArticle(index) {
+            const item = globalNews[index];
             if(!item) return;
 
-            // Calculate roughly 200 words per minute for read time
-            if(item.content || item.description) {
-                const wordCount = (item.content || item.description).split(' ').length;
-                readTime = Math.max(1, Math.ceil(wordCount / 200));
-            }
+            const dateStr = new Date(item.published_at || item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('modal-category').textContent = item.category || 'News';
+            
+            // Calculate Read Time
+            const wordCount = (item.content || '').split(' ').length;
+            const readTime = Math.max(1, Math.ceil(wordCount / 200));
 
             document.getElementById('modal-date').innerHTML = `<i class="fa-regular fa-clock mr-1"></i> ${readTime} min read &nbsp;|&nbsp; ${dateStr}`;
             
-            // Build the full article layout
             let heroImage = item.featured_image_url 
-                ? `<div class="w-full h-64 md:h-96 relative bg-gray-900">
-                    <img src="${item.featured_image_url}" class="w-full h-full object-cover opacity-90">
-                   </div>` 
+                ? `<div class="w-full h-64 md:h-96 relative bg-gray-900"><img src="${item.featured_image_url}" class="w-full h-full object-cover opacity-90"></div>` 
                 : `<div class="w-full h-20 bg-gray-50 border-b border-gray-100"></div>`;
 
             let articleContent = `
                 ${heroImage}
                 <div class="max-w-4xl mx-auto px-6 md:px-12 py-12">
                     <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-8 leading-tight">${item.title}</h1>
-                    
                     <div class="flex flex-col md:flex-row gap-12">
-                        
                         <div class="md:w-3/4">
                             <div class="prose prose-lg text-gray-800 max-w-none leading-relaxed">
-                                ${item.content || item.description ? (item.content || item.description).replace(/\n/g, '<br><br>') : '<p>Full text currently unavailable.</p>'}
+                                ${item.content ? item.content.replace(/\n/g, '<br><br>') : '<p>Article text unavailable.</p>'}
                             </div>
                         </div>
-
                         <div class="md:w-1/4 space-y-6">
                             <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
                                 <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Share Article</h4>
                                 <div class="flex gap-3">
-                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition flex items-center justify-center shadow-sm"><i class="fa-brands fa-x-twitter"></i></button>
-                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition flex items-center justify-center shadow-sm"><i class="fa-brands fa-linkedin-in"></i></button>
-                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition flex items-center justify-center shadow-sm"><i class="fa-brands fa-facebook-f"></i></button>
+                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition shadow-sm"><i class="fa-brands fa-x-twitter"></i></button>
+                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition shadow-sm"><i class="fa-brands fa-linkedin-in"></i></button>
+                                    <button class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-brand-blue hover:border-brand-blue transition shadow-sm"><i class="fa-brands fa-facebook-f"></i></button>
                                 </div>
                             </div>
-                            
-                            ${item.file_url || item.pdf_url ? `
-                            <a href="${item.file_url || item.pdf_url}" target="_blank" class="block w-full text-center py-3 bg-white border-2 border-brand-blue text-brand-blue font-bold rounded-xl hover:bg-brand-blue hover:text-white transition shadow-sm">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Download PDF
-                            </a>` : ''}
-                            
                             <button onclick="window.print()" class="w-full text-center py-3 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition text-sm">
                                 <i class="fa-solid fa-print mr-2"></i> Print Document
                             </button>
                         </div>
-
                     </div>
                 </div>
             `;
 
             document.getElementById('modal-content').innerHTML = articleContent;
-            
-            const modal = document.getElementById('article-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            document.getElementById('article-modal').classList.remove('hidden');
+            document.getElementById('article-modal').classList.add('flex');
             document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        // Render Filtered News
+        function renderNews(filterType) {
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.textContent.trim().toLowerCase() === filterType.toLowerCase() || (filterType === 'All' && btn.textContent.trim() === 'All')) {
+                    btn.className = "filter-btn active px-5 py-2 bg-gray-900 text-white border border-gray-900 text-xs font-bold uppercase tracking-wider rounded-full shadow-md transition";
+                } else {
+                    btn.className = "filter-btn px-5 py-2 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition";
+                }
+            });
+
+            const container = document.getElementById('dynamic-news');
+            let filteredNews = globalNews;
+
+            if (filterType !== 'All') {
+                filteredNews = globalNews.filter(n => n.category && n.category.toLowerCase().includes(filterType.toLowerCase()));
+            }
+
+            if (filteredNews.length > 0) {
+                let html = '';
+                filteredNews.forEach((item) => {
+                    const idx = globalNews.findIndex(n => n.id === item.id);
+                    const dateStr = new Date(item.published_at || item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    const img = item.featured_image_url ? `<img src="${item.featured_image_url}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-700">` : `<div class="w-full h-48 bg-gray-100 flex items-center justify-center"><i class="fa-solid fa-newspaper text-4xl text-gray-300"></i></div>`;
+                    
+                    html += `
+                    <div onclick="openArticle(${idx})" class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 hover:shadow-xl hover:border-brand-lightblue transition cursor-pointer flex flex-col group">
+                        <div class="relative overflow-hidden">
+                            ${img}
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-brand-blue shadow-sm">${item.category || 'News'}</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">${dateStr}</span>
+                            <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition leading-tight">${item.title}</h4>
+                            <p class="text-sm text-gray-600 line-clamp-3 mb-6">Click to read full article details.</p>
+                            <div class="mt-auto pt-4 border-t border-gray-100 text-sm font-bold text-brand-lightblue group-hover:text-brand-blue transition flex items-center">
+                                Read Article <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition"></i>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">No articles found for this category.</div>';
+            }
         }
 
         async function fetchNewsroomData() {
             try {
-                // 1. Fetch News (Using 'resources' table filtered for news/statements if 'news' doesn't exist, or initiatives as fallback)
-                // For demonstration, we will query 'initiatives' but style them as news cards
-                const { data: newsData } = await supabaseClient
-                    .from('initiatives')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(6);
-
-                const newsContainer = document.getElementById('dynamic-news');
+                // 1. Fetch News
+                const { data: newsData } = await supabaseClient.from('news_articles').select('*').order('created_at', { ascending: false });
                 if (newsData && newsData.length > 0) {
                     globalNews = newsData;
-                    let html = '';
-                    newsData.forEach((item, idx) => {
-                        const dateStr = new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                        const img = item.featured_image_url ? `<img src="${item.featured_image_url}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-700">` : `<div class="w-full h-48 bg-gray-100 flex items-center justify-center"><i class="fa-solid fa-newspaper text-4xl text-gray-300"></i></div>`;
-                        
-                        html += `
-                        <div onclick="openArticle(${idx}, 'news')" class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 hover:shadow-xl hover:border-brand-lightblue transition cursor-pointer flex flex-col group">
-                            <div class="relative overflow-hidden">
-                                ${img}
-                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-brand-blue shadow-sm">Press Release</div>
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">${dateStr}</span>
-                                <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition leading-tight">${item.title}</h4>
-                                <p class="text-sm text-gray-600 line-clamp-3 mb-6">${item.summary || 'Click to read full article.'}</p>
-                                <div class="mt-auto pt-4 border-t border-gray-100 text-sm font-bold text-brand-lightblue group-hover:text-brand-blue transition flex items-center">
-                                    Read Full Article <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition"></i>
-                                </div>
-                            </div>
-                        </div>`;
-                    });
-                    newsContainer.innerHTML = html;
+                    renderNews('All');
                 } else {
-                    newsContainer.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">No recent news available.</div>';
+                    document.getElementById('dynamic-news').innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">No news articles found in database.</div>';
                 }
 
-                // 2. Fetch Speeches & Interventions (From assembly_motions)
-                const { data: speechesData } = await supabaseClient
-                    .from('assembly_motions')
-                    .select('*')
-                    .order('date_submitted', { ascending: false })
-                    .limit(10);
-
-                const speechContainer = document.getElementById('dynamic-speeches');
-                if (speechesData && speechesData.length > 0) {
-                    globalSpeeches = speechesData;
+                // 2. Fetch Upcoming Events
+                const today = new Date().toISOString();
+                const { data: eventsData } = await supabaseClient.from('events').select('*').gte('event_date', today).order('event_date', { ascending: true }).limit(4);
+                
+                const eventsContainer = document.getElementById('dynamic-events');
+                if (eventsData && eventsData.length > 0) {
                     let html = '';
-                    speechesData.forEach((item, idx) => {
-                        const dateStr = new Date(item.date_submitted).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                        
+                    eventsData.forEach(ev => {
+                        const dateObj = new Date(ev.event_date);
+                        const month = dateObj.toLocaleDateString('en-US', { month: 'short' });
+                        const day = dateObj.getDate();
                         html += `
-                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-5 hover:bg-blue-50/50 transition items-center group cursor-pointer" onclick="openArticle(${idx}, 'speech')">
-                            <div class="md:col-span-2 text-sm font-bold text-gray-500">${dateStr}</div>
-                            <div class="md:col-span-6">
-                                <h5 class="text-base font-bold text-gray-900 group-hover:text-brand-blue transition">${item.title}</h5>
+                        <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-center shadow-sm hover:shadow-md hover:border-brand-lightblue transition group">
+                            <div class="w-16 h-16 bg-blue-50 rounded-lg flex flex-col items-center justify-center shrink-0 border border-blue-100 mr-5 group-hover:bg-brand-blue group-hover:text-white transition">
+                                <span class="text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-white">${month}</span>
+                                <span class="text-xl font-black text-gray-900 group-hover:text-white leading-none">${day}</span>
                             </div>
-                            <div class="md:col-span-2">
-                                <span class="px-2.5 py-1 bg-gray-100 text-gray-600 rounded text-[10px] font-bold uppercase tracking-wider border border-gray-200">Assembly Motion</span>
-                            </div>
-                            <div class="md:col-span-2 md:text-right mt-3 md:mt-0">
-                                <button class="text-sm font-bold text-brand-lightblue group-hover:text-brand-blue transition">Read Transcript</button>
+                            <div>
+                                <h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition">${ev.title}</h4>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fa-solid fa-location-dot mr-1"></i> ${ev.location || 'TBA'}</p>
                             </div>
                         </div>`;
                     });
-                    speechContainer.innerHTML = html;
+                    eventsContainer.innerHTML = html;
                 } else {
-                    speechContainer.innerHTML = '<div class="p-8 text-center text-gray-500 font-mono text-sm">No official records found.</div>';
+                    eventsContainer.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-gray-50 rounded-xl border border-gray-200">No upcoming events scheduled.</div>';
+                }
+
+                // 3. Fetch Featured Initiatives
+                const { data: initsData } = await supabaseClient.from('initiatives').select('*').eq('status', 'active').order('created_at', { ascending: false }).limit(3);
+                
+                const initsContainer = document.getElementById('dynamic-initiatives');
+                if (initsData && initsData.length > 0) {
+                    let html = '';
+                    initsData.forEach(init => {
+                        let img = init.featured_image_url ? `<img src="${init.featured_image_url}" class="w-full h-32 object-cover border-b border-gray-100">` : '';
+                        html += `
+                        <a href="/initiatives/" class="block bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition overflow-hidden group">
+                            ${img}
+                            <div class="p-5">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-brand-lightblue bg-blue-50 px-2 py-0.5 rounded-full mb-3 inline-block">Active Initiative</span>
+                                <h4 class="font-bold text-gray-900 group-hover:text-brand-blue transition line-clamp-2">${init.title}</h4>
+                            </div>
+                        </a>`;
+                    });
+                    initsContainer.innerHTML = html;
+                } else {
+                    initsContainer.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 font-mono text-sm bg-white rounded-xl border border-gray-200">No active initiatives currently highlighted.</div>';
+                }
+
+                // 4. Fetch Speeches & Motions (Merged Record)
+                const { data: motionsData } = await supabaseClient.from('assembly_motions').select('title, date_submitted, status');
+                const { data: speechesData } = await supabaseClient.from('speeches').select('title, speech_date');
+                
+                let combinedRecords = [];
+                if(motionsData) combinedRecords.push(...motionsData.map(m => ({ title: m.title, date: m.date_submitted, category: 'Assembly Motion' })));
+                if(speechesData) combinedRecords.push(...speechesData.map(s => ({ title: s.title, date: s.speech_date, category: 'Official Speech' })));
+
+                combinedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const recentRecords = combinedRecords.slice(0, 10);
+
+                const recordContainer = document.getElementById('dynamic-speeches');
+                if (recentRecords.length > 0) {
+                    let html = '';
+                    recentRecords.forEach(item => {
+                        const dateStr = new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                        html += `
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-5 hover:bg-blue-50/50 transition items-center group border-b border-gray-100 last:border-0">
+                            <div class="md:col-span-3 text-sm font-bold text-gray-500">${dateStr}</div>
+                            <div class="md:col-span-6"><h5 class="text-base font-bold text-gray-900 group-hover:text-brand-blue transition">${item.title}</h5></div>
+                            <div class="md:col-span-3"><span class="px-2.5 py-1 bg-gray-100 text-gray-600 rounded text-[10px] font-bold uppercase tracking-wider border border-gray-200">${item.category}</span></div>
+                        </div>`;
+                    });
+                    recordContainer.innerHTML = html;
+                } else {
+                    recordContainer.innerHTML = '<div class="p-8 text-center text-gray-500 font-mono text-sm">No official records found in database.</div>';
                 }
 
             } catch (err) {
@@ -498,7 +524,7 @@
                 msgEl.textContent = "System error. Please try again.";
                 msgEl.className = "text-sm font-semibold text-red-600 text-center mt-3 block";
             } finally {
-                btn.disabled = false; btn.innerHTML = 'Submit to Press Secretary';
+                btn.disabled = false; btn.innerHTML = 'Submit Request';
             }
         }
 
