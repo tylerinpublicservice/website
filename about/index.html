@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Office of Tyler Nicholas</title>
+    <title>About Tyler Nicholas | Office of Tyler Nicholas</title>
     
     <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
 
@@ -14,8 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         tailwind.config = {
@@ -37,15 +35,18 @@
     </script>
 
     <style>
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-        }
+        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+        
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
@@ -53,7 +54,7 @@
     <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
         <div class="flex flex-col items-center">
             <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading</p>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Profile</p>
         </div>
     </div>
 
@@ -75,20 +76,19 @@
                     <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
                     <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
                 </div>
-
-                <div class="flex items-center lg:hidden">
-                    <button class="text-gray-600 hover:text-brand-blue focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gray-900 py-20 border-b-4 border-brand-blue shadow-inner">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">About Tyler P. Nicholas</h1>
-            <p class="text-xl text-gray-400 font-medium max-w-2xl mx-auto">A dedication to public service, youth advocacy, and community-driven progress in Seychelles.</p>
+    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
+                <i class="fa-solid fa-user-tie"></i>
+                <span>Official Biography</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Tyler P. Nicholas</h1>
+            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">A dedication to public service, youth advocacy, and community-driven progress in Seychelles.</p>
         </div>
     </header>
 
@@ -97,22 +97,23 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
                 
                 <div class="lg:col-span-5 flex flex-col items-center lg:items-start sticky top-28">
-                    <div class="w-full relative rounded-lg overflow-hidden shadow-2xl ring-1 ring-gray-900/5 mb-8">
+                    <div class="w-full relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/5 mb-8">
                         <img src="https://i.ibb.co/cczjjKjc/Chat-GPT-Image-Apr-30-2026-09-38-28-AM.png" 
                              alt="Mr. Tyler P. Nicholas Official Portrait" 
                              class="w-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full h-2 bg-brand-blue"></div>
                     </div>
                     
-                    <div class="w-full bg-gray-50 border border-gray-200 rounded-lg p-6">
-                        <h4 class="text-sm font-bold uppercase tracking-widest text-brand-lightblue mb-4">Press & Media Kit</h4>
+                    <div class="w-full bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-brand-lightblue mb-4">Official Documentation</h4>
                         <div class="space-y-3">
-                            <button onclick="downloadBio()" class="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 hover:border-gray-400 text-gray-800 text-sm font-semibold rounded transition">
-                                <span><i class="fa-solid fa-file-lines mr-2 text-gray-500"></i> Official Biography (.txt)</span>
-                                <i class="fa-solid fa-download text-brand-lightblue"></i>
+                            <button onclick="downloadBio()" class="w-full flex items-center justify-between px-5 py-4 bg-white border border-gray-300 hover:border-brand-blue hover:text-brand-blue text-gray-800 text-sm font-bold rounded-lg transition shadow-sm">
+                                <span><i class="fa-solid fa-file-lines mr-3 text-brand-lightblue"></i> Download Biography (.txt)</span>
+                                <i class="fa-solid fa-download"></i>
                             </button>
-                            <a href="https://i.ibb.co/cczjjKjc/Chat-GPT-Image-Apr-30-2026-09-38-28-AM.png" download target="_blank" class="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 hover:border-gray-400 text-gray-800 text-sm font-semibold rounded transition">
-                                <span><i class="fa-solid fa-image mr-2 text-gray-500"></i> High-Res Portrait (.png)</span>
-                                <i class="fa-solid fa-download text-brand-lightblue"></i>
+                            <a href="/contact/" class="w-full flex items-center justify-between px-5 py-4 bg-brand-blue text-white hover:bg-brand-lightblue text-sm font-bold rounded-lg transition shadow-md">
+                                <span><i class="fa-solid fa-envelope-open-text mr-3"></i> Contact Press Office</span>
+                                <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
@@ -120,19 +121,24 @@
 
                 <div class="lg:col-span-7">
                     <div class="border-b-2 border-black pb-4 mb-8">
-                        <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Professional Background</h2>
-                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">Meet Tyler Nicholas</h3>
+                        <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Background & Mission</h2>
+                        <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Meet Tyler Nicholas</h3>
                     </div>
                     
-                    <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed">
-                        <p class="font-medium text-xl text-gray-900">
+                    <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed max-w-none">
+                        <p class="font-medium text-xl text-gray-900 leading-snug">
                             Tyler P. Nicholas is a dedicated Seychellois youth leader, civic advocate, and public servant committed to advancing national progress through community engagement and policy advocacy.
                         </p>
                         <p>
-                            Recognizing that the future of Seychelles relies on the active participation of its younger generations, Tyler has structured his professional and civic journey around empowering youth, bridging the gap between citizens and leadership, and fostering tangible community development.
+                            Recognizing that the future of Seychelles relies on the active participation of its younger generations, Tyler has structured his professional and civic journey around empowering youth, bridging the gap between citizens and leadership, and fostering tangible community development. He believes that true public service is not about holding a position, but about creating platforms that elevate the voices of others.
                         </p>
+                        
+                        <div class="bg-blue-50 border-l-4 border-brand-blue p-6 rounded-r my-8">
+                            <p class="text-brand-blue font-bold m-0 italic">"The responsibility of our generation is not to wait for our turn to lead, but to take action today to build the country we want to inherit."</p>
+                        </div>
+
                         <p>
-                            As an Honorable Member of the Seychelles National Youth Assembly’s 21st Cohort, he serves as a direct voice for the youth, bringing critical community concerns to the national stage. His role within the Assembly focuses on shaping progressive, youth-centric policies that address education, participation, and societal well-being.
+                            As an Honorable Member of the Seychelles National Youth Assembly’s 21st Cohort, he serves as a direct voice for the youth, bringing critical community concerns to the national stage. His role within the Assembly focuses on shaping progressive, youth-centric policies that address education reform, civic participation, and societal well-being.
                         </p>
                         <p>
                             On the international front, Tyler serves as a Youth Ambassador for a U.S. Department of State program, participating in global leadership exchanges. This role allows him to bridge local Seychellois initiatives with international civic standards, bringing global perspectives back home to strengthen local community frameworks.
@@ -147,6 +153,7 @@
 
                     <div class="mt-12 border-t border-gray-100 pt-8">
                         <p class="font-signature text-5xl text-gray-900">Tyler P. Nicholas</p>
+                        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mt-4">Founder, The Office of Tyler Nicholas</p>
                     </div>
                 </div>
 
@@ -157,129 +164,185 @@
     <section class="bg-gray-50 py-24 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Leadership</h2>
-                <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Official Roles & Titles</h3>
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Leadership Portfolio</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Official Roles & Titles</h3>
+                <p class="text-gray-600 mt-4 text-lg">Select a role below to explore the policies, initiatives, and actions associated with each position.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-blue group-hover:text-white transition">
+                
+                <a href="/public-service/youth-participation/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-500 relative z-10 shadow-sm">
                         <i class="fa-solid fa-landmark"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Honorable Member</h4>
-                    <p class="text-sm text-gray-500 font-medium">Seychelles National Youth Assembly (21st Cohort)</p>
-                </div>
+                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Honorable Member</h4>
+                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">Seychelles National Youth Assembly (21st Cohort)</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
+                        View Assembly Work <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
+                </a>
 
-                <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-blue group-hover:text-white transition">
+                <a href="/newsroom/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-500 relative z-10 shadow-sm">
                         <i class="fa-solid fa-globe"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Youth Ambassador</h4>
-                    <p class="text-sm text-gray-500 font-medium">U.S. Department of State Program</p>
-                </div>
+                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Youth Ambassador</h4>
+                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">U.S. Department of State Program Exchange</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
+                        View Press & Updates <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
+                </a>
 
-                <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-blue group-hover:text-white transition">
+                <a href="https://tyler-nicholas-foundation.online" target="_blank" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-500 relative z-10 shadow-sm">
                         <i class="fa-solid fa-building-ngo"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Founder & Chairman</h4>
-                    <p class="text-sm text-gray-500 font-medium">The Tyler Nicholas Foundation</p>
-                </div>
+                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Founder & Chairman</h4>
+                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">The Tyler Nicholas Foundation</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
+                        Visit Foundation <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                    </div>
+                </a>
 
-                <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-blue group-hover:text-white transition">
+                <a href="/public-service/community-service/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 bg-gray-50 text-brand-blue rounded-full flex items-center justify-center text-2xl mb-6 border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-500 relative z-10 shadow-sm">
                         <i class="fa-solid fa-hand-holding-heart"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Volunteer</h4>
-                    <p class="text-sm text-gray-500 font-medium">Community & Grassroots Action</p>
+                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Volunteer</h4>
+                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">Community & Grassroots Action Initiatives</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
+                        Explore Service <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-[#0a1930] to-gray-900 border-t-4 border-brand-blue">
+        <div class="absolute top-10 -right-20 text-[35rem] text-white opacity-[0.02] pointer-events-none transform -rotate-12 z-0">
+            <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">The Philosophy</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">Guiding Principles</h3>
+                <p class="text-blue-100/70 text-lg">The core tenets that define Tyler's approach to governance, leadership, and public service in Seychelles.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
+                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Active Youth Representation</h4>
+                    <p class="text-gray-400 leading-relaxed">Young people are not just leaders of tomorrow; they are active stakeholders today. Governance must reflect their realities, struggles, and innovations in real-time.</p>
+                </div>
+
+                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
+                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-hammer"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Action Over Rhetoric</h4>
+                    <p class="text-gray-400 leading-relaxed">Debates and policy discussions must translate into measurable impact on the ground. True service is measured by the challenges resolved and the lives improved.</p>
+                </div>
+
+                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
+                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Inclusive Progress</h4>
+                    <p class="text-gray-400 leading-relaxed">National development must lift everyone. From digital access to mental health, progressive policy ensures no community or district is left behind in Seychelles' growth.</p>
+                </div>
+
+                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
+                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-shield-heart"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Integrity & Accountability</h4>
+                    <p class="text-gray-400 leading-relaxed">Leadership is a public trust. Maintaining an open, transparent, and accountable dialogue with the public is non-negotiable for effective civic duty.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-white py-24">
+    <section class="bg-white py-24 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <div>
-                <div class="border-b-2 border-black pb-4 mb-8">
-                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Purpose</h2>
-                    <h3 class="text-3xl font-black text-gray-900 tracking-tight">Mission of the Office</h3>
+            <div class="order-2 lg:order-1">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-100 rounded-2xl h-48 md:h-64 overflow-hidden border border-gray-200 shadow-sm relative">
+                        <img src="https://images.unsplash.com/photo-1577985051167-0d49eec21977?q=80&w=2089&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-brand-blue/20 mix-blend-multiply"></div>
+                    </div>
+                    <div class="bg-gray-100 rounded-2xl h-48 md:h-64 overflow-hidden border border-gray-200 shadow-sm relative mt-8">
+                        <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-brand-blue/20 mix-blend-multiply"></div>
+                    </div>
                 </div>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    The Office of Tyler Nicholas operates as a structured platform designed to organize, amplify, and execute public service initiatives. It is built on the foundation of transparency, accountability, and direct action.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    By centralizing advocacy efforts, the Office ensures that youth representation is not just symbolic, but results-driven. We aim to connect young citizens with the resources, leadership opportunities, and platforms they need to influence the future of Seychelles.
-                </p>
             </div>
 
-            <div class="bg-gray-900 p-10 md:p-14 rounded-lg text-white shadow-xl">
-                <h3 class="text-2xl font-bold mb-8 tracking-tight">Core Areas of Focus</h3>
-                <ul class="space-y-6">
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-brand-lightblue mt-1 mr-4"></i>
-                        <div>
-                            <h4 class="font-bold text-lg">Youth Advocacy</h4>
-                            <p class="text-gray-400 text-sm mt-1">Ensuring young voices influence national policy and civic discourse.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-brand-lightblue mt-1 mr-4"></i>
-                        <div>
-                            <h4 class="font-bold text-lg">Civic Engagement</h4>
-                            <p class="text-gray-400 text-sm mt-1">Encouraging active volunteerism and participation in democratic processes.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-check text-brand-lightblue mt-1 mr-4"></i>
-                        <div>
-                            <h4 class="font-bold text-lg">Community Action</h4>
-                            <p class="text-gray-400 text-sm mt-1">Direct philanthropic support and project execution through the Foundation.</p>
-                        </div>
-                    </li>
-                </ul>
+            <div class="order-1 lg:order-2">
+                <div class="border-b-2 border-black pb-4 mb-8">
+                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Diplomacy & Exchange</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">International Engagement</h3>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    In an increasingly interconnected world, local challenges often require global perspectives. As a Youth Ambassador affiliated with the U.S. Department of State's exchange programs, Tyler engages in high-level civic leadership training and cross-cultural diplomacy.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    This international exposure allows the Office to benchmark Seychellois youth initiatives against global standards, foster bilateral youth networks, and bring progressive, innovative problem-solving frameworks back to local communities.
+                </p>
+                <a href="/newsroom/" class="inline-flex items-center text-brand-blue font-bold hover:text-brand-lightblue transition">
+                    View Press on Diplomatic Activities <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
             </div>
 
         </div>
     </section>
 
-    <section class="bg-gray-50 py-24 border-t border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Journey</h2>
-                <h3 class="text-3xl font-black text-gray-900 tracking-tight">Path of Service</h3>
+    <section class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-xl flex items-center justify-center mb-8 border border-gray-100">
+                <img src="https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg" alt="TNF Logo" class="w-14 h-14 object-contain">
+            </div>
+            <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Turning Policy Into Action</h2>
+            <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-8">The Philanthropic Arm</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                Recognizing that legislative advocacy must be paired with immediate, on-the-ground support, Tyler founded the <strong>Tyler Nicholas Foundation</strong>. The Foundation operates entirely independently of his Assembly role, focusing strictly on humanitarian efforts, educational sponsorships, and vulnerable community relief.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-10">
+                The Foundation serves as the primary engine for executing grassroots projects, ensuring that while the Office debates the future, the Foundation is building it today.
+            </p>
+            <a href="https://tyler-nicholas-foundation.online" target="_blank" class="inline-flex items-center bg-gray-900 text-white font-bold px-8 py-4 rounded-full hover:bg-black transition shadow-xl hover:-translate-y-1 transform duration-300">
+                Explore the Foundation's Work <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-sm"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-brand-blue py-24 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h3 class="text-3xl md:text-5xl font-black tracking-tight mb-6">Public Speaking & Advocacy</h3>
+                <p class="text-blue-100 text-lg leading-relaxed mb-6">
+                    Tyler is actively engaged in public discourse across Seychelles, regularly participating in national debates, youth symposiums, and civic forums. 
+                </p>
+                <p class="text-blue-100 text-lg leading-relaxed mb-8">
+                    He is available to speak on topics including youth empowerment, education reform, digital transformation, and the importance of active civic participation. The Office welcomes invitations for panels, keynote addresses, and school assemblies.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="/contact/" class="bg-white text-brand-blue font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-gray-100 transition">Request a Speaking Engagement</a>
+                    <a href="/newsroom/" class="bg-transparent border border-blue-300 text-white font-bold px-8 py-4 rounded-lg hover:bg-brand-lightblue transition">View Past Speeches</a>
+                </div>
             </div>
             
-            <div class="relative border-l-2 border-gray-300 ml-4 md:ml-8">
-                
-                <div class="mb-12 relative pl-8 md:pl-12">
-                    <div class="absolute w-4 h-4 bg-brand-blue rounded-full -left-[9px] top-1.5 ring-4 ring-gray-50"></div>
-                    <div class="text-xs font-bold text-brand-lightblue uppercase mb-1">Active Role</div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Seychelles National Youth Assembly</h4>
-                    <p class="text-gray-600">Serving as an Honorable Member for the 21st Cohort, dedicating efforts to legislative review, youth advocacy, and bringing local district concerns to the national forefront.</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+                    <i class="fa-solid fa-microphone text-3xl mb-4 text-brand-lightblue"></i>
+                    <h4 class="font-bold text-xl mb-2">Keynotes & Panels</h4>
+                    <p class="text-sm text-blue-100">National symposiums and youth leadership summits.</p>
                 </div>
-
-                <div class="mb-12 relative pl-8 md:pl-12">
-                    <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 ring-4 ring-gray-50"></div>
-                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Active Role</div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">U.S. Department of State Youth Ambassador</h4>
-                    <p class="text-gray-600">Selected to represent Seychellois youth in international leadership exchanges, focusing on civic responsibility, diplomatic engagement, and cross-cultural problem-solving.</p>
+                <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20 mt-8">
+                    <i class="fa-solid fa-graduation-cap text-3xl mb-4 text-brand-lightblue"></i>
+                    <h4 class="font-bold text-xl mb-2">School Assemblies</h4>
+                    <p class="text-sm text-blue-100">Direct engagement with students on wellbeing and future readiness.</p>
                 </div>
-
-                <div class="mb-12 relative pl-8 md:pl-12">
-                    <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 ring-4 ring-gray-50"></div>
-                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Establishment</div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">The Tyler Nicholas Foundation</h4>
-                    <p class="text-gray-600">Founded to formalize grassroots efforts, serving as Chairman of the Board to direct resources, oversee community initiatives, and establish long-term philanthropic frameworks.</p>
-                </div>
-
-                <div class="relative pl-8 md:pl-12">
-                    <div class="absolute w-4 h-4 bg-gray-400 rounded-full -left-[9px] top-1.5 ring-4 ring-gray-50"></div>
-                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Foundation</div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Community Volunteer</h4>
-                    <p class="text-gray-600">The core of all public service operations—beginning with grassroots action, local volunteering, and a dedication to addressing immediate community needs directly.</p>
-                </div>
-
             </div>
         </div>
     </section>
