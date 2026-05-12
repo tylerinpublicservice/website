@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Wellbeing | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+        
+        /* Premium Glassmorphism for Trackers */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading</p>
+        </div>
+    </div>
+
+    <div id="data-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeDataModal()"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all border-t-8 border-brand-blue">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
+                <button onclick="closeDataModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
+        </div>
+    </div>
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Public Service</a>
+                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
+                <a href="/public-service/" class="hover:text-brand-lightblue transition">Public Service</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span class="text-brand-lightblue">Core Policy</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Student Wellbeing</h1>
+            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">Focusing on the daily student experience—balancing academic performance with emotional support, fairness, and motivation.</p>
+        </div>
+    </header>
+
+    <section class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+                <div class="border-b-2 border-black pb-4 mb-8">
+                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Overview</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">The Student Experience</h3>
+                </div>
+                <div class="prose prose-lg text-gray-700 leading-relaxed">
+                    <p class="font-medium text-xl text-gray-900">A healthy education system must prioritize the people within it just as much as the grades they produce.</p>
+                    <p>Every day, students navigate complex environments dealing with intense academic pressure, social dynamics, and institutional rules. When the balance tips, it results in burnout, loss of motivation, and poor mental health. A student who feels unsupported or unheard cannot reach their full potential.</p>
+                    <p><strong>The Office’s Position is clear:</strong> We must actively advocate for healthier school environments. This means fighting for fair school policies, cultivating better teacher-student communication, raising awareness against bullying, and ensuring students have a direct voice in the decisions that affect their daily lives.</p>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 p-10 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-blue/5 rounded-bl-full pointer-events-none"></div>
+                <i class="fa-solid fa-quote-left text-4xl text-brand-lightblue/30 mb-6"></i>
+                <h4 class="text-2xl font-black text-gray-900 mb-4 tracking-tight">The Vision</h4>
+                <p class="text-gray-700 text-lg mb-6">"We are committed to building school cultures where empathy leads, where academic pressure is balanced with genuine emotional support, and where every student feels safe, respected, and motivated to succeed."</p>
+                <div class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
+                    <span class="font-bold text-gray-900 uppercase tracking-widest text-sm">Tyler P. Nicholas</span>
+                    <a href="#wellbeing-form" class="text-brand-blue hover:text-brand-lightblue font-bold text-sm transition">Share Your Experience &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">The Blueprint</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">10 Areas of Focus</h3>
+                <p class="text-gray-600 mt-4 text-lg">The core priorities driving our advocacy for student environments.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-wind"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Student Stress</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-weight-hanging"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">School Pressure</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-seedling"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Motivation & Belonging</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Fair School Rules</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-sun"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Healthy Environments</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-comments"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Teacher Communication</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Academic Support</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Student Voice</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-shield-heart"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Anti-Bullying</h4>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition group text-center flex flex-col justify-center">
+                    <div class="w-14 h-14 mx-auto bg-blue-50 text-brand-blue rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition"><i class="fa-solid fa-yin-yang"></i></div>
+                    <h4 class="font-bold text-gray-900 mb-2 leading-tight">Performance vs. Wellbeing</h4>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-[#0a1930] to-gray-900 border-t-4 border-brand-blue">
+        <div class="absolute top-10 -right-20 text-[35rem] text-white opacity-[0.02] pointer-events-none transform -rotate-12 z-0">
+            <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-brand-blue/20 border border-brand-blue/30 text-brand-lightblue font-bold text-xs uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(0,94,184,0.3)]">
+                    <i class="fa-solid fa-chart-line"></i> Work In Progress
+                </div>
+                <h3 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-lg">Wellbeing Action Log</h3>
+                <p class="text-blue-100/70 text-lg max-w-2xl mx-auto font-medium">Tracking specific student support initiatives, school policy motions, and experience reports.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-lightbulb text-xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Active Support Projects</h4>
+                    </div>
+                    <div id="dynamic-wb-initiatives" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading projects...</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-gavel text-xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Assembly Motions</h4>
+                    </div>
+                    <div id="dynamic-wb-motions" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading motions...</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-brand-blue/10 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-lightblue flex items-center justify-center text-white shadow-lg shrink-0">
+                            <i class="fa-solid fa-folder-open text-xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white tracking-tight">Consultation Reports</h4>
+                    </div>
+                    <div id="dynamic-wb-reports" class="relative z-10 space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm bg-black/20 rounded-xl text-center border border-white/5">Loading reports...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="wellbeing-form" class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <div>
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Student Voice</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-6">School Experience Survey</h3>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    If we are going to improve the daily life of students, we need to hear from you directly. Use this portal to report issues related to your school environment, unfair rules, academic pressure, or bullying.
+                </p>
+                <div class="bg-gray-50 border-l-4 border-brand-blue p-6 rounded text-gray-700 font-medium shadow-sm">
+                    <strong>Completely Confidential:</strong> Your submission can be strictly anonymous. The information gathered here is used to hold institutions accountable and draft targeted Assembly motions.
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 p-8 md:p-10 rounded-2xl shadow-2xl">
+                <form id="wellbeing-feedback-form" class="space-y-5" onsubmit="handleWellbeingFeedback(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Alias / Name <span class="text-gray-400 font-normal ml-1">(Optional)</span></label>
+                            <input type="text" id="wb-name" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" placeholder="Leave blank to remain anonymous">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">School / Institution <span class="text-red-500">*</span></label>
+                            <input type="text" id="wb-school" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="e.g., Mont Fleuri Secondary">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Primary Concern <span class="text-red-500">*</span></label>
+                        <select id="wb-category" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required>
+                            <option value="" disabled selected>What are you experiencing?</option>
+                            <option value="Academic Pressure / Stress">Academic Pressure / Stress</option>
+                            <option value="Unfair School Rules">Unfair School Rules</option>
+                            <option value="Bullying / Safety">Bullying / Safety</option>
+                            <option value="Teacher Communication">Teacher Communication</option>
+                            <option value="Lack of Motivation / Support">Lack of Motivation / Support</option>
+                            <option value="Other">Other...</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Detailed Experience <span class="text-red-500">*</span></label>
+                        <textarea id="wb-description" rows="5" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="Describe the school environment, rules, or pressure you are facing..."></textarea>
+                    </div>
+
+                    <button type="submit" id="wb-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-lightblue transition shadow-md">
+                        Submit Securely
+                    </button>
+                    <p id="wb-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-threads"></i></a>
+                    </div>
+                </div>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="text-white font-semibold transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
+                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+                <p class="mt-4 md:mt-0">Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Loading Screen
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+            setTimeout(hideLoader, 500); 
+            window.addEventListener('load', hideLoader);
+            setTimeout(hideLoader, 3000); 
+        });
+
+        // 2. Data Arrays & Modal Logic
+        let modalDataStore = { initiatives: [], motions: [] };
+
+        function openDataModal(type, index) {
+            let item = modalDataStore[type][index];
+            if(!item) return;
+
+            document.getElementById('modal-title').textContent = item.title;
+            let contentHTML = '';
+
+            if(type === 'initiatives') {
+                let statusColor = item.status === 'active' ? 'bg-brand-blue' : 'bg-gray-400';
+                let imageHTML = item.featured_image_url ? `<img src="${item.featured_image_url}" class="w-full h-64 object-cover rounded-xl mb-6 shadow-sm border border-gray-200">` : '';
+                contentHTML = `
+                    ${imageHTML}
+                    <div class="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
+                        <span class="text-xs font-bold uppercase tracking-wider px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full">${item.status}</span>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Progress</div>
+                            <div class="text-2xl font-black text-gray-900">${item.progress_percentage || 0}%</div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-2 mb-8 overflow-hidden shadow-inner">
+                        <div class="${statusColor} h-2 rounded-full" style="width: ${item.progress_percentage || 0}%"></div>
+                    </div>
+                    ${item.full_description || item.summary || '<p>Details coming soon.</p>'}
+                `;
+            } else if (type === 'motions') {
+                let statusColor = item.status === 'Passed' ? 'text-green-600 bg-green-50' : item.status === 'Rejected' ? 'text-red-600 bg-red-50' : 'text-brand-lightblue bg-blue-50';
+                contentHTML = `
+                    <div class="mb-6 flex justify-between items-center border-b border-gray-200 pb-4">
+                        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full ${statusColor}">${item.status}</span>
+                        <span class="text-sm font-bold text-gray-500 uppercase"><i class="fa-solid fa-calendar mr-2"></i> ${new Date(item.date_submitted).toLocaleDateString()}</span>
+                    </div>
+                    <div class="text-gray-800">${item.description.replace(/\n/g, '<br>')}</div>
+                `;
+            }
+
+            document.getElementById('modal-content').innerHTML = contentHTML;
+            document.getElementById('data-modal').classList.remove('hidden');
+            document.getElementById('data-modal').classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeDataModal() {
+            document.getElementById('data-modal').classList.add('hidden');
+            document.getElementById('data-modal').classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+        // 3. Supabase Logic & Fetching (Filtered for Student Wellbeing/School Environment)
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        const emptyDarkStateHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-white/10 bg-white/5 rounded-xl text-center shadow-inner">Nothing on file.</div>';
+
+        async function fetchWellbeingData() {
+            try {
+                // A. Fetch Initiatives
+                const { data: initiatives } = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false });
+                if(initiatives) {
+                    let wbInits = initiatives.filter(i => 
+                        i.title.toLowerCase().includes('student') || 
+                        i.title.toLowerCase().includes('wellbeing') || 
+                        i.title.toLowerCase().includes('stress') ||
+                        i.title.toLowerCase().includes('support') ||
+                        i.title.toLowerCase().includes('environment') ||
+                        i.title.toLowerCase().includes('bullying') ||
+                        (i.summary && i.summary.toLowerCase().includes('student'))
+                    );
+                    if(wbInits.length === 0) wbInits = initiatives.slice(0,4); // Fallback
+
+                    modalDataStore.initiatives = wbInits;
+                    let html = '';
+                    wbInits.slice(0,4).forEach((item, idx) => {
+                        let cardImage = item.featured_image_url 
+                            ? `<div class="w-full h-32 overflow-hidden border-b border-white/10"><img src="${item.featured_image_url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div>` 
+                            : '';
+
+                        html += `
+                        <div onclick="openDataModal('initiatives', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer overflow-hidden flex flex-col mb-4">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all z-20"></div>
+                            ${cardImage}
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <h5 class="text-white font-bold text-[15px] group-hover:text-brand-lightblue transition line-clamp-2 leading-snug mb-3">${item.title}</h5>
+                                <div class="w-full bg-gray-700 rounded-full h-1 mt-auto">
+                                    <div class="bg-brand-lightblue h-1 rounded-full" style="width: ${item.progress_percentage || 0}%"></div>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    document.getElementById('dynamic-wb-initiatives').innerHTML = html || emptyDarkStateHTML;
+                }
+
+                // B. Fetch Motions
+                const { data: motions } = await supabaseClient.from('assembly_motions').select('*').order('date_submitted', { ascending: false });
+                if(motions) {
+                    let wbMotions = motions.filter(m => 
+                        m.title.toLowerCase().includes('student') || 
+                        m.title.toLowerCase().includes('wellbeing') ||
+                        m.title.toLowerCase().includes('school') ||
+                        m.title.toLowerCase().includes('support')
+                    );
+                    if(wbMotions.length === 0) wbMotions = motions.slice(0,4); // Fallback
+
+                    modalDataStore.motions = wbMotions;
+                    let html = '';
+                    wbMotions.slice(0,4).forEach((item, idx) => {
+                        let statusColor = item.status === 'Passed' ? 'text-green-400 bg-green-900/30' : item.status === 'Rejected' ? 'text-red-400 bg-red-900/30' : 'text-brand-lightblue bg-blue-900/30';
+                        html += `
+                        <div onclick="openDataModal('motions', ${idx})" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all shadow-lg cursor-pointer mb-4">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
+                            <div class="flex justify-between items-start mb-2 pl-2">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-white/5 ${statusColor}">${item.status}</span>
+                            </div>
+                            <h5 class="text-white font-bold text-[15px] group-hover:text-brand-lightblue transition line-clamp-2 leading-snug pl-2">${item.title}</h5>
+                        </div>`;
+                    });
+                    document.getElementById('dynamic-wb-motions').innerHTML = html || emptyDarkStateHTML;
+                }
+
+                // C. Fetch Reports
+                const { data: reports } = await supabaseClient.from('resources').select('*').order('created_at', { ascending: false });
+                if(reports) {
+                    let wbReports = reports.filter(r => 
+                        r.title.toLowerCase().includes('student') || 
+                        r.title.toLowerCase().includes('wellbeing') ||
+                        r.title.toLowerCase().includes('support') ||
+                        (r.category && r.category.toLowerCase().includes('wellbeing'))
+                    );
+                    if(wbReports.length === 0) wbReports = reports.slice(0,4); // Fallback
+                    
+                    let html = '';
+                    wbReports.slice(0,4).forEach(item => {
+                        html += `
+                        <a href="${item.file_url}" target="_blank" class="group relative bg-white/5 backdrop-blur-md rounded-xl p-5 border border-white/10 hover:bg-white/10 hover:border-brand-lightblue transition-all flex items-center gap-4 shadow-lg overflow-hidden mb-4">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-lightblue group-hover:w-2 transition-all"></div>
+                            <div class="w-10 h-10 rounded-full bg-brand-blue/30 flex items-center justify-center text-brand-lightblue group-hover:bg-brand-blue group-hover:text-white transition shrink-0 ml-1 border border-brand-blue/50">
+                                <i class="fa-solid fa-download"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold text-sm group-hover:text-brand-lightblue transition line-clamp-2 leading-snug">${item.title}</h5>
+                            </div>
+                        </a>`;
+                    });
+                    document.getElementById('dynamic-wb-reports').innerHTML = html || emptyDarkStateHTML;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        // 4. Wellbeing Form Submit
+        async function handleWellbeingFeedback(e) {
+            e.preventDefault();
+            const name = document.getElementById('wb-name').value.trim() || 'Anonymous';
+            const school = document.getElementById('wb-school').value.trim();
+            const category = document.getElementById('wb-category').value;
+            const description = document.getElementById('wb-description').value.trim();
+            const btn = document.getElementById('wb-btn');
+            const msgEl = document.getElementById('wb-msg');
+
+            btn.disabled = true;
+            btn.innerHTML = 'Submitting...';
+            msgEl.classList.add('hidden');
+
+            try {
+                const { error } = await supabaseClient
+                    .from('youth_concerns')
+                    .insert([{ 
+                        subject: `[STUDENT WELLBEING - ${category}] ${name}`, 
+                        district: school,
+                        description: description,
+                        status: 'new'
+                    }]);
+
+                if (error) throw error;
+                
+                msgEl.textContent = "Thank you. Your experience has been securely submitted.";
+                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-4 block";
+                document.getElementById('wellbeing-feedback-form').reset();
+                
+            } catch (err) {
+                msgEl.textContent = "System error. Could not submit at this time.";
+                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-4 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Submit Securely';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchWellbeingData);
+    </script>
+</body>
+</html>
