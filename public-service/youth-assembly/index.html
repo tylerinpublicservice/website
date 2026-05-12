@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Youth Assembly | Office of Tyler Nicholas</title>
+    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading</p>
+        </div>
+    </div>
+
+    <div id="data-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeDataModal()"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all border-t-8 border-brand-blue">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
+                <button onclick="closeDataModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
+        </div>
+    </div>
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Public Service</a>
+                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="w-full py-24 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://static.africa-press.net/seychelles/sites/30/2022/11/postQueueImg_1668686921.17.jpg');">
+        <div class="absolute inset-0 bg-gray-900/80"></div> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 text-sm font-bold text-gray-300 uppercase tracking-widest mb-4">
+                <a href="/public-service/" class="hover:text-white transition">Public Service</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span class="text-brand-lightblue">National Representation</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Seychelles National Youth Assembly</h1>
+            <p class="text-xl text-gray-300 font-medium max-w-3xl mx-auto mb-6">Advocating for youth rights, driving legislative review, and representing the voices of the next generation.</p>
+            
+            <div class="mt-4 inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm shadow-lg">
+                <img src="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" alt="Seychelles Flag" class="w-6 h-4 object-cover rounded-sm shadow-sm">
+                <span class="text-sm font-bold text-white tracking-widest uppercase drop-shadow-sm">Honorable Member, 21st Cohort</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white py-8 border-b border-gray-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                <div class="flex flex-col items-center">
+                    <img src="https://www.nation.sc/images/2017/Nov/8/DSC_7036.JPG" alt="Seychelles National Youth Assembly" class="h-20 object-contain rounded shadow-sm">
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-3">The Assembly (SNYA)</span>
+                </div>
+                
+                <div class="hidden md:block h-16 w-px bg-gray-300"></div>
+                
+                <div class="flex flex-col items-center">
+                    <img src="https://jobo.sc/wp-content/uploads/2019/08/SNYC_Logo_270px-200x200.png" alt="Seychelles National Youth Council" class="h-20 object-contain">
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-3">The Council (SNYC)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <div class="lg:col-span-5 sticky top-28 space-y-8">
+                    <div class="rounded-lg overflow-hidden shadow-xl border border-gray-200">
+                        <img src="https://cruise-seychelles.com/wp-content/uploads/2024/12/Screenshot-2024-12-18-at-09.13.29.png" alt="Seychelles Scenery" class="w-full h-auto object-cover">
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-brand-lightblue mb-6 border-b border-gray-100 pb-4">Institutional History</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-file-contract text-gray-400 mt-1 mr-4"></i>
+                                <div>
+                                    <span class="font-bold text-gray-900 block">1995 Policy</span>
+                                    <span class="text-sm text-gray-600">Seychelles' first dedicated youth policy was developed.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-gavel text-gray-400 mt-1 mr-4"></i>
+                                <div>
+                                    <span class="font-bold text-gray-900 block">1997 Legislation</span>
+                                    <span class="text-sm text-gray-600">Act approved by National Assembly & enacted by the President.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-flag text-gray-400 mt-1 mr-4"></i>
+                                <div>
+                                    <span class="font-bold text-gray-900 block">March 1998</span>
+                                    <span class="text-sm text-gray-600">The Seychelles National Youth Council officially launched.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="border-b-2 border-black pb-4 mb-8">
+                        <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Overview</h2>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">What is the Seychelles National Youth Assembly?</h3>
+                    </div>
+                    
+                    <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed">
+                        <p class="font-medium text-xl text-gray-900">
+                            The Seychelles National Youth Assembly, commonly known as the SNYA, is a national youth platform dedicated to civic education, youth representation, leadership development, and democratic participation in Seychelles. 
+                        </p>
+                        <p>
+                            It provides young people with the opportunity to understand public service, debate national and youth-related issues, develop leadership skills, and take part in meaningful discussions about the future of the country. The SNYA forms part of the wider youth development work led by the Seychelles National Youth Council (SNYC), serving as an important link between young people and government.
+                        </p>
+
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">A History of Youth Inclusion</h4>
+                        <p>
+                            Historically, the creation of youth platforms such as the SNYA came from a national effort to give young people a stronger voice in matters affecting them. Seychelles’ first youth policy was developed in 1995, highlighting the need for young people to participate more directly in the development of the country. Over time, the SNYC grew into a key national structure, and programmes such as the SNYA were developed to provide educational, civic, and leadership opportunities.
+                        </p>
+
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">Democratic Participation</h4>
+                        <p>
+                            The Assembly is designed as an educational forum where young representatives strengthen their ability to research, prepare arguments, debate issues, and speak on matters affecting the lives of youth in Seychelles. It encourages responsibility, critical thinking, public speaking, democratic values, and national consciousness.
+                        </p>
+                        <p class="p-6 bg-white border border-gray-200 rounded-lg shadow-sm font-medium text-gray-900">
+                            In recent years, the SNYA has placed stronger emphasis on democratic participation. Members are now elected by their peers through campaigns and elections in schools and post-secondary institutions, giving youth representatives a clearer mandate to speak on behalf of the students and young people they represent.
+                        </p>
+
+                        <h4 class="text-2xl font-bold text-gray-900 mt-10 mb-4 tracking-tight">Preparing Responsible Leaders</h4>
+                        <p>
+                            The SNYA helps members understand that public service is not only about speaking, but also about listening, learning, researching, respecting different views, and working with others to find solutions. Through its sittings, debates, motions, activities, and engagements, the Assembly gives young Seychellois a formal space to practise leadership.
+                        </p>
+                        <p>
+                            The Seychelles National Youth Assembly represents the belief that young people should not be placed on the sidelines of national development. By supporting youth participation, the SNYA continues to play a valuable role in building a more engaged, responsible, and forward-thinking generation for Seychelles.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-900 py-24 text-white border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">Legislative & Public Record</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight">Assembly Activity Log</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Tracking official motions, debated proposals, plenary speeches, and publicly available assembly reports.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
+                        Motions & Proposals
+                        <i class="fa-solid fa-gavel text-brand-lightblue"></i>
+                    </h4>
+                    <div id="dynamic-motions" class="space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading motions...</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
+                        Plenary Speeches
+                        <i class="fa-solid fa-microphone text-brand-lightblue"></i>
+                    </h4>
+                    <div id="dynamic-speeches" class="space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading speeches...</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-3 flex items-center justify-between">
+                        Official Reports
+                        <i class="fa-solid fa-file-pdf text-brand-lightblue"></i>
+                    </h4>
+                    <div id="dynamic-reports" class="space-y-4">
+                        <div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Loading reports...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-24 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <div>
+                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Direct Representation</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-6">Submit an Issue to the Assembly</h3>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    As an elected representative of the youth, listening to your concerns is my primary responsibility. Use this portal to submit district-level issues, policy proposals, or general concerns.
+                </p>
+                <div class="bg-gray-50 border-l-4 border-brand-blue p-6 rounded text-gray-700 font-medium shadow-sm">
+                    Submissions placed here are reviewed directly by the Office and, where appropriate, structured into formal motions or questions to be raised during SNYA plenary sessions.
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-xl">
+                <form id="assembly-issue-form" class="space-y-5" onsubmit="handleAssemblySubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Subject / Topic <span class="text-red-500">*</span></label>
+                            <input type="text" id="assm-subject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="e.g., School infrastructure">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">District / School</label>
+                            <input type="text" id="assm-district" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" placeholder="e.g., Beau Vallon">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Detailed Concern <span class="text-red-500">*</span></label>
+                        <textarea id="assm-description" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="Describe the issue you want raised in the Assembly..."></textarea>
+                    </div>
+
+                    <button type="submit" id="assm-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded hover:bg-brand-lightblue transition shadow-md">
+                        Submit to the Honorable Member
+                    </button>
+                    <p id="assm-msg" class="text-sm font-semibold text-center mt-3 hidden"></p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
+                    
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-threads"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="text-white font-semibold transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
+                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+                <p class="mt-4 md:mt-0">
+                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+
+            setTimeout(hideLoader, 500); 
+            window.addEventListener('load', hideLoader);
+            setTimeout(hideLoader, 3000); 
+        });
+
+        // Modal Logic for reading Motions/Speeches
+        let globalMotions = [];
+        let globalSpeeches = [];
+
+        function openDataModal(type, index) {
+            let dataObj;
+            if(type === 'motion') dataObj = globalMotions[index];
+            if(type === 'speech') dataObj = globalSpeeches[index];
+            if(!dataObj) return;
+
+            document.getElementById('modal-title').textContent = dataObj.title;
+            
+            // Format content based on if it's a motion or a speech
+            let contentHTML = '';
+            if(type === 'motion') {
+                let statusColor = dataObj.status === 'Passed' ? 'text-green-600 bg-green-50' : 
+                                  dataObj.status === 'Rejected' ? 'text-red-600 bg-red-50' : 'text-brand-lightblue bg-blue-50';
+                
+                contentHTML = `
+                    <div class="mb-6 flex justify-between items-center border-b border-gray-200 pb-4">
+                        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full ${statusColor}">${dataObj.status}</span>
+                        <span class="text-sm font-bold text-gray-500 uppercase"><i class="fa-solid fa-calendar mr-2"></i> ${new Date(dataObj.date_submitted).toLocaleDateString()}</span>
+                    </div>
+                    <div class="text-gray-800">${dataObj.description.replace(/\n/g, '<br>')}</div>
+                `;
+            } else {
+                contentHTML = `
+                    <div class="mb-6 flex justify-between items-center border-b border-gray-200 pb-4">
+                        <span class="text-sm font-bold text-gray-500 uppercase"><i class="fa-solid fa-map-pin mr-2"></i> ${dataObj.event_name || 'Assembly Plenary'}</span>
+                        <span class="text-sm font-bold text-gray-500 uppercase"><i class="fa-solid fa-calendar mr-2"></i> ${new Date(dataObj.speech_date).toLocaleDateString()}</span>
+                    </div>
+                    <div class="text-gray-800">${dataObj.transcript.replace(/\n/g, '<br>')}</div>
+                `;
+            }
+
+            document.getElementById('modal-content').innerHTML = contentHTML;
+            
+            const modal = document.getElementById('data-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeDataModal() {
+            const modal = document.getElementById('data-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+        // Supabase Logic
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        const emptyDarkStateHTML = '<div class="text-gray-400 py-8 font-mono text-sm border border-gray-800 bg-gray-800 rounded text-center">Not available. Come back soon.</div>';
+
+        async function fetchAssemblyData() {
+            try {
+                // 1. Fetch Motions
+                const { data: motions } = await supabaseClient.from('assembly_motions').select('*').order('date_submitted', { ascending: false }).limit(4);
+                const motionsContainer = document.getElementById('dynamic-motions');
+                if (motions && motions.length > 0) {
+                    globalMotions = motions;
+                    let html = '';
+                    motions.forEach((item, idx) => {
+                        html += `
+                        <div onclick="openDataModal('motion', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-gray-400 uppercase">${new Date(item.date_submitted).toLocaleDateString()}</span>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-gray-700 text-gray-300 group-hover:bg-brand-lightblue group-hover:text-white transition">${item.status}</span>
+                            </div>
+                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2">${item.title}</h5>
+                        </div>`;
+                    });
+                    motionsContainer.innerHTML = html;
+                } else {
+                    motionsContainer.innerHTML = emptyDarkStateHTML;
+                }
+
+                // 2. Fetch Speeches
+                const { data: speeches } = await supabaseClient.from('speeches').select('*').order('speech_date', { ascending: false }).limit(4);
+                const speechesContainer = document.getElementById('dynamic-speeches');
+                if (speeches && speeches.length > 0) {
+                    globalSpeeches = speeches;
+                    let html = '';
+                    speeches.forEach((item, idx) => {
+                        html += `
+                        <div onclick="openDataModal('speech', ${idx})" class="cursor-pointer group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
+                            <span class="text-xs font-bold text-gray-400 uppercase mb-2 block">${new Date(item.speech_date).toLocaleDateString()}</span>
+                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2">${item.title}</h5>
+                            <span class="text-xs text-gray-500 font-medium"><i class="fa-solid fa-microphone text-gray-600 mr-1"></i> Read Transcript</span>
+                        </div>`;
+                    });
+                    speechesContainer.innerHTML = html;
+                } else {
+                    speechesContainer.innerHTML = emptyDarkStateHTML;
+                }
+
+                // 3. Fetch Reports (using resources table with 'assembly_report' category)
+                const { data: reports } = await supabaseClient.from('resources').select('*').eq('category', 'assembly_report').order('created_at', { ascending: false }).limit(4);
+                const reportsContainer = document.getElementById('dynamic-reports');
+                if (reports && reports.length > 0) {
+                    let html = '';
+                    reports.forEach(item => {
+                        html += `
+                        <a href="${item.file_url}" target="_blank" class="block group bg-gray-800 border border-gray-700 rounded-lg p-5 hover:border-brand-lightblue transition">
+                            <h5 class="text-white font-bold group-hover:text-brand-lightblue transition line-clamp-2 mb-2">${item.title}</h5>
+                            <span class="text-xs text-brand-lightblue font-bold uppercase"><i class="fa-solid fa-download mr-1"></i> Download PDF</span>
+                        </a>`;
+                    });
+                    reportsContainer.innerHTML = html;
+                } else {
+                    reportsContainer.innerHTML = emptyDarkStateHTML;
+                }
+
+            } catch (err) {
+                console.log("Fetch bypassed. Showing empty states.");
+                document.getElementById('dynamic-motions').innerHTML = emptyDarkStateHTML;
+                document.getElementById('dynamic-speeches').innerHTML = emptyDarkStateHTML;
+                document.getElementById('dynamic-reports').innerHTML = emptyDarkStateHTML;
+            }
+        }
+
+        // Issue Submission Logic
+        async function handleAssemblySubmit(e) {
+            e.preventDefault();
+            const subject = document.getElementById('assm-subject').value.trim();
+            const district = document.getElementById('assm-district').value.trim();
+            const description = document.getElementById('assm-description').value.trim();
+            const btn = document.getElementById('assm-btn');
+            const msgEl = document.getElementById('assm-msg');
+
+            if(!subject || !description) return;
+
+            btn.disabled = true;
+            btn.innerHTML = 'Submitting to secure backend...';
+            msgEl.classList.add('hidden');
+
+            try {
+                // Uses the youth_concerns table we created on day 1
+                const { error } = await supabaseClient
+                    .from('youth_concerns')
+                    .insert([{ 
+                        subject: `[ASSEMBLY] ${subject}`, 
+                        district: district || 'Not specified',
+                        description: description,
+                        status: 'new'
+                    }]);
+
+                if (error) throw error;
+                
+                msgEl.textContent = "Your concern has been formally submitted to the Member.";
+                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-3 block";
+                document.getElementById('assembly-issue-form').reset();
+                
+            } catch (err) {
+                msgEl.textContent = "System error. Could not submit request at this time.";
+                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-3 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Submit to the Honorable Member';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchAssemblyData);
+    </script>
+</body>
+</html>
