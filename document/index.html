@@ -157,7 +157,7 @@
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
                         <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="text-white font-semibold transition">Resources</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
                     </ul>
                 </div>
 
@@ -185,13 +185,12 @@
 
         const DOCUMENT_ARCHIVE = [
             {
-                title: "Emergency Essential Support Number In Seychelles",
-                category: "Guides & Toolkits",
+                title: "Emergency Essential Support Numbers in Seychelles",
+                category: "Guide",
                 date: "May 13, 2026",
                 filename: "Emergency_Essential_Support_Numbers_in_Seychelles.pdf",
                 size: "14.4 MB"
-            },
-            {
+            }
         ];
 
         // =====================================================================
@@ -231,7 +230,9 @@
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-red-50 text-red-500 border border-red-100 group-hover:scale-110 transition duration-300 shadow-sm">
                             <i class="fa-solid fa-file-pdf"></i>
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded border ${colorClass}">${doc.category}</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded border ${colorClass}">
+                            ${doc.category === 'Guide' ? 'Guides & Toolkits' : doc.category}
+                        </span>
                     </div>
                     
                     <div class="relative z-10 flex-grow">
