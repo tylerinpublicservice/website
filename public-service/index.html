@@ -57,6 +57,19 @@
         </div>
     </div>
 
+    <div id="initiative-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeInitiativeModal()"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden relative z-10 flex flex-col transform transition-all border-t-8 border-brand-blue">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight pr-8"></h3>
+                <button onclick="closeInitiativeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-600 transition" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6 md:p-8 overflow-y-auto prose prose-lg max-w-none text-gray-700 leading-relaxed"></div>
+        </div>
+    </div>
+
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
@@ -79,46 +92,45 @@
         </div>
     </nav>
 
-    <header class="bg-gray-900 py-20 border-b-4 border-brand-blue shadow-inner">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Public Service Portfolio</h1>
-            <p class="text-xl text-gray-400 font-medium max-w-2xl mx-auto">Tracking civic commitments, youth advocacy priorities, and national engagements.</p>
+    <header class="w-full py-24 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://www.seychellesculturalencounters.com/wp-content/uploads/2024/05/lavwa-la-nasyon.webp');">
+        <div class="absolute inset-0 bg-gray-900/85"></div> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-md">Public Service Portfolio</h1>
+            <p class="text-xl text-gray-300 font-medium max-w-2xl mx-auto drop-shadow-sm">Tracking civic commitments, youth advocacy priorities, and national engagements.</p>
         </div>
     </header>
 
-    <section class="bg-white py-16 border-b border-gray-200 relative z-10 -mt-10">
+    <section class="bg-transparent relative z-10 -mt-12 pb-16">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <a href="/public-service/youth-assembly/" class="group block bg-white rounded-lg border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden">
+                <a href="/public-service/youth-assembly/" class="group block bg-white rounded-xl border border-gray-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 overflow-hidden">
                     <div class="p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-gray-100 text-brand-blue rounded-full flex items-center justify-center text-xl group-hover:bg-brand-blue group-hover:text-white transition">
-                                <i class="fa-solid fa-landmark"></i>
+                            <div class="w-16 h-16 bg-white rounded-full border border-gray-100 flex items-center justify-center shadow-sm overflow-hidden p-1 group-hover:border-brand-blue transition">
+                                <img src="https://www.nation.sc/images/2017/Nov/8/DSC_7036.JPG" alt="SNYA Logo" class="w-full h-full object-cover rounded-full">
                             </div>
-                            <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-brand-blue transition"></i>
+                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue group-hover:text-white transition">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
                         </div>
-                        <h4 class="text-2xl font-black text-gray-900 tracking-tight mb-2">Seychelles National Youth Assembly</h4>
+                        <h4 class="text-2xl font-black text-gray-900 tracking-tight mb-2 group-hover:text-brand-blue transition">Seychelles National Youth Assembly</h4>
                         <p class="text-sm text-gray-600">View official motions, assembly interventions, and district representation work as an Honorable Member.</p>
-                    </div>
-                    <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 text-sm font-bold text-gray-900 group-hover:bg-brand-blue group-hover:text-white transition">
-                        Access Assembly Portal
                     </div>
                 </a>
 
-                <a href="/public-service/youth-ambassador/" class="group block bg-white rounded-lg border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden">
+                <a href="/public-service/youth-ambassador/" class="group block bg-white rounded-xl border border-gray-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 overflow-hidden">
                     <div class="p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-gray-100 text-brand-blue rounded-full flex items-center justify-center text-xl group-hover:bg-brand-blue group-hover:text-white transition">
-                                <i class="fa-solid fa-globe"></i>
+                            <div class="w-16 h-16 bg-white rounded-full border border-gray-100 flex items-center justify-center shadow-sm overflow-hidden p-2 group-hover:border-brand-blue transition">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVcWMz9qStQKGI9v766GK2NtqAvlfH6pGow&s" alt="Youth Ambassadors Logo" class="w-full h-full object-contain">
                             </div>
-                            <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-brand-blue transition"></i>
+                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-brand-blue group-hover:text-white transition">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
                         </div>
-                        <h4 class="text-2xl font-black text-gray-900 tracking-tight mb-2">Youth Ambassador Program</h4>
+                        <h4 class="text-2xl font-black text-gray-900 tracking-tight mb-2 group-hover:text-brand-blue transition">Youth Ambassador Program</h4>
                         <p class="text-sm text-gray-600">Track international engagements, leadership exchanges, and diplomatic programs linked to the U.S. Department of State.</p>
-                    </div>
-                    <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 text-sm font-bold text-gray-900 group-hover:bg-brand-blue group-hover:text-white transition">
-                        Access Ambassador Portal
                     </div>
                 </a>
 
@@ -126,84 +138,131 @@
         </div>
     </section>
 
-    <section class="bg-gray-50 py-24 border-b border-gray-200">
+    <section class="bg-gray-900 text-white py-24 border-y border-gray-800 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
+            <i class="fa-solid fa-hands-holding-circle text-[30rem]"></i>
+        </div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-4">The Calling</h2>
+            <h3 class="text-3xl md:text-5xl font-black tracking-tight mb-8">The Vast World of Public Service</h3>
+            
+            <p class="text-xl text-gray-300 leading-relaxed mb-10 max-w-4xl mx-auto">
+                Public service is not confined to a title or an office. It is a shared responsibility to uplift our communities, protect the vulnerable, and build frameworks for progress. Inspiring others to enter public service is essential because the true strength of a nation relies entirely on the collective willpower and dedication of its citizens.
+            </p>
+
+            <div class="bg-white/5 border border-white/10 p-8 md:p-12 rounded-2xl backdrop-blur-md shadow-2xl relative inline-block text-left">
+                <i class="fa-solid fa-quote-left absolute top-6 left-6 text-4xl text-white/10"></i>
+                <blockquote class="text-2xl md:text-3xl font-medium text-white leading-snug relative z-10 text-center mb-6 px-4 md:px-10">
+                    "Ask not what your country can do for you — ask what you can do for your country."
+                </blockquote>
+                <div class="text-center">
+                    <span class="text-brand-lightblue font-bold uppercase tracking-widest text-sm">— President John F. Kennedy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Agenda</h2>
-                <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Core Policy Priorities</h3>
+                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Core Policy Priorities</h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-book-open text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Education Reform</h4>
-                    <p class="text-sm text-gray-600">Advocating for modernized curriculums and practical skill development.</p>
-                </div>
+                <a href="/public-service/education-reform/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/FbdSGnDd/Education-Reform.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Education Reform">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Education Reform</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Modernizing curriculums and practical skill development.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-users text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Youth Participation</h4>
-                    <p class="text-sm text-gray-600">Creating direct channels for youth inclusion in national decision-making.</p>
-                </div>
+                <a href="/public-service/youth-participation/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/33R4YpV/Youth-Participation.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Youth Participation">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Youth Participation</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Direct channels for inclusion in national decisions.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-wifi text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Digital Access</h4>
-                    <p class="text-sm text-gray-600">Bridging the technological divide for students across all districts.</p>
-                </div>
+                <a href="/public-service/digital-access/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/rf0GmzWc/Digital-Access.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Digital Access">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Digital Access</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Bridging the technological divide across districts.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-brain text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Mental Health</h4>
-                    <p class="text-sm text-gray-600">Destigmatizing care and expanding institutional support networks.</p>
-                </div>
+                <a href="/public-service/mental-health/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/W4g61F5X/Mental-Health.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Mental Health">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Mental Health</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Destigmatizing care and expanding support networks.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-hands-holding-circle text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Community Service</h4>
-                    <p class="text-sm text-gray-600">Driving grassroots volunteerism and localized neighborhood action.</p>
-                </div>
+                <a href="/public-service/community-service/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/KpVb3PLB/Community-Service.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Community Service">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Community Service</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Driving grassroots volunteerism and local action.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-seedling text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">National Development</h4>
-                    <p class="text-sm text-gray-600">Aligning youth-led projects with broader Seychellois economic goals.</p>
-                </div>
+                <a href="/public-service/national-development/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/m79rGjn/National-Development.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="National Development">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">National Development</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Aligning youth projects with economic goals.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-shield-heart text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Student Wellbeing</h4>
-                    <p class="text-sm text-gray-600">Ensuring safe, supportive, and resource-rich educational environments.</p>
-                </div>
+                <a href="/public-service/student-wellbeing/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/ynFqpFvj/Student-Wellbeing.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Student Wellbeing">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Student Wellbeing</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Ensuring safe, supportive educational environments.</p>
+                    </div>
+                </a>
 
-                <div class="bg-white p-6 border border-gray-200 hover:border-black transition">
-                    <i class="fa-solid fa-lightbulb text-brand-lightblue text-2xl mb-4 block"></i>
-                    <h4 class="font-bold text-gray-900 text-lg mb-2">Innovation & Enterprise</h4>
-                    <p class="text-sm text-gray-600">Fostering ecosystems that support young Seychellois entrepreneurs.</p>
-                </div>
+                <a href="/public-service/innovation-enterprise/" class="group relative h-72 rounded-2xl overflow-hidden shadow-lg block border border-gray-200">
+                    <img src="https://i.ibb.co/5WyLxs9Y/Innovation-Enterprise.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" alt="Innovation & Enterprise">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h4 class="text-white font-bold text-2xl mb-2 group-hover:text-brand-lightblue transition">Innovation & Enterprise</h4>
+                        <p class="text-gray-300 text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition duration-300">Fostering ecosystems for young entrepreneurs.</p>
+                    </div>
+                </a>
 
             </div>
         </div>
     </section>
 
-    <section class="bg-white py-24">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="border-b-2 border-black pb-4 mb-8">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Transparency</h2>
-                <h3 class="text-3xl font-black text-gray-900 tracking-tight">Work In Progress</h3>
-            </div>
-            
-            <p class="text-gray-600 mb-8 text-lg">A live look at ongoing proposals, commitments, and initiatives currently being pushed forward by the Office.</p>
-
-            <div id="dynamic-tracker" class="space-y-4">
-                <div class="text-gray-500 py-4 font-mono text-sm">Not available. Come back soon.</div>
-            </div>
-            
-            <div class="mt-8">
-                <a href="/initiatives/" class="inline-flex items-center text-black font-bold hover:text-brand-blue transition">
+    <section class="bg-white py-24 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-b-2 border-black pb-4 mb-10 flex flex-col md:flex-row justify-between md:items-end gap-4">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Transparency</h2>
+                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Work In Progress</h3>
+                </div>
+                <a href="/initiatives/" class="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-900 font-bold rounded-lg hover:bg-gray-200 transition">
                     View Complete Database <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                 </a>
+            </div>
+            
+            <p class="text-gray-600 mb-10 text-lg">A live look at ongoing proposals, commitments, and initiatives currently being pushed forward by the Office. Click on any item to view its full details.</p>
+
+            <div id="dynamic-tracker" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="col-span-full text-gray-500 py-10 font-mono text-sm bg-gray-50 rounded-xl text-center border border-gray-200">Not available. Come back soon.</div>
             </div>
         </div>
     </section>
@@ -213,44 +272,44 @@
             
             <div>
                 <h2 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-2">Direct Action</h2>
-                <h3 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-6">Youth Concerns Portal</h3>
+                <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">Youth Concerns Portal</h3>
                 <p class="text-gray-300 text-lg leading-relaxed mb-6">
                     Public service requires listening. This portal allows young citizens of Seychelles to submit concerns, policy ideas, or community issues directly to the Office.
                 </p>
                 <p class="text-gray-400 text-sm mb-8">
                     Submissions are reviewed by our team and, where appropriate, structured into formal motions or community action plans.
                 </p>
-                <ul class="space-y-3 text-gray-300">
-                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Tracked securely in our backend system.</li>
-                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Direct routing to relevant initiatives.</li>
-                    <li><i class="fa-solid fa-check text-brand-lightblue mr-2"></i> Forms the basis for Assembly interventions.</li>
+                <ul class="space-y-4 text-gray-300">
+                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-brand-blue/20 flex items-center justify-center mr-3"><i class="fa-solid fa-lock text-brand-lightblue text-sm"></i></div> Tracked securely in our backend system.</li>
+                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-brand-blue/20 flex items-center justify-center mr-3"><i class="fa-solid fa-route text-brand-lightblue text-sm"></i></div> Direct routing to relevant initiatives.</li>
+                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-brand-blue/20 flex items-center justify-center mr-3"><i class="fa-solid fa-landmark text-brand-lightblue text-sm"></i></div> Forms the basis for Assembly interventions.</li>
                 </ul>
             </div>
 
-            <div class="bg-white p-8 rounded-lg shadow-2xl">
-                <h4 class="text-2xl font-bold text-gray-900 mb-6 tracking-tight">Submit an Issue</h4>
+            <div class="bg-white p-8 md:p-10 rounded-2xl shadow-2xl">
+                <h4 class="text-2xl font-black text-gray-900 mb-8 tracking-tight">Submit an Issue</h4>
                 
-                <form id="issue-form" class="space-y-4" onsubmit="handleIssueSubmit(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <form id="issue-form" class="space-y-5" onsubmit="handleIssueSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Subject / Topic <span class="text-red-500">*</span></label>
-                            <input type="text" id="issue-subject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="e.g. Lack of sports facilities">
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Subject / Topic <span class="text-red-500">*</span></label>
+                            <input type="text" id="issue-subject" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="e.g. Lack of sports facilities">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">District (Optional)</label>
-                            <input type="text" id="issue-district" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" placeholder="e.g. Beau Vallon">
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">District (Optional)</label>
+                            <input type="text" id="issue-district" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" placeholder="e.g. Beau Vallon">
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Detailed Description <span class="text-red-500">*</span></label>
-                        <textarea id="issue-description" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="Describe the issue or propose a solution..."></textarea>
+                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Detailed Description <span class="text-red-500">*</span></label>
+                        <textarea id="issue-description" rows="5" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition" required placeholder="Describe the issue or propose a solution..."></textarea>
                     </div>
 
-                    <button type="submit" id="issue-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded hover:bg-brand-lightblue transition mt-2">
+                    <button type="submit" id="issue-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-lightblue transition mt-2 shadow-md">
                         Submit to the Office
                     </button>
-                    <p id="issue-msg" class="text-sm font-semibold text-center mt-3 hidden"></p>
+                    <p id="issue-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
                 </form>
             </div>
 
@@ -263,7 +322,7 @@
                 
                 <div class="md:col-span-6">
                     <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
-                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
+                    <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
                     
                     <div class="flex flex-wrap gap-5 text-xl">
                         <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -328,37 +387,88 @@
         const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const emptyStateHTML = '<div class="text-gray-500 py-2 font-mono text-sm">Not available. Come back soon.</div>';
+        const emptyStateHTML = '<div class="col-span-full text-gray-500 py-10 font-mono text-sm bg-gray-50 rounded-xl text-center border border-gray-200">Not available. Come back soon.</div>';
 
-        // 1. Fetch Work in Progress Tracker Data
+        // Global Initiative Data for Modals
+        let globalInitiatives = [];
+
+        function openInitiativeModal(index) {
+            const initiative = globalInitiatives[index];
+            if (!initiative) return;
+
+            document.getElementById('modal-title').textContent = initiative.title;
+            
+            let statusColor = initiative.status === 'active' ? 'bg-brand-blue' : 'bg-gray-400';
+            
+            let imageHTML = initiative.featured_image_url 
+                ? `<img src="${initiative.featured_image_url}" alt="${initiative.title}" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-sm mb-8 border border-gray-200">`
+                : '';
+
+            let headerHTML = `
+                <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
+                    <span class="text-xs font-bold uppercase tracking-wider px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full">${initiative.status}</span>
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Progress</div>
+                        <div class="text-2xl font-black text-gray-900">${initiative.progress_percentage || 0}%</div>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3 mb-8 overflow-hidden shadow-inner">
+                    <div class="${statusColor} h-3 rounded-full" style="width: ${initiative.progress_percentage || 0}%"></div>
+                </div>
+            `;
+
+            // Fallback to summary if full_description is missing
+            let descriptionHTML = initiative.full_description || initiative.summary || '<p>Detailed information coming soon.</p>';
+
+            document.getElementById('modal-content').innerHTML = imageHTML + headerHTML + descriptionHTML;
+
+            const modal = document.getElementById('initiative-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('body').classList.add('overflow-hidden');
+        }
+
+        function closeInitiativeModal() {
+            const modal = document.getElementById('initiative-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('body').classList.remove('overflow-hidden');
+        }
+
+        // Fetch Work in Progress Tracker Data
         async function fetchTrackerData() {
             try {
-                // Fetching from initiatives where status is either 'active' or 'proposed'
+                // Fetching from initiatives where status is active or proposed, getting full details for modal
                 const { data, error } = await supabaseClient
                     .from('initiatives')
-                    .select('title, status, progress_percentage')
+                    .select('title, status, progress_percentage, summary, full_description, featured_image_url')
                     .in('status', ['active', 'proposed'])
                     .order('created_at', { ascending: false })
-                    .limit(5);
+                    .limit(6);
 
                 const container = document.getElementById('dynamic-tracker');
                 
                 if (data && data.length > 0) {
+                    globalInitiatives = data;
                     let html = '';
-                    data.forEach(item => {
+                    data.forEach((item, index) => {
                         let statusColor = item.status === 'active' ? 'bg-brand-blue' : 'bg-gray-400';
                         html += `
-                        <div class="border border-gray-200 p-4 flex flex-col md:flex-row md:items-center justify-between hover:border-gray-400 transition">
-                            <div class="mb-3 md:mb-0">
-                                <h4 class="font-bold text-gray-900">${item.title}</h4>
-                                <span class="text-xs font-bold uppercase tracking-wider text-gray-500">${item.status}</span>
+                        <div onclick="openInitiativeModal(${index})" class="group border border-gray-200 bg-white rounded-xl p-6 flex flex-col justify-between hover:border-brand-lightblue hover:shadow-xl transition cursor-pointer">
+                            <div class="mb-6">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-1 rounded">${item.status}</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-300 group-hover:text-brand-lightblue transition"></i>
+                                </div>
+                                <h4 class="font-bold text-xl text-gray-900 mb-2 group-hover:text-brand-blue transition">${item.title}</h4>
+                                <p class="text-sm text-gray-600 line-clamp-2">${item.summary || 'Click to view details.'}</p>
                             </div>
-                            <div class="w-full md:w-64">
-                                <div class="flex justify-between text-xs font-bold text-gray-900 mb-1">
+                            <div class="w-full mt-auto">
+                                <div class="flex justify-between text-xs font-bold text-gray-500 mb-1">
                                     <span>Progress</span>
                                     <span>${item.progress_percentage || 0}%</span>
                                 </div>
-                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
                                     <div class="${statusColor} h-2 rounded-full transition-all duration-1000" style="width: ${item.progress_percentage || 0}%"></div>
                                 </div>
                             </div>
@@ -373,7 +483,7 @@
             }
         }
 
-        // 2. Issue Submission Logic
+        // Issue Submission Logic
         async function handleIssueSubmit(e) {
             e.preventDefault();
             const subject = document.getElementById('issue-subject').value.trim();
@@ -403,13 +513,13 @@
                 
                 // Success
                 msgEl.textContent = "Your concern has been formally submitted to the Office.";
-                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-3 block";
+                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-4 block";
                 document.getElementById('issue-form').reset();
                 
             } catch (err) {
                 console.error(err);
                 msgEl.textContent = "System error. Could not submit request at this time.";
-                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-3 block";
+                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-4 block";
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = 'Submit to the Office';
