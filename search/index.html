@@ -3,321 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Directory | Office of Tyler Nicholas</title>
+    <title>Search | Office of Tyler Nicholas</title>
     
-    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
-    
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
-                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280' } },
-                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)' }
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        signature: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0033a0',
+                            lightblue: '#005eb8',
+                        }
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #F9FAFB; -webkit-font-smoothing: antialiased; }
-        .fade-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
         
-        .nav-link { position: relative; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00AEEF; transition: width 0.3s ease; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-        /* Highlight matching text */
-        .highlight { background-color: #FEF08A; color: #111827; font-weight: 600; padding: 0 2px; rounded: 2px; }
+        /* Highlight styling for search terms */
+        .highlight {
+            background-color: #fef08a; /* yellow-200 */
+            font-weight: 700;
+            color: #111827; /* gray-900 */
+            padding: 0 2px;
+            border-radius: 2px;
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen text-brand-dark">
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
 
-    <div class="bg-[#111827] text-white text-[11px] md:text-xs font-medium py-2.5 px-4 text-center tracking-wide">
-        <i class="fa-solid fa-landmark mr-2"></i> Honorable Member Elect for the 21st Cohort of the Seychelles National Youth Assembly
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Searching Network</p>
+        </div>
     </div>
 
-    <nav class="bg-white py-4 px-6 md:px-12 sticky top-0 z-50 shadow-sm" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 group">
-                <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
-            </a>
-            <button id="mobile-menu-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
-            <div class="hidden lg:flex space-x-6 lg:space-x-8 text-sm font-heading font-medium text-brand-muted items-center">
-                <a href="/" class="nav-link hover:text-brand-dark transition-colors">Home</a>
-                <a href="/about/" class="nav-link hover:text-brand-dark transition-colors">About</a>
-                <a href="/initiatives/" class="nav-link hover:text-brand-dark transition-colors">Initiatives</a>
-                <a href="/newsroom/" class="nav-link hover:text-brand-dark transition-colors">Newsroom</a>
-            </div>
-            <div class="hidden lg:flex items-center space-x-6">
-                <a href="/contact/" class="bg-brand-blue hover:bg-[#0096D1] text-white px-6 py-2.5 rounded-lg font-heading font-medium transition-colors shadow-soft transform hover:-translate-y-0.5 inline-block">
-                    Let's Talk
-                </a>
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
+                        Office of Tyler Nicholas
+                    </a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
+                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
+                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
+                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
+                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
+                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
+                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
+                </div>
+
+                <div class="flex items-center lg:hidden">
+                    <button class="text-gray-600 hover:text-brand-blue focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 flex flex-col lg:hidden">
-        <div class="p-6 flex justify-between items-center border-b border-gray-100">
-            <h1 class="font-heading font-bold text-2xl tracking-tight text-brand-dark">Tyler<span class="text-brand-blue">.</span></h1>
-            <button id="mobile-menu-close" class="text-brand-dark text-3xl"><i class="fa-solid fa-xmark"></i></button>
+    <header class="w-full py-24 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
+            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-8 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Global Search</h1>
+            
+            <form id="master-search-form" class="relative flex items-center shadow-2xl rounded-full max-w-3xl mx-auto" onsubmit="handleSearchSubmit(event)">
+                <i class="fa-solid fa-search absolute left-6 text-gray-400 text-xl"></i>
+                <input type="text" id="search-input" placeholder="Search policies, initiatives, news, or documents..." 
+                       class="w-full pl-16 pr-32 py-5 bg-white rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-brand-lightblue/50 text-lg placeholder-gray-400 transition-all font-medium border-0" required autocomplete="off">
+                <button type="submit" class="absolute right-2 px-8 py-3 bg-gray-900 text-white font-bold rounded-full hover:bg-black transition shadow-md">
+                    Search
+                </button>
+            </form>
         </div>
-        <div class="p-8 flex flex-col space-y-6 text-brand-dark flex-grow font-heading font-semibold text-2xl">
-            <a href="/" class="hover:text-brand-blue transition-colors">Home</a>
-            <a href="/about/" class="hover:text-brand-blue transition-colors">About</a>
-            <a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a>
-            <a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a>
-            <a href="/contact/" class="mt-4 inline-block bg-brand-blue text-white text-center py-4 rounded-xl font-bold text-lg shadow-soft">Let's Talk</a>
-        </div>
-    </div>
+    </header>
 
-    <main class="flex-grow">
-        
-        <section class="pt-16 pb-10 bg-white border-b border-gray-100">
-            <div class="max-w-4xl mx-auto px-6 md:px-12">
-                <h1 class="text-2xl md:text-3xl font-heading font-bold text-brand-dark mb-6">Directory Search</h1>
+    <section class="bg-gray-50 py-16 min-h-[60vh]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-gray-200 pb-6">
+                <div class="text-gray-600 font-medium">
+                    Found <span id="result-count" class="font-black text-brand-blue text-xl">0</span> results for <span id="query-display" class="italic text-gray-900 font-bold">""</span>
+                </div>
                 
-                <div class="relative flex items-center">
-                    <i class="fa-solid fa-magnifying-glass absolute left-5 text-xl text-brand-muted"></i>
-                    <input type="text" id="page-search-input" placeholder="Search policies, updates, or contact info..." class="w-full bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-blue rounded-xl py-4 pl-14 pr-32 text-lg font-heading outline-none transition-all shadow-inner">
-                    <button onclick="triggerNewSearch()" class="absolute right-2 bg-brand-dark hover:bg-brand-blue text-white font-heading font-semibold text-sm py-2.5 px-6 rounded-lg transition-colors">
-                        Search
-                    </button>
+                <div class="flex flex-wrap gap-2 justify-center" id="search-filters">
+                    <button onclick="filterResults('All')" class="filter-btn active px-4 py-1.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm transition">All</button>
+                    <button onclick="filterResults('Policy')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Policies</button>
+                    <button onclick="filterResults('Initiative')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Initiatives</button>
+                    <button onclick="filterResults('Document')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Documents</button>
+                    <button onclick="filterResults('Page')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Pages</button>
                 </div>
             </div>
-        </section>
 
-        <section class="py-12">
-            <div class="max-w-4xl mx-auto px-6 md:px-12">
-                
-                <div class="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
-                    <h2 class="text-sm font-heading font-semibold text-brand-muted">Search Results for: <span id="search-query-display" class="text-brand-dark font-bold">"..."</span></h2>
-                    <span id="results-count" class="text-xs font-bold bg-brand-light text-brand-blue px-3 py-1 rounded-full uppercase tracking-widest">0 Found</span>
+            <div id="results-container" class="space-y-4">
                 </div>
 
-                <div id="results-container" class="space-y-6">
-                    <div id="loading-state" class="text-center py-20">
-                        <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-blue mb-4"></i>
-                        <p class="text-brand-muted font-heading font-medium">Scanning Office Directory & Database...</p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <div class="md:col-span-6">
+                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
+                    <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
+                    
+                    <div class="flex flex-wrap gap-5 text-xl">
+                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
                     </div>
                 </div>
 
-            </div>
-        </section>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
+                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
+                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
+                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
+                    </ul>
+                </div>
 
-    </main>
+                <div class="md:col-span-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
+                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
+                    </ul>
+                </div>
 
-    <footer class="bg-white border-t border-gray-200 pt-20 pb-10 px-6 md:px-12 mt-auto">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            <div class="md:col-span-4">
-                <h3 class="font-heading font-bold text-2xl tracking-tight text-brand-dark mb-2">Tyler<span class="text-brand-blue">.</span></h3>
-                <p class="text-xs font-heading uppercase tracking-widest text-brand-blue font-bold mb-6">Office of Tyler Nicholas</p>
-                <p class="text-sm leading-relaxed text-brand-muted mb-8 max-w-xs">
-                    Committed to public service, youth leadership, and the sustainable development of the Republic of Seychelles.
-                </p>
             </div>
-            <div class="md:col-span-2">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Directory</h4>
-                <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="/" class="hover:text-brand-blue transition-colors">Home</a></li>
-                    <li><a href="/about/" class="hover:text-brand-blue transition-colors">About</a></li>
-                    <li><a href="/initiatives/" class="hover:text-brand-blue transition-colors">Initiatives</a></li>
-                    <li><a href="/newsroom/" class="hover:text-brand-blue transition-colors">Newsroom</a></li>
-                    <li><a href="/contact/" class="hover:text-brand-blue transition-colors">Contact</a></li>
-                </ul>
-            </div>
-            <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Affiliations</h4>
-                <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="https://tyler-nicholas.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Personal Website <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                    <li><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center hover:text-brand-blue transition-colors">Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-2"></i></a></li>
-                </ul>
-            </div>
-            <div class="md:col-span-3">
-                <h4 class="text-brand-dark font-heading font-bold text-base mb-6">Contact</h4>
-                <ul class="space-y-4 text-sm font-medium text-brand-muted">
-                    <li><a href="mailto:tyler@nicholasoffice.online" class="hover:text-brand-blue transition-colors">tyler@nicholasoffice.online</a></li>
-                    <li class="pt-2"><a href="tel:+2482544788" class="text-brand-dark font-bold font-heading text-base hover:text-brand-blue transition-colors">+248 2544788</a></li>
-                </ul>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex items-center gap-4">
+                    <p>Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a></p>
+                    <span class="text-gray-700">|</span>
+                    <a href="/admin/" class="text-xs font-bold text-gray-600 hover:text-white uppercase tracking-widest border border-gray-700 hover:border-gray-500 px-3 py-1 rounded transition"><i class="fa-solid fa-lock mr-1 text-[10px]"></i> Admin Portal</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // --- MOBILE MENU LOGIC ---
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu-overlay');
-        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
-        mobileClose.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        // ==========================================
+        // MASTER SEARCH DATABASE INDEX
+        // ==========================================
+        const SEARCH_INDEX = [
+            // Core Policies
+            { title: "Education Reform", category: "Policy", desc: "A modern education system focused on student-centered learning, career guidance, and wellbeing.", url: "/public-service/education-reform/", tags: ["school", "learning", "students", "teachers"] },
+            { title: "Youth Participation", category: "Policy", desc: "Empowering young people to take active roles in national decision-making and civic leadership.", url: "/public-service/youth-participation/", tags: ["empowerment", "assembly", "voice", "vote"] },
+            { title: "Digital Access", category: "Policy", desc: "Ensuring digital inclusion, technology skills, and online resources are available to all youth.", url: "/public-service/digital-access/", tags: ["internet", "technology", "computers", "coding"] },
+            { title: "Mental Health", category: "Policy", desc: "Fostering supportive environments, expanding access to care, and reducing the stigma of seeking help.", url: "/public-service/mental-health/", tags: ["wellbeing", "counselling", "support", "psychology"] },
+            { title: "Community Service", category: "Policy", desc: "Fostering civic responsibility and volunteering for the betterment of Seychelles communities.", url: "/public-service/community-service/", tags: ["volunteer", "charity", "help", "clean up"] },
+            { title: "National Development", category: "Policy", desc: "Driving Seychelles forward through public service modernization and strategic youth leadership.", url: "/public-service/national-development/", tags: ["governance", "economy", "future", "progress"] },
+            { title: "Student Wellbeing", category: "Policy", desc: "Focusing on the daily student experience—balancing academic performance with emotional support.", url: "/public-service/student-wellbeing/", tags: ["stress", "bullying", "school rules", "health"] },
+            { title: "Innovation & Enterprise", category: "Policy", desc: "Empowering youth entrepreneurship, digital startups, and building pathways for business creation.", url: "/public-service/innovation-enterprise/", tags: ["business", "startup", "economy", "money"] },
+            
+            // Major Initiatives
+            { title: "National Youth Resources & Opportunity Hub", category: "Initiative", desc: "A proposed digital platform designed to bring together youth support, educational resources, and opportunities.", url: "/initiatives/more/", tags: ["hub", "website", "directory"] },
+            { title: "The Tyler Nicholas Foundation", category: "Initiative", desc: "The philanthropic arm focused on humanitarian efforts, educational sponsorships, and community relief.", url: "https://tyler-nicholas-foundation.online", tags: ["charity", "ngo", "help", "foundation"] },
+            
+            // Official Documents
+            { title: "Emergency Essential Support Numbers in Seychelles", category: "Document", desc: "Official downloadable guide for police, medical, and youth support hotlines.", url: "/document/Emergency_Essential_Support_Numbers_in_Seychelles.pdf", tags: ["emergency", "police", "hospital", "helpline", "download"] },
+            { title: "Official Biography of Tyler P. Nicholas", category: "Document", desc: "Downloadable text document containing the official biography and background information.", url: "/about/", tags: ["bio", "history", "background", "about"] },
 
-        // Allow pressing Enter in the search box on this page
-        document.getElementById('page-search-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') triggerNewSearch();
-        });
-
-        function triggerNewSearch() {
-            const query = document.getElementById('page-search-input').value.trim();
-            if (query) {
-                window.location.href = `/search/?q=${encodeURIComponent(query)}`;
-            }
-        }
-
-        // --- SEARCH ENGINE LOGIC ---
-        const SUPABASE_URL = 'https://eeqgfchvchpdulfybsjg.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcWdmY2h2Y2hwZHVsZnlic2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDEyMzYsImV4cCI6MjA5MDI3NzIzNn0.2Psw_X2TB1r8iLb46WWWANhVuDvoDPnUMjaWykvqd1s';
-
-        // 1. Define Static Core Pages
-        const staticIndex = [
-            {
-                title: "About Tyler Nicholas",
-                url: "/about/",
-                type: "Biography",
-                content: "Biography, public record, and professional affiliations. Tyler Nicholas is an Honorable Member Elect dedicated to youth empowerment, civic duty, and the structural development of Seychelles. Principal of Tyler Nicholas Group."
-            },
-            {
-                title: "My Initiatives & Vision",
-                url: "/initiatives/",
-                type: "Policy",
-                content: "Youth Empowerment, Public Service, Community Engagement, Leadership Development. Advocating for educational reform, mental health, and democratic integration of the next generation."
-            },
-            {
-                title: "Contact The Office",
-                url: "/contact/",
-                type: "Directory",
-                content: "Official communication channels, secure inquiry form, email directories, phone number, and location in the Republic of Seychelles. Become an Office Ambassador."
-            },
-            {
-                title: "Privacy & Cookie Policy",
-                url: "/legal/",
-                type: "Legal",
-                content: "Legal documentation, data collection policies, information security, and cookie practices for the Office."
-            }
+            // Main Pages
+            { title: "About Tyler Nicholas", category: "Page", desc: "Read the official biography, mission statement, and guiding principles of the Office.", url: "/about/", tags: ["who is", "founder", "biography"] },
+            { title: "Contact the Office", category: "Page", desc: "Submit press inquiries, partnership proposals, or general messages to the team.", url: "/contact/", tags: ["email", "message", "press", "media"] },
+            { title: "Newsroom & Media Center", category: "Page", desc: "Latest announcements, press releases, public statements, and assembly interventions.", url: "/newsroom/", tags: ["news", "press release", "updates", "speeches"] },
+            { title: "Resources & Public Library", category: "Page", desc: "A centralized database of toolkits, scholarship information, civic guides, and directories.", url: "/resources/", tags: ["downloads", "files", "library"] },
+            { title: "Volunteer Sign-Up", category: "Page", desc: "Register your interest to volunteer for community projects and national initiatives.", url: "/contact/", tags: ["help out", "join", "register"] }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Get search query from URL
+        let currentQuery = "";
+        let currentFilter = "All";
+        let searchResults = [];
+
+        // Loading Screen Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const body = document.getElementById('body');
+            
+            function hideLoader() {
+                if (loader.style.display === 'none') return; 
+                loader.classList.add('fade-out');
+                body.classList.remove('overflow-hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+
+            setTimeout(hideLoader, 300); 
+            window.addEventListener('load', hideLoader);
+
+            // Read URL Parameters on Load
             const urlParams = new URLSearchParams(window.location.search);
             const query = urlParams.get('q');
             
             if (query) {
-                document.getElementById('search-query-display').innerText = `"${query}"`;
-                document.getElementById('page-search-input').value = query;
-                executeHybridSearch(query);
+                document.getElementById('search-input').value = query;
+                executeSearch(query);
             } else {
-                document.getElementById('search-query-display').innerText = "None";
-                document.getElementById('loading-state').innerHTML = `<p class="text-brand-muted font-medium">Please enter a keyword to search the directory.</p>`;
+                executeSearch(""); // Render all initially or empty state
             }
         });
 
-        async function executeHybridSearch(query) {
-            const searchTerm = query.toLowerCase();
-            let allResults = [];
+        // Form Submit Handler
+        function handleSearchSubmit(e) {
+            e.preventDefault();
+            const query = document.getElementById('search-input').value;
+            // Update URL without reloading page
+            const newUrl = `${window.location.pathname}?q=${encodeURIComponent(query)}`;
+            window.history.pushState({path: newUrl}, '', newUrl);
+            executeSearch(query);
+        }
 
-            // 1. Search Static Pages
-            staticIndex.forEach(page => {
-                if (page.title.toLowerCase().includes(searchTerm) || page.content.toLowerCase().includes(searchTerm)) {
-                    allResults.push({
-                        title: page.title,
-                        url: page.url,
-                        type: page.type,
-                        snippet: page.content
-                    });
+        // Category Filter Handler
+        function filterResults(category) {
+            currentFilter = category;
+            
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.textContent.trim().toLowerCase() === category.toLowerCase() || (category === 'All' && btn.textContent.trim() === 'All')) {
+                    btn.className = "filter-btn active px-4 py-1.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm transition";
+                } else {
+                    btn.className = "filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition";
                 }
             });
 
-            // 2. Search Supabase Database (Wait for client to load if needed)
-            const checkSupabase = setInterval(async () => {
-                if (window.supabase) {
-                    clearInterval(checkSupabase);
-                    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                    
-                    try {
-                        // Fetch News Updates
-                        const { data: newsData } = await supabase.from('tn_updates')
-                            .select('title, short_summary')
-                            .or(`title.ilike.%${searchTerm}%,short_summary.ilike.%${searchTerm}%`);
-                        
-                        if (newsData) {
-                            newsData.forEach(item => {
-                                allResults.push({
-                                    title: item.title,
-                                    url: "/newsroom/",
-                                    type: "Press Release",
-                                    snippet: item.short_summary
-                                });
-                            });
-                        }
-
-                        // Fetch Events
-                        const { data: eventsData } = await supabase.from('tn_events')
-                            .select('title, description')
-                            .or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
-                            
-                        if (eventsData) {
-                            eventsData.forEach(item => {
-                                allResults.push({
-                                    title: item.title,
-                                    url: "/#events",
-                                    type: "Official Event",
-                                    snippet: item.description || "Upcoming official appearance."
-                                });
-                            });
-                        }
-
-                    } catch(err) {
-                        console.error("Supabase search failed", err);
-                    }
-
-                    // 3. Render Results
-                    renderResults(allResults, searchTerm);
-                }
-            }, 100);
+            renderResults();
         }
 
-        function renderResults(results, searchTerm) {
-            const container = document.getElementById('results-container');
-            document.getElementById('loading-state').style.display = 'none';
-            document.getElementById('results-count').innerText = `${results.length} Found`;
+        // Core Search Execution
+        function executeSearch(query) {
+            currentQuery = query.toLowerCase().trim();
+            document.getElementById('query-display').textContent = currentQuery ? `"${query}"` : "All Directory Items";
 
-            if (results.length === 0) {
+            if (!currentQuery) {
+                searchResults = SEARCH_INDEX;
+            } else {
+                searchResults = SEARCH_INDEX.filter(item => {
+                    const matchTitle = item.title.toLowerCase().includes(currentQuery);
+                    const matchDesc = item.desc.toLowerCase().includes(currentQuery);
+                    const matchTags = item.tags.some(tag => tag.toLowerCase().includes(currentQuery));
+                    return matchTitle || matchDesc || matchTags;
+                });
+            }
+
+            renderResults();
+        }
+
+        // Highlight Text Helper
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        // Get Icon Based on Category
+        function getCategoryUI(category) {
+            switch(category) {
+                case 'Policy': return { icon: 'fa-landmark', color: 'text-brand-blue bg-blue-50 border-blue-100' };
+                case 'Initiative': return { icon: 'fa-bolt', color: 'text-green-600 bg-green-50 border-green-100' };
+                case 'Document': return { icon: 'fa-file-pdf', color: 'text-red-500 bg-red-50 border-red-100' };
+                case 'Page': return { icon: 'fa-compass', color: 'text-purple-600 bg-purple-50 border-purple-100' };
+                default: return { icon: 'fa-layer-group', color: 'text-gray-600 bg-gray-100 border-gray-200' };
+            }
+        }
+
+        // Render to DOM
+        function renderResults() {
+            const container = document.getElementById('results-container');
+            
+            // Apply category filter
+            let finalResults = searchResults;
+            if (currentFilter !== 'All') {
+                finalResults = finalResults.filter(item => item.category === currentFilter);
+            }
+
+            document.getElementById('result-count').textContent = finalResults.length;
+
+            if (finalResults.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-16 bg-white border border-gray-100 rounded-2xl shadow-sm fade-up">
-                        <i class="fa-solid fa-folder-open text-4xl text-gray-300 mb-4"></i>
-                        <h3 class="text-xl font-heading font-bold text-brand-dark mb-2">No results found</h3>
-                        <p class="text-brand-muted">We couldn't find anything matching "${searchTerm}". Try checking your spelling or using more general keywords.</p>
+                    <div class="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
+                        <i class="fa-solid fa-search-minus text-4xl text-gray-300 mb-4 block"></i>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">No results found</h4>
+                        <p class="text-gray-500 text-sm">We couldn't find anything matching your search criteria. Try adjusting your keywords or check out the <a href="/initiatives/more/" class="text-brand-blue font-bold hover:underline">Full Category Directory</a>.</p>
                     </div>
                 `;
                 return;
             }
 
             let html = '';
-            results.forEach((res, index) => {
-                // Simple highlighter function
-                const regex = new RegExp(`(${searchTerm})`, 'gi');
-                const highlightedTitle = res.title.replace(regex, '<span class="highlight">$1</span>');
-                const highlightedSnippet = res.snippet.replace(regex, '<span class="highlight">$1</span>');
+            finalResults.forEach(item => {
+                const ui = getCategoryUI(item.category);
+                const highlightedTitle = highlightText(item.title, currentQuery);
+                const highlightedDesc = highlightText(item.desc, currentQuery);
+                const targetAttr = item.url.startsWith('http') || item.url.endsWith('.pdf') ? 'target="_blank"' : '';
 
                 html += `
-                <a href="${res.url}" class="block bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-blue transition-all group fade-up" style="animation-delay: ${index * 50}ms">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="text-[10px] font-bold bg-brand-light text-brand-blue px-2 py-1 rounded uppercase tracking-widest">${res.type}</span>
-                        <span class="text-xs text-gray-400 group-hover:text-brand-blue transition-colors break-all">nicholasoffice.online${res.url}</span>
+                <a href="${item.url}" ${targetAttr} class="block bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-lg hover:border-brand-lightblue transition duration-300 group">
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center text-xl shrink-0 border ${ui.color} group-hover:scale-110 transition duration-300 shadow-sm">
+                            <i class="fa-solid ${ui.icon}"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border ${ui.color}">${item.category}</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-900 group-hover:text-brand-blue transition leading-tight mb-1">${highlightedTitle}</h4>
+                            <p class="text-sm text-gray-600 line-clamp-2 leading-relaxed">${highlightedDesc}</p>
+                        </div>
+                        <div class="hidden sm:flex shrink-0 text-gray-300 group-hover:text-brand-lightblue transition pl-4 border-l border-gray-100">
+                            <i class="fa-solid fa-chevron-right text-xl transform group-hover:translate-x-1 transition"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-brand-dark mb-3 group-hover:text-brand-blue transition-colors">${highlightedTitle}</h3>
-                    <p class="text-brand-muted text-sm leading-relaxed">${highlightedSnippet}</p>
-                </a>
-                `;
+                </a>`;
             });
+
             container.innerHTML = html;
         }
     </script>
