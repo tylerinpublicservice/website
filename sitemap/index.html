@@ -1,254 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitemap | Office of Tyler Nicholas</title>
-    
-    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        signature: ['Great Vibes', 'cursive'],
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#0033a0',
-                            lightblue: '#005eb8',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
-    </style>
-</head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
-
-    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500">
-        <div class="flex flex-col items-center">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Directory</p>
-        </div>
-    </div>
-
-    <script>
-        function removeLoader() {
-            const loader = document.getElementById('loader');
-            const body = document.getElementById('body');
-            if(loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
-            if(body) {
-                body.classList.remove('overflow-hidden');
-            }
-        }
-        window.addEventListener('load', removeLoader);
-        setTimeout(removeLoader, 1500);
-    </script>
-
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
-                        Office of Tyler Nicholas
-                    </a>
-                </div>
-                
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
-                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
-                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
-                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
-                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
-                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
-                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
-                </div>
-
-                <div class="flex items-center lg:hidden">
-                    <button class="text-gray-600 hover:text-brand-blue focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="w-full py-24 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
-            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
-                <i class="fa-solid fa-sitemap"></i>
-                <span>Platform Directory</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Sitemap</h1>
-            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">A complete index of all pages, policy briefs, initiatives, and portals available on the Office of Tyler Nicholas platform.</p>
-        </div>
-    </header>
-
-    <section class="bg-gray-50 py-20 min-h-[60vh]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-blue-50 text-brand-blue rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-house"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">Main Pages</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Home</a></li>
-                        <li class="group"><a href="/about/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> About Tyler Nicholas</a></li>
-                        <li class="group"><a href="/public-service/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Public Service Overview</a></li>
-                        <li class="group"><a href="/search/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Global Search</a></li>
-                        <li class="group"><a href="/contact/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Contact the Office</a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-landmark"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">Core Policies</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/public-service/education-reform/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Education Reform</a></li>
-                        <li class="group"><a href="/public-service/youth-participation/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Youth Participation</a></li>
-                        <li class="group"><a href="/public-service/digital-access/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Digital Access</a></li>
-                        <li class="group"><a href="/public-service/mental-health/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Mental Health & Wellbeing</a></li>
-                        <li class="group"><a href="/public-service/community-service/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Community Service</a></li>
-                        <li class="group"><a href="/public-service/national-development/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> National Development</a></li>
-                        <li class="group"><a href="/public-service/student-wellbeing/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Student Wellbeing</a></li>
-                        <li class="group"><a href="/public-service/innovation-enterprise/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Innovation & Enterprise</a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-green-50 text-green-600 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-bolt"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">Initiatives & Resources</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/initiatives/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> National Initiatives Hub</a></li>
-                        <li class="group"><a href="/initiatives/more/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> All Categories Directory</a></li>
-                        <li class="group"><a href="/resources/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Public Resource Library</a></li>
-                        <li class="group"><a href="/document/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Official Document Center</a></li>
-                        <li class="group"><a href="https://tyler-nicholas-foundation.online" target="_blank" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> The Tyler Nicholas Foundation <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-red-50 text-red-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-newspaper"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">Newsroom & Media</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/newsroom/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Official Newsroom</a></li>
-                        <li class="group"><a href="/newsroom/#dynamic-speeches" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Speeches & Interventions</a></li>
-                        <li class="group"><a href="/newsroom/#dynamic-events" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Upcoming Events</a></li>
-                        <li class="group"><a href="/newsroom/#press-form" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Press Inquiries Portal</a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">Get Involved</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/contact/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> General Inquiries Form</a></li>
-                        <li class="group"><a href="/initiatives/more/#volunteer-modal" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Volunteer Sign-Up</a></li>
-                        <li class="group"><a href="/initiatives/more/#partner-form" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Propose a Partnership</a></li>
-                        <li class="group"><a href="/resources/#resource-submit-form" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Submit a Public Resource</a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <div class="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-                        <div class="w-10 h-10 bg-gray-900 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-gear"></i></div>
-                        <h2 class="text-xl font-black text-gray-900">System & Utilities</h2>
-                    </div>
-                    <ul class="space-y-4">
-                        <li class="group"><a href="/admin/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-lock text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Admin Dashboard Login</a></li>
-                        <li class="group"><a href="/404.html" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Page Not Found (404)</a></li>
-                        <li class="group"><a href="/sitemap/" class="flex items-center text-gray-700 hover:text-brand-blue font-medium transition"><i class="fa-solid fa-angle-right text-gray-300 mr-3 group-hover:translate-x-1 transition"></i> Sitemap</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
-                <div class="md:col-span-6">
-                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
-                    <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
-                    
-                    <div class="flex flex-wrap gap-5 text-xl">
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
-                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
-                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
-                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 flex items-center gap-4">
-                    <p>Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a></p>
-                    <span class="text-gray-700">|</span>
-                    <a href="/admin/" class="text-xs font-bold text-gray-600 hover:text-white uppercase tracking-widest border border-gray-700 hover:border-gray-500 px-3 py-1 rounded transition"><i class="fa-solid fa-lock mr-1 text-[10px]"></i> Admin Portal</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://nicholasoffice.online/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/about/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/education-reform/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/youth-participation/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/digital-access/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/mental-health/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/community-service/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/national-development/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/student-wellbeing/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/public-service/innovation-enterprise/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/initiatives/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/initiatives/more/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/newsroom/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/resources/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/document/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/contact/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://nicholasoffice.online/search/</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>
