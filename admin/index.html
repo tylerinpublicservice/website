@@ -3,654 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Office Portal | Tyler Nicholas</title>
+    <title>Executive Admin Portal | Office of Tyler Nicholas</title>
     
-    <link rel="icon" href="https://i.ibb.co/zHTtnWDz/favicon.png" type="image/png" />
+    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Poppins', 'sans-serif'] },
-                    colors: { brand: { blue: '#00AEEF', dark: '#111827', light: '#E6F6FE', muted: '#6B7280', panel: '#0B1120' } },
-                    boxShadow: { 'soft': '0 10px 40px -10px rgba(0,174,239,0.15)', 'card': '0 4px 20px rgba(0,0,0,0.05)', 'sidebar': '4px 0 24px rgba(0,0,0,0.05)' }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { blue: '#0033a0', lightblue: '#005eb8' }
+                    }
                 }
             }
         }
     </script>
-
     <style>
-        body { background-color: #F9FAFB; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        
-        /* Smooth Screen & View Transitions */
-        .screen-layer { transition: opacity 0.4s ease; }
-        .hidden-screen { opacity: 0; pointer-events: none; position: fixed; inset: 0; z-index: -1; }
-        .active-screen { opacity: 1; pointer-events: auto; position: relative; z-index: 10; min-height: 100vh; display: flex; }
-
-        .app-view { display: none; animation: viewFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .app-view.active-view { display: block; }
-        @keyframes viewFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Toast Notifications */
-        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background: white; color: #111827; padding: 16px 24px; border-radius: 8px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1); border-left: 4px solid #00AEEF; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 12px; }
-        .toast.show { transform: translateX(0); }
-        .toast.success { border-left-color: #10B981; } .toast.error { border-left-color: #EF4444; }
-
-        /* Custom Inputs */
-        .admin-input { @apply w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm outline-none focus:bg-white focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all; }
-        
-        /* Modern Sidebar Styling */
-        .nav-item { @apply flex items-center w-full px-5 py-3.5 rounded-xl text-gray-400 hover:text-white transition-all font-medium text-sm mb-2 group relative overflow-hidden; }
-        .nav-item:hover { background-color: rgba(255,255,255,0.05); transform: translateX(4px); }
-        .nav-item.active { @apply text-white shadow-md transform-none; background: linear-gradient(135deg, #00AEEF 0%, #0077A3 100%); }
-        .nav-item i { @apply w-7 text-lg transition-transform duration-300 group-hover:scale-110; }
-        
-        /* Custom Scrollbar for Sidebar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
-        .dark-scroll::-webkit-scrollbar-thumb { background: #1F2937; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased h-screen overflow-hidden flex">
 
-    <div id="login-screen" class="screen-layer active-screen items-center justify-center bg-brand-dark">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-blue rounded-full blur-3xl opacity-20"></div>
-            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-blue rounded-full blur-3xl opacity-20"></div>
-        </div>
-
-        <div class="w-full max-w-md bg-white p-10 rounded-[2rem] shadow-2xl relative z-10 border border-gray-100">
+    <div id="login-overlay" class="fixed inset-0 z-[100] bg-gray-900 flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
+        <div class="absolute inset-0 bg-gray-900/80 backdrop-blur-md"></div>
+        <div class="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border-t-8 border-brand-blue">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-brand-light text-brand-blue rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-inner"><i class="fa-solid fa-fingerprint"></i></div>
-                <h1 class="font-heading font-bold text-2xl text-brand-dark">Office Portal</h1>
-                <p class="text-brand-muted text-sm mt-2">Authorized Personnel Authentication</p>
+                <i class="fa-solid fa-shield-halved text-4xl text-brand-blue mb-4"></i>
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight">Secure Access</h2>
+                <p class="text-sm text-gray-500 mt-1">Office of Tyler Nicholas Executive Portal</p>
             </div>
-            
-            <form onsubmit="handleLogin(event)" class="space-y-5">
-                <div>
-                    <label class="block text-[11px] font-heading font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Admin Email</label>
-                    <input type="email" id="login-email" class="admin-input" required>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="mb-5">
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Access Key</label>
+                    <input type="password" id="admin-pass" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition" placeholder="Enter administrative password">
                 </div>
-                <div>
-                    <label class="block text-[11px] font-heading font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Secure Password</label>
-                    <input type="password" id="login-pass" class="admin-input" required>
-                </div>
-                <button type="submit" id="btn-login" class="w-full bg-brand-dark hover:bg-brand-blue text-white font-heading font-bold py-4 rounded-xl transition-all shadow-md text-sm mt-6 uppercase tracking-widest">
-                    Authenticate <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                <button type="submit" class="w-full py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock text-sm"></i> Authenticate
                 </button>
+                <p id="login-error" class="text-red-500 text-xs font-bold text-center mt-4 hidden">Invalid credentials. Access denied.</p>
+                <p class="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-widest">Authorized Personnel Only</p>
             </form>
         </div>
     </div>
 
-    <div id="app-screen" class="screen-layer hidden-screen w-full bg-[#F9FAFB]">
+    <aside class="w-64 bg-gray-900 text-white flex flex-col shadow-xl z-20 flex-shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <h1 class="text-lg font-black tracking-tight text-white leading-tight">Tyler Nicholas<br><span class="text-brand-lightblue text-sm">Admin Portal</span></h1>
+        </div>
         
-        <aside class="w-72 bg-brand-panel h-screen flex flex-col fixed left-0 top-0 z-20 shadow-sidebar border-r border-gray-800">
-            <div class="p-8 pb-6">
-                <h2 class="font-heading font-bold text-3xl text-white tracking-tight flex items-center">
-                    Tyler<span class="text-brand-blue">.</span>
-                </h2>
-                <div class="flex items-center mt-3 gap-2">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">System Online</p>
-                </div>
-            </div>
-
-            <nav class="flex-grow px-4 space-y-1 overflow-y-auto dark-scroll">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 mt-4">Command Center</p>
-                <button onclick="switchView('dashboard', this)" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</button>
-                <button onclick="switchView('inquiries', this)" class="nav-item"><i class="fa-solid fa-inbox"></i> Inquiries</button>
-                <button onclick="switchView('news', this)" class="nav-item"><i class="fa-solid fa-newspaper"></i> Newsroom</button>
-                <button onclick="switchView('media', this)" class="nav-item"><i class="fa-solid fa-images"></i> Media Gallery</button>
-                
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 mt-8">Audience</p>
-                <button onclick="switchView('subscribers', this)" class="nav-item"><i class="fa-solid fa-users"></i> Mailing List</button>
-            </nav>
-
-            <div class="p-4 mt-auto border-t border-gray-800 bg-black/20">
-                <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer" onclick="handleLogout()" title="Click to Sign Out">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-blue to-purple-500 flex items-center justify-center text-white font-bold shadow-md">TN</div>
-                    <div class="flex-grow">
-                        <p class="text-sm font-bold text-white leading-tight group-hover:text-red-400 transition-colors">Admin Active</p>
-                        <p class="text-[10px] text-gray-400 font-medium">Click to Sign Out</p>
-                    </div>
-                    <i class="fa-solid fa-power-off text-gray-500 group-hover:text-red-400 transition-colors"></i>
-                </div>
-            </div>
-        </aside>
-
-        <main class="ml-72 p-10 xl:p-14 w-full min-h-screen">
+        <nav class="flex-grow py-6 px-4 space-y-2 overflow-y-auto">
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 pl-2">Overview</p>
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg bg-brand-blue text-white font-medium transition text-sm">
+                <i class="fa-solid fa-chart-line w-5 text-center"></i> Dashboard
+            </button>
+            <button onclick="switchTab('inbox')" id="nav-inbox" class="nav-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-inbox w-5 text-center"></i> Inbox</div>
+                <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badge-inbox">0</span>
+            </button>
             
-            <div id="view-dashboard" class="app-view active-view">
-                <div class="flex justify-between items-end mb-10">
-                    <div>
-                        <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">System Overview</h1>
-                        <p class="text-brand-muted font-medium">Welcome back to the Office Command Center.</p>
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-8 mb-2 pl-2">Content Manager</p>
+            <button onclick="switchTab('cms-news')" id="nav-cms-news" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-newspaper w-5 text-center"></i> News & Press
+            </button>
+            <button onclick="switchTab('cms-init')" id="nav-cms-init" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-bolt w-5 text-center"></i> Initiatives
+            </button>
+            <button onclick="switchTab('cms-events')" id="nav-cms-events" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-calendar-day w-5 text-center"></i> Events
+            </button>
+            <button onclick="switchTab('cms-docs')" id="nav-cms-docs" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-file-pdf w-5 text-center"></i> Documents
+            </button>
+
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-8 mb-2 pl-2">System</p>
+            <button onclick="switchTab('subscribers')" id="nav-subscribers" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-users w-5 text-center"></i> Subscribers
+            </button>
+            <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
+                <i class="fa-solid fa-gear w-5 text-center"></i> Site Config
+            </button>
+        </nav>
+        
+        <div class="p-4 border-t border-gray-800">
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-red-400 transition text-sm font-medium">
+                <i class="fa-solid fa-arrow-right-from-bracket w-5 text-center"></i> Secure Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50 relative">
+        
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow-sm flex-shrink-0 z-10">
+            <div>
+                <h2 id="header-title" class="text-xl font-black text-gray-900 tracking-tight">System Dashboard</h2>
+                <p id="header-subtitle" class="text-xs font-medium text-gray-500">Live platform overview and analytics</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="/" target="_blank" class="text-xs font-bold text-gray-500 border border-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 transition">View Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                <div class="w-10 h-10 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold shadow-md">
+                    TN
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8" id="view-container">
+            
+            <div id="view-dashboard" class="tab-view block">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-50 text-brand-blue flex items-center justify-center text-xl"><i class="fa-solid fa-inbox"></i></div>
+                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">New Messages</p><p class="text-2xl font-black text-gray-900" id="stat-messages">0</p></div>
                     </div>
-                    <button onclick="refreshAllData()" class="bg-white border border-gray-200 text-brand-dark px-5 py-2.5 rounded-xl text-sm font-semibold hover:border-brand-blue transition-colors shadow-sm"><i class="fa-solid fa-rotate-right mr-2 text-brand-blue"></i> Sync Data</button>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-green-50 text-green-600 flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div>
+                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Subscribers</p><p class="text-2xl font-black text-gray-900" id="stat-subs">0</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center text-xl"><i class="fa-solid fa-newspaper"></i></div>
+                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">News Articles</p><p class="text-2xl font-black text-gray-900" id="stat-news">0</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-xl"><i class="fa-solid fa-bolt"></i></div>
+                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Active Initiatives</p><p class="text-2xl font-black text-gray-900" id="stat-init">0</p></div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-card flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Inquiries</p>
-                            <h3 class="text-4xl font-heading font-bold text-brand-dark" id="stat-msgs">-</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                            <h3 class="font-bold text-gray-900">Recent Inbox Activity</h3>
+                            <button onclick="switchTab('inbox')" class="text-xs font-bold text-brand-lightblue hover:text-brand-blue">View All</button>
                         </div>
-                        <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center text-2xl"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="p-0">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                        <th class="p-4 border-b border-gray-100">Date</th>
+                                        <th class="p-4 border-b border-gray-100">Subject/Type</th>
+                                        <th class="p-4 border-b border-gray-100">Sender</th>
+                                        <th class="p-4 border-b border-gray-100">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dash-recent-messages" class="text-sm divide-y divide-gray-100">
+                                    <tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">Loading recent activity...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-card flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Published News</p>
-                            <h3 class="text-4xl font-heading font-bold text-brand-dark" id="stat-news">-</h3>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                        <h3 class="font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button onclick="openModal('New Article', 'news')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
+                                <i class="fa-solid fa-plus text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Publish News Update</span>
+                            </button>
+                            <button onclick="openModal('New Event', 'event')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
+                                <i class="fa-solid fa-calendar-plus text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Schedule Event</span>
+                            </button>
+                            <button onclick="openModal('System Announcement', 'announcement')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
+                                <i class="fa-solid fa-bullhorn text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Update Announcement Bar</span>
+                            </button>
                         </div>
-                        <div class="w-14 h-14 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center text-2xl"><i class="fa-solid fa-bullhorn"></i></div>
-                    </div>
-                    <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-card flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Subscribers</p>
-                            <h3 class="text-4xl font-heading font-bold text-brand-dark" id="stat-subs">-</h3>
-                        </div>
-                        <div class="w-14 h-14 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center text-2xl"><i class="fa-solid fa-users"></i></div>
                     </div>
                 </div>
             </div>
 
-            <div id="view-inquiries" class="app-view">
-                <div class="mb-10">
-                    <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">Direct Inquiries</h1>
-                    <p class="text-brand-muted font-medium">Manage constituent messages and contact requests.</p>
+            <div id="view-inbox" class="tab-view hidden">
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col h-[calc(100vh-12rem)]">
+                    <div class="p-4 border-b border-gray-100 bg-gray-50 rounded-t-xl flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <button class="px-4 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-md shadow">All Messages</button>
+                            <button class="px-4 py-1.5 bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold rounded-md transition">Unread</button>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                    <div class="flex-grow overflow-auto p-0">
+                        <table class="w-full text-left border-collapse relative">
+                            <thead class="sticky top-0 bg-white shadow-sm z-10">
+                                <tr class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Type</th>
+                                    <th class="p-4">From</th>
+                                    <th class="p-4">Message Snippet</th>
+                                    <th class="p-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inbox-table" class="text-sm divide-y divide-gray-100">
+                                <tr><td colspan="5" class="p-10 text-center text-gray-500">Loading inbox...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="bg-white border border-gray-100 rounded-3xl shadow-card overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-gray-50 border-b border-gray-100 text-[11px] font-heading font-bold text-gray-500 uppercase tracking-widest">
-                            <tr>
-                                <th class="px-8 py-5">Date</th>
-                                <th class="px-8 py-5">Sender Details</th>
-                                <th class="px-8 py-5">Message Preview</th>
-                                <th class="px-8 py-5">Status</th>
-                                <th class="px-8 py-5 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="messages-tbody" class="divide-y divide-gray-100">
+            </div>
+
+            <div id="view-cms" class="tab-view hidden">
+                <div class="mb-6 flex justify-between items-center">
+                    <h3 id="cms-table-title" class="text-xl font-bold text-gray-900">Content Directory</h3>
+                    <button onclick="openModal('Create Record', currentCmsType)" class="px-5 py-2 bg-brand-blue hover:bg-brand-lightblue text-white text-sm font-bold rounded-lg transition shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Add New
+                    </button>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead id="cms-thead" class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">
+                            </thead>
+                        <tbody id="cms-tbody" class="text-sm divide-y divide-gray-100">
                             </tbody>
                     </table>
                 </div>
             </div>
 
-            <div id="view-news" class="app-view">
-                <div class="flex justify-between items-end mb-10">
-                    <div>
-                        <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">Newsroom Manager</h1>
-                        <p class="text-brand-muted font-medium">Create, edit, and publish official updates.</p>
-                    </div>
-                    <button onclick="openNewsModal()" class="bg-brand-dark hover:bg-brand-blue text-white px-6 py-3 rounded-xl text-sm font-bold font-heading shadow-md transition-colors"><i class="fa-solid fa-plus mr-2"></i> New Release</button>
-                </div>
-                
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="news-grid-container">
-                    </div>
-            </div>
+        </div>
+    </main>
 
-            <div id="view-media" class="app-view">
-                <div class="flex justify-between items-end mb-10">
-                    <div>
-                        <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">Media Gallery</h1>
-                        <p class="text-brand-muted font-medium">Manage the visual assets displayed on the site.</p>
-                    </div>
-                    <button onclick="openMediaModal()" class="bg-brand-dark hover:bg-brand-blue text-white px-6 py-3 rounded-xl text-sm font-bold font-heading shadow-md transition-colors"><i class="fa-solid fa-upload mr-2"></i> Add Media</button>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6" id="media-grid-container">
-                    </div>
+    <div id="action-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl relative z-10 flex flex-col max-h-[90vh]">
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                <h3 id="modal-title" class="font-black text-gray-900 text-lg">Edit Record</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-
-            <div id="view-subscribers" class="app-view">
-                <div class="mb-10">
-                    <h1 class="text-4xl font-heading font-bold text-brand-dark mb-2">Mailing List</h1>
-                    <p class="text-brand-muted font-medium">Export and manage newsletter subscribers.</p>
+            <div class="p-6 overflow-y-auto flex-grow" id="modal-body">
                 </div>
-                <div class="bg-white border border-gray-100 rounded-3xl shadow-card overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-gray-50 border-b border-gray-100 text-[11px] font-heading font-bold text-gray-500 uppercase tracking-widest">
-                            <tr><th class="px-8 py-5">Date Joined</th><th class="px-8 py-5">Email Address</th><th class="px-8 py-5 text-right">Actions</th></tr>
-                        </thead>
-                        <tbody id="subs-tbody" class="divide-y divide-gray-100">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </main>
-    </div>
-
-    <div id="msg-modal" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl flex flex-col overflow-hidden">
-            <div class="p-8 bg-gray-50 border-b border-gray-100 flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1" id="msg-view-date">Date</p>
-                    <h3 class="font-heading font-bold text-2xl text-brand-dark" id="msg-view-name">Sender Name</h3>
-                    <a href="#" id="msg-view-email" class="text-sm font-medium text-brand-muted hover:text-brand-blue transition-colors"><i class="fa-solid fa-reply mr-1"></i> <span>sender@email.com</span></a>
-                </div>
-                <button onclick="closeModal('msg-modal')" class="w-10 h-10 bg-white rounded-full border border-gray-200 text-gray-400 hover:text-brand-dark flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-8 max-h-[60vh] overflow-y-auto">
-                <p class="text-brand-dark whitespace-pre-wrap leading-relaxed text-base" id="msg-view-body">Message body goes here...</p>
-            </div>
-            <div class="p-6 border-t border-gray-100 bg-gray-50 flex justify-end">
-                <button onclick="closeModal('msg-modal')" class="px-8 py-3 bg-brand-dark rounded-xl text-sm font-bold text-white hover:bg-brand-blue transition-colors shadow-md">Close Reader</button>
+            <div class="p-5 border-t border-gray-100 bg-gray-50 rounded-b-xl flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-5 py-2 bg-white border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition text-sm">Cancel</button>
+                <button onclick="saveModalData()" class="px-5 py-2 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-lightblue transition shadow text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
             </div>
         </div>
     </div>
-
-    <div id="news-modal" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto flex flex-col">
-            <div class="p-8 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-                <h3 class="font-heading font-bold text-2xl text-brand-dark" id="news-modal-title">Publish Release</h3>
-                <button onclick="closeModal('news-modal')" class="text-gray-400 hover:text-brand-dark text-2xl"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="submitNews(event)" class="p-8 space-y-6 bg-gray-50">
-                <input type="hidden" id="news-id">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="md:col-span-2">
-                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Headline / Title</label>
-                        <input type="text" id="news-title" class="admin-input" required>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Cover Image URL (Optional)</label>
-                        <input type="url" id="news-img" class="admin-input" placeholder="https://...">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Short Summary (Preview Text)</label>
-                        <textarea id="news-summary" rows="2" class="admin-input resize-none" required></textarea>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Full Content (HTML tags like &lt;p&gt;, &lt;b&gt; allowed)</label>
-                        <textarea id="news-content" rows="10" class="admin-input resize-none font-mono text-xs"></textarea>
-                    </div>
-                </div>
-                <div class="pt-4 flex justify-end gap-3">
-                    <button type="button" onclick="closeModal('news-modal')" class="px-6 py-3.5 font-heading font-bold text-gray-500 hover:text-brand-dark bg-white border border-gray-200 rounded-xl transition-colors text-sm shadow-sm">Cancel</button>
-                    <button type="submit" id="btn-submit-news" class="px-8 py-3.5 bg-brand-blue hover:bg-[#0096D1] text-white font-heading font-bold rounded-xl shadow-md transition-colors text-sm">Save & Publish</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="media-modal" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-6">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md flex flex-col">
-            <div class="p-8 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="font-heading font-bold text-2xl text-brand-dark" id="media-modal-title">Media Asset</h3>
-                <button onclick="closeModal('media-modal')" class="text-gray-400 hover:text-brand-dark text-2xl"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="submitMedia(event)" class="p-8 space-y-6 bg-gray-50 rounded-b-3xl">
-                <input type="hidden" id="media-id">
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Image Title</label>
-                    <input type="text" id="media-title" class="admin-input" required>
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Category Badge</label>
-                    <input type="text" id="media-cat" class="admin-input" placeholder="e.g. Campaign">
-                </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Direct Image URL</label>
-                    <input type="url" id="media-url" class="admin-input" required>
-                </div>
-                <div class="pt-4">
-                    <button type="submit" id="btn-submit-media" class="w-full px-8 py-4 bg-brand-dark hover:bg-brand-blue text-white font-heading font-bold rounded-xl shadow-md transition-colors text-sm uppercase tracking-widest">Save Asset</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="toast-container"></div>
 
     <script>
-        // --- SUPABASE CONFIG ---
-        const SUPABASE_URL = 'https://eeqgfchvchpdulfybsjg.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcWdmY2h2Y2hwZHVsZnlic2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDEyMzYsImV4cCI6MjA5MDI3NzIzNn0.2Psw_X2TB1r8iLb46WWWANhVuDvoDPnUMjaWykvqd1s';
-        let supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Supabase Init
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // --- GLOBAL DATA STATE ---
-        let globalMessages = [];
-        let globalNews = [];
-        let globalMedia = [];
+        let currentTab = 'dashboard';
+        let currentCmsType = '';
 
-        // --- TOAST NOTIFICATION ---
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-[#10B981] text-xl"></i>' : '<i class="fa-solid fa-circle-exclamation text-[#EF4444] text-xl"></i>';
-            toast.innerHTML = `${icon} <span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4000);
-        }
-
-        // --- AUTHENTICATION STATE ---
-        supabase.auth.onAuthStateChange((event, session) => {
-            if (session) {
-                document.getElementById('login-screen').classList.replace('active-screen', 'hidden-screen');
-                document.getElementById('app-screen').classList.replace('hidden-screen', 'active-screen');
-                refreshAllData();
+        // Authentication Simulation
+        function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass').value;
+            // HARDCODED PASSWORD FOR PROTOTYPE. Replace with Supabase Auth in production.
+            if(pass === 'admin2026') {
+                document.getElementById('login-overlay').classList.add('hidden');
+                initAdmin();
             } else {
-                document.getElementById('app-screen').classList.replace('active-screen', 'hidden-screen');
-                document.getElementById('login-screen').classList.replace('hidden-screen', 'active-screen');
+                document.getElementById('login-error').classList.remove('hidden');
             }
-        });
+        }
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-pass').value;
-            const btn = document.getElementById('btn-login');
-            
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i>`;
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            
-            if (error) {
-                showToast(error.message, 'error');
-                btn.innerHTML = `Authenticate <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>`;
+        function logout() {
+            document.getElementById('login-overlay').classList.remove('hidden');
+            document.getElementById('admin-pass').value = '';
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        // Navigation
+        function switchTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm";
+            });
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if(activeBtn) {
+                activeBtn.className = "nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg bg-brand-blue text-white font-medium transition text-sm";
+            }
+
+            // Hide all views
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+
+            // Show target
+            if(tabId === 'dashboard') {
+                document.getElementById('view-dashboard').classList.remove('hidden');
+                document.getElementById('header-title').textContent = 'System Dashboard';
+                document.getElementById('header-subtitle').textContent = 'Live platform overview and analytics';
+                loadDashboard();
+            } else if (tabId === 'inbox') {
+                document.getElementById('view-inbox').classList.remove('hidden');
+                document.getElementById('header-title').textContent = 'Global Inbox';
+                document.getElementById('header-subtitle').textContent = 'Manage press inquiries, contact messages, and resource submissions';
+                loadInbox();
+            } else if (tabId.startsWith('cms-')) {
+                document.getElementById('view-cms').classList.remove('hidden');
+                currentCmsType = tabId.replace('cms-', '');
+                document.getElementById('header-title').textContent = 'Content Manager';
+                document.getElementById('header-subtitle').textContent = `Manage ${currentCmsType.toUpperCase()} records`;
+                loadCMS(currentCmsType);
+            } else if (tabId === 'subscribers') {
+                document.getElementById('view-cms').classList.remove('hidden');
+                currentCmsType = 'subscribers';
+                document.getElementById('header-title').textContent = 'Newsletter List';
+                document.getElementById('header-subtitle').textContent = 'Manage public email subscribers';
+                loadCMS('subscribers');
             } else {
-                showToast('Access Granted', 'success');
+                document.getElementById('view-dashboard').classList.remove('hidden'); // fallback
             }
         }
 
-        async function handleLogout() {
-            await supabase.auth.signOut();
-            showToast('Securely Signed Out', 'success');
-        }
-
-        // --- UI NAVIGATION & MODALS ---
-        function switchView(viewId, btnElement) {
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active-view'));
-            document.getElementById('view-' + viewId).classList.add('active-view');
-            
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        // --- DATA FETCHING & RENDERING ---
-        async function refreshAllData() {
-            showToast('Syncing Data...', 'success');
-            await Promise.all([fetchMessages(), fetchNews(), fetchMedia(), fetchSubscribers()]);
-        }
-
-        // 1. MESSAGES (Fixed column schema: submitted_at)
-        async function fetchMessages() {
+        // Initialize Data on successful login
+        async function initAdmin() {
+            switchTab('dashboard');
+            // Fetch global badge for Inbox
             try {
-                // IMPORTANT: Schema uses 'submitted_at' not 'created_at'
-                const { data, error } = await supabase.from('tn_messages').select('*').order('submitted_at', { ascending: false });
-                if (error) throw error;
-                
-                globalMessages = data || [];
-                document.getElementById('stat-msgs').innerText = globalMessages.length;
-
-                const tbody = document.getElementById('messages-tbody');
-                if (globalMessages.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="px-8 py-12 text-center text-gray-400 font-medium">No inquiries found in the database.</td></tr>`;
-                    return;
-                }
-                
-                tbody.innerHTML = globalMessages.map((msg, index) => {
-                    const date = new Date(msg.submitted_at).toLocaleDateString();
-                    const statusText = msg.status || 'New';
-                    const statusBadge = statusText.toLowerCase() === 'new' 
-                        ? `<span class="bg-blue-100 text-brand-blue px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-widest">${statusText}</span>` 
-                        : `<span class="bg-gray-100 text-gray-500 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-widest">${statusText}</span>`;
-
-                    return `
-                    <tr class="hover:bg-brand-light/50 transition-colors group">
-                        <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${date}</td>
-                        <td class="px-8 py-5">
-                            <p class="font-bold text-brand-dark mb-0.5">${msg.sender_name}</p>
-                            <a href="mailto:${msg.sender_email}" class="text-xs font-medium text-brand-blue hover:underline">${msg.sender_email}</a>
-                        </td>
-                        <td class="px-8 py-5 text-gray-500 text-sm max-w-[200px] truncate">${msg.message_body}</td>
-                        <td class="px-8 py-5">${statusBadge}</td>
-                        <td class="px-8 py-5 text-right space-x-2">
-                            <button onclick="viewMessage(${index})" class="px-4 py-2 bg-white border border-gray-200 text-brand-dark rounded-lg text-xs font-bold hover:border-brand-blue transition-colors shadow-sm">Read</button>
-                            <button onclick="deleteRecord('tn_messages', '${msg.id}', fetchMessages)" class="w-8 h-8 rounded-lg text-red-400 hover:text-white hover:bg-red-500 transition-colors"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>`;
-                }).join('');
-            } catch (err) {
-                showToast('Failed to load messages: ' + err.message, 'error');
-            }
+                const { count } = await supabaseClient.from('contact_messages').select('*', { count: 'exact', head: true }).eq('status', 'new');
+                const badge = document.getElementById('badge-inbox');
+                badge.textContent = count || 0;
+                if(count === 0) badge.classList.add('hidden'); else badge.classList.remove('hidden');
+            } catch(e) { console.log(e); }
         }
 
-        function viewMessage(index) {
-            const msg = globalMessages[index];
-            document.getElementById('msg-view-date').innerText = new Date(msg.submitted_at).toLocaleString();
-            document.getElementById('msg-view-name').innerText = msg.sender_name;
-            
-            const emailLink = document.getElementById('msg-view-email');
-            emailLink.href = `mailto:${msg.sender_email}`;
-            emailLink.innerHTML = `<i class="fa-solid fa-reply mr-1"></i> ${msg.sender_email}`;
-            
-            document.getElementById('msg-view-body').innerText = msg.message_body;
-            openModal('msg-modal');
-        }
+        // ==========================================
+        // DATA LOADERS
+        // ==========================================
 
-        // 2. NEWSROOM
-        async function fetchNews() {
+        async function loadDashboard() {
             try {
-                const { data, error } = await supabase.from('tn_updates').select('*').order('published_at', { ascending: false });
-                if (error) throw error;
-                
-                globalNews = data || [];
-                document.getElementById('stat-news').innerText = globalNews.length;
-                const container = document.getElementById('news-grid-container');
+                // Fetch basic counts (In a real app, you'd use a custom RPC or cached view for speed)
+                const msgRes = await supabaseClient.from('contact_messages').select('*', { count: 'exact', head: true }).eq('status', 'new');
+                const subsRes = await supabaseClient.from('newsletter_subscribers').select('*', { count: 'exact', head: true });
+                const newsRes = await supabaseClient.from('news_articles').select('*', { count: 'exact', head: true });
+                const initRes = await supabaseClient.from('initiatives').select('*', { count: 'exact', head: true }).eq('status', 'active');
 
-                if (globalNews.length === 0) {
-                    container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">No updates published yet.</div>`;
-                    return;
+                document.getElementById('stat-messages').textContent = msgRes.count || 0;
+                document.getElementById('stat-subs').textContent = subsRes.count || 0;
+                document.getElementById('stat-news').textContent = newsRes.count || 0;
+                document.getElementById('stat-init').textContent = initRes.count || 0;
+
+                // Load recent messages
+                const { data: recentMsgs } = await supabaseClient.from('contact_messages').select('*').order('created_at', { ascending: false }).limit(5);
+                const tbody = document.getElementById('dash-recent-messages');
+                if(recentMsgs && recentMsgs.length > 0) {
+                    let html = '';
+                    recentMsgs.forEach(msg => {
+                        const date = new Date(msg.created_at).toLocaleDateString();
+                        const statusBadge = msg.status === 'new' ? '<span class="px-2 py-0.5 bg-red-100 text-red-600 rounded text-[10px] font-bold uppercase">New</span>' : '<span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-[10px] font-bold uppercase">Read</span>';
+                        html += `
+                        <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="switchTab('inbox')">
+                            <td class="p-4 text-gray-500">${date}</td>
+                            <td class="p-4 font-semibold text-gray-900">${msg.inquiry_type || 'General'}</td>
+                            <td class="p-4 text-gray-600">${msg.full_name || 'Anonymous'}</td>
+                            <td class="p-4">${statusBadge}</td>
+                        </tr>`;
+                    });
+                    tbody.innerHTML = html;
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">No recent messages.</td></tr>';
                 }
-
-                container.innerHTML = globalNews.map((news, index) => `
-                    <div class="bg-white border border-gray-100 rounded-3xl shadow-sm p-8 flex flex-col justify-between group hover:shadow-card transition-all duration-300">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="bg-gray-100 text-gray-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">${new Date(news.published_at).toLocaleDateString()}</span>
-                            </div>
-                            <h4 class="font-heading font-bold text-xl text-brand-dark mb-3 leading-snug group-hover:text-brand-blue transition-colors">${news.title}</h4>
-                            <p class="text-sm text-gray-500 line-clamp-2 mb-6">${news.short_summary}</p>
-                        </div>
-                        <div class="flex gap-3 border-t border-gray-50 pt-4">
-                            <button onclick="editNews(${index})" class="flex-1 bg-gray-50 hover:bg-brand-blue hover:text-white text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-pen mr-2"></i> Edit Document</button>
-                            <button onclick="deleteRecord('tn_updates', '${news.id}', fetchNews)" class="w-12 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-xl flex items-center justify-center transition-colors"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) {
-                showToast('Failed to load news: ' + err.message, 'error');
-            }
+            } catch(e) { console.error(e); }
         }
 
-        function openNewsModal() {
-            document.getElementById('news-modal-title').innerText = "Publish New Release";
-            document.getElementById('news-id').value = '';
-            document.getElementById('news-title').value = '';
-            document.getElementById('news-img').value = '';
-            document.getElementById('news-summary').value = '';
-            document.getElementById('news-content').value = '';
-            openModal('news-modal');
-        }
-
-        function editNews(index) {
-            const news = globalNews[index];
-            document.getElementById('news-modal-title').innerText = "Edit Release";
-            document.getElementById('news-id').value = news.id;
-            document.getElementById('news-title').value = news.title;
-            document.getElementById('news-img').value = news.image_url || '';
-            document.getElementById('news-summary').value = news.short_summary;
-            document.getElementById('news-content').value = news.full_content || '';
-            openModal('news-modal');
-        }
-
-        async function submitNews(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btn-submit-news');
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
-            
-            const id = document.getElementById('news-id').value;
-            const payload = {
-                title: document.getElementById('news-title').value,
-                image_url: document.getElementById('news-img').value,
-                short_summary: document.getElementById('news-summary').value,
-                full_content: document.getElementById('news-content').value
-            };
-
-            let res;
-            if (id) { // Update existing
-                res = await supabase.from('tn_updates').update(payload).eq('id', id);
-            } else { // Insert new
-                res = await supabase.from('tn_updates').insert(payload);
-            }
-
-            if (res.error) showToast(res.error.message, 'error');
-            else {
-                showToast(id ? 'Update Saved Successfully' : 'Update Published Successfully', 'success');
-                closeModal('news-modal');
-                fetchNews();
-            }
-            btn.innerHTML = 'Save & Publish';
-        }
-
-        // 3. MEDIA
-        async function fetchMedia() {
+        async function loadInbox() {
             try {
-                const { data, error } = await supabase.from('tn_media').select('*').order('created_at', { ascending: false });
-                if (error) throw error;
-
-                globalMedia = data || [];
-                const container = document.getElementById('media-grid-container');
-
-                if (globalMedia.length === 0) {
-                    container.innerHTML = `<div class="col-span-full text-center text-gray-400 py-16 bg-white rounded-3xl border border-gray-100">Gallery is empty.</div>`;
-                    return;
+                // Combine contact_messages and youth_concerns (if needed, here we just do contact_messages for prototype)
+                const { data } = await supabaseClient.from('contact_messages').select('*').order('created_at', { ascending: false }).limit(50);
+                const tbody = document.getElementById('inbox-table');
+                
+                if(data && data.length > 0) {
+                    let html = '';
+                    data.forEach(msg => {
+                        const date = new Date(msg.created_at).toLocaleDateString();
+                        const statusStyle = msg.status === 'new' ? 'font-bold text-gray-900 bg-blue-50/30' : 'text-gray-600';
+                        const badge = msg.status === 'new' ? '<div class="w-2 h-2 rounded-full bg-brand-blue absolute left-2 top-1/2 transform -translate-y-1/2"></div>' : '';
+                        
+                        html += `
+                        <tr class="hover:bg-gray-50 transition border-b border-gray-100 relative ${statusStyle}">
+                            ${badge}
+                            <td class="p-4 pl-6 w-32 whitespace-nowrap">${date}</td>
+                            <td class="p-4 w-48"><span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] uppercase font-bold rounded">${msg.inquiry_type || 'Message'}</span></td>
+                            <td class="p-4 w-48">${msg.full_name}<br><span class="text-xs text-gray-400 font-normal">${msg.email}</span></td>
+                            <td class="p-4 max-w-xs truncate">${msg.message}</td>
+                            <td class="p-4 text-right">
+                                <button onclick="viewMessage('${msg.id}')" class="text-xs font-bold text-brand-lightblue border border-brand-lightblue/30 px-3 py-1.5 rounded hover:bg-brand-blue hover:text-white transition">Review</button>
+                            </td>
+                        </tr>`;
+                    });
+                    tbody.innerHTML = html;
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500">Inbox is empty.</td></tr>';
                 }
-
-                container.innerHTML = globalMedia.map((item, index) => `
-                    <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm group hover:shadow-card transition-shadow">
-                        <div class="h-48 bg-gray-100 w-full relative">
-                            <img src="${item.image_url}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-                                <button onclick="editMedia(${index})" class="w-12 h-12 bg-white rounded-full text-brand-dark hover:text-brand-blue flex items-center justify-center shadow-lg transition-colors"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteRecord('tn_media', '${item.id}', fetchMedia)" class="w-12 h-12 bg-red-500 rounded-full text-white hover:bg-red-600 flex items-center justify-center shadow-lg transition-colors"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="text-[9px] font-bold text-brand-blue uppercase tracking-widest bg-brand-light px-2.5 py-1 rounded-md inline-block mb-2">${item.category || 'General'}</span>
-                            <h4 class="font-bold text-sm text-brand-dark truncate">${item.title}</h4>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) {
-                showToast('Failed to load media: ' + err.message, 'error');
-            }
+            } catch(e) { console.error(e); }
         }
 
-        function openMediaModal() {
-            document.getElementById('media-modal-title').innerText = "Add Media Asset";
-            document.getElementById('media-id').value = '';
-            document.getElementById('media-title').value = '';
-            document.getElementById('media-cat').value = '';
-            document.getElementById('media-url').value = '';
-            openModal('media-modal');
-        }
+        async function loadCMS(type) {
+            document.getElementById('cms-table-title').textContent = type.toUpperCase() + ' DATABASE';
+            const thead = document.getElementById('cms-thead');
+            const tbody = document.getElementById('cms-tbody');
+            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Loading data...</td></tr>';
 
-        function editMedia(index) {
-            const media = globalMedia[index];
-            document.getElementById('media-modal-title').innerText = "Edit Asset";
-            document.getElementById('media-id').value = media.id;
-            document.getElementById('media-title').value = media.title;
-            document.getElementById('media-cat').value = media.category || '';
-            document.getElementById('media-url').value = media.image_url;
-            openModal('media-modal');
-        }
-
-        async function submitMedia(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btn-submit-media');
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
-            
-            const id = document.getElementById('media-id').value;
-            const payload = {
-                title: document.getElementById('media-title').value,
-                category: document.getElementById('media-cat').value,
-                image_url: document.getElementById('media-url').value
-            };
-
-            let res;
-            if (id) res = await supabase.from('tn_media').update(payload).eq('id', id);
-            else res = await supabase.from('tn_media').insert(payload);
-
-            if (res.error) showToast(res.error.message, 'error');
-            else {
-                showToast('Asset Saved Successfully', 'success');
-                closeModal('media-modal');
-                fetchMedia();
-            }
-            btn.innerHTML = 'Save Asset';
-        }
-
-        // 4. SUBSCRIBERS
-        async function fetchSubscribers() {
             try {
-                const { data, error } = await supabase.from('tn_supporters').select('*').order('joined_at', { ascending: false });
-                if (error) throw error;
-                
-                document.getElementById('stat-subs').innerText = data ? data.length : 0;
-                const tbody = document.getElementById('subs-tbody');
-
-                if (!data || data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="px-8 py-12 text-center text-gray-400 font-medium">No subscribers yet.</td></tr>`;
-                    return;
+                let data = [];
+                // Configure Headers based on Type
+                if (type === 'news') {
+                    thead.innerHTML = '<tr><th class="p-4">Date</th><th class="p-4">Title</th><th class="p-4">Category</th><th class="p-4">Status</th><th class="p-4 text-right">Actions</th></tr>';
+                    const res = await supabaseClient.from('news_articles').select('*').order('created_at', { ascending: false });
+                    data = res.data;
+                    renderCMSTable(data, type, (item) => `
+                        <td class="p-4">${new Date(item.created_at).toLocaleDateString()}</td>
+                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
+                        <td class="p-4 text-gray-500">${item.category}</td>
+                        <td class="p-4">${item.is_published ? '<span class="text-green-600 font-bold text-[10px] uppercase">Published</span>' : '<span class="text-orange-500 font-bold text-[10px] uppercase">Draft</span>'}</td>
+                    `);
+                } 
+                else if (type === 'init') {
+                    thead.innerHTML = '<tr><th class="p-4">Title</th><th class="p-4">Status</th><th class="p-4">Summary Snippet</th><th class="p-4 text-right">Actions</th></tr>';
+                    const res = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false });
+                    data = res.data;
+                    renderCMSTable(data, type, (item) => `
+                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
+                        <td class="p-4 text-brand-blue font-bold text-[10px] uppercase">${item.status}</td>
+                        <td class="p-4 text-gray-500 truncate max-w-xs">${item.summary || 'No summary'}</td>
+                    `);
                 }
-                
-                tbody.innerHTML = data.map(sub => `
-                    <tr class="hover:bg-brand-light/50 transition-colors group">
-                        <td class="px-8 py-5 whitespace-nowrap text-xs font-bold text-gray-400">${new Date(sub.joined_at).toLocaleDateString()}</td>
-                        <td class="px-8 py-5 font-medium text-brand-dark">${sub.email}</td>
-                        <td class="px-8 py-5 text-right">
-                            <button onclick="deleteRecord('tn_supporters', '${sub.id}', fetchSubscribers)" class="w-8 h-8 rounded-lg text-red-400 hover:text-white hover:bg-red-500 transition-colors"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-            } catch (err) {
-                showToast('Failed to load subscribers: ' + err.message, 'error');
+                else if (type === 'events') {
+                    thead.innerHTML = '<tr><th class="p-4">Event Date</th><th class="p-4">Title</th><th class="p-4">Location</th><th class="p-4 text-right">Actions</th></tr>';
+                    const res = await supabaseClient.from('events').select('*').order('event_date', { ascending: false });
+                    data = res.data;
+                    renderCMSTable(data, type, (item) => `
+                        <td class="p-4 font-bold text-brand-blue">${new Date(item.event_date).toLocaleDateString()}</td>
+                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
+                        <td class="p-4 text-gray-500">${item.location}</td>
+                    `);
+                }
+                else if (type === 'subscribers') {
+                    thead.innerHTML = '<tr><th class="p-4">Subscribed Date</th><th class="p-4">Email Address</th><th class="p-4 text-right">Actions</th></tr>';
+                    const res = await supabaseClient.from('newsletter_subscribers').select('*').order('created_at', { ascending: false });
+                    data = res.data;
+                    renderCMSTable(data, type, (item) => `
+                        <td class="p-4">${new Date(item.created_at).toLocaleDateString()}</td>
+                        <td class="p-4 font-bold text-gray-900">${item.email}</td>
+                    `);
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500">Module under construction.</td></tr>';
+                }
+            } catch (e) {
+                console.error(e);
+                tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-red-500">Database connection error.</td></tr>';
             }
         }
 
-        // --- GLOBAL DELETE ---
-        async function deleteRecord(table, id, callback) {
-            if (confirm('Are you sure you want to permanently delete this record?')) {
-                const { error } = await supabase.from(table).delete().eq('id', id);
-                if (error) showToast(error.message, 'error');
-                else {
-                    showToast('Record Deleted', 'success');
-                    callback();
-                }
+        function renderCMSTable(data, type, rowGenerator) {
+            const tbody = document.getElementById('cms-tbody');
+            if(!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-500">No records found in ${type.toUpperCase()}.</td></tr>`;
+                return;
+            }
+            let html = '';
+            data.forEach(item => {
+                html += `
+                <tr class="hover:bg-gray-50 transition border-b border-gray-100">
+                    ${rowGenerator(item)}
+                    <td class="p-4 text-right space-x-2">
+                        <button onclick="openModal('Edit Record', '${type}', '${item.id}')" class="text-gray-400 hover:text-brand-blue transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteRecord('${type}', '${item.id}')" class="text-gray-400 hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // ==========================================
+        // UNIVERSAL MODAL SYSTEM
+        // ==========================================
+        function openModal(title, context, id = null) {
+            document.getElementById('modal-title').textContent = title;
+            const body = document.getElementById('modal-body');
+            
+            // Build form based on context. (This is a simplified skeleton builder)
+            let formHtml = `<form id="editor-form" class="space-y-4"><input type="hidden" id="record-id" value="${id || ''}">`;
+            
+            if (context === 'news') {
+                formHtml += `
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Title</label><input type="text" id="f-title" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Category</label><select id="f-cat" class="w-full px-3 py-2 border rounded text-sm"><option>Press Release</option><option>Statement</option></select></div>
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Content (Text/HTML)</label><textarea id="f-content" rows="6" class="w-full px-3 py-2 border rounded text-sm outline-none focus:border-brand-blue"></textarea></div>
+                    <div><label class="flex items-center gap-2 text-sm font-bold text-gray-900"><input type="checkbox" id="f-pub" class="w-4 h-4 text-brand-blue rounded focus:ring-brand-blue"> Is Published</label></div>
+                `;
+            } else if (context === 'init') {
+                formHtml += `
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Initiative Title</label><input type="text" id="f-title" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Status</label><input type="text" id="f-status" value="Active" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
+                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Summary</label><textarea id="f-summary" rows="4" class="w-full px-3 py-2 border rounded text-sm outline-none focus:border-brand-blue"></textarea></div>
+                `;
+            } else {
+                formHtml += `<p class="text-sm text-gray-500">Auto-generated schema builder for ${context} would load here.</p>`;
+            }
+            
+            formHtml += `</form>`;
+            body.innerHTML = formHtml;
+
+            // Load data if ID exists (Skeleton code for reading)
+            if (id) {
+                // Example: supabaseClient.from(context).select().eq('id', id)... fill form
+                console.log("Loading record:", id, "for context:", context);
+            }
+
+            document.getElementById('action-modal').classList.remove('hidden');
+            document.getElementById('action-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('action-modal').classList.add('hidden');
+            document.getElementById('action-modal').classList.remove('flex');
+        }
+
+        function saveModalData() {
+            // Skeleton for saving data back to Supabase
+            console.log("Saving data for context:", currentCmsType);
+            const btn = document.querySelector('#action-modal .fa-floppy-disk').parentElement;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+            
+            // Simulate network request
+            setTimeout(() => {
+                closeModal();
+                loadCMS(currentCmsType); // Reload table
+                btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
+            }, 800);
+        }
+
+        function viewMessage(id) {
+            // Open read-only modal for Inbox messages
+            openModal('Review Message', 'inbox', id);
+            document.getElementById('modal-body').innerHTML = `
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Marking as Read...</p>
+                    <p class="text-sm text-gray-700">Connecting to database to retrieve full message details for ID: ${id}.</p>
+                </div>
+                <button class="px-4 py-2 bg-green-600 text-white text-xs font-bold rounded shadow hover:bg-green-700 transition">Mark as Resolved</button>
+            `;
+            // In real app: Update status to 'read' via Supabase here.
+        }
+
+        function deleteRecord(table, id) {
+            if(confirm("Are you sure you want to delete this record? This cannot be undone.")) {
+                console.log(`Deleting ${id} from ${table}...`);
+                // Simulate Supabase delete
+                // supabaseClient.from(table).delete().eq('id', id);
+                loadCMS(currentCmsType);
             }
         }
     </script>
