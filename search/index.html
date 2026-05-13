@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -41,11 +43,11 @@
         ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
         
-        /* Highlight styling for search terms */
+        /* Highlight styling for searched keywords */
         .highlight {
             background-color: #fef08a; /* yellow-200 */
             font-weight: 700;
-            color: #111827; /* gray-900 */
+            color: #111827; 
             padding: 0 2px;
             border-radius: 2px;
         }
@@ -53,10 +55,10 @@
 </head>
 <body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
 
-    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500">
         <div class="flex flex-col items-center">
             <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Searching Network</p>
+            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Initializing</p>
         </div>
     </div>
 
@@ -78,12 +80,6 @@
                     <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
                     <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
                 </div>
-
-                <div class="flex items-center lg:hidden">
-                    <button class="text-gray-600 hover:text-brand-blue focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </nav>
@@ -97,7 +93,7 @@
                 <i class="fa-solid fa-search absolute left-6 text-gray-400 text-xl"></i>
                 <input type="text" id="search-input" placeholder="Search policies, initiatives, news, or documents..." 
                        class="w-full pl-16 pr-32 py-5 bg-white rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-brand-lightblue/50 text-lg placeholder-gray-400 transition-all font-medium border-0" required autocomplete="off">
-                <button type="submit" class="absolute right-2 px-8 py-3 bg-gray-900 text-white font-bold rounded-full hover:bg-black transition shadow-md">
+                <button type="submit" id="search-btn" class="absolute right-2 px-8 py-3 bg-gray-900 text-white font-bold rounded-full hover:bg-black transition shadow-md">
                     Search
                 </button>
             </form>
@@ -116,8 +112,8 @@
                     <button onclick="filterResults('All')" class="filter-btn active px-4 py-1.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm transition">All</button>
                     <button onclick="filterResults('Policy')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Policies</button>
                     <button onclick="filterResults('Initiative')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Initiatives</button>
+                    <button onclick="filterResults('News')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">News</button>
                     <button onclick="filterResults('Document')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Documents</button>
-                    <button onclick="filterResults('Page')" class="filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition">Pages</button>
                 </div>
             </div>
 
@@ -130,48 +126,14 @@
     <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
                 <div class="md:col-span-6">
                     <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
                     <p class="text-gray-400 text-sm mb-6">Public Service. Youth Leadership. National Progress.</p>
-                    
-                    <div class="flex flex-wrap gap-5 text-xl">
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
-                    </div>
                 </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
-                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
-                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
-                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
-                    </ul>
-                </div>
-
             </div>
-
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
                 <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
                 <div class="mt-4 md:mt-0 flex items-center gap-4">
-                    <p>Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a></p>
-                    <span class="text-gray-700">|</span>
                     <a href="/admin/" class="text-xs font-bold text-gray-600 hover:text-white uppercase tracking-widest border border-gray-700 hover:border-gray-500 px-3 py-1 rounded transition"><i class="fa-solid fa-lock mr-1 text-[10px]"></i> Admin Portal</a>
                 </div>
             </div>
@@ -179,82 +141,72 @@
     </footer>
 
     <script>
-        // ==========================================
-        // MASTER SEARCH DATABASE INDEX
-        // ==========================================
-        const SEARCH_INDEX = [
-            // Core Policies
-            { title: "Education Reform", category: "Policy", desc: "A modern education system focused on student-centered learning, career guidance, and wellbeing.", url: "/public-service/education-reform/", tags: ["school", "learning", "students", "teachers"] },
-            { title: "Youth Participation", category: "Policy", desc: "Empowering young people to take active roles in national decision-making and civic leadership.", url: "/public-service/youth-participation/", tags: ["empowerment", "assembly", "voice", "vote"] },
-            { title: "Digital Access", category: "Policy", desc: "Ensuring digital inclusion, technology skills, and online resources are available to all youth.", url: "/public-service/digital-access/", tags: ["internet", "technology", "computers", "coding"] },
-            { title: "Mental Health", category: "Policy", desc: "Fostering supportive environments, expanding access to care, and reducing the stigma of seeking help.", url: "/public-service/mental-health/", tags: ["wellbeing", "counselling", "support", "psychology"] },
-            { title: "Community Service", category: "Policy", desc: "Fostering civic responsibility and volunteering for the betterment of Seychelles communities.", url: "/public-service/community-service/", tags: ["volunteer", "charity", "help", "clean up"] },
-            { title: "National Development", category: "Policy", desc: "Driving Seychelles forward through public service modernization and strategic youth leadership.", url: "/public-service/national-development/", tags: ["governance", "economy", "future", "progress"] },
-            { title: "Student Wellbeing", category: "Policy", desc: "Focusing on the daily student experience—balancing academic performance with emotional support.", url: "/public-service/student-wellbeing/", tags: ["stress", "bullying", "school rules", "health"] },
-            { title: "Innovation & Enterprise", category: "Policy", desc: "Empowering youth entrepreneurship, digital startups, and building pathways for business creation.", url: "/public-service/innovation-enterprise/", tags: ["business", "startup", "economy", "money"] },
-            
-            // Major Initiatives
-            { title: "National Youth Resources & Opportunity Hub", category: "Initiative", desc: "A proposed digital platform designed to bring together youth support, educational resources, and opportunities.", url: "/initiatives/more/", tags: ["hub", "website", "directory"] },
-            { title: "The Tyler Nicholas Foundation", category: "Initiative", desc: "The philanthropic arm focused on humanitarian efforts, educational sponsorships, and community relief.", url: "https://tyler-nicholas-foundation.online", tags: ["charity", "ngo", "help", "foundation"] },
-            
-            // Official Documents
-            { title: "Emergency Essential Support Numbers in Seychelles", category: "Document", desc: "Official downloadable guide for police, medical, and youth support hotlines.", url: "/document/Emergency_Essential_Support_Numbers_in_Seychelles.pdf", tags: ["emergency", "police", "hospital", "helpline", "download"] },
-            { title: "Official Biography of Tyler P. Nicholas", category: "Document", desc: "Downloadable text document containing the official biography and background information.", url: "/about/", tags: ["bio", "history", "background", "about"] },
+        // Supabase Connection
+        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Main Pages
-            { title: "About Tyler Nicholas", category: "Page", desc: "Read the official biography, mission statement, and guiding principles of the Office.", url: "/about/", tags: ["who is", "founder", "biography"] },
-            { title: "Contact the Office", category: "Page", desc: "Submit press inquiries, partnership proposals, or general messages to the team.", url: "/contact/", tags: ["email", "message", "press", "media"] },
-            { title: "Newsroom & Media Center", category: "Page", desc: "Latest announcements, press releases, public statements, and assembly interventions.", url: "/newsroom/", tags: ["news", "press release", "updates", "speeches"] },
-            { title: "Resources & Public Library", category: "Page", desc: "A centralized database of toolkits, scholarship information, civic guides, and directories.", url: "/resources/", tags: ["downloads", "files", "library"] },
-            { title: "Volunteer Sign-Up", category: "Page", desc: "Register your interest to volunteer for community projects and national initiatives.", url: "/contact/", tags: ["help out", "join", "register"] }
+        // ==========================================
+        // 1. STATIC INDEX (For fixed pages & core policies)
+        // ==========================================
+        const STATIC_INDEX = [
+            { title: "Education Reform", category: "Policy", desc: "A modern education system focused on student-centered learning, career guidance, and wellbeing.", url: "/public-service/education-reform/", search_text: "school learning students teachers reform grades classes" },
+            { title: "Youth Participation", category: "Policy", desc: "Empowering young people to take active roles in national decision-making and civic leadership.", url: "/public-service/youth-participation/", search_text: "empowerment assembly voice vote representation" },
+            { title: "Digital Access", category: "Policy", desc: "Ensuring digital inclusion, technology skills, and online resources are available to all youth.", url: "/public-service/digital-access/", search_text: "internet technology computers coding web digital skills" },
+            { title: "Mental Health", category: "Policy", desc: "Fostering supportive environments, expanding access to care, and reducing the stigma of seeking help.", url: "/public-service/mental-health/", search_text: "wellbeing counselling support psychology therapy depression anxiety" },
+            { title: "Community Service", category: "Policy", desc: "Fostering civic responsibility and volunteering for the betterment of Seychelles communities.", url: "/public-service/community-service/", search_text: "volunteer charity help clean up service district" },
+            { title: "National Development", category: "Policy", desc: "Driving Seychelles forward through public service modernization and strategic youth leadership.", url: "/public-service/national-development/", search_text: "governance economy future progress country national" },
+            { title: "Student Wellbeing", category: "Policy", desc: "Focusing on the daily student experience—balancing academic performance with emotional support.", url: "/public-service/student-wellbeing/", search_text: "stress bullying school rules health emotional support" },
+            { title: "Innovation & Enterprise", category: "Policy", desc: "Empowering youth entrepreneurship, digital startups, and building pathways for business creation.", url: "/public-service/innovation-enterprise/", search_text: "business startup economy money finance entrepreneur" },
+            { title: "National Youth Resources & Opportunity Hub", category: "Initiative", desc: "A digital platform designed to bring together youth support, educational resources, and opportunities.", url: "/initiatives/more/", search_text: "hub website directory database online platform" },
+            { title: "The Tyler Nicholas Foundation", category: "Initiative", desc: "The philanthropic arm focused on humanitarian efforts, educational sponsorships, and community relief.", url: "https://tyler-nicholas-foundation.online", search_text: "charity ngo help foundation humanitarian" },
+            { title: "About Tyler Nicholas", category: "Page", desc: "Read the official biography, mission statement, and guiding principles of the Office.", url: "/about/", search_text: "who is founder biography background tyler nicholas history" },
+            { title: "Contact the Office", category: "Page", desc: "Submit press inquiries, partnership proposals, or general messages to the team.", url: "/contact/", search_text: "email message press media reach out connect" },
+            { title: "Volunteer Sign-Up", category: "Page", desc: "Register your interest to volunteer for community projects and national initiatives.", url: "/contact/", search_text: "help out join register sign up volunteer" }
         ];
 
         let currentQuery = "";
         let currentFilter = "All";
-        let searchResults = [];
+        let masterResults = [];
 
-        // Loading Screen Logic
+        // UI Setup
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.getElementById('loader');
             const body = document.getElementById('body');
             
             function hideLoader() {
-                if (loader.style.display === 'none') return; 
-                loader.classList.add('fade-out');
-                body.classList.remove('overflow-hidden');
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
+                if (loader) loader.style.opacity = '0';
+                setTimeout(() => { if(loader) loader.style.display = 'none'; }, 500);
+                if (body) body.classList.remove('overflow-hidden');
             }
-
-            setTimeout(hideLoader, 300); 
             window.addEventListener('load', hideLoader);
+            setTimeout(hideLoader, 1500);
 
-            // Read URL Parameters on Load
+            // Read URL Param on load
             const urlParams = new URLSearchParams(window.location.search);
             const query = urlParams.get('q');
             
             if (query) {
                 document.getElementById('search-input').value = query;
-                executeSearch(query);
+                executeHybridSearch(query);
             } else {
-                executeSearch(""); // Render all initially or empty state
+                masterResults = STATIC_INDEX; // Load defaults
+                renderResults();
             }
         });
 
-        // Form Submit Handler
+        // Form Submit
         function handleSearchSubmit(e) {
             e.preventDefault();
             const query = document.getElementById('search-input').value;
-            // Update URL without reloading page
             const newUrl = `${window.location.pathname}?q=${encodeURIComponent(query)}`;
             window.history.pushState({path: newUrl}, '', newUrl);
-            executeSearch(query);
+            executeHybridSearch(query);
         }
 
-        // Category Filter Handler
+        // Category Filter
         function filterResults(category) {
             currentFilter = category;
-            
-            // Update button styles
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.textContent.trim().toLowerCase() === category.toLowerCase() || (category === 'All' && btn.textContent.trim() === 'All')) {
                     btn.className = "filter-btn active px-4 py-1.5 bg-gray-900 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm transition";
@@ -262,53 +214,130 @@
                     btn.className = "filter-btn px-4 py-1.5 bg-white text-gray-600 border border-gray-200 hover:border-brand-blue text-xs font-bold uppercase tracking-wider rounded-full transition";
                 }
             });
-
             renderResults();
         }
 
-        // Core Search Execution
-        function executeSearch(query) {
+        // ==========================================
+        // 2. THE HYBRID SEARCH ENGINE
+        // ==========================================
+        async function executeHybridSearch(query) {
             currentQuery = query.toLowerCase().trim();
-            document.getElementById('query-display').textContent = currentQuery ? `"${query}"` : "All Directory Items";
+            document.getElementById('query-display').textContent = currentQuery ? `"${query}"` : "All Content";
+            
+            const btn = document.getElementById('search-btn');
+            const container = document.getElementById('results-container');
+            
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            container.innerHTML = '<div class="py-12 text-center text-gray-500 font-mono text-sm">Searching database & pages...</div>';
 
-            if (!currentQuery) {
-                searchResults = SEARCH_INDEX;
-            } else {
-                searchResults = SEARCH_INDEX.filter(item => {
-                    const matchTitle = item.title.toLowerCase().includes(currentQuery);
-                    const matchDesc = item.desc.toLowerCase().includes(currentQuery);
-                    const matchTags = item.tags.some(tag => tag.toLowerCase().includes(currentQuery));
-                    return matchTitle || matchDesc || matchTags;
+            masterResults = [];
+
+            // A. Search Static Index (Regex match on title, desc, or tags)
+            if (currentQuery) {
+                const staticMatches = STATIC_INDEX.filter(item => {
+                    return item.title.toLowerCase().includes(currentQuery) || 
+                           item.desc.toLowerCase().includes(currentQuery) || 
+                           item.search_text.toLowerCase().includes(currentQuery);
                 });
+                masterResults.push(...staticMatches);
+            } else {
+                masterResults.push(...STATIC_INDEX);
             }
 
+            // B. Search Supabase Database (if query exists)
+            if (currentQuery && supabaseClient) {
+                try {
+                    const searchPattern = `%${currentQuery}%`;
+
+                    // Run parallel queries across tables
+                    const [initData, newsData, resData] = await Promise.all([
+                        supabaseClient.from('initiatives').select('title, summary, status').or(`title.ilike.${searchPattern},summary.ilike.${searchPattern}`),
+                        supabaseClient.from('news_articles').select('title, content, category').or(`title.ilike.${searchPattern},content.ilike.${searchPattern}`),
+                        supabaseClient.from('resources').select('title, description, file_url').or(`title.ilike.${searchPattern},description.ilike.${searchPattern}`)
+                    ]);
+
+                    // Map Initiatives
+                    if (initData.data) {
+                        initData.data.forEach(item => {
+                            masterResults.push({
+                                title: item.title,
+                                category: 'Initiative',
+                                desc: item.summary || 'Database record match.',
+                                url: '/initiatives/'
+                            });
+                        });
+                    }
+
+                    // Map News
+                    if (newsData.data) {
+                        newsData.data.forEach(item => {
+                            // Strip HTML tags for clean description snippet
+                            let snippet = item.content ? item.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...' : 'Database record match.';
+                            masterResults.push({
+                                title: item.title,
+                                category: 'News',
+                                desc: snippet,
+                                url: '/newsroom/'
+                            });
+                        });
+                    }
+
+                    // Map Resources
+                    if (resData.data) {
+                        resData.data.forEach(item => {
+                            masterResults.push({
+                                title: item.title,
+                                category: 'Document',
+                                desc: item.description || 'Downloadable resource match.',
+                                url: item.file_url || '/resources/'
+                            });
+                        });
+                    }
+
+                } catch (error) {
+                    console.error("Supabase search bypassed or failed.", error);
+                }
+            }
+
+            // Remove exact duplicates by Title to keep results clean
+            const uniqueResults = [];
+            const seenTitles = new Set();
+            for (const item of masterResults) {
+                if (!seenTitles.has(item.title)) {
+                    seenTitles.add(item.title);
+                    uniqueResults.push(item);
+                }
+            }
+            masterResults = uniqueResults;
+
+            btn.innerHTML = 'Search';
             renderResults();
         }
 
-        // Highlight Text Helper
+        // Highlight matching text
         function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query})`, 'gi');
+            if (!query || !text) return text || '';
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
 
-        // Get Icon Based on Category
+        // Visual mapping for categories
         function getCategoryUI(category) {
             switch(category) {
                 case 'Policy': return { icon: 'fa-landmark', color: 'text-brand-blue bg-blue-50 border-blue-100' };
                 case 'Initiative': return { icon: 'fa-bolt', color: 'text-green-600 bg-green-50 border-green-100' };
+                case 'News': return { icon: 'fa-newspaper', color: 'text-orange-500 bg-orange-50 border-orange-100' };
                 case 'Document': return { icon: 'fa-file-pdf', color: 'text-red-500 bg-red-50 border-red-100' };
                 case 'Page': return { icon: 'fa-compass', color: 'text-purple-600 bg-purple-50 border-purple-100' };
                 default: return { icon: 'fa-layer-group', color: 'text-gray-600 bg-gray-100 border-gray-200' };
             }
         }
 
-        // Render to DOM
+        // Render Data to DOM
         function renderResults() {
             const container = document.getElementById('results-container');
             
-            // Apply category filter
-            let finalResults = searchResults;
+            let finalResults = masterResults;
             if (currentFilter !== 'All') {
                 finalResults = finalResults.filter(item => item.category === currentFilter);
             }
@@ -320,9 +349,8 @@
                     <div class="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
                         <i class="fa-solid fa-search-minus text-4xl text-gray-300 mb-4 block"></i>
                         <h4 class="text-xl font-bold text-gray-900 mb-2">No results found</h4>
-                        <p class="text-gray-500 text-sm">We couldn't find anything matching your search criteria. Try adjusting your keywords or check out the <a href="/initiatives/more/" class="text-brand-blue font-bold hover:underline">Full Category Directory</a>.</p>
-                    </div>
-                `;
+                        <p class="text-gray-500 text-sm">We couldn't find anything matching your search criteria. Try adjusting your keywords or browse the directory directly.</p>
+                    </div>`;
                 return;
             }
 
