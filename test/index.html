@@ -13,85 +13,68 @@
   <meta property="og:description" content="Public Service. Youth Leadership. National Progress. — Seychelles." />
   <meta property="og:image" content="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" />
 
-  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://elfsightcdn.com/platform.js" async></script>
 
-  <!-- Clean, modern type -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* =========================================================
-       TOKENS — clean, official, Seychelles (navy + red, no yellow)
-       ========================================================= */
+    /* ===================== TOKENS (navy + Seychelles red) ===================== */
     :root{
-      --ink:#0F1E36;         /* body text            */
-      --navy:#0B2E63;        /* primary / headings   */
-      --navy-900:#071B3D;    /* deep feature bg      */
-      --accent:#C8102E;      /* Seychelles red       */
-      --accent-600:#a50f26;  /* red hover            */
-      --blue:#0B5FB0;        /* secondary accent     */
-      --green:#0A8A43;       /* rare accent          */
-      --paper:#F6F8FB;       /* page background      */
-      --surface:#FFFFFF;
-      --muted:#5A6B84;       /* secondary text       */
-      --line:#E4E9F1;        /* borders / hairlines  */
-      --shadow-sm:0 1px 2px rgba(11,46,99,.05), 0 6px 16px -10px rgba(11,46,99,.18);
-      --shadow-md:0 12px 30px -16px rgba(11,46,99,.28);
-      --container:1180px;
-      --radius:14px;
+      --ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;
+      --blue:#0B5FB0;--green:#0A8A43;--paper:#F6F8FB;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;
+      --shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);
+      --shadow-md:0 12px 30px -16px rgba(11,46,99,.28);--container:1180px;--radius:14px;
     }
-
-    /* ============================ reset ============================ */
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:var(--ink);background:var(--paper);line-height:1.65;
-      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    }
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    body.loading{overflow:hidden;height:100vh}
     img{display:block;max-width:100%}
     a{color:inherit;text-decoration:none}
     button{font-family:inherit;cursor:pointer;border:0;background:none}
     h1,h2,h3,h4{color:var(--navy);line-height:1.12;font-weight:800;letter-spacing:-.01em}
     ::selection{background:var(--navy);color:#fff}
     :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
-
     .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
     .section{padding-block:88px}
     .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 8px 0}
     .skip:focus{left:0;top:0}
-
-    /* eyebrow: clean red label with a simple rule (no flag graphic) */
-    .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;
-      letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
     .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
-
     .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
     .section-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
     .section-link{font-weight:700;color:var(--navy);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
     .section-link:hover{color:var(--accent);border-color:var(--accent)}
 
-    /* ============================ buttons ============================ */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;
-      padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s}
     .btn:active{transform:translateY(1px)}
     .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(200,16,46,.5)}
     .btn-accent:hover{background:var(--accent-600)}
     .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.55)}
     .btn-ghost:hover{background:#fff;color:var(--navy);border-color:#fff}
-    .btn-navy{background:var(--navy);color:#fff}
-    .btn-navy:hover{background:var(--navy-900)}
 
-    /* ============================ announcement ============================ */
+    /* ===================== PRELOADER ===================== */
+    #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pl-flag{width:66px;height:44px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm);animation:plPulse 1.6s ease-in-out infinite}
+    @keyframes plPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+    .pl-ring{width:38px;height:38px;border:3px solid rgba(11,46,99,.15);border-top-color:var(--accent);border-radius:50%;animation:plSpin .9s linear infinite}
+    @keyframes plSpin{to{transform:rotate(360deg)}}
+    .pl-text{font-weight:800;color:var(--navy);letter-spacing:.02em;font-size:1.05rem}
+
+    /* announcement */
     .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:10px 44px;position:relative;display:none}
     .announce.show{display:block}
     .announce a{color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.6)}
     .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;font-size:1rem;opacity:.75}
     .announce .close:hover{opacity:1}
 
-    /* ============================ header / nav ============================ */
+    /* header / nav */
     header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
     header.scrolled{box-shadow:0 6px 24px -14px rgba(11,46,99,.4);background:rgba(255,255,255,.96)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
@@ -102,19 +85,18 @@
     .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
     .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--navy);border-color:var(--accent)}
     .nav-actions{display:flex;align-items:center;gap:14px}
-    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,background .2s,color .2s}
+    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,color .2s}
     .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
     .menu-toggle{display:none}
     .nav-cta{padding:10px 20px;border-radius:10px}
 
-    /* ============================ hero ============================ */
+    /* hero */
     .hero{position:relative;color:#fff;overflow:hidden;background:var(--navy-900)}
     .hero-bg{position:absolute;inset:0;background-image:url("https://t4.ftcdn.net/jpg/01/96/03/51/360_F_196035169_TiddErZm2MwPN2N4pfgDO22YMtHK3LGM.jpg");background-size:cover;background-position:center;animation:heroZoom 22s ease-out forwards}
     @keyframes heroZoom{from{transform:scale(1.09)}to{transform:scale(1)}}
     .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(102deg,rgba(7,27,61,.94) 0%,rgba(7,27,61,.8) 45%,rgba(7,27,61,.55) 100%)}
-    .hero-inner{position:relative;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;padding-block:100px}
-    .portrait{width:230px;height:290px;flex:none;border-radius:16px;object-fit:cover;object-position:top center;
-      box-shadow:0 0 0 5px rgba(255,255,255,.14),0 30px 60px -22px rgba(0,0,0,.75)}
+    .hero-inner{position:relative;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;padding-block:92px}
+    .portrait{height:400px;width:auto;max-width:360px;object-fit:contain;filter:drop-shadow(0 26px 34px rgba(0,0,0,.5))}
     .hero-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.74rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:20px}
     .hero-eyebrow .flag{width:30px;height:20px;object-fit:cover;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
     .hero h1{color:#fff;font-size:clamp(2.7rem,6vw,4.5rem);letter-spacing:-.02em;font-weight:800}
@@ -124,33 +106,43 @@
     .hero-search input{flex:1;border:0;padding:16px 18px;font-size:1rem;color:var(--ink);outline:none}
     .hero-search button{background:var(--navy);color:#fff;padding:0 24px;font-weight:700;display:flex;align-items:center;gap:9px}
     .hero-search button:hover{background:var(--blue)}
-
-    /* reveal-on-load helpers for hero */
     .rise{opacity:0;transform:translateY(20px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
     .rise.d1{animation-delay:.05s}.rise.d2{animation-delay:.18s}.rise.d3{animation-delay:.32s}.rise.d4{animation-delay:.46s}
     @keyframes rise{to{opacity:1;transform:none}}
 
-    /* ============================ statement ============================ */
+    /* statement + book */
     .statement{background:var(--surface);border-bottom:1px solid var(--line)}
-    .statement-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:60px;align-items:center}
-    .statement h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin-bottom:22px}
-    .statement p{color:#28374f;font-size:1.08rem;margin-bottom:18px}
-    .sig{font-weight:800;font-size:1.35rem;color:var(--navy);margin-top:10px}
-    .statement-photo img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow-md)}
-    .statement-photo{position:relative;border-radius:var(--radius)}
-    .statement-photo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent);border-radius:0 0 var(--radius) var(--radius)}
+    .statement h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+    .statement-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:stretch;margin-top:34px}
+    .sig{font-weight:800;font-size:1.35rem;color:var(--navy)}
+    .statement-photo{position:relative;border-radius:var(--radius);display:flex;overflow:hidden;box-shadow:var(--shadow-md)}
+    .statement-photo img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius)}
+    .statement-photo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent);z-index:2}
+    .book{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;display:flex;flex-direction:column}
+    .book-viewport{position:relative;height:440px;overflow:hidden}
+    .book-viewport::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,rgba(11,46,99,.06),transparent);z-index:3;pointer-events:none}
+    .book-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+    .book-page{flex:0 0 100%;height:100%;width:100%;padding:34px 40px;overflow:hidden}
+    .book-page p{color:#28374f;font-size:1.04rem;line-height:1.75;margin-bottom:15px}
+    .book-bar{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-top:1px solid var(--line);background:#fbfcfe}
+    .book-bar .pg{font-size:.8rem;color:var(--muted);font-weight:700;letter-spacing:.03em}
+    .book-nav{display:flex;gap:8px}
+    .book-nav button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--navy);display:grid;place-items:center;transition:border-color .2s,color .2s,opacity .2s}
+    .book-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+    .book-nav button:disabled{opacity:.35;cursor:default}
 
-    /* ============================ impact ============================ */
-    .impact{background:var(--surface);border-bottom:1px solid var(--line)}
+    /* impact */
+    .impact{background:var(--paper);border-bottom:1px solid var(--line)}
     .impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center}
     .stat .num{font-size:clamp(2.4rem,4.5vw,3.3rem);color:var(--navy);font-weight:800;line-height:1}
     .stat .lbl{margin-top:10px;font-size:.82rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:700}
 
-    /* ============================ cards ============================ */
+    /* cards */
     .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
     .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
     .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
     .card-media{aspect-ratio:16/10;background:#eef2f8;overflow:hidden;position:relative}
+    .card-media img{width:100%;height:100%;object-fit:cover}
     .card-media .ph{position:absolute;inset:0;display:grid;place-items:center;color:#c3cede;font-size:2rem}
     .card-body{padding:24px;display:flex;flex-direction:column;gap:11px;flex:1}
     .pill{align-self:flex-start;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:100px}
@@ -174,27 +166,31 @@
     .event-info h3{font-size:1.2rem;margin-bottom:4px}
     .event-info .meta{color:var(--muted);font-size:.92rem}
 
-    /* instagram */
-    .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-    .ig-grid a{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#e6ebf3}
-    .ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-    .ig-grid a:hover img{transform:scale(1.07)}
-    .ig-grid a::after{content:"\f16d";font-family:"Font Awesome 6 Brands";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:1.4rem;background:rgba(11,46,99,0);opacity:0;transition:background .25s,opacity .25s}
-    .ig-grid a:hover::after{background:rgba(11,46,99,.35);opacity:1}
+    /* partners spotlight */
+    .partners{background:var(--paper);border-top:1px solid var(--line)}
+    .partner-stage{min-height:210px;display:grid;place-items:center}
+    .partner-card{display:inline-flex;flex-direction:column;align-items:center;gap:20px;padding:16px;animation:pFade .55s ease}
+    @keyframes pFade{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+    .partner-card img{height:120px;width:auto;max-width:280px;object-fit:contain}
+    .partner-card span{font-weight:800;color:var(--navy);font-size:1.25rem;letter-spacing:.01em;border-top:2px solid var(--accent);padding-top:12px}
+    .partner-card:hover img{transform:scale(1.03);transition:transform .25s}
+    .partner-dots{display:flex;gap:9px;justify-content:center;margin-top:28px}
+    .partner-dots button{width:9px;height:9px;border-radius:50%;background:var(--line);transition:background .2s,transform .2s}
+    .partner-dots button.on{background:var(--accent);transform:scale(1.25)}
 
     /* empty states */
     .empty{grid-column:1/-1;border:1.5px dashed var(--line);border-radius:var(--radius);background:#fbfcfe;padding:42px 28px;text-align:center;color:var(--muted)}
     .empty strong{display:block;color:var(--navy);font-size:1.12rem;margin-bottom:6px;font-weight:800}
 
-    /* ============================ quote ============================ */
+    /* quote */
     .quote{position:relative;background:var(--navy-900);color:#fff;text-align:center;overflow:hidden}
     .quote::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:120px;height:4px;background:var(--accent)}
     .quote-mark{font-size:4rem;color:var(--accent);line-height:.5;height:34px;font-weight:800}
     .quote-block{transition:opacity .4s ease}
-    .quote blockquote{font-size:clamp(1.7rem,3.8vw,2.9rem);font-weight:700;letter-spacing:-.01em;max-width:920px;margin:16px auto 20px;color:#fff}
-    .quote cite{font-style:normal;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:#9fb2d2;font-weight:700}
+    .quote blockquote{font-size:clamp(1.55rem,3.4vw,2.6rem);font-weight:700;letter-spacing:-.01em;max-width:940px;margin:16px auto 20px;color:#fff}
+    .quote cite{font-style:normal;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:#9fb2d2;font-weight:700}
 
-    /* ============================ newsletter ============================ */
+    /* newsletter */
     .news-signup{background:linear-gradient(120deg,var(--navy) 0%,var(--blue) 100%);color:#fff}
     .signup-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
     .signup-grid h2{color:#fff;font-size:clamp(1.8rem,3.2vw,2.4rem)}
@@ -207,7 +203,7 @@
     .signup-form .note.ok{color:#b7f0cd}
     .signup-form .note.err{color:#ffcaca}
 
-    /* ============================ footer ============================ */
+    /* footer */
     footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
     .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;padding-block:66px 40px}
     .foot-brand .fb-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -222,11 +218,11 @@
     .foot-col h4{color:#fff;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
     .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#b9c8e0;transition:color .2s,padding-left .2s}
     .foot-col a:hover{color:#fff;padding-left:4px}
-    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#8ea0be}
-    .foot-bottom a{color:#8ea0be}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
+    .foot-bottom a{color:#c3d0e4;font-weight:600}
     .foot-bottom a:hover{color:#fff}
 
-    /* ============================ search overlay ============================ */
+    /* search overlay */
     .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}
     .overlay.show{display:block}
     .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
@@ -242,57 +238,65 @@
     .results a span{display:block;font-size:.88rem;color:var(--muted)}
     .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
 
-    /* ============================ back to top ============================ */
+    /* back to top */
     .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
     .to-top.show{opacity:1;visibility:visible;transform:none}
     .to-top:hover{background:var(--accent)}
 
-    /* ============================ reveal + reduced motion ============================ */
+    /* reveal + reduced motion */
     .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
     .reveal.in{opacity:1;transform:none}
     @media (prefers-reduced-motion:reduce){
       *{scroll-behavior:auto!important;animation:none!important}
       .reveal{opacity:1;transform:none;transition:none}
-      .rise{opacity:1;transform:none}
-      .hero-bg{transform:none}
+      .rise{opacity:1;transform:none}.hero-bg{transform:none}
+      .book-track{transition:none}
     }
 
-    /* ============================ responsive ============================ */
+    /* responsive */
     @media (max-width:960px){
       .statement-grid,.signup-grid{grid-template-columns:1fr}
-      .statement-photo{max-width:440px}
+      .statement-photo{max-height:420px}
+      .book-viewport{height:480px}
       .impact-grid{grid-template-columns:repeat(2,1fr);gap:30px}
       .card-grid{grid-template-columns:repeat(2,1fr)}
-      .ig-grid{grid-template-columns:repeat(4,1fr)}
       .foot-grid{grid-template-columns:1fr 1fr}
-      .hero-inner{grid-template-columns:1fr;gap:34px;padding-block:70px}
-      .portrait{width:160px;height:200px}
+      .hero-inner{grid-template-columns:1fr;gap:24px;padding-block:64px;justify-items:center;text-align:center}
+      .hero-eyebrow,.hero-cta{justify-content:center}
+      .hero-search{margin-inline:auto}
+      .portrait{height:280px;max-width:260px}
     }
     @media (max-width:680px){
       .section{padding-block:62px}
-      .nav-links{display:none}
-      .menu-toggle{display:grid}
-      .nav-cta{display:none}
+      .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
       .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md);animation:rise .3s ease forwards}
       .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
       .card-grid,.impact-grid{grid-template-columns:1fr}
-      .ig-grid{grid-template-columns:repeat(3,1fr)}
       .foot-grid{grid-template-columns:1fr}
       .event-row{flex-direction:column;align-items:flex-start;text-align:left}
       .brand-text{font-size:.98rem}
+      .book-viewport{height:540px}.book-page{padding:26px 24px}.book-page p{font-size:1rem;line-height:1.7}
     }
   </style>
 </head>
-<body>
+<body class="loading">
+  <!-- ===================== PRELOADER ===================== -->
+  <div id="preloader" role="status" aria-label="Loading">
+    <div class="pl-inner">
+      <img class="pl-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" />
+      <div class="pl-ring"></div>
+      <div class="pl-text">Office of Tyler Nicholas</div>
+    </div>
+  </div>
+
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- announcement (shown only when set in the admin panel) -->
   <div class="announce" id="announce" role="region" aria-label="Site announcement">
     <span id="announce-text"></span>
     <button class="close" id="announce-close" aria-label="Dismiss announcement"><i class="fa-solid fa-xmark"></i></button>
   </div>
 
-  <!-- ================= HEADER ================= -->
+  <!-- ===================== HEADER ===================== -->
   <header id="site-header">
     <div class="container nav">
       <a class="brand" href="/" aria-label="Office of Tyler Nicholas — home">
@@ -302,7 +306,6 @@
       <nav class="nav-links" id="navlinks" aria-label="Primary">
         <a href="/" aria-current="page">Home</a>
         <a href="/about">About</a>
-        <a href="/public-service">Public Service</a>
         <a href="/newsroom">Newsroom</a>
         <a href="/media">Media</a>
         <a href="/contact">Contact</a>
@@ -316,11 +319,11 @@
   </header>
 
   <main id="main">
-    <!-- ================= HERO ================= -->
+    <!-- ===================== HERO ===================== -->
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="container hero-inner">
-        <img class="portrait rise d1" id="hero-portrait" src="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" alt="Portrait of Tyler P. Nicholas with the flag of Seychelles" />
+        <img class="portrait rise d1" id="hero-portrait" src="https://i.ibb.co/pjph51fb/IMG-20260227-WA0014-removebg-preview.png" alt="Tyler P. Nicholas" />
         <div>
           <span class="hero-eyebrow rise d1"><img class="flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" />Republic of Seychelles</span>
           <h1 class="rise d2" id="hero-name">Tyler P. Nicholas</h1>
@@ -338,31 +341,38 @@
       </div>
     </section>
 
-    <!-- ================= STATEMENT ================= -->
+    <!-- ===================== STATEMENT (book) ===================== -->
     <section class="statement section" id="statement">
-      <div class="container statement-grid">
-        <div class="reveal">
+      <div class="container">
+        <div class="reveal" style="max-width:760px">
           <span class="eyebrow">Official Statement</span>
-          <h2>A commitment to serve</h2>
-          <div id="statement-body">
-            <p>Public service begins with a simple belief: that every person has a role to play in building a better country. As young people, we cannot wait for the future to be handed to us — we must step forward, serve our communities, and take responsibility for the Seychelles we want to inherit.</p>
-            <p>This office exists to serve, to listen, to support youth, and to build a stronger connection between young people and the future of our nation. A brighter Seychelles will not be built by one person or one generation alone. It will be built by all of us.</p>
+          <h2>A statement from Tyler Nicholas</h2>
+        </div>
+        <div class="statement-grid reveal">
+          <div class="book">
+            <div class="book-viewport" id="book-viewport"><div class="book-track" id="book-track"></div></div>
+            <div class="book-bar">
+              <span class="pg" id="book-pg">Page 1</span>
+              <div class="book-nav">
+                <button id="book-prev" aria-label="Previous page"><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="book-next" aria-label="Next page"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
           </div>
-          <p class="sig">Tyler P. Nicholas</p>
-          <p style="margin-top:22px"><a class="section-link" href="/about">Read the full statement &rarr;</a></p>
+          <div class="statement-photo">
+            <img src="https://i.ibb.co/jZg7qDST/eyvh-1.png" alt="Tyler P. Nicholas beside the flag of Seychelles" />
+          </div>
         </div>
-        <div class="statement-photo reveal">
-          <img src="https://i.ibb.co/jZg7qDST/eyvh-1.png" alt="Tyler P. Nicholas standing beside the flag of Seychelles" />
-        </div>
+        <p class="sig" style="margin-top:26px">Tyler P. Nicholas</p>
       </div>
     </section>
 
-    <!-- ================= IMPACT (hidden until stats exist) ================= -->
+    <!-- ===================== IMPACT (hidden until stats exist) ===================== -->
     <section class="impact section" id="impact-section" style="display:none">
       <div class="container"><div class="impact-grid" id="impact-grid"></div></div>
     </section>
 
-    <!-- ================= ACTIVE PROJECTS ================= -->
+    <!-- ===================== ACTIVE PROJECTS ===================== -->
     <section class="section">
       <div class="container">
         <div class="section-head reveal">
@@ -373,7 +383,7 @@
       </div>
     </section>
 
-    <!-- ================= UPCOMING EVENTS ================= -->
+    <!-- ===================== UPCOMING EVENTS ===================== -->
     <section class="section" style="background:var(--surface);border-block:1px solid var(--line)">
       <div class="container">
         <div class="section-head reveal">
@@ -384,7 +394,7 @@
       </div>
     </section>
 
-    <!-- ================= LATEST NEWS ================= -->
+    <!-- ===================== LATEST NEWS ===================== -->
     <section class="section">
       <div class="container">
         <div class="section-head reveal">
@@ -395,29 +405,40 @@
       </div>
     </section>
 
-    <!-- ================= INSTAGRAM ================= -->
+    <!-- ===================== INSTAGRAM (Elfsight) ===================== -->
     <section class="section" id="ig-section" style="background:var(--surface);border-top:1px solid var(--line)">
       <div class="container">
         <div class="section-head reveal">
           <div><span class="eyebrow">Follow Along</span><h2>Live from Instagram</h2></div>
           <a class="section-link" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">@officeoftylernicholas &rarr;</a>
         </div>
-        <div class="ig-grid" id="ig-grid"></div>
+        <!-- Elfsight Instagram Feed | Office of Tyler Nicholas -->
+        <div class="elfsight-app-dea8e8e7-b94d-408e-b78f-7f63a3983fc3" data-elfsight-app-lazy></div>
       </div>
     </section>
 
-    <!-- ================= HEAVY QUOTE ================= -->
+    <!-- ===================== PARTNERS ===================== -->
+    <section class="section partners" id="partners">
+      <div class="container" style="text-align:center">
+        <span class="eyebrow" style="justify-content:center">In Partnership</span>
+        <h2 style="margin-bottom:36px">Our partners</h2>
+        <div class="partner-stage reveal" id="partner-stage"></div>
+        <div class="partner-dots" id="partner-dots"></div>
+      </div>
+    </section>
+
+    <!-- ===================== HEAVY QUOTE ===================== -->
     <section class="quote section">
       <div class="container">
         <div class="quote-mark">&ldquo;</div>
         <div class="quote-block" id="quote-block">
-          <blockquote id="quote-text">The End Crowns The Work</blockquote>
+          <blockquote id="quote-text">Finis coronat opus (The end crowns the work).</blockquote>
           <cite id="quote-cite">National Motto of Seychelles</cite>
         </div>
       </div>
     </section>
 
-    <!-- ================= NEWSLETTER ================= -->
+    <!-- ===================== NEWSLETTER ===================== -->
     <section class="news-signup section">
       <div class="container signup-grid">
         <div class="reveal">
@@ -435,7 +456,7 @@
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ===================== FOOTER ===================== -->
   <footer>
     <div class="container foot-grid">
       <div class="foot-brand">
@@ -457,7 +478,6 @@
       <div class="foot-col">
         <h4>The Office</h4>
         <a href="/about">About Tyler Nicholas</a>
-        <a href="/public-service">Public Service</a>
         <a href="/initiatives">Initiatives</a>
         <a href="/newsroom">Newsroom</a>
       </div>
@@ -476,20 +496,13 @@
       </div>
     </div>
     <div class="container foot-bottom">
-      <span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved.</span>
-      <span>
-        <a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp;
-        <a href="/accessibility">Accessibility</a> &nbsp;&middot;&nbsp;
-        <a href="/admin">Admin</a> &nbsp;&middot;&nbsp;
-        Protected by the Tyler Nicholas Group
-      </span>
+      <span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved. &nbsp;&middot;&nbsp; <a href="/admin">Admin</a></span>
     </div>
   </footer>
 
-  <!-- back to top -->
   <button class="to-top" id="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <!-- ================= SEARCH OVERLAY ================= -->
+  <!-- ===================== SEARCH OVERLAY ===================== -->
   <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
     <div class="search-panel">
       <form id="overlay-form" role="search">
@@ -500,10 +513,10 @@
     </div>
   </div>
 
-  <!-- ================= SUPABASE + APP ================= -->
+  <!-- ===================== SUPABASE + APP ===================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-  /* Public "anon" key — safe to ship in the browser. RLS protects the data. */
+  /* Public "anon" key — safe to ship. RLS protects the data. */
   const SUPABASE_URL  = "https://lanrakgrrbyfhtzcxnof.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
@@ -513,18 +526,69 @@
   const fmtDate = iso => iso ? new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(iso)) : "";
   const dayNum  = iso => new Intl.DateTimeFormat("en-GB",{day:"2-digit"}).format(new Date(iso));
   const monTxt  = iso => new Intl.DateTimeFormat("en-GB",{month:"short"}).format(new Date(iso)).toUpperCase();
-  const escAttr = s => (s||"").replace(/"/g,"&quot;");
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   $("#year").textContent = new Date().getFullYear();
 
-  /* -------- shared empty-state card -------- */
-  function emptyCard(title, msg){
-    const d = el("div","empty");
-    d.appendChild(el("strong", null, title));
-    d.appendChild(document.createTextNode(msg));
-    return d;
+  function emptyCard(title, msg){ const d=el("div","empty"); d.appendChild(el("strong",null,title)); d.appendChild(document.createTextNode(msg)); return d; }
+
+  /* ===================== PRELOADER ===================== */
+  function hidePreloader(){ const p=$("#preloader"); if(!p||p.classList.contains("hide"))return; p.classList.add("hide"); document.body.classList.remove("loading"); setTimeout(()=>p.remove(),600); }
+  window.addEventListener("load", hidePreloader);
+  setTimeout(hidePreloader, 6000);
+
+  /* ===================== STATEMENT + BOOK ===================== */
+  const STATEMENT = [
+    "Public service, to me, is not simply a position or a title. It is a responsibility to the people around us, to our communities, and to the country we call home.",
+    "I have always been deeply curious about the world and about the forces that shape our societies. I love politics, diplomacy, international relations and law because they provide a way to understand how countries work, how people can come together despite their differences, and how meaningful change can be created through dialogue, leadership and cooperation. I believe strongly that the future of any country must be built on peace, respect, opportunity and the belief that every citizen has something valuable to contribute.",
+    "My greatest ambition is to see Seychelles succeed in every way it can. I believe our country has extraordinary potential, and that our young people must be given the knowledge, skills, opportunities and confidence to help realise it. Education is at the heart of that vision. I believe education should go beyond memorisation and examinations. It should teach young people how to think critically, communicate, solve problems, understand their responsibilities as citizens, embrace technology, and participate meaningfully in the society they are inheriting. A strong education system does not simply prepare students for a career; it prepares them to build a better country.",
+    "My own journey has taken me through many different experiences. As an Honourable Member of the Seychelles National Youth Assembly and a Youth Ambassadors Africa Alumni, I have had the privilege of representing young Seychellois, engaging with leaders and young people from different backgrounds, and learning firsthand the importance of international cooperation and diplomacy. Travelling, meeting people from different cultures and experiencing the world beyond Seychelles has expanded my understanding of what is possible while strengthening my appreciation for where I come from.",
+    "At the same time, I have pursued another passion: technology and entrepreneurship. I love building things, writing code and finding practical ways technology can solve problems. Through projects such as BlueWave Digital, the Tyler Nicholas Group and the Tyler Nicholas Foundation, I have sought to turn ideas into initiatives that can create opportunities, serve communities and contribute something meaningful. My experiences in online communities and roleplay have also given me the opportunity to work with thousands of people around the world, developing leadership, management, communication and organisational skills in environments that constantly challenged me to learn.",
+    "Service has remained a constant throughout this journey. From volunteering with organisations such as the Red Cross to working on youth and community initiatives, I have learned that leadership is not about being above others. It is about being willing to stand alongside people, listen to them, understand their needs and work with them toward something better.",
+    "I do not believe that one person can change a country alone. Progress comes from people working together: young people and older generations, government and civil society, entrepreneurs and educators, communities and institutions. It comes from disagreement being met with dialogue rather than division, and from ambition being matched with responsibility.",
+    "I am still learning. I am still travelling, building, studying, coding, volunteering and asking questions. My journey is far from finished, and I do not claim to have every answer. But I know what I believe in: service over self-interest, education as a foundation for progress, innovation as a tool for opportunity, diplomacy over division, and a Seychelles that is peaceful, prosperous, educated, connected and confident in its place in the world.",
+    "Everything I do is ultimately connected to one simple hope: to leave my community and my country better than I found them."
+  ];
+  let currentParagraphs = STATEMENT.slice();
+  let bookIndex = 0, bookTotal = 1;
+
+  function paginate(paragraphs){
+    const viewport = $("#book-viewport");
+    const pageH = viewport.clientHeight;
+    const measure = document.createElement("div");
+    measure.className = "book-page";
+    measure.style.cssText = "position:absolute;visibility:hidden;left:0;top:0;width:100%;";
+    viewport.appendChild(measure);
+    const pages = []; let current = [];
+    paragraphs.forEach(text => {
+      const p = document.createElement("p"); p.textContent = text; measure.appendChild(p);
+      if(measure.scrollHeight > pageH && current.length > 0){
+        pages.push(current); current = [text];
+        measure.innerHTML = ""; const np = document.createElement("p"); np.textContent = text; measure.appendChild(np);
+      } else { current.push(text); }
+    });
+    if(current.length) pages.push(current);
+    viewport.removeChild(measure);
+    return pages;
   }
+  function buildBook(paragraphs){
+    const track = $("#book-track"); track.innerHTML = "";
+    const pages = paginate(paragraphs);
+    pages.forEach(pg => { const page = el("div","book-page"); pg.forEach(t => page.appendChild(el("p", null, t))); track.appendChild(page); });
+    bookTotal = pages.length || 1;
+  }
+  function showBookPage(i){
+    bookIndex = Math.max(0, Math.min(i, bookTotal - 1));
+    $("#book-track").style.transform = `translateX(-${bookIndex*100}%)`;
+    $("#book-pg").textContent = `Page ${bookIndex+1} of ${bookTotal}`;
+    $("#book-prev").disabled = bookIndex === 0;
+    $("#book-next").disabled = bookIndex === bookTotal - 1;
+  }
+  function initBook(){ buildBook(currentParagraphs); showBookPage(Math.min(bookIndex, bookTotal - 1)); }
+  $("#book-prev").addEventListener("click", () => showBookPage(bookIndex - 1));
+  $("#book-next").addEventListener("click", () => showBookPage(bookIndex + 1));
+  let bookResizeT;
+  window.addEventListener("resize", () => { clearTimeout(bookResizeT); bookResizeT = setTimeout(initBook, 250); });
+  window.addEventListener("load", initBook); // re-paginate once fonts are ready
 
   /* ===================== SITE SETTINGS ===================== */
   async function loadSettings(){
@@ -546,38 +610,29 @@
     if(data.full_name)    $("#hero-name").textContent = data.full_name;
     if(data.portrait_url) $("#hero-portrait").src = data.portrait_url;
     if(data.official_statement){
-      const box = $("#statement-body"); box.innerHTML = "";
-      data.official_statement.split(/\n\s*\n/).forEach(p => { if(p.trim()) box.appendChild(el("p", null, p.trim())); });
+      const paras = data.official_statement.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+      if(paras.length){ currentParagraphs = paras; bookIndex = 0; initBook(); }
     }
   }
 
-  /* ===================== IMPACT STATS (with count-up) ===================== */
+  /* ===================== IMPACT (count-up) ===================== */
   async function loadImpact(){
     const { data } = await db.from("impact_stats").select("*").eq("is_published", true).order("sort_order");
     if(!data || !data.length) return;
     const grid = $("#impact-grid"); grid.innerHTML = "";
-    data.forEach(s => {
-      const wrap = el("div","stat");
-      const num = el("div","num", s.value);
-      wrap.appendChild(num); wrap.appendChild(el("div","lbl", s.label));
-      grid.appendChild(wrap);
-      countUp(num, s.value);
-    });
+    data.forEach(s => { const w=el("div","stat"); const n=el("div","num",s.value); w.appendChild(n); w.appendChild(el("div","lbl",s.label)); grid.appendChild(w); countUp(n, s.value); });
     $("#impact-section").style.display = "block";
   }
   function countUp(node, raw){
-    const m = String(raw).match(/^(\d[\d,]*)(.*)$/);
-    if(!m || prefersReduced) return;
-    const target = parseInt(m[1].replace(/,/g,""),10), suffix = m[2] || "";
-    let cur = 0; const step = Math.max(1, Math.ceil(target/45));
+    const m = String(raw).match(/^(\d[\d,]*)(.*)$/); if(!m || prefersReduced) return;
+    const target = parseInt(m[1].replace(/,/g,""),10), suffix = m[2] || ""; let cur = 0; const step = Math.max(1, Math.ceil(target/45));
     const tick = () => { cur += step; if(cur >= target){ node.textContent = target.toLocaleString()+suffix; } else { node.textContent = cur.toLocaleString()+suffix; requestAnimationFrame(()=>setTimeout(tick,28)); } };
     node.textContent = "0"+suffix; tick();
   }
 
   /* ===================== INITIATIVES ===================== */
   async function loadInitiatives(){
-    const { data, error } = await db.from("initiatives")
-      .select("title,summary,status,cover_url,is_featured")
+    const { data, error } = await db.from("initiatives").select("title,summary,status,cover_url,is_featured")
       .eq("is_published", true).order("is_featured",{ascending:false}).order("created_at",{ascending:false}).limit(3);
     const grid = $("#initiatives-grid"); grid.innerHTML = "";
     if(error || !data || !data.length){ grid.appendChild(emptyCard("Initiatives are on the way","The first projects are being prepared. Check back soon to follow the work.")); return; }
@@ -598,19 +653,14 @@
 
   /* ===================== EVENTS ===================== */
   async function loadEvents(){
-    const { data, error } = await db.from("events")
-      .select("title,location,starts_at").eq("is_published", true)
-      .gte("starts_at", new Date().toISOString()).order("starts_at",{ascending:true}).limit(3);
+    const { data, error } = await db.from("events").select("title,location,starts_at")
+      .eq("is_published", true).gte("starts_at", new Date().toISOString()).order("starts_at",{ascending:true}).limit(3);
     const list = $("#events-list"); list.innerHTML = "";
     if(error || !data || !data.length){ list.appendChild(emptyCard("No events scheduled yet","Upcoming events and gatherings will appear here. Follow along to be the first to know.")); return; }
     data.forEach(ev => {
       const row = el("a","event-row"); row.href="/events";
-      const box = el("div","datebox");
-      box.appendChild(el("div","d", dayNum(ev.starts_at)));
-      box.appendChild(el("div","m", monTxt(ev.starts_at)));
-      row.appendChild(box);
-      const info = el("div","event-info");
-      info.appendChild(el("h3", null, ev.title));
+      const box = el("div","datebox"); box.appendChild(el("div","d", dayNum(ev.starts_at))); box.appendChild(el("div","m", monTxt(ev.starts_at))); row.appendChild(box);
+      const info = el("div","event-info"); info.appendChild(el("h3", null, ev.title));
       info.appendChild(el("div","meta", [fmtDate(ev.starts_at), ev.location].filter(Boolean).join("  ·  ")));
       row.appendChild(info); list.appendChild(row);
     });
@@ -618,9 +668,8 @@
 
   /* ===================== NEWS ===================== */
   async function loadNews(){
-    const { data, error } = await db.from("news_posts")
-      .select("title,excerpt,cover_url,category,published_at,created_at").eq("status","published")
-      .order("published_at",{ascending:false,nullsFirst:false}).order("created_at",{ascending:false}).limit(3);
+    const { data, error } = await db.from("news_posts").select("title,excerpt,cover_url,category,published_at,created_at")
+      .eq("status","published").order("published_at",{ascending:false,nullsFirst:false}).order("created_at",{ascending:false}).limit(3);
     const grid = $("#news-grid"); grid.innerHTML = "";
     if(error || !data || !data.length){ grid.appendChild(emptyCard("The newsroom is warming up","Official updates, releases, and statements will be published here.")); return; }
     data.forEach(p => {
@@ -638,23 +687,38 @@
     });
   }
 
-  /* ===================== INSTAGRAM ===================== */
-  async function loadInstagram(){
-    const { data } = await db.from("instagram_posts").select("image_url,caption,permalink")
-      .eq("is_published", true).order("sort_order").order("posted_at",{ascending:false}).limit(6);
-    const grid = $("#ig-grid"); grid.innerHTML = "";
-    if(!data || !data.length){ grid.appendChild(emptyCard("Posts coming soon","Follow @officeoftylernicholas on Instagram to see the latest.")); return; }
-    data.forEach(post => {
-      const a = el("a"); a.href = post.permalink || "https://www.instagram.com/officeoftylernicholas/"; a.target="_blank"; a.rel="noopener";
-      const img = el("img"); img.src=post.image_url; img.alt=post.caption || "Instagram post"; img.loading="lazy";
-      a.appendChild(img); grid.appendChild(a);
-    });
+  /* ===================== PARTNERS ===================== */
+  const PARTNERS = [
+    { name:"Tyler Nicholas Foundation", logo:"https://i.ibb.co/BKLps0Qx/TNF-LOGO.jpg", url:"https://tyler-nicholas-foundation.online" },
+    { name:"FoodShare Seychelles", logo:"https://i.ibb.co/zHX6bbXb/Food-Share-Seychelles-Logo.png", url:"https://foodshare-seychelles.online" }
+  ];
+  function initPartners(){
+    const stage = $("#partner-stage"), dots = $("#partner-dots"); let idx = 0, timer;
+    const render = () => {
+      const p = PARTNERS[idx];
+      const a = el("a","partner-card"); a.href = p.url; a.target = "_blank"; a.rel = "noopener";
+      const img = el("img"); img.src = p.logo; img.alt = p.name;
+      a.appendChild(img); a.appendChild(el("span", null, p.name));
+      stage.innerHTML = ""; stage.appendChild(a);
+      [...dots.children].forEach((d,i) => d.classList.toggle("on", i === idx));
+    };
+    const restart = () => { if(prefersReduced || PARTNERS.length < 2) return; clearInterval(timer); timer = setInterval(() => { idx = (idx+1) % PARTNERS.length; render(); }, 4200); };
+    PARTNERS.forEach((_,i) => { const b = el("button"); b.setAttribute("aria-label", `Show partner ${i+1}`); b.addEventListener("click", () => { idx = i; render(); restart(); }); dots.appendChild(b); });
+    render(); restart();
   }
 
   /* ===================== QUOTES (rotating) ===================== */
   let quotes = [
-    { text: "The End Crowns The Work", attribution: "National Motto of Seychelles" },
-    { text: "Reste touzour dan linite… Pou boner nou zanfan.", attribution: "Seychellois Creole" }
+    { text:"Finis coronat opus (The end crowns the work).", attribution:"National Motto of Seychelles" },
+    { text:"Reste touzour dan linite... Pou boner nou zanfan (Let us stay in unity always... For the future of our children).", attribution:"Koste Seselwa (National Anthem)" },
+    { text:"Leadership is not about a position or a title, it is about action and example.", attribution:"Cory Booker" },
+    { text:"A genuine leader is not a searcher for consensus but a molder of consensus.", attribution:"Martin Luther King Jr." },
+    { text:"To lead people, walk behind them.", attribution:"Lao Tzu" },
+    { text:"Real integrity is doing the right thing, knowing that nobody's going to know whether you did it or not.", attribution:"Oprah Winfrey" },
+    { text:"The supreme quality for leadership is unquestionably integrity.", attribution:"Dwight D. Eisenhower" },
+    { text:"If you want to go fast, go alone. If you want to go far, go together.", attribution:"African Proverb" },
+    { text:"The best way to predict the future is to create it.", attribution:"Peter Drucker" },
+    { text:"Alone we can do so little; together we can do so much.", attribution:"Helen Keller" }
   ];
   async function loadQuotes(){
     const { data } = await db.from("quotes").select("text,attribution").eq("is_active", true).order("sort_order");
@@ -663,10 +727,7 @@
     const render = () => { $("#quote-text").textContent = quotes[i].text; $("#quote-cite").textContent = quotes[i].attribution; };
     render();
     if(quotes.length > 1 && !prefersReduced){
-      setInterval(() => {
-        const box = $("#quote-block"); box.style.opacity = "0";
-        setTimeout(() => { i = (i+1) % quotes.length; render(); box.style.opacity = "1"; }, 400);
-      }, 6500);
+      setInterval(() => { const box = $("#quote-block"); box.style.opacity = "0"; setTimeout(() => { i = (i+1) % quotes.length; render(); box.style.opacity = "1"; }, 400); }, 6500);
     }
   }
 
@@ -691,20 +752,16 @@
   $("#close-search").addEventListener("click", closeSearch);
   overlay.addEventListener("click", e => { if(e.target === overlay) closeSearch(); });
   document.addEventListener("keydown", e => { if(e.key === "Escape" && overlay.classList.contains("show")) closeSearch(); });
-  // simple focus trap
   overlay.addEventListener("keydown", e => {
     if(e.key !== "Tab") return;
-    const f = [$("#overlay-input"), $("#close-search")];
-    const first = f[0], last = f[f.length-1];
+    const first = $("#overlay-input"), last = $("#close-search");
     if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
     else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
   });
-
   $("#hero-search-form").addEventListener("submit", e => { e.preventDefault(); const q=$("#hero-search-input").value.trim(); openSearch(); $("#overlay-input").value=q; runSearch(q); });
   let searchTimer;
   $("#overlay-input").addEventListener("input", e => { clearTimeout(searchTimer); const q=e.target.value.trim(); searchTimer=setTimeout(()=>runSearch(q),250); });
   $("#overlay-form").addEventListener("submit", e => { e.preventDefault(); runSearch($("#overlay-input").value.trim()); });
-
   async function runSearch(q){
     const box = $("#results");
     if(!q){ box.innerHTML=""; return; }
@@ -717,33 +774,22 @@
     ]);
     const news=n.value?.data||[], inits=i.value?.data||[], events=ev.value?.data||[];
     box.innerHTML = "";
-    const group = (label, rows, page, sub) => {
-      if(!rows.length) return;
-      box.appendChild(el("div","grp", label));
-      rows.forEach(r => { const a=el("a"); a.href=page; a.appendChild(el("b",null,r.title)); const s=sub(r); if(s) a.appendChild(el("span",null,s)); box.appendChild(a); });
-    };
+    const group = (label, rows, page, sub) => { if(!rows.length) return; box.appendChild(el("div","grp", label)); rows.forEach(r => { const a=el("a"); a.href=page; a.appendChild(el("b",null,r.title)); const s=sub(r); if(s) a.appendChild(el("span",null,s)); box.appendChild(a); }); };
     group("Newsroom", news, "/newsroom", r => r.excerpt);
     group("Initiatives", inits, "/initiatives", r => r.summary);
     group("Events", events, "/events", r => r.location);
     if(!news.length && !inits.length && !events.length){ box.innerHTML = `<div class="none">No results yet for “${q}”. As the Office publishes content, it will appear here.</div>`; }
   }
 
-  /* ===================== NAV / MENU / SCROLL / REVEAL ===================== */
+  /* ===================== NAV / SCROLL / REVEAL ===================== */
   const toggle = $("#menu-toggle");
   toggle.addEventListener("click", () => { const open = $("#navlinks").classList.toggle("open"); toggle.setAttribute("aria-expanded", open); });
   $("#navlinks").addEventListener("click", e => { if(e.target.tagName === "A"){ $("#navlinks").classList.remove("open"); toggle.setAttribute("aria-expanded","false"); } });
   $("#announce-close").addEventListener("click", () => $("#announce").classList.remove("show"));
-
-  // header shadow + back-to-top on scroll
   const header = $("#site-header"), toTop = $("#to-top");
-  const onScroll = () => {
-    header.classList.toggle("scrolled", window.scrollY > 10);
-    toTop.classList.toggle("show", window.scrollY > 600);
-  };
+  const onScroll = () => { header.classList.toggle("scrolled", window.scrollY > 10); toTop.classList.toggle("show", window.scrollY > 600); };
   window.addEventListener("scroll", onScroll, { passive:true }); onScroll();
   toTop.addEventListener("click", () => window.scrollTo({ top:0, behavior: prefersReduced ? "auto" : "smooth" }));
-
-  // scroll reveal (progressive — visible even without JS)
   const reveals = document.querySelectorAll(".reveal");
   if(!prefersReduced && "IntersectionObserver" in window){
     const io = new IntersectionObserver((entries) => { entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } }); }, { threshold:.12 });
@@ -751,9 +797,9 @@
   } else { reveals.forEach(r => r.classList.add("in")); }
 
   /* ===================== GO ===================== */
+  initBook(); initPartners();
   loadSettings(); loadProfile(); loadImpact();
-  loadInitiatives(); loadEvents(); loadNews();
-  loadInstagram(); loadQuotes();
+  loadInitiatives(); loadEvents(); loadNews(); loadQuotes();
   </script>
 </body>
 </html>
