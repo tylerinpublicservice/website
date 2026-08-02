@@ -1,422 +1,821 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Tyler Nicholas | Office of Tyler Nicholas</title>
-    
-    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Office of Tyler Nicholas</title>
+  <meta name="description" content="About Tyler P. Nicholas — Seychellois student, youth leader, entrepreneur, technology developer and public-service advocate." />
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="About — Office of Tyler Nicholas" />
+  <meta property="og:image" content="https://i.ibb.co/tMH5rnhD/Snapchat-345993718-2.jpg" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;
+      --blue:#0B5FB0;--green:#0A8A43;--paper:#F6F8FB;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;
+      --shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);
+      --shadow-md:0 12px 30px -16px rgba(11,46,99,.28);--container:1180px;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.loading{overflow:hidden;height:100vh}
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:0;background:none}
+    h1,h2,h3,h4{color:var(--navy);line-height:1.14;font-weight:800;letter-spacing:-.01em}
+    ::selection{background:var(--navy);color:#fff}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:84px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 8px 0}
+    .skip:focus{left:0;top:0}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+    .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+    .eyebrow.light{color:#fff}
+    .section-intro{max-width:720px;margin-bottom:44px}
+    .section-intro h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+    .section-intro p{color:var(--muted);margin-top:14px;font-size:1.05rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(200,16,46,.5)}
+    .btn-accent:hover{background:var(--accent-600)}
+    .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-900)}
+    .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.55)}
+    .btn-ghost:hover{background:#fff;color:var(--navy);border-color:#fff}
+    .btn-outline{background:#fff;color:var(--navy);border-color:var(--line)}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+    .note{font-size:.88rem;min-height:1.2em;font-weight:600}
+    .note.ok{color:var(--green)}.note.err{color:var(--accent)}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    /* preloader */
+    #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pl-flag{width:66px;height:44px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm);animation:plPulse 1.6s ease-in-out infinite}
+    @keyframes plPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+    .pl-ring{width:38px;height:38px;border:3px solid rgba(11,46,99,.15);border-top-color:var(--accent);border-radius:50%;animation:plSpin .9s linear infinite}
+    @keyframes plSpin{to{transform:rotate(360deg)}}
+    .pl-text{font-weight:800;color:var(--navy);font-size:1.05rem}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        signature: ['Great Vibes', 'cursive'],
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#0033a0',
-                            lightblue: '#005eb8',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    /* announce + nav */
+    .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:10px 44px;position:relative;display:none}
+    .announce.show{display:block}
+    .announce a{color:#fff;font-weight:700;border-bottom:1px solid rgba(255,255,255,.6)}
+    .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;font-size:1rem;opacity:.75}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
+    header.scrolled{box-shadow:0 6px 24px -14px rgba(11,46,99,.4);background:rgba(255,255,255,.96)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+    .brand{display:flex;align-items:center;gap:13px}
+    .brand-flag{width:42px;height:28px;object-fit:cover;border-radius:4px;border:1px solid var(--line);box-shadow:var(--shadow-sm);flex:none}
+    .brand-text{font-weight:800;font-size:1.06rem;color:var(--navy);line-height:1.05}
+    .nav-links{display:flex;align-items:center;gap:30px}
+    .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--navy);border-color:var(--accent)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,color .2s}
+    .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .menu-toggle{display:none}
+    .nav-cta{padding:10px 20px;border-radius:10px}
 
-    <style>
-        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
-        
-        .dark-glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-    </style>
+    /* page header */
+    .page-header{background:linear-gradient(120deg,var(--navy-900) 0%,var(--navy) 60%,var(--blue) 140%);color:#fff;position:relative;overflow:hidden}
+    .page-header::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent)}
+    .ph-inner{padding-block:74px 68px}
+    .ph-crumb{font-size:.8rem;color:#a9bbdb;font-weight:600;margin-bottom:14px;letter-spacing:.04em}
+    .ph-crumb a:hover{color:#fff}
+    .page-header h1{color:#fff;font-size:clamp(2.4rem,5vw,3.7rem);letter-spacing:-.02em}
+    .ph-tagline{margin-top:18px;color:#cdd9ee;font-weight:600;font-size:clamp(.95rem,1.6vw,1.12rem);max-width:840px;line-height:1.6}
+
+    /* meet + book */
+    .meet-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:stretch}
+    .meet-photo{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);display:flex}
+    .meet-photo img{width:100%;height:100%;object-fit:cover;min-height:420px}
+    .meet-photo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent);z-index:2}
+    .book{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;display:flex;flex-direction:column}
+    .book-viewport{position:relative;height:460px;overflow:hidden}
+    .book-viewport::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,rgba(11,46,99,.06),transparent);z-index:3;pointer-events:none}
+    .book-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+    .book-page{flex:0 0 100%;height:100%;width:100%;padding:34px 40px;overflow:hidden}
+    .book-page p{color:#28374f;font-size:1.02rem;line-height:1.75;margin-bottom:14px}
+    .book-bar{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-top:1px solid var(--line);background:#fbfcfe}
+    .book-bar .pg{font-size:.8rem;color:var(--muted);font-weight:700}
+    .book-nav{display:flex;gap:8px}
+    .book-nav button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--navy);display:grid;place-items:center;transition:border-color .2s,color .2s,opacity .2s}
+    .book-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+    .book-nav button:disabled{opacity:.35;cursor:default}
+
+    /* gallery + lightbox */
+    .gallery{column-count:4;column-gap:14px}
+    .g-item{display:block;width:100%;margin:0 0 14px;padding:0;border:0;background:none;cursor:pointer;border-radius:12px;overflow:hidden;break-inside:avoid;box-shadow:var(--shadow-sm)}
+    .g-item img{width:100%;display:block;transition:transform .35s}
+    .g-item:hover img{transform:scale(1.05)}
+    .lightbox{position:fixed;inset:0;background:rgba(6,17,38,.92);z-index:600;display:none;place-items:center}
+    .lightbox.show{display:grid}
+    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .lb-btn{position:absolute;background:rgba(255,255,255,.12);color:#fff;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;transition:background .2s}
+    .lb-btn:hover{background:var(--accent)}
+    #lb-prev{left:24px;top:50%;transform:translateY(-50%)}
+    #lb-next{right:24px;top:50%;transform:translateY(-50%)}
+    #lb-close{right:24px;top:24px}
+
+    /* portfolio */
+    .role-group{margin-bottom:44px}
+    .role-group:last-child{margin-bottom:0}
+    .role-group-title{font-size:1.15rem;color:var(--navy);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:12px}
+    .role-group-title::before{content:"";width:22px;height:3px;background:var(--accent);border-radius:2px}
+    .role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .role-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;gap:8px}
+    .role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .role-logo{width:56px;height:56px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;margin-bottom:6px;flex:none}
+    .role-logo img{max-width:80%;max-height:80%;object-fit:contain}
+    .role-logo.fallback{background:var(--navy);color:#fff;font-weight:800;font-size:1.3rem}
+    .role-title{font-size:1.08rem;color:var(--navy);font-weight:800;line-height:1.25}
+    .role-org{font-size:.85rem;color:var(--accent);font-weight:700}
+    .role-desc{color:var(--muted);font-size:.93rem;line-height:1.6}
+
+    /* values */
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+    .value-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow-sm);transition:transform .2s}
+    .value-card:hover{transform:translateY(-4px)}
+    .value-ic{width:54px;height:54px;border-radius:12px;background:#fbe9ec;color:var(--accent);display:grid;place-items:center;font-size:1.3rem;margin-bottom:18px}
+    .value-card h3{font-size:1.15rem;margin-bottom:10px}
+    .value-card p{color:var(--muted);font-size:.94rem;line-height:1.6}
+
+    /* feature (two-column) */
+    .feature{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+    .feature-img img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow-md);cursor:zoom-in}
+    .feature-text h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px}
+    .feature-text p{color:#28374f;margin-bottom:16px;font-size:1.03rem}
+    .ya-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .ya-photos img{width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:var(--shadow-sm);cursor:zoom-in;aspect-ratio:3/4}
+
+    /* youth ambassador */
+    .ya{background:var(--paper);border-block:1px solid var(--line)}
+    .ya-hero{text-align:center;max-width:760px;margin:0 auto 42px}
+    .ya-hero p{color:var(--muted);margin-top:14px;font-size:1.08rem}
+    .ya-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:42px}
+    .ya-badge{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:8px 16px;font-weight:700;font-size:.82rem;color:var(--navy);box-shadow:var(--shadow-sm)}
+    .ya-badge img{height:20px;width:auto;border-radius:2px}
+    .ya-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:20px}
+    .ya-ocard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
+    .ya-ocard .k{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:10px}
+    .ya-ocard .v{font-weight:800;color:var(--navy);font-size:1.05rem;margin-bottom:8px}
+    .ya-ocard p{color:var(--muted);font-size:.9rem;line-height:1.6}
+    .ya-objectives{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:42px 0}
+    .ya-chip{background:var(--navy);color:#fff;border-radius:100px;padding:11px 22px;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:9px}
+    .ya-chip i{color:#8fb4e6}
+    .ya-block{max-width:860px;margin:0 auto 30px}
+    .ya-block h3{font-size:1.4rem;margin-bottom:14px;text-align:center}
+    .ya-block p{color:#28374f;margin-bottom:14px;font-size:1.02rem}
+    .ya-locations{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:14px}
+    .ya-loc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);border-top:4px solid var(--accent)}
+    .ya-loc h4{font-size:1.05rem;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+    .ya-loc h4 i{color:var(--accent)}
+    .ya-loc p{color:var(--muted);font-size:.9rem;line-height:1.55}
+
+    /* country */
+    .country{background:linear-gradient(120deg,var(--navy-900),var(--navy));color:#fff}
+    .country-inner{display:grid;grid-template-columns:auto 1fr;gap:52px;align-items:center}
+    .country-flag{width:220px;height:auto;border-radius:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.7);flex:none}
+    .country h2{color:#fff;font-size:clamp(1.9rem,3.4vw,2.6rem)}
+    .country p{color:#cdd9ee;margin-top:16px;font-size:1.06rem;line-height:1.7;max-width:640px}
+    .country .motto{margin-top:22px;font-weight:800;color:#fff;font-size:1.1rem;border-left:3px solid var(--accent);padding-left:16px}
+
+    /* request */
+    .request{background:var(--surface);border-block:1px solid var(--line)}
+    .request-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start}
+    .request-text h2{font-size:clamp(1.8rem,3.2vw,2.4rem);margin-bottom:16px}
+    .request-text p{color:var(--muted);margin-bottom:18px;font-size:1.03rem}
+    .req-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+    .req-list li{display:flex;gap:12px;align-items:flex-start;color:#28374f;font-weight:600}
+    .req-list i{color:var(--accent);margin-top:4px}
+    .form-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm)}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:7px;letter-spacing:.02em}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:.98rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+    .field textarea{resize:vertical;min-height:110px}
+    .field-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+    /* press kit */
+    .press-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .press-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .press-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .press-ic{width:54px;height:54px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1.25rem}
+    .press-card h4{font-size:1.05rem}
+    .press-card p{color:var(--muted);font-size:.88rem;flex:1}
+    .press-card .plink{font-weight:700;color:var(--accent);font-size:.9rem}
+
+    /* footer */
+    footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
+    .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;padding-block:66px 40px}
+    .foot-brand .fb-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .foot-brand .fb-top img{width:44px;height:29px;object-fit:cover;border-radius:4px}
+    .foot-brand .fb-top b{color:#fff;font-size:1.08rem;font-weight:800}
+    .foot-brand p{font-size:.93rem;max-width:330px;color:#a7b6d0;line-height:1.7}
+    .socials{display:flex;gap:11px;margin-top:22px;flex-wrap:wrap}
+    .socials a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;font-size:1.05rem;transition:transform .2s,background .2s}
+    .socials a:hover{transform:translateY(-3px)}
+    .s-fb:hover{background:#1877F2}.s-x:hover{background:#000}.s-ig:hover{background:#E1306C}.s-in:hover{background:#0A66C2}.s-yt:hover{background:#FF0000}.s-tt:hover{background:#000}.s-th:hover{background:#000}
+    .foot-col h4{color:#fff;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+    .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#b9c8e0;transition:color .2s,padding-left .2s}
+    .foot-col a:hover{color:#fff;padding-left:4px}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
+    .foot-bottom a{color:#c3d0e4;font-weight:600}.foot-bottom a:hover{color:#fff}
+
+    /* search overlay + back to top */
+    .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}
+    .overlay.show{display:block}
+    .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+    .search-panel form{display:flex;border-bottom:1px solid var(--line);align-items:center}
+    .search-panel input{flex:1;border:0;padding:20px 22px;font-size:1.15rem;outline:none}
+    .search-panel .close{padding:0 22px;color:var(--muted);font-size:1.3rem}
+    .results{max-height:56vh;overflow:auto;padding:8px 0}
+    .results .grp{padding:12px 22px 4px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+    .results a{display:block;padding:12px 22px;border-left:3px solid transparent}
+    .results a:hover,.results a:focus-visible{background:#f5f8fd;border-color:var(--accent);outline:none}
+    .results a b{color:var(--navy);font-weight:700}
+    .results a span{display:block;font-size:.88rem;color:var(--muted)}
+    .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+    .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
+    .to-top.show{opacity:1;visibility:visible;transform:none}
+    .to-top:hover{background:var(--accent)}
+
+    /* reveal + reduced motion */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}.reveal{opacity:1;transform:none;transition:none}.book-track{transition:none}}
+
+    /* responsive */
+    @media (max-width:960px){
+      .meet-grid,.feature,.request-grid,.country-inner{grid-template-columns:1fr}
+      .meet-photo{max-height:440px;order:-1}
+      .book-viewport{height:500px}
+      .gallery{column-count:3}
+      .role-grid,.ya-overview{grid-template-columns:1fr 1fr}
+      .values-grid,.ya-locations,.press-grid{grid-template-columns:repeat(2,1fr)}
+      .country-flag{width:180px}
+      .feature.rev .feature-text{order:0}
+    }
+    @media (max-width:680px){
+      .section{padding-block:60px}
+      .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
+      .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md)}
+      .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
+      .gallery{column-count:2}
+      .role-grid,.values-grid,.ya-overview,.ya-locations,.press-grid,.field-2{grid-template-columns:1fr}
+      .book-viewport{height:560px}.book-page{padding:26px 22px}
+      .brand-text{font-size:.98rem}
+    }
+  </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+<body class="loading">
+  <div id="preloader" role="status" aria-label="Loading">
+    <div class="pl-inner"><img class="pl-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><div class="pl-ring"></div><div class="pl-text">Office of Tyler Nicholas</div></div>
+  </div>
 
-    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
-        <div class="flex flex-col items-center">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Profile</p>
-        </div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="announce" id="announce" role="region" aria-label="Site announcement">
+    <span id="announce-text"></span>
+    <button class="close" id="announce-close" aria-label="Dismiss announcement"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Office of Tyler Nicholas — home">
+        <img class="brand-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" />
+        <span class="brand-text">Office of Tyler Nicholas</span>
+      </a>
+      <nav class="nav-links" id="navlinks" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about" aria-current="page">About</a>
+        <a href="/newsroom">Newsroom</a>
+        <a href="/media">Media</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="open-search" aria-label="Search the site"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a class="btn btn-accent nav-cta" href="/volunteer">Get Involved</a>
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
+  </header>
 
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
-                        Office of Tyler Nicholas
-                    </a>
-                </div>
-                
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
-                    <a href="/about/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">About</a>
-                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
-                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
-                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
-                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
-                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
-            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
-                <i class="fa-solid fa-user-tie"></i>
-                <span>Official Biography</span>
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Tyler P. Nicholas</h1>
-            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">A dedication to public service, youth advocacy, and community-driven progress in Seychelles.</p>
-        </div>
-    </header>
-
-    <section class="bg-white py-24 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-                
-                <div class="lg:col-span-5 flex flex-col items-center lg:items-start sticky top-28">
-                    <div class="w-full relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/5 mb-8">
-                        <img src="https://i.ibb.co/cczjjKjc/Chat-GPT-Image-Apr-30-2026-09-38-28-AM.png" 
-                             alt="Mr. Tyler P. Nicholas Official Portrait" 
-                             class="w-full object-cover">
-                        <div class="absolute bottom-0 left-0 w-full h-2 bg-brand-blue"></div>
-                    </div>
-                    
-                    <div class="w-full bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm">
-                        <h4 class="text-sm font-bold uppercase tracking-widest text-brand-lightblue mb-4">Official Documentation</h4>
-                        <div class="space-y-3">
-                            <button onclick="downloadBio()" class="w-full flex items-center justify-between px-5 py-4 bg-white border border-gray-300 hover:border-brand-blue hover:text-brand-blue text-gray-800 text-sm font-bold rounded-lg transition shadow-sm">
-                                <span><i class="fa-solid fa-file-lines mr-3 text-brand-lightblue"></i> Download Biography (.txt)</span>
-                                <i class="fa-solid fa-download"></i>
-                            </button>
-                            <a href="/contact/" class="w-full flex items-center justify-between px-5 py-4 bg-brand-blue text-white hover:bg-brand-lightblue text-sm font-bold rounded-lg transition shadow-md">
-                                <span><i class="fa-solid fa-envelope-open-text mr-3"></i> Contact Press Office</span>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7">
-                    <div class="border-b-2 border-black pb-4 mb-8">
-                        <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Background & Mission</h2>
-                        <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Meet Tyler Nicholas</h3>
-                    </div>
-                    
-                    <div class="prose prose-lg text-gray-700 space-y-6 leading-relaxed max-w-none">
-                        <p class="font-medium text-xl text-gray-900 leading-snug">
-                            Tyler P. Nicholas is a dedicated Seychellois youth leader, civic advocate, and public servant committed to advancing national progress through community engagement and policy advocacy.
-                        </p>
-                        <p>
-                            Recognizing that the future of Seychelles relies on the active participation of its younger generations, Tyler has structured his professional and civic journey around empowering youth, bridging the gap between citizens and leadership, and fostering tangible community development. He believes that true public service is not about holding a position, but about creating platforms that elevate the voices of others.
-                        </p>
-                        
-                        <p>
-                            As an Honorable Member of the Seychelles National Youth Assembly’s 21st Cohort, he serves as a direct voice for the youth, bringing critical community concerns to the national stage. His role within the Assembly focuses on shaping progressive, youth-centric policies that address education reform, civic participation, and societal well-being.
-                        </p>
-                        <p>
-                            On the international front, Tyler serves as a Youth Ambassador for a U.S. Department of State program, participating in global leadership exchanges. This role allows him to bridge local Seychellois initiatives with international civic standards, bringing global perspectives back home to strengthen local community frameworks.
-                        </p>
-                        <p>
-                            Beyond policy and diplomacy, Tyler is the Founder & Chairman of the Board of the Tyler Nicholas Foundation. The Foundation operates as the philanthropic arm of his public service mission, directly executing community support projects, educational initiatives, and grassroots volunteer efforts to uplift those who need it most.
-                        </p>
-                        <p>
-                            At his core, Tyler remains a volunteer—driven by the belief that true leadership is rooted in service, and that building a stronger, more united Seychelles requires the commitment of all its citizens.
-                        </p>
-                    </div>
-
-                    <div class="mt-12 border-t border-gray-100 pt-8">
-                        <p class="font-signature text-5xl text-gray-900">Tyler P. Nicholas</p>
-                        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mt-4">Founder, The Office of Tyler Nicholas</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <main id="main">
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <div class="container ph-inner">
+        <div class="ph-crumb"><a href="/">Home</a> &nbsp;/&nbsp; About</div>
+        <h1>About Tyler Nicholas</h1>
+        <p class="ph-tagline">17 years old &nbsp;·&nbsp; Honourable Member, Seychelles National Youth Assembly &nbsp;·&nbsp; Youth Ambassador Alumni &nbsp;·&nbsp; Entrepreneur &nbsp;·&nbsp; Technology Developer &nbsp;·&nbsp; Youth Advocate</p>
+      </div>
     </section>
 
-    <section class="bg-gray-50 py-24 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Leadership Portfolio</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Official Roles & Titles</h3>
-                <p class="text-gray-600 mt-4 text-lg">Select a role below to explore the policies, initiatives, and actions associated with each position.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <a href="https://nicholasoffice.online/public-service/youth-assembly/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 border border-gray-100 relative z-10 shadow-sm overflow-hidden p-1">
-                        <img src="https://www.nation.sc/images/2017/Nov/8/DSC_7036.JPG" alt="Seychelles National Youth Assembly" class="w-full h-full object-cover rounded-full">
-                    </div>
-                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Honorable Member</h4>
-                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">Seychelles National Youth Assembly (21st Cohort)</p>
-                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
-                        View Assembly Work <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </div>
-                </a>
-
-                <a href="https://nicholasoffice.online/public-service/youth-ambassador/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 border border-gray-100 relative z-10 shadow-sm overflow-hidden p-1.5">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVcWMz9qStQKGI9v766GK2NtqAvlfH6pGow&s" alt="U.S. Department of State" class="w-full h-full object-contain rounded-full">
-                    </div>
-                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Youth Ambassador</h4>
-                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">U.S. Department of State Program Exchange</p>
-                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
-                        View Ambassador Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </div>
-                </a>
-
-                <a href="https://tyler-nicholas-foundation.online" target="_blank" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 border border-gray-100 relative z-10 shadow-sm overflow-hidden p-1">
-                        <img src="https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg" alt="The Tyler Nicholas Foundation" class="w-full h-full object-contain rounded-full">
-                    </div>
-                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Founder & Chairman</h4>
-                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">The Tyler Nicholas Foundation</p>
-                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
-                        Visit Foundation <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                    </div>
-                </a>
-
-                <a href="https://nicholasoffice.online/public-service/community-service/" class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-lightblue transition duration-500 flex flex-col items-center text-center group relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 border border-gray-100 relative z-10 shadow-sm overflow-hidden p-0">
-                        <img src="https://thumbs.dreamstime.com/b/tree-hands-hearts-26757681.jpg" alt="Community Service Volunteer" class="w-full h-full object-cover rounded-full">
-                    </div>
-                    <h4 class="font-black text-gray-900 text-xl mb-2 relative z-10 group-hover:text-brand-blue transition">Volunteer</h4>
-                    <p class="text-sm text-gray-500 font-medium relative z-10 mb-4">Community & Grassroots Action Initiatives</p>
-                    <div class="mt-auto pt-4 border-t border-gray-100 w-full relative z-10 text-xs font-bold uppercase tracking-widest text-brand-lightblue group-hover:text-brand-blue transition flex items-center justify-center">
-                        Explore Service <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </div>
-                </a>
-
-            </div>
+    <!-- MEET TYLER (book) -->
+    <section class="section" id="meet">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">Meet Tyler Nicholas</span>
+          <h2>The story so far</h2>
+          <p>A Seychellois student and youth leader building a life around service, education, technology and a belief in his country's future.</p>
         </div>
+        <div class="meet-grid reveal">
+          <div class="meet-photo"><img src="https://i.ibb.co/tMH5rnhD/Snapchat-345993718-2.jpg" alt="Tyler P. Nicholas" /></div>
+          <div class="book">
+            <div class="book-viewport" id="book-viewport"><div class="book-track" id="book-track"></div></div>
+            <div class="book-bar">
+              <span class="pg" id="book-pg">Page 1</span>
+              <div class="book-nav">
+                <button id="book-prev" aria-label="Previous page"><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="book-next" aria-label="Next page"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-[#0a1930] to-gray-900 border-t-4 border-brand-blue">
-        <div class="absolute top-10 -right-20 text-[35rem] text-white opacity-[0.02] pointer-events-none transform -rotate-12 z-0">
-            <i class="fa-solid fa-scale-balanced"></i>
+    <!-- JOURNEY / MEMORIES -->
+    <section class="section" id="journey" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">The Journey</span>
+          <h2>Moments &amp; memories</h2>
+          <p>A journey shaped by people — moments of service, leadership, learning and friendship along the way. Tap any photo to view it.</p>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">The Philosophy</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">Guiding Principles</h3>
-                <p class="text-blue-100/70 text-lg">The core tenets that define Tyler's approach to governance, leadership, and public service in Seychelles.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
-                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-bullhorn"></i></div>
-                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Active Youth Representation</h4>
-                    <p class="text-gray-400 leading-relaxed">Young people are not just leaders of tomorrow; they are active stakeholders today. Governance must reflect their realities, struggles, and innovations in real-time.</p>
-                </div>
-
-                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
-                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-hammer"></i></div>
-                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Action Over Rhetoric</h4>
-                    <p class="text-gray-400 leading-relaxed">Debates and policy discussions must translate into measurable impact on the ground. True service is measured by the challenges resolved and the lives improved.</p>
-                </div>
-
-                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
-                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-handshake-angle"></i></div>
-                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Inclusive Progress</h4>
-                    <p class="text-gray-400 leading-relaxed">National development must lift everyone. From digital access to mental health, progressive policy ensures no community or district is left behind in Seychelles' growth.</p>
-                </div>
-
-                <div class="dark-glass p-8 md:p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition group">
-                    <div class="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white mb-6 text-xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-shield-heart"></i></div>
-                    <h4 class="text-2xl font-bold text-white mb-3 tracking-tight">Integrity & Accountability</h4>
-                    <p class="text-gray-400 leading-relaxed">Leadership is a public trust. Maintaining an open, transparent, and accountable dialogue with the public is non-negotiable for effective civic duty.</p>
-                </div>
-            </div>
-        </div>
+        <div class="gallery reveal" id="gallery"></div>
+      </div>
     </section>
 
-    <section class="bg-white py-24 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
-            <div class="order-2 lg:order-1">
-                <div class="bg-gray-50 rounded-3xl p-10 md:p-16 shadow-lg border border-gray-200 flex items-center justify-center h-full min-h-[300px]">
-                    <img src="https://www.worldlearning.org/wp-content/uploads/2021/10/USA-Flag-and-Dept-of-State-Lock-up-from-State-Brand-Guide-2020.png" alt="U.S. Department of State" class="w-full max-w-sm object-contain drop-shadow-md">
-                </div>
-            </div>
-
-            <div class="order-1 lg:order-2">
-                <div class="border-b-2 border-black pb-4 mb-8">
-                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Diplomacy & Exchange</h2>
-                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">International Engagement</h3>
-                </div>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    In an increasingly interconnected world, local challenges often require global perspectives. As a Youth Ambassador affiliated with the U.S. Department of State's exchange programs, Tyler engages in high-level civic leadership training and cross-cultural diplomacy.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    This international exposure allows the Office to benchmark Seychellois youth initiatives against global standards, foster bilateral youth networks, and bring progressive, innovative problem-solving frameworks back to local communities.
-                </p>
-                <a href="https://nicholasoffice.online/public-service/youth-ambassador/" class="inline-flex items-center text-brand-blue font-bold hover:text-brand-lightblue transition">
-                    View Ambassador Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
+    <!-- LEADERSHIP PORTFOLIO -->
+    <section class="section" id="portfolio">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">Leadership Portfolio</span>
+          <h2>Roles &amp; responsibilities</h2>
+          <p>A portfolio of leadership, enterprise and service — from the classroom to the community, and from Seychelles to the world.</p>
         </div>
+        <div class="reveal" id="portfolio-wrap"></div>
+      </div>
     </section>
 
-    <section class="bg-gray-50 py-24 border-b border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-xl flex items-center justify-center mb-8 border border-gray-100 overflow-hidden">
-                <img src="https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg" alt="TNF Logo" class="w-full h-full object-contain p-2">
-            </div>
-            <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Turning Policy Into Action</h2>
-            <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-8">The Philanthropic Arm</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                Recognizing that legislative advocacy must be paired with immediate, on-the-ground support, Tyler founded the <strong>Tyler Nicholas Foundation</strong>. The Foundation operates entirely independently of his Assembly role, focusing strictly on humanitarian efforts, educational sponsorships, and vulnerable community relief.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-10">
-                The Foundation serves as the primary engine for executing grassroots projects, ensuring that while the Office debates the future, the Foundation is building it today.
-            </p>
-            <a href="https://tyler-nicholas-foundation.online" target="_blank" class="inline-flex items-center bg-gray-900 text-white font-bold px-8 py-4 rounded-full hover:bg-black transition shadow-xl hover:-translate-y-1 transform duration-300">
-                Explore the Foundation's Work <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-sm"></i>
-            </a>
+    <!-- VALUES -->
+    <section class="section" id="values" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">Guiding Principles</span>
+          <h2>What I believe in</h2>
+          <p>The principles behind every decision, project and responsibility.</p>
         </div>
+        <div class="values-grid reveal" id="values-grid"></div>
+      </div>
     </section>
 
-    <section class="bg-brand-blue py-24 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <h3 class="text-3xl md:text-5xl font-black tracking-tight mb-6">Public Speaking & Advocacy</h3>
-                <p class="text-blue-100 text-lg leading-relaxed mb-6">
-                    Tyler is actively engaged in public discourse across Seychelles, regularly participating in national debates, youth symposiums, and civic forums. 
-                </p>
-                <p class="text-blue-100 text-lg leading-relaxed mb-8">
-                    He is available to speak on topics including youth empowerment, education reform, digital transformation, and the importance of active civic participation. The Office welcomes invitations for panels, keynote addresses, and school assemblies.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/contact/" class="bg-white text-brand-blue font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-gray-100 transition">Request a Speaking Engagement</a>
-                    <a href="/newsroom/" class="bg-transparent border border-blue-300 text-white font-bold px-8 py-4 rounded-lg hover:bg-brand-lightblue transition">View Past Speeches</a>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
-                    <i class="fa-solid fa-microphone text-3xl mb-4 text-brand-lightblue"></i>
-                    <h4 class="font-bold text-xl mb-2">Keynotes & Panels</h4>
-                    <p class="text-sm text-blue-100">National symposiums and youth leadership summits.</p>
-                </div>
-                <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20 mt-8">
-                    <i class="fa-solid fa-graduation-cap text-3xl mb-4 text-brand-lightblue"></i>
-                    <h4 class="font-bold text-xl mb-2">School Assemblies</h4>
-                    <p class="text-sm text-blue-100">Direct engagement with students on wellbeing and future readiness.</p>
-                </div>
-            </div>
+    <!-- FOUNDATION -->
+    <section class="section" id="foundation">
+      <div class="container">
+        <div class="feature reveal">
+          <div class="feature-img"><img class="zoom" src="https://i.ibb.co/NgcPV4Y6/Tyler-Nicholas-Foundation-Who-We-Are.png" alt="Tyler Nicholas Foundation — Who We Are" loading="lazy" /></div>
+          <div class="feature-text">
+            <span class="eyebrow">The Foundation</span>
+            <h2>The Tyler Nicholas Foundation</h2>
+            <p>The Tyler Nicholas Foundation is the philanthropic arm of Tyler's mission — dedicated to empowering young people, supporting education, and strengthening communities across Seychelles.</p>
+            <p>Through its programmes and partnerships, the Foundation works to turn ideas into real opportunities for the next generation, ensuring that more young Seychellois have the tools, support and confidence to contribute to their country.</p>
+            <a class="btn btn-accent" href="https://tyler-nicholas-foundation.online" target="_blank" rel="noopener">Visit the Foundation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.85em"></i></a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
-                <div class="md:col-span-6">
-                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
-                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
-                    
-                    <div class="flex flex-wrap gap-5 text-xl">
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/about/" class="text-white font-semibold transition">About Tyler Nicholas</a></li>
-                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
-                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
-                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
-                    </ul>
-                </div>
-
+    <!-- YOUTH ASSEMBLY -->
+    <section class="section" id="youth-assembly" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="feature rev reveal">
+          <div class="feature-text">
+            <span class="eyebrow">National Service</span>
+            <h2>Honourable Member — Seychelles National Youth Assembly</h2>
+            <p>As an Honourable Member of the Seychelles National Youth Assembly, Tyler represents the voices of young Seychellois at a national level.</p>
+            <p>The Assembly gives young people a platform to debate, propose and contribute to the discussions that shape the country's future — ensuring the next generation has a genuine say in the Seychelles it will inherit. For Tyler, it is a responsibility to listen carefully, represent faithfully, and speak up for the young people he serves.</p>
+          </div>
+          <div class="feature-img">
+            <div class="ya-photos">
+              <img class="zoom" src="https://i.ibb.co/d0p1XSCb/1000064825.jpg" alt="Tyler at the Seychelles National Youth Assembly" loading="lazy" />
+              <img class="zoom" src="https://i.ibb.co/qLdrFjw0/1000064847.jpg" alt="Tyler at the Seychelles National Youth Assembly" loading="lazy" />
             </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
-                <p class="mt-4 md:mt-0">
-                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
-                </p>
-            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Loading Screen Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const body = document.getElementById('body');
-            
-            function hideLoader() {
-                if (loader.style.display === 'none') return; 
-                loader.classList.add('fade-out');
-                body.classList.remove('overflow-hidden');
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }
+    <!-- YOUTH AMBASSADOR -->
+    <section class="section ya" id="youth-ambassador">
+      <div class="container">
+        <div class="ya-hero reveal">
+          <span class="eyebrow">International Engagement</span>
+          <h2>Youth Ambassador Program</h2>
+          <p>Bridging cultural divides, fostering mutual respect, and preparing the leaders of tomorrow.</p>
+        </div>
 
-            setTimeout(hideLoader, 500); 
-            window.addEventListener('load', hideLoader);
-            setTimeout(hideLoader, 3000); 
-        });
+        <div class="ya-badges reveal">
+          <span class="ya-badge"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /> Representing Seychelles</span>
+          <span class="ya-badge"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnVq-2mjy2-8fKUI44b-S-64OrAlUHmCuAPxkrGOKQ7A&s" alt="" onerror="this.remove()" /> U.S. Department of State</span>
+          <span class="ya-badge"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Youth Ambassadors Africa</span>
+          <span class="ya-badge"><i class="fa-solid fa-globe" style="color:var(--accent)"></i> PH International</span>
+        </div>
 
-        // Download Official Biography Logic
-        function downloadBio() {
-            const text = `OFFICIAL BIOGRAPHY\nMr. Tyler P. Nicholas\n\nTyler P. Nicholas is a dedicated Seychellois youth leader, civic advocate, and public servant committed to advancing national progress through community engagement and policy advocacy.\n\nRecognizing that the future of Seychelles relies on the active participation of its younger generations, Tyler has structured his professional and civic journey around empowering youth, bridging the gap between citizens and leadership, and fostering tangible community development.\n\nAs an Honorable Member of the Seychelles National Youth Assembly’s 21st Cohort, he serves as a direct voice for the youth, bringing critical community concerns to the national stage. His role within the Assembly focuses on shaping progressive, youth-centric policies that address education, participation, and societal well-being.\n\nOn the international front, Tyler serves as a Youth Ambassador for a U.S. Department of State program, participating in global leadership exchanges. This role allows him to bridge local Seychellois initiatives with international civic standards, bringing global perspectives back home to strengthen local community frameworks.\n\nBeyond policy and diplomacy, Tyler is the Founder & Chairman of the Board of the Tyler Nicholas Foundation. The Foundation operates as the philanthropic arm of his public service mission, directly executing community support projects, educational initiatives, and grassroots volunteer efforts to uplift those who need it most.\n\nAt his core, Tyler remains a volunteer—driven by the belief that true leadership is rooted in service, and that building a stronger, more united Seychelles requires the commitment of all its citizens.\n\n---\nOfficial Roles:\n- Honorable Member, Seychelles National Youth Assembly (21st Cohort)\n- Youth Ambassador, U.S. Department of State Program\n- Founder & Chairman, The Tyler Nicholas Foundation\n- Community Volunteer`;
-            
-            const blob = new Blob([text], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Biography_Tyler_Nicholas.txt';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        }
-    </script>
+        <div class="ya-overview reveal">
+          <div class="ya-ocard"><div class="k">Cohort</div><div class="v">Youth Ambassadors Africa</div><p>Selected to represent Seychelles among young leaders from across the continent.</p></div>
+          <div class="ya-ocard"><div class="k">Management</div><div class="v">PH International</div><p>Implemented by PH International — an organisation with over $100M in U.S. government funding history and 15,000+ exchange alumni.</p></div>
+          <div class="ya-ocard"><div class="k">Accommodations</div><div class="v">Immersive U.S. life</div><p>Homestays with American families, university dormitories and program hotels, offering varied perspectives on life in the United States.</p></div>
+        </div>
+
+        <div class="ya-objectives reveal">
+          <span class="ya-chip"><i class="fa-solid fa-hands-holding-circle"></i> Civic Engagement</span>
+          <span class="ya-chip"><i class="fa-solid fa-check-to-slot"></i> Participatory Democracy</span>
+          <span class="ya-chip"><i class="fa-solid fa-compass"></i> Adaptive Leadership</span>
+          <span class="ya-chip"><i class="fa-solid fa-diagram-project"></i> Action Planning</span>
+        </div>
+
+        <div class="ya-block reveal">
+          <h3>Preparing leaders of tomorrow</h3>
+          <p>The Youth Ambassadors Program strengthens mutual understanding, prosperity and global collaboration by empowering youth leaders to become active, responsible citizens both locally and globally.</p>
+          <p>The program fosters mutual respect — helping to share values, build relationships and bridge cultural divides to promote peaceful coexistence. By developing critical thinking, problem-solving and civic-action skills, participants return home equipped to contribute to stability and progress within their own nations.</p>
+        </div>
+
+        <div class="ya-block reveal">
+          <h3>The exchange experience</h3>
+          <p>The overall theme of the program is civic engagement. The exchange brings together highly selected participants to promote mutual understanding, increase leadership capacity, and prepare youth to implement tangible change within their local communities.</p>
+          <p>It builds team spirit through hands-on service learning, leadership seminars, peer collaboration, and visits to entrepreneurial ventures and innovative organisations — from the policy-focused landscape of Washington, D.C. to the grassroots civil-rights history of the American South.</p>
+        </div>
+
+        <div class="ya-block reveal">
+          <h3>Community action &amp; impact</h3>
+          <p>Civic education and youth leadership build participants' self-confidence and capacity to drive solutions to challenges back home. A central objective is the Action Planning Academy, where participants develop a concrete framework for execution.</p>
+          <p>Upon returning to Seychelles, participants apply what they have learned by formally implementing a Community Action Plan — a Community Impact Project that serves critical needs and ensures long-term civic progress.</p>
+        </div>
+
+        <div class="reveal">
+          <div class="section-intro" style="text-align:center;max-width:100%;margin-bottom:24px"><h2 style="font-size:1.5rem">Program destinations</h2></div>
+          <div class="ya-locations">
+            <div class="ya-loc"><h4><i class="fa-solid fa-landmark-dome"></i> Washington D.C.</h4><p>Policy and government — the institutions and decisions that shape a nation.</p></div>
+            <div class="ya-loc"><h4><i class="fa-solid fa-city"></i> New York City</h4><p>Diversity, enterprise and global connection in one of the world's great cities.</p></div>
+            <div class="ya-loc"><h4><i class="fa-solid fa-tree"></i> Vermont</h4><p>Community, sustainability and civic life in small-town America.</p></div>
+            <div class="ya-loc"><h4><i class="fa-solid fa-monument"></i> Alabama</h4><p>The grassroots civil-rights history of the American South.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY COUNTRY -->
+    <section class="country section" id="country">
+      <div class="container country-inner">
+        <img class="country-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" />
+        <div class="reveal">
+          <span class="eyebrow light">My Country</span>
+          <h2>For Seychelles</h2>
+          <p>Seychelles is more than where Tyler comes from — it is the reason behind everything he does. A young island nation in the heart of the Indian Ocean, Seychelles is home to extraordinary natural beauty, a proud and diverse people, and enormous potential.</p>
+          <p>Tyler believes deeply in its future: that through education, innovation, unity and responsible leadership, Seychelles can stand confident and prosperous on the world stage. Every project, every role and every ambition comes back to one goal — to help build a stronger, brighter Seychelles.</p>
+          <p class="motto">Finis Coronat Opus — "The End Crowns the Work"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST TYLER -->
+    <section class="request section" id="request">
+      <div class="container request-grid">
+        <div class="request-text reveal">
+          <span class="eyebrow">Invitations</span>
+          <h2>Request Tyler Nicholas</h2>
+          <p>Tyler is available for a limited number of speaking engagements, panels and school visits, focused on youth leadership, civic participation, technology and the future of Seychelles.</p>
+          <ul class="req-list">
+            <li><i class="fa-solid fa-microphone-lines"></i> Keynotes &amp; conference talks</li>
+            <li><i class="fa-solid fa-users-line"></i> Panels &amp; youth forums</li>
+            <li><i class="fa-solid fa-school"></i> School &amp; university assemblies</li>
+            <li><i class="fa-solid fa-comments"></i> Interviews &amp; media features</li>
+          </ul>
+        </div>
+        <form class="form-card reveal" id="request-form">
+          <div class="field-2">
+            <div class="field"><label for="rq-name">Your name</label><input id="rq-name" type="text" required /></div>
+            <div class="field"><label for="rq-email">Email</label><input id="rq-email" type="email" required /></div>
+          </div>
+          <div class="field-2">
+            <div class="field"><label for="rq-org">Organisation</label><input id="rq-org" type="text" /></div>
+            <div class="field"><label for="rq-type">Type of engagement</label>
+              <select id="rq-type">
+                <option>Keynote</option><option>Panel</option><option>School assembly</option><option>Interview / media</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="rq-date">Preferred date</label><input id="rq-date" type="date" /></div>
+          <div class="field"><label for="rq-msg">Details of your request</label><textarea id="rq-msg" placeholder="Tell us about the event, audience, and what you'd like Tyler to speak on."></textarea></div>
+          <button type="submit" class="btn btn-accent" id="rq-btn" style="width:100%">Send request</button>
+          <div class="note" id="rq-note" role="status" aria-live="polite" style="margin-top:10px"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- PRESS KIT -->
+    <section class="section" id="press" style="background:var(--surface);border-top:1px solid var(--line)">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">Press Kit</span>
+          <h2>For media</h2>
+          <p>Everything you need to feature the Office of Tyler Nicholas. For interviews or additional assets, contact the Office directly.</p>
+        </div>
+        <div class="press-grid reveal">
+          <a class="press-card" href="https://i.ibb.co/tMH5rnhD/Snapchat-345993718-2.jpg" target="_blank" rel="noopener">
+            <div class="press-ic"><i class="fa-solid fa-image"></i></div><h4>Official Portrait</h4><p>High-resolution portrait photo.</p><span class="plink">Open image →</span>
+          </a>
+          <a class="press-card" href="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" target="_blank" rel="noopener">
+            <div class="press-ic"><i class="fa-solid fa-id-badge"></i></div><h4>Press Headshot</h4><p>Formal headshot with the flag.</p><span class="plink">Open image →</span>
+          </a>
+          <a class="press-card" href="#meet">
+            <div class="press-ic"><i class="fa-solid fa-file-lines"></i></div><h4>Official Biography</h4><p>Full biography, ready to quote.</p><span class="plink">Read the bio →</span>
+          </a>
+          <a class="press-card" href="/contact">
+            <div class="press-ic"><i class="fa-solid fa-envelope"></i></div><h4>Media Enquiries</h4><p>Reach the Office for interviews.</p><span class="plink">Contact us →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <div class="fb-top"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><b>Office of Tyler Nicholas</b></div>
+        <p>The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas, in the Republic of Seychelles.</p>
+        <div class="socials">
+          <a class="s-fb" href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="s-x" href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="s-ig" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="s-in" href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a class="s-yt" href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a class="s-tt" href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="s-th" href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>The Office</h4><a href="/about">About Tyler Nicholas</a><a href="/initiatives">Initiatives</a><a href="/newsroom">Newsroom</a></div>
+      <div class="foot-col"><h4>Engage</h4><a href="/contact">Contact the Office</a><a href="/volunteer">Volunteer</a><a href="/resources">Resources</a><a href="/media">Media</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/events">Events</a><a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">Instagram</a><a href="mailto:" id="foot-email">Email the Office</a></div>
+    </div>
+    <div class="container foot-bottom"><span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved. &nbsp;&middot;&nbsp; <a href="/admin">Admin</a></span></div>
+  </footer>
+
+  <button class="to-top" id="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-panel">
+      <form id="overlay-form" role="search">
+        <input type="search" id="overlay-input" placeholder="Search the office…" aria-label="Search" autocomplete="off" />
+        <button type="button" class="close" id="close-search" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+      </form>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-btn" id="lb-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lb-btn" id="lb-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+    <img class="lb-img" id="lb-img" src="" alt="" />
+    <button class="lb-btn" id="lb-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <!-- SUPABASE + APP -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL  = "https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const $  = (s, r=document) => r.querySelector(s);
+  const el = (tag, cls, txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; };
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#year").textContent = new Date().getFullYear();
+
+  /* preloader */
+  function hidePreloader(){ const p=$("#preloader"); if(!p||p.classList.contains("hide"))return; p.classList.add("hide"); document.body.classList.remove("loading"); setTimeout(()=>p.remove(),600); }
+  window.addEventListener("load", hidePreloader); setTimeout(hidePreloader, 6000);
+
+  /* ===================== BIO BOOK ===================== */
+  const BIO = [
+    "Tyler Nicholas is a 17-year-old Seychellois student, youth leader, entrepreneur, technology developer and public-service advocate committed to serving his community and contributing to the future development of Seychelles.",
+    "Tyler is currently completing his final year of high school at École Française des Seychelles, where he is pursuing an academic pathway focused on Mathematics, Physics and Chemistry. Alongside his academic studies, he has developed a deep passion for aviation, technology, politics, diplomacy, international relations and law, with a long-term ambition to continue learning and building a career connected to both aviation and public service.",
+    "His interest in leadership began during his school years. At École Française des Seychelles, Tyler has taken on several student leadership and representative responsibilities, including serving within the Conseil de la Vie Lycéenne, as School Treasurer, Eco-Delegate, and Class Delegate on multiple occasions. These experiences gave him an early understanding of representation, responsibility, teamwork and listening to the people he serves.",
+    "His journey has since expanded from school leadership into national and international youth engagement. Tyler serves as an Honourable Member of the Seychelles National Youth Assembly, where he contributes to discussions concerning young people and the future of Seychelles. He has also served as a Youth Ambassador for Seychelles through the Youth Ambassadors Africa programme, gaining international experience in leadership, diplomacy, intercultural exchange and civic engagement.",
+    "Beyond public service, Tyler is deeply involved in technology and entrepreneurship. He enjoys coding, developing websites and digital platforms, building online communities and exploring how technology can solve real-world problems. He is the founder of BlueWave Digital, Tyler Nicholas Group, and the Tyler Nicholas Foundation, through which he pursues projects spanning technology, entrepreneurship, youth empowerment, community development and opportunities for young people.",
+    "Tyler has also gained experience through volunteering and community service, including involvement with the Red Cross Society Seychelles and other youth and community initiatives. His work managing online organisations and roleplay communities has additionally given him experience working with thousands of members worldwide, developing practical skills in leadership, administration, recruitment, communication, technology and organisational management.",
+    "At the centre of Tyler's vision is a strong belief in education, democratic participation and peaceful progress. He believes young people should receive an education that prepares them not only for examinations and employment, but also for citizenship, leadership, critical thinking, creativity, communication and problem-solving. He is particularly interested in how Seychelles can use education, technology, innovation, diplomacy and responsible leadership to strengthen its future.",
+    "His journey is still beginning. At 17, Tyler continues to balance his final year of school with youth leadership, entrepreneurship, technology, volunteering, international engagement and his passion for aviation. He continues to learn from every experience, believing that leadership is not a destination but an ongoing responsibility to serve, learn and contribute.",
+    "His ambition is simple: to use every opportunity, every skill and every experience he gains to contribute to a stronger, more peaceful, prosperous and forward-looking Seychelles."
+  ];
+  let currentParagraphs = BIO.slice(), bookIndex = 0, bookTotal = 1;
+  function paginate(paragraphs){
+    const viewport = $("#book-viewport"); const pageH = viewport.clientHeight;
+    const measure = document.createElement("div"); measure.className="book-page"; measure.style.cssText="position:absolute;visibility:hidden;left:0;top:0;width:100%;"; viewport.appendChild(measure);
+    const pages=[]; let current=[];
+    paragraphs.forEach(text=>{ const p=document.createElement("p"); p.textContent=text; measure.appendChild(p);
+      if(measure.scrollHeight>pageH && current.length>0){ pages.push(current); current=[text]; measure.innerHTML=""; const np=document.createElement("p"); np.textContent=text; measure.appendChild(np); }
+      else { current.push(text); } });
+    if(current.length) pages.push(current); viewport.removeChild(measure); return pages;
+  }
+  function buildBook(paragraphs){ const track=$("#book-track"); track.innerHTML=""; const pages=paginate(paragraphs); pages.forEach(pg=>{ const page=el("div","book-page"); pg.forEach(t=>page.appendChild(el("p",null,t))); track.appendChild(page); }); bookTotal=pages.length||1; }
+  function showBookPage(i){ bookIndex=Math.max(0,Math.min(i,bookTotal-1)); $("#book-track").style.transform=`translateX(-${bookIndex*100}%)`; $("#book-pg").textContent=`Page ${bookIndex+1} of ${bookTotal}`; $("#book-prev").disabled=bookIndex===0; $("#book-next").disabled=bookIndex===bookTotal-1; }
+  function initBook(){ buildBook(currentParagraphs); showBookPage(Math.min(bookIndex,bookTotal-1)); }
+  $("#book-prev").addEventListener("click",()=>showBookPage(bookIndex-1));
+  $("#book-next").addEventListener("click",()=>showBookPage(bookIndex+1));
+  let brT; window.addEventListener("resize",()=>{ clearTimeout(brT); brT=setTimeout(initBook,250); });
+  window.addEventListener("load", initBook);
+
+  async function loadBio(){
+    const { data } = await db.from("profile").select("biography").maybeSingle();
+    if(data && data.biography){ const paras=data.biography.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean); if(paras.length){ currentParagraphs=paras; bookIndex=0; initBook(); } }
+  }
+
+  /* ===================== PORTFOLIO ===================== */
+  const L = {
+    ecole:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6m8Du7Re6d10R9LgKlxMujnf-_AN5kfPgR8Ck-q2Iq54BSmyKXit6Y0gE&s=10",
+    egr:"https://i.ibb.co/jPPzN1rz/LOGO-EMIRATES-ROBLOX-compressed.png",
+    asv:"https://i.ibb.co/C399b1XT/images.png",
+    falcon:"https://i.ibb.co/YTFC8TDQ/Falcon-LTD-Logo.avif",
+    bluewave:"https://i.ibb.co/xSpYNNjg/Blue-Wave-Digital-Logo.png",
+    blackwood:"https://i.ibb.co/ZRT8vbbc/Blackwood-Digital-Services.png",
+    tng:"https://i.ibb.co/1tcyLSRN/TNG-Logo.png",
+    tnf:"https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg",
+    foodshare:"https://i.ibb.co/zHX6bbXb/Food-Share-Seychelles-Logo.png",
+    usds:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnVq-2mjy2-8fKUI44b-S-64OrAlUHmCuAPxkrGOKQ7A&s",
+    redcross:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXwbCM9SOgeRLA2Up0c3hOiukLsfRZ7vyg8XPn91CrQ&s=10"
+  };
+  const ROLES = [
+    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Class Delegate (Délégué de Classe)", org:"École Française des Seychelles", desc:"Elected by classmates to represent their views, raise concerns with staff and help resolve day-to-day matters within the class." },
+    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Eco-Delegate (Éco-Délégué)", org:"École Française des Seychelles", desc:"Championed environmental awareness and sustainability across the school, encouraging greener habits among students." },
+    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"School Treasurer (Trésorier d'Établissement)", org:"École Française des Seychelles", desc:"Helped manage and account for student funds, supporting the financing of school activities and events." },
+    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Member, Collège Life Council", org:"Conseil de la Vie Collégienne", desc:"Represented students within the middle-school governance body, contributing to decisions on school life and wellbeing." },
+    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Member, Lycée Life Council", org:"Conseil de la Vie Lycéenne", desc:"Served in the high-school student council, giving students a voice in the running and improvement of school life." },
+
+    { group:"Enterprise & Ventures", logo:L.egr, title:"Chairman & Chief Executive Officer", org:"Emirates Group Roblox (EGR)", desc:"Leads a large online aviation community, overseeing operations, staff and thousands of members across a virtual organisation." },
+    { group:"Enterprise & Ventures", logo:L.asv, title:"Chairman & Chief Executive Officer", org:"Air Seychelles Virtual (ASV)", desc:"Founded and leads a virtual airline celebrating Seychelles, bringing aviation enthusiasts together through realistic online operations." },
+    { group:"Enterprise & Ventures", logo:L.falcon, title:"Founder", org:"Falcon LTD", desc:"Founded Falcon LTD, a venture pursuing opportunities in aviation-related services and enterprise." },
+    { group:"Enterprise & Ventures", logo:L.blackwood, title:"Founder", org:"BlackWood Digital Services", desc:"Founded a digital-services venture providing web, design and technology solutions." },
+    { group:"Enterprise & Ventures", logo:L.bluewave, title:"Founder", org:"BlueWave Digital", desc:"Founded BlueWave Digital, building websites, digital platforms and technology solutions for clients and communities." },
+    { group:"Enterprise & Ventures", logo:L.tng, title:"Founder & Chairman of the Board", org:"Tyler Nicholas Group", desc:"Founded the holding company overseeing a portfolio of ventures across technology, aviation services and non-profit work." },
+
+    { group:"Public Service & Community", logo:"", title:"Honourable Member", org:"Seychelles National Youth Assembly", desc:"Represents young Seychellois in the national youth assembly, contributing to discussions on youth and the country's future." },
+    { group:"Public Service & Community", logo:L.tnf, title:"Chairman", org:"Tyler Nicholas Foundation", desc:"Chairs the Foundation — the philanthropic arm dedicated to youth empowerment, education and community development." },
+    { group:"Public Service & Community", logo:L.foodshare, title:"Co-Founder", org:"FoodShare Seychelles", desc:"Co-founded a community initiative working to reduce food waste and support those in need across Seychelles." },
+    { group:"Public Service & Community", logo:L.usds, title:"Youth Ambassador", org:"U.S. Department of State · PH International", desc:"Selected for the U.S. Department of State's Youth Ambassadors programme, representing Seychelles in leadership, diplomacy and civic exchange." },
+    { group:"Public Service & Community", logo:L.redcross, title:"Volunteer", org:"Red Cross Society of Seychelles", desc:"Volunteers with the Seychelles Red Cross, supporting community service and humanitarian activities, including national events." }
+  ];
+  function renderPortfolio(){
+    const wrap=$("#portfolio-wrap"); wrap.innerHTML="";
+    [...new Set(ROLES.map(r=>r.group))].forEach(gp=>{
+      const sec=el("div","role-group"); sec.appendChild(el("h3","role-group-title",gp));
+      const grid=el("div","role-grid");
+      ROLES.filter(r=>r.group===gp).forEach(r=>{
+        const card=el("div","role-card");
+        const logo=el("div","role-logo");
+        if(r.logo){ const img=el("img"); img.src=r.logo; img.alt=r.org; img.loading="lazy"; img.onerror=()=>{ logo.innerHTML=""; logo.classList.add("fallback"); logo.textContent=(r.org||"?").charAt(0); }; logo.appendChild(img); }
+        else { logo.classList.add("fallback"); logo.textContent=(r.org||"?").charAt(0); }
+        card.appendChild(logo);
+        card.appendChild(el("div","role-title",r.title));
+        card.appendChild(el("div","role-org",r.org));
+        card.appendChild(el("p","role-desc",r.desc));
+        grid.appendChild(card);
+      });
+      sec.appendChild(grid); wrap.appendChild(sec);
+    });
+  }
+
+  /* ===================== VALUES ===================== */
+  const VALUES = [
+    { ic:"fa-handshake-angle", title:"Service Over Self-Interest", desc:"Leadership means standing alongside people, listening, and working with them toward something better — not above them." },
+    { ic:"fa-graduation-cap", title:"Education as the Foundation", desc:"A strong education prepares young people not only for exams and jobs, but for citizenship, creativity and critical thinking." },
+    { ic:"fa-lightbulb", title:"Innovation & Opportunity", desc:"Technology and entrepreneurship are tools to solve real problems and open doors for the next generation." },
+    { ic:"fa-dove", title:"Diplomacy Over Division", desc:"Progress comes when disagreement is met with dialogue, and ambition is matched with responsibility." }
+  ];
+  function renderValues(){
+    const g=$("#values-grid"); g.innerHTML="";
+    VALUES.forEach(v=>{ const c=el("div","value-card"); const ic=el("div","value-ic"); ic.innerHTML=`<i class="fa-solid ${v.ic}"></i>`; c.appendChild(ic); c.appendChild(el("h3",null,v.title)); c.appendChild(el("p",null,v.desc)); g.appendChild(c); });
+  }
+
+  /* ===================== GALLERY + LIGHTBOX ===================== */
+  const GALLERY = [
+    "https://i.ibb.co/bgW5W3Y0/712133659-18083750501309891-4094983543585667119-n.webp",
+    "https://i.ibb.co/4gMLCgvM/729479738-17998362398959096-3774989960113511901-n-heic.jpg",
+    "https://i.ibb.co/svS9JyhF/An-honour-to-connect-with-fellow-young-leaders-committed-to-making-a-positive-impact-in-Seychel.webp",
+    "https://i.ibb.co/8LgbsQQj/file-000000004d5c71f4b909e38b835c1a0f.png",
+    "https://i.ibb.co/svGbFSr5/IMG-20251030-230304-983.webp",
+    "https://i.ibb.co/PvHxKf4X/IMG-20260330-114310-901.webp",
+    "https://i.ibb.co/9mRK4pkW/IMG-20251219-WA0012.jpg",
+    "https://i.ibb.co/DPQ6Hf8g/IMG-20260419-WA0004.jpg",
+    "https://i.ibb.co/3mb921S4/IMG-20260425-WA0025.jpg",
+    "https://i.ibb.co/mCDsC4YR/IMG-20260601-WA0022-1.jpg",
+    "https://i.ibb.co/gFvnwpxm/IMG-20260606-WA0031.jpg",
+    "https://i.ibb.co/ksJNGL9d/IMG-20260719-WA0039.jpg",
+    "https://i.ibb.co/Vc7LhmJg/IMG-20260726-WA0017.jpg",
+    "https://i.ibb.co/zTXXQXjc/20260719-115410.jpg",
+    "https://i.ibb.co/TMtNcDzh/675488273-17992789112959096-5723295647168697039-n.jpg",
+    "https://i.ibb.co/v41jMKmc/710365761-18083583731309891-79085176288733846-n.webp",
+    "https://i.ibb.co/vCyGh17G/710868675-18083583788309891-3858973910023180607-n.webp",
+    "https://i.ibb.co/Hfp6xSzf/Great-experience-volunteering-with-the-Seychelles-Red-Cross-Society-at-the-Seychelles-National.webp",
+    "https://i.ibb.co/tPJYCNM4/IMG-20260129-195634-400.webp",
+    "https://i.ibb.co/QFs9Mn2g/IMG-20260531-235851-801.webp",
+    "https://i.ibb.co/Fq4TmhyQ/IMG-20260227-WA0027.jpg",
+    "https://i.ibb.co/Lz3R0Vwh/IMG-20260426-WA0038.jpg",
+    "https://i.ibb.co/9kdvrRN5/IMG-20260530-WA0058-2.jpg",
+    "https://i.ibb.co/Zz36QTmC/IMG-20260606-WA0009.jpg",
+    "https://i.ibb.co/ccfZNT0D/IMG-20260606-WA0058.jpg",
+    "https://i.ibb.co/8WtFmh7/IMG-20260610-WA0031.jpg",
+    "https://i.ibb.co/My5MGB5j/IMG-20260611-WA0009.jpg",
+    "https://i.ibb.co/DgQm58nG/IMG-20260723-WA0031.jpg"
+  ];
+  function renderGallery(){
+    const g=$("#gallery"); g.innerHTML="";
+    GALLERY.forEach((url,idx)=>{ const b=el("button","g-item"); b.setAttribute("aria-label",`Open photo ${idx+1}`); const img=el("img"); img.src=url; img.alt=`Moment ${idx+1}`; img.loading="lazy"; b.appendChild(img); b.addEventListener("click",()=>openLightbox(GALLERY,idx)); g.appendChild(b); });
+  }
+  const lb=$("#lightbox"), lbImg=$("#lb-img"); let lbList=[], lbIndex=0, lbLast=null;
+  function openLightbox(list,i){ lbList=list; lbIndex=i; lbImg.src=lbList[lbIndex]; lb.classList.add("show"); document.body.style.overflow="hidden"; lbLast=document.activeElement; const multi=lbList.length>1; $("#lb-prev").style.display=multi?"grid":"none"; $("#lb-next").style.display=multi?"grid":"none"; $("#lb-close").focus(); }
+  function closeLightbox(){ lb.classList.remove("show"); document.body.style.overflow=""; lbImg.src=""; if(lbLast) lbLast.focus(); }
+  function lbStep(d){ if(lbList.length<2)return; lbIndex=(lbIndex+d+lbList.length)%lbList.length; lbImg.src=lbList[lbIndex]; }
+  $("#lb-close").addEventListener("click",closeLightbox);
+  $("#lb-prev").addEventListener("click",()=>lbStep(-1));
+  $("#lb-next").addEventListener("click",()=>lbStep(1));
+  lb.addEventListener("click",e=>{ if(e.target===lb) closeLightbox(); });
+  document.addEventListener("keydown",e=>{ if(!lb.classList.contains("show"))return; if(e.key==="Escape")closeLightbox(); if(e.key==="ArrowLeft")lbStep(-1); if(e.key==="ArrowRight")lbStep(1); });
+  function wireZoomImages(){ document.querySelectorAll(".zoom").forEach(img=>{ img.style.cursor="zoom-in"; img.addEventListener("click",()=>openLightbox([img.getAttribute("src")],0)); }); }
+
+  /* ===================== REQUEST FORM ===================== */
+  $("#request-form").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const name=$("#rq-name").value.trim(), email=$("#rq-email").value.trim(), org=$("#rq-org").value.trim(), type=$("#rq-type").value, date=$("#rq-date").value, msg=$("#rq-msg").value.trim(), note=$("#rq-note"), btn=$("#rq-btn");
+    if(!name||!email) return;
+    const message = `Speaking request\nEvent type: ${type}\nOrganisation: ${org||"—"}\nPreferred date: ${date||"—"}\n\n${msg||"(no additional details)"}`;
+    btn.disabled=true; note.className="note"; note.textContent="Sending your request…";
+    const { error } = await db.from("contact_submissions").insert({ name, email, subject:`Speaking request — ${type}`, reason:"speaking", message });
+    btn.disabled=false;
+    if(!error){ note.className="note ok"; note.textContent="Thank you — your request has been received. The Office will be in touch."; e.target.reset(); }
+    else { note.className="note err"; note.textContent="Something went wrong. Please try again, or email the Office directly."; }
+  });
+
+  /* ===================== SEARCH ===================== */
+  const overlay=$("#search-overlay"); let lastFocused=null;
+  const openSearch=()=>{ lastFocused=document.activeElement; overlay.classList.add("show"); setTimeout(()=>$("#overlay-input").focus(),40); };
+  const closeSearch=()=>{ overlay.classList.remove("show"); $("#results").innerHTML=""; $("#overlay-input").value=""; if(lastFocused) lastFocused.focus(); };
+  $("#open-search").addEventListener("click",openSearch);
+  $("#close-search").addEventListener("click",closeSearch);
+  overlay.addEventListener("click",e=>{ if(e.target===overlay) closeSearch(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&overlay.classList.contains("show")) closeSearch(); });
+  let searchTimer;
+  $("#overlay-input").addEventListener("input",e=>{ clearTimeout(searchTimer); const q=e.target.value.trim(); searchTimer=setTimeout(()=>runSearch(q),250); });
+  $("#overlay-form").addEventListener("submit",e=>{ e.preventDefault(); runSearch($("#overlay-input").value.trim()); });
+  async function runSearch(q){
+    const box=$("#results"); if(!q){ box.innerHTML=""; return; }
+    box.innerHTML=`<div class="none">Searching…</div>`;
+    const opt={ type:"websearch", config:"english" };
+    const [n,i,ev]=await Promise.allSettled([
+      db.from("news_posts").select("title,excerpt").eq("status","published").textSearch("search_vector",q,opt).limit(5),
+      db.from("initiatives").select("title,summary").eq("is_published",true).textSearch("search_vector",q,opt).limit(5),
+      db.from("events").select("title,location").eq("is_published",true).textSearch("search_vector",q,opt).limit(5),
+    ]);
+    const news=n.value?.data||[], inits=i.value?.data||[], events=ev.value?.data||[]; box.innerHTML="";
+    const group=(label,rows,page,sub)=>{ if(!rows.length)return; box.appendChild(el("div","grp",label)); rows.forEach(r=>{ const a=el("a"); a.href=page; a.appendChild(el("b",null,r.title)); const s=sub(r); if(s) a.appendChild(el("span",null,s)); box.appendChild(a); }); };
+    group("Newsroom",news,"/newsroom",r=>r.excerpt); group("Initiatives",inits,"/initiatives",r=>r.summary); group("Events",events,"/events",r=>r.location);
+    if(!news.length&&!inits.length&&!events.length){ box.innerHTML=`<div class="none">No results yet for “${q}”. As the Office publishes content, it will appear here.</div>`; }
+  }
+
+  /* ===================== NAV / SCROLL / REVEAL ===================== */
+  const toggle=$("#menu-toggle");
+  toggle.addEventListener("click",()=>{ const open=$("#navlinks").classList.toggle("open"); toggle.setAttribute("aria-expanded",open); });
+  $("#navlinks").addEventListener("click",e=>{ if(e.target.tagName==="A"){ $("#navlinks").classList.remove("open"); toggle.setAttribute("aria-expanded","false"); } });
+  $("#announce-close").addEventListener("click",()=>$("#announce").classList.remove("show"));
+  const header=$("#site-header"), toTop=$("#to-top");
+  const onScroll=()=>{ header.classList.toggle("scrolled",window.scrollY>10); toTop.classList.toggle("show",window.scrollY>600); };
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+  toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:prefersReduced?"auto":"smooth"}));
+  function wireReveals(){ const reveals=document.querySelectorAll(".reveal"); if(!prefersReduced&&"IntersectionObserver" in window){ const io=new IntersectionObserver((en)=>{ en.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.1}); reveals.forEach(r=>io.observe(r)); } else { reveals.forEach(r=>r.classList.add("in")); } }
+
+  async function loadSettings(){
+    const { data, error } = await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();
+    if(error||!data) return;
+    if(data.announcement_active&&data.announcement_text){ $("#announce-text").textContent=data.announcement_text+" "; if(data.announcement_url){ const a=el("a",null,"Learn more"); a.href=data.announcement_url; $("#announce-text").appendChild(a); } $("#announce").classList.add("show"); }
+    if(data.contact_email) $("#foot-email").href="mailto:"+data.contact_email;
+  }
+
+  /* ===================== GO ===================== */
+  renderPortfolio(); renderValues(); renderGallery(); wireZoomImages(); wireReveals(); initBook();
+  loadBio(); loadSettings();
+  </script>
 </body>
 </html>
