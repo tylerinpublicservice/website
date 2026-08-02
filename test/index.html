@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Office of Tyler Nicholas</title>
+  <meta name="description" content="The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas — Seychelles." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Office of Tyler Nicholas" />
+  <meta property="og:description" content="Public Service. Youth Leadership. National Progress. — Seychelles." />
+  <meta property="og:image" content="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" />
+
+  <!-- Fonts: Fraunces (stately serif display) + Public Sans (civic body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS  — Seychelles flag palette, official register
+       ============================================================ */
+    :root{
+      --ink:      #0C1E3A;   /* near-navy body text            */
+      --navy:     #0B2E63;   /* primary                        */
+      --navy-900: #061a3d;   /* deepest — hero/footer          */
+      --blue:     #0053A0;   /* Seychelles blue — links        */
+      --gold:     #F3C13A;   /* accent / CTA                   */
+      --gold-600: #d9a92a;   /* CTA hover                      */
+      --red:      #D21C2B;   /* flag red — small accents       */
+      --green:    #0A8A43;   /* flag green — small accents     */
+      --paper:    #F5F7FB;   /* page background                */
+      --surface:  #FFFFFF;
+      --muted:    #5C6B84;   /* secondary text                 */
+      --line:     #E3E8F1;   /* hairlines / borders            */
+      --shadow:   0 1px 2px rgba(11,46,99,.06), 0 12px 30px -18px rgba(11,46,99,.28);
+      --container: 1180px;
+      --ray: linear-gradient(90deg,
+              var(--blue) 0 20%, var(--gold) 20% 40%, var(--red) 40% 60%,
+              #ffffff 60% 80%, var(--green) 80% 100%);
+    }
+
+    /* ============================================================ RESET */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--ink);background:var(--paper);line-height:1.6;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    }
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+    h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.1;color:var(--navy);font-weight:600}
+    ::selection{background:var(--gold);color:var(--navy)}
+
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:84px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:200}
+    .skip:focus{left:12px;top:12px}
+
+    /* eyebrow label with a small flag-ray tick */
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--blue);margin-bottom:16px;
+    }
+    .eyebrow::before{content:"";width:26px;height:6px;border-radius:2px;background:var(--ray)}
+
+    .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+    .section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+    .section-link{font-weight:600;color:var(--blue);white-space:nowrap;border-bottom:2px solid transparent;transition:border-color .2s}
+    .section-link:hover{border-color:var(--gold)}
+
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      font-weight:600;font-size:.98rem;padding:13px 24px;border-radius:6px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s}
+    .btn:active{transform:translateY(1px)}
+    .btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+    .btn-gold:hover{background:var(--gold-600);border-color:var(--gold-600)}
+    .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+    .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+    .btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .btn-navy:hover{background:var(--navy-900)}
+
+    /* ============================================================ TOP STRIPE + ANNOUNCEMENT */
+    .flag-stripe{height:5px;background:var(--ray)}
+    .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:9px 40px;position:relative;display:none}
+    .announce.show{display:block}
+    .announce a{color:var(--gold);font-weight:600;border-bottom:1px solid transparent}
+    .announce a:hover{border-color:var(--gold)}
+    .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:1.1rem;opacity:.7}
+    .announce .close:hover{opacity:1}
+
+    /* ============================================================ HEADER / NAV */
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .seal{width:40px;height:40px;flex:none;border-radius:50%;background:var(--navy);display:grid;place-items:center;overflow:hidden;box-shadow:inset 0 0 0 2px var(--gold)}
+    .seal span{font-family:"Fraunces",serif;color:var(--gold);font-weight:700;font-size:1.02rem}
+    .brand b{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:var(--navy);line-height:1.05;letter-spacing:.01em}
+    .brand small{display:block;font-family:"Public Sans";font-size:.62rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600}
+    .nav-links{display:flex;align-items:center;gap:28px}
+    .nav-links a{font-weight:500;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-links a:hover{color:var(--navy);border-color:var(--gold)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .icon-btn{width:40px;height:40px;border-radius:6px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);transition:border-color .2s,background .2s}
+    .icon-btn:hover{border-color:var(--gold);background:#fffdf5}
+    .menu-toggle{display:none}
+
+    /* ============================================================ HERO */
+    .hero{position:relative;color:#fff;overflow:hidden;background:var(--navy-900)}
+    .hero-bg{position:absolute;inset:0;background-image:url("https://t4.ftcdn.net/jpg/01/96/03/51/360_F_196035169_TiddErZm2MwPN2N4pfgDO22YMtHK3LGM.jpg");background-size:cover;background-position:center;transform:scale(1.03)}
+    .hero-bg::after{content:"";position:absolute;inset:0;background:
+        linear-gradient(105deg, rgba(6,26,61,.94) 0%, rgba(6,26,61,.82) 42%, rgba(6,26,61,.5) 100%)}
+    /* signature: five flag rays fanning from the lower-hoist corner */
+    .hero-rays{position:absolute;left:0;bottom:0;width:min(680px,70%);height:100%;opacity:.5;pointer-events:none}
+    .hero-inner{position:relative;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;padding-block:96px}
+    .portrait{width:230px;height:230px;flex:none;border-radius:14px;object-fit:cover;object-position:top center;
+      box-shadow:0 0 0 4px rgba(255,255,255,.12), 0 0 0 8px var(--gold), 0 30px 60px -20px rgba(0,0,0,.7)}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+    .hero-eyebrow::before{content:"";width:34px;height:2px;background:var(--gold)}
+    .hero h1{color:#fff;font-size:clamp(2.8rem,6vw,4.7rem);font-weight:600;letter-spacing:-.01em}
+    .hero .role{margin-top:10px;font-size:clamp(1.02rem,1.8vw,1.28rem);color:#dbe5f4;font-weight:500}
+    .hero .lede{margin-top:20px;max-width:560px;font-size:1.05rem;color:#c3d1e6}
+    .hero-cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+    /* search */
+    .hero-search{margin-top:34px;max-width:560px}
+    .hero-search form{display:flex;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(0,0,0,.7)}
+    .hero-search input{flex:1;border:0;padding:15px 18px;font-size:1rem;color:var(--ink);outline:none}
+    .hero-search button{border:0;background:var(--navy);color:#fff;padding:0 22px;font-weight:600;display:flex;align-items:center;gap:8px}
+    .hero-search button:hover{background:var(--blue)}
+
+    /* ============================================================ STATEMENT */
+    .statement{background:var(--surface);border-bottom:1px solid var(--line)}
+    .statement-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:60px;align-items:center}
+    .statement h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:22px}
+    .statement p{color:#26364f;font-size:1.08rem;margin-bottom:18px}
+    .sig{font-family:"Fraunces",serif;font-size:1.5rem;color:var(--navy);margin-top:8px;font-weight:600}
+    .sig small{display:block;font-family:"Public Sans";font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+    .statement-photo{position:relative}
+    .statement-photo img{width:100%;border-radius:12px;box-shadow:var(--shadow)}
+    .statement-photo::before{content:"";position:absolute;left:-14px;top:-14px;width:70px;height:70px;background:var(--ray);border-radius:10px;z-index:-1;opacity:.9}
+
+    /* ============================================================ IMPACT */
+    .impact{background:var(--navy);color:#fff}
+    .impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center}
+    .stat .num{font-family:"Fraunces",serif;font-size:clamp(2.4rem,4.5vw,3.4rem);color:var(--gold);font-weight:700;line-height:1}
+    .stat .lbl{margin-top:8px;font-size:.9rem;letter-spacing:.06em;color:#c8d5ea;text-transform:uppercase;font-weight:600}
+
+    /* ============================================================ CARDS (projects / news) */
+    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,46,99,.4)}
+    .card-media{aspect-ratio:16/10;background:#dde5f1 var(--ray);background-size:cover;background-position:center}
+    .card-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .pill{align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+    .pill.active{background:#e7f4ec;color:var(--green)}
+    .pill.upcoming{background:#fff4d6;color:#9a7400}
+    .pill.completed{background:#eef1f7;color:var(--muted)}
+    .pill.cat{background:#e9f0fb;color:var(--blue)}
+    .card h3{font-size:1.24rem}
+    .card p{color:var(--muted);font-size:.96rem;flex:1}
+    .card .more{font-weight:600;color:var(--blue);font-size:.92rem}
+    .card .date{font-size:.82rem;color:var(--muted);font-weight:600;letter-spacing:.04em}
+
+    /* events list */
+    .events-list{display:flex;flex-direction:column;gap:16px}
+    .event-row{display:flex;gap:22px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px;box-shadow:var(--shadow);transition:transform .15s}
+    .event-row:hover{transform:translateX(4px)}
+    .datebox{flex:none;width:74px;height:74px;border-radius:10px;background:var(--navy);color:#fff;display:grid;place-content:center;text-align:center}
+    .datebox .d{font-family:"Fraunces",serif;font-size:1.7rem;font-weight:700;line-height:1}
+    .datebox .m{font-size:.72rem;letter-spacing:.12em;color:var(--gold);font-weight:600}
+    .event-info h3{font-size:1.2rem;margin-bottom:4px}
+    .event-info .meta{color:var(--muted);font-size:.92rem}
+
+    /* instagram grid */
+    .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+    .ig-grid a{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:#e6ebf3}
+    .ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .ig-grid a:hover img{transform:scale(1.06)}
+    .ig-grid a::after{content:"";position:absolute;inset:0;background:rgba(11,46,99,0);transition:background .2s}
+    .ig-grid a:hover::after{background:rgba(11,46,99,.18)}
+
+    /* empty states */
+    .empty{grid-column:1/-1;border:1.5px dashed var(--line);border-radius:12px;background:#fbfcfe;padding:40px 28px;text-align:center;color:var(--muted)}
+    .empty strong{display:block;color:var(--navy);font-family:"Fraunces",serif;font-size:1.15rem;margin-bottom:6px;font-weight:600}
+
+    /* ============================================================ QUOTE */
+    .quote{position:relative;background:var(--navy-900);color:#fff;text-align:center;overflow:hidden}
+    .quote .container{position:relative;z-index:2}
+    .quote-mark{font-family:"Fraunces",serif;font-size:5rem;color:var(--gold);line-height:.6;height:40px}
+    .quote blockquote{font-family:"Fraunces",serif;font-size:clamp(1.6rem,3.6vw,2.7rem);font-weight:500;max-width:900px;margin:14px auto 20px;color:#fff}
+    .quote cite{font-style:normal;font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+    .quote-rays{position:absolute;right:-60px;top:0;height:100%;width:420px;opacity:.28}
+
+    /* ============================================================ NEWSLETTER */
+    .news-signup{background:linear-gradient(120deg,var(--navy) 0%,var(--blue) 100%);color:#fff}
+    .signup-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+    .signup-grid h2{color:#fff;font-size:clamp(1.8rem,3.2vw,2.5rem)}
+    .signup-grid p{color:#d3e0f2;margin-top:12px;max-width:460px}
+    .signup-form{display:flex;flex-direction:column;gap:12px}
+    .signup-form .row{display:flex;gap:10px}
+    .signup-form input{flex:1;border:0;border-radius:6px;padding:15px 16px;font-size:1rem;outline:none;color:var(--ink)}
+    .signup-form .note{font-size:.85rem;min-height:1.2em}
+    .signup-form .note.ok{color:#a9f0c6}
+    .signup-form .note.err{color:#ffc9c9}
+
+    /* ============================================================ FOOTER */
+    footer{background:var(--navy-900);color:#c4d0e4}
+    .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-block:64px 40px}
+    .foot-brand b{font-family:"Fraunces",serif;color:#fff;font-size:1.15rem;display:block}
+    .foot-brand small{letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;color:var(--gold);font-weight:600}
+    .foot-brand p{margin-top:14px;font-size:.92rem;max-width:320px;color:#a9b7d0}
+    .socials{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+    .socials a{width:38px;height:38px;border-radius:8px;border:1px solid rgba(255,255,255,.16);display:grid;place-items:center;color:#fff;transition:background .2s,border-color .2s}
+    .socials a:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+    .foot-col h4{color:#fff;font-family:"Public Sans";font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+    .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#bccbe3;transition:color .2s}
+    .foot-col a:hover{color:var(--gold)}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#8fa0be}
+    .foot-bottom a{color:#8fa0be}
+    .foot-bottom a:hover{color:var(--gold)}
+
+    /* ============================================================ SEARCH OVERLAY */
+    .overlay{position:fixed;inset:0;background:rgba(6,26,61,.6);backdrop-filter:blur(4px);z-index:300;display:none;padding-top:12vh}
+    .overlay.show{display:block}
+    .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+    .search-panel form{display:flex;border-bottom:1px solid var(--line)}
+    .search-panel input{flex:1;border:0;padding:20px 22px;font-size:1.15rem;outline:none}
+    .search-panel .close{background:none;border:0;padding:0 22px;color:var(--muted);font-size:1.4rem}
+    .results{max-height:56vh;overflow:auto;padding:8px 0}
+    .results .grp{padding:10px 22px 4px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:700}
+    .results a{display:block;padding:12px 22px;border-left:3px solid transparent}
+    .results a:hover{background:#f5f8fd;border-color:var(--gold)}
+    .results a b{color:var(--navy);font-weight:600}
+    .results a span{display:block;font-size:.88rem;color:var(--muted)}
+    .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+
+    /* ============================================================ REVEAL + REDUCED MOTION */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .reveal{opacity:1;transform:none;transition:none}
+      .hero-bg{transform:none}
+    }
+
+    /* ============================================================ RESPONSIVE */
+    @media (max-width:960px){
+      .statement-grid,.signup-grid{grid-template-columns:1fr}
+      .statement-photo{max-width:420px}
+      .impact-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+      .card-grid{grid-template-columns:repeat(2,1fr)}
+      .ig-grid{grid-template-columns:repeat(4,1fr)}
+      .foot-grid{grid-template-columns:1fr 1fr}
+      .hero-inner{grid-template-columns:1fr;gap:32px;padding-block:64px}
+      .portrait{width:150px;height:150px}
+    }
+    @media (max-width:680px){
+      .section{padding-block:60px}
+      .nav-links{display:none}
+      .menu-toggle{display:grid}
+      .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:12px 24px;gap:6px;box-shadow:var(--shadow)}
+      .nav-links.open a{padding:10px 0;border-bottom:1px solid var(--line)}
+      .card-grid,.impact-grid{grid-template-columns:1fr}
+      .ig-grid{grid-template-columns:repeat(3,1fr)}
+      .foot-grid{grid-template-columns:1fr}
+      .event-row{flex-direction:column;align-items:flex-start;text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- flag ray stripe -->
+  <div class="flag-stripe"></div>
+
+  <!-- announcement (shown only when set in the admin panel) -->
+  <div class="announce" id="announce" role="region" aria-label="Announcement">
+    <span id="announce-text"></span>
+    <button class="close" id="announce-close" aria-label="Dismiss announcement">&times;</button>
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Office of Tyler Nicholas — home">
+        <span class="seal"><span>TN</span></span>
+        <span><b>Office of Tyler Nicholas</b><small>Republic of Seychelles</small></span>
+      </a>
+      <nav class="nav-links" id="navlinks" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="public-service.html">Public Service</a>
+        <a href="newsroom.html">Newsroom</a>
+        <a href="media.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="open-search" aria-label="Search the site">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <a class="btn btn-gold" href="volunteer.html" style="padding:10px 18px">Get Involved</a>
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <svg class="hero-rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="0,100 0,55 100,0 55,0" fill="#0053A0"/>
+        <polygon points="0,100 0,72 100,20 78,0" fill="#F3C13A" opacity=".95"/>
+        <polygon points="0,100 0,86 100,44 100,20" fill="#D21C2B" opacity=".9"/>
+        <polygon points="0,100 0,96 100,70 100,44" fill="#ffffff" opacity=".85"/>
+        <polygon points="0,100 40,100 100,88 100,70" fill="#0A8A43" opacity=".9"/>
+      </svg>
+      <div class="container hero-inner">
+        <img class="portrait" id="hero-portrait" src="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" alt="Portrait of Tyler P. Nicholas with the flag of Seychelles" />
+        <div>
+          <span class="hero-eyebrow">Office of Tyler Nicholas</span>
+          <h1 id="hero-name">Tyler P. Nicholas</h1>
+          <p class="role" id="hero-role">Youth Leader &middot; Civic Advocate &middot; Public Servant</p>
+          <p class="lede">A platform built on a simple belief — that every young person has a role to play in building a stronger, more inclusive Seychelles.</p>
+          <div class="hero-cta">
+            <a class="btn btn-gold" href="#statement">Read the statement</a>
+            <a class="btn btn-ghost" href="volunteer.html">Get involved</a>
+          </div>
+          <div class="hero-search">
+            <form id="hero-search-form" role="search">
+              <input type="search" id="hero-search-input" placeholder="Search news, initiatives, and events" aria-label="Search the site" />
+              <button type="submit">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATEMENT ================= -->
+    <section class="statement section" id="statement">
+      <div class="container statement-grid">
+        <div class="reveal">
+          <span class="eyebrow">Official Statement</span>
+          <h2>A commitment to serve</h2>
+          <div id="statement-body">
+            <p>Public service begins with a simple belief: that every person has a role to play in building a better country. As young people, we cannot wait for the future to be handed to us — we must step forward, serve our communities, and take responsibility for the Seychelles we want to inherit.</p>
+            <p>This office exists to serve, to listen, to support youth, and to build a stronger connection between young people and the future of our nation. A brighter Seychelles will not be built by one person or one generation alone. It will be built by all of us.</p>
+          </div>
+          <p class="sig">Tyler P. Nicholas<small>Founder, Office of Tyler Nicholas</small></p>
+          <p style="margin-top:22px"><a class="section-link" href="about.html">Read the full statement &rarr;</a></p>
+        </div>
+        <div class="statement-photo reveal">
+          <img src="https://i.ibb.co/jZg7qDST/eyvh-1.png" alt="Tyler P. Nicholas standing beside the flag of Seychelles" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IMPACT (hidden until stats exist) ================= -->
+    <section class="impact section" id="impact-section" style="display:none">
+      <div class="container">
+        <div class="impact-grid" id="impact-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= ACTIVE PROJECTS ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Public Service</span><h2>Active initiatives</h2></div>
+          <a class="section-link" href="initiatives.html">All initiatives &rarr;</a>
+        </div>
+        <div class="card-grid" id="initiatives-grid">
+          <div class="empty">Loading initiatives&hellip;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= UPCOMING EVENTS ================= -->
+    <section class="section" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Get Involved</span><h2>Upcoming events</h2></div>
+          <a class="section-link" href="events.html">All events &rarr;</a>
+        </div>
+        <div class="events-list" id="events-list">
+          <div class="empty">Loading events&hellip;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LATEST NEWS ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Newsroom</span><h2>Latest updates</h2></div>
+          <a class="section-link" href="newsroom.html">Visit the newsroom &rarr;</a>
+        </div>
+        <div class="card-grid" id="news-grid">
+          <div class="empty">Loading updates&hellip;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INSTAGRAM ================= -->
+    <section class="section" id="ig-section" style="background:var(--surface);border-top:1px solid var(--line)">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Follow Along</span><h2>Live from Instagram</h2></div>
+          <a class="section-link" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">@officeoftylernicholas &rarr;</a>
+        </div>
+        <div class="ig-grid" id="ig-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= HEAVY QUOTE ================= -->
+    <section class="quote section">
+      <svg class="quote-rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="100,0 60,0 0,40 0,70" fill="#0053A0"/>
+        <polygon points="100,0 78,0 0,58 0,80" fill="#F3C13A"/>
+        <polygon points="100,20 100,0 0,74 0,90" fill="#D21C2B"/>
+        <polygon points="100,44 100,20 0,90 0,100" fill="#0A8A43"/>
+      </svg>
+      <div class="container">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote id="quote-text">Young people are twenty percent of our population, but they are one hundred percent of our future.</blockquote>
+        <cite id="quote-cite">Office of Tyler Nicholas</cite>
+      </div>
+    </section>
+
+    <!-- ================= NEWSLETTER ================= -->
+    <section class="news-signup section">
+      <div class="container signup-grid">
+        <div class="reveal">
+          <h2>Stay informed. Stay involved.</h2>
+          <p>Get official updates and volunteer opportunities from the Office, direct to your inbox.</p>
+        </div>
+        <form class="signup-form reveal" id="signup-form">
+          <div class="row">
+            <input type="email" id="signup-email" placeholder="you@email.com" aria-label="Your email address" required />
+            <button type="submit" class="btn btn-gold" id="signup-btn">Subscribe</button>
+          </div>
+          <div class="note" id="signup-note" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <b>Office of Tyler Nicholas</b>
+        <small>Public Service &middot; Youth Leadership &middot; National Progress</small>
+        <p>The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas, in the Republic of Seychelles.</p>
+        <div class="socials" id="socials">
+          <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V8c0-1.1.3-2 2-2h2V2.1C18.4 2 17.3 2 16.3 2 13.6 2 11 3.7 11 7.2V10H8v4h3v8h2z"/></svg></a>
+          <a href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23 22h-6.8l-5.3-6.9L4.8 22H1.7l7.8-8.9L1 2h6.9l4.8 6.3L18.9 2zm-2.4 18h1.9L7.6 4H5.6l10.9 16z"/></svg></a>
+          <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3V9zm6 0h3.8v1.7h.05c.53-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9z"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+          <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.6 3.9 3.8 4.2v3c-1.4.1-2.7-.3-3.8-1v6.2c0 3.4-2.7 6.1-6 6.1S4 18.8 4 15.4c0-3 2.3-5.5 5.3-6v3.1a3 3 0 1 0 3.7 2.9V3H16z"/></svg></a>
+          <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c-4.5 0-7-3-7-9s2.5-9 7-9c3.5 0 5.6 1.8 6.3 4.4M8.5 13c0-2 1.4-3.3 3.6-3.3 2.4 0 3.6 1.6 3.6 4.2 0 2-1 3.3-2.8 3.3-1.4 0-2.3-1-2.3-2.2 0-1.4 1.2-2 2.7-2 2.3 0 4 1.4 4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>The Office</h4>
+        <a href="about.html">About Tyler Nicholas</a>
+        <a href="public-service.html">Public Service</a>
+        <a href="initiatives.html">Initiatives</a>
+        <a href="newsroom.html">Newsroom</a>
+      </div>
+      <div class="foot-col">
+        <h4>Engage</h4>
+        <a href="contact.html">Contact the Office</a>
+        <a href="volunteer.html">Volunteer</a>
+        <a href="resources.html">Resources</a>
+        <a href="media.html">Media</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="events.html">Events</a>
+        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:" id="foot-email">Email the Office</a>
+      </div>
+    </div>
+    <div class="flag-stripe"></div>
+    <div class="container foot-bottom">
+      <span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved.</span>
+      <span>
+        <a href="privacy.html">Privacy</a> &nbsp;&middot;&nbsp;
+        <a href="accessibility.html">Accessibility</a> &nbsp;&middot;&nbsp;
+        <a href="admin/">Admin</a> &nbsp;&middot;&nbsp;
+        Protected by the Tyler Nicholas Group
+      </span>
+    </div>
+  </footer>
+
+  <!-- ================= SEARCH OVERLAY ================= -->
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-panel">
+      <form id="overlay-form" role="search">
+        <input type="search" id="overlay-input" placeholder="Search the office…" aria-label="Search" autocomplete="off" />
+        <button type="button" class="close" id="close-search" aria-label="Close search">&times;</button>
+      </form>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+
+  <!-- ================= SUPABASE + APP ================= -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  /* ------------------------------------------------------------------
+     Supabase connection.
+     This is the PUBLIC "anon" key — it is designed to be shipped in the
+     browser. Your Row Level Security policies are what protect the data.
+  ------------------------------------------------------------------ */
+  const SUPABASE_URL  = "https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  /* ---------- tiny helpers ---------- */
+  const $  = (s, r=document) => r.querySelector(s);
+  const el = (tag, cls, txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; };
+  const fmtDate = iso => iso ? new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(iso)) : "";
+  const dayNum  = iso => new Intl.DateTimeFormat("en-GB",{day:"2-digit"}).format(new Date(iso));
+  const monTxt  = iso => new Intl.DateTimeFormat("en-GB",{month:"short"}).format(new Date(iso)).toUpperCase();
+  const escAttr = s => (s||"").replace(/"/g,"&quot;");
+
+  /* ---------- year ---------- */
+  $("#year").textContent = new Date().getFullYear();
+
+  /* =================================================================
+     SITE SETTINGS  (hero image, announcement, contact, socials)
+  ================================================================= */
+  async function loadSettings(){
+    const { data, error } = await db.from("site_settings").select("*").maybeSingle();
+    if(error || !data) return;
+    if(data.hero_image_url) $(".hero-bg").style.backgroundImage = `url("${data.hero_image_url}")`;
+    if(data.announcement_active && data.announcement_text){
+      const a = $("#announce");
+      $("#announce-text").textContent = data.announcement_text + " ";
+      if(data.announcement_url){
+        const link = el("a", null, "Learn more");
+        link.href = data.announcement_url;
+        $("#announce-text").appendChild(link);
+      }
+      a.classList.add("show");
+    }
+    if(data.contact_email) $("#foot-email").href = "mailto:" + data.contact_email;
+  }
+
+  /* =================================================================
+     PROFILE  (name, role, portrait, statement)
+  ================================================================= */
+  async function loadProfile(){
+    const { data, error } = await db.from("profile")
+      .select("full_name,title,portrait_url,official_statement").maybeSingle();
+    if(error || !data) return;
+    if(data.full_name)    $("#hero-name").textContent = data.full_name;
+    if(data.title)        $("#hero-role").textContent = data.title;
+    if(data.portrait_url) $("#hero-portrait").src = data.portrait_url;
+    if(data.official_statement){
+      const box = $("#statement-body"); box.innerHTML = "";
+      data.official_statement.split(/\n\s*\n/).forEach(para => {
+        if(para.trim()) box.appendChild(el("p", null, para.trim()));
+      });
+    }
+  }
+
+  /* =================================================================
+     IMPACT STATS
+  ================================================================= */
+  async function loadImpact(){
+    const { data } = await db.from("impact_stats").select("*")
+      .eq("is_published", true).order("sort_order");
+    if(!data || !data.length) return;                 // stays hidden
+    const grid = $("#impact-grid"); grid.innerHTML = "";
+    data.forEach(s => {
+      const wrap = el("div","stat");
+      wrap.appendChild(el("div","num", s.value));
+      wrap.appendChild(el("div","lbl", s.label));
+      grid.appendChild(wrap);
+    });
+    $("#impact-section").style.display = "block";
+  }
+
+  /* =================================================================
+     INITIATIVES
+  ================================================================= */
+  async function loadInitiatives(){
+    const { data, error } = await db.from("initiatives")
+      .select("title,slug,summary,status,cover_url,is_featured")
+      .eq("is_published", true)
+      .order("is_featured",{ascending:false}).order("created_at",{ascending:false})
+      .limit(3);
+    const grid = $("#initiatives-grid"); grid.innerHTML = "";
+    if(error || !data || !data.length){
+      grid.appendChild(emptyCard("Initiatives are on the way", "The first projects are being prepared. Check back soon to follow the work."));
+      return;
+    }
+    data.forEach(it => {
+      const card = el("article","card");
+      const media = el("a","card-media"); media.href = "initiatives.html";
+      if(it.cover_url) media.style.backgroundImage = `url("${escAttr(it.cover_url)}")`;
+      card.appendChild(media);
+      const body = el("div","card-body");
+      if(it.status) body.appendChild(el("span",`pill ${it.status}`, it.status));
+      body.appendChild(el("h3", null, it.title));
+      body.appendChild(el("p", null, it.summary || ""));
+      const more = el("a","more","Learn more →"); more.href = "initiatives.html";
+      body.appendChild(more);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  /* =================================================================
+     EVENTS  (upcoming only)
+  ================================================================= */
+  async function loadEvents(){
+    const { data, error } = await db.from("events")
+      .select("title,slug,location,starts_at")
+      .eq("is_published", true).gte("starts_at", new Date().toISOString())
+      .order("starts_at",{ascending:true}).limit(3);
+    const list = $("#events-list"); list.innerHTML = "";
+    if(error || !data || !data.length){
+      list.appendChild(emptyCard("No events scheduled yet", "Upcoming events and gatherings will appear here. Follow along to be the first to know."));
+      return;
+    }
+    data.forEach(ev => {
+      const row = el("a","event-row"); row.href = "events.html";
+      const box = el("div","datebox");
+      box.appendChild(el("div","d", dayNum(ev.starts_at)));
+      box.appendChild(el("div","m", monTxt(ev.starts_at)));
+      row.appendChild(box);
+      const info = el("div","event-info");
+      info.appendChild(el("h3", null, ev.title));
+      const meta = [fmtDate(ev.starts_at), ev.location].filter(Boolean).join("  ·  ");
+      info.appendChild(el("div","meta", meta));
+      row.appendChild(info);
+      list.appendChild(row);
+    });
+  }
+
+  /* =================================================================
+     NEWS
+  ================================================================= */
+  async function loadNews(){
+    const { data, error } = await db.from("news_posts")
+      .select("title,slug,excerpt,cover_url,category,published_at,created_at")
+      .eq("status","published")
+      .order("published_at",{ascending:false,nullsFirst:false})
+      .order("created_at",{ascending:false}).limit(3);
+    const grid = $("#news-grid"); grid.innerHTML = "";
+    if(error || !data || !data.length){
+      grid.appendChild(emptyCard("The newsroom is warming up", "Official updates, releases, and statements will be published here."));
+      return;
+    }
+    data.forEach(p => {
+      const card = el("article","card");
+      const media = el("a","card-media"); media.href = "newsroom.html";
+      if(p.cover_url) media.style.backgroundImage = `url("${escAttr(p.cover_url)}")`;
+      card.appendChild(media);
+      const body = el("div","card-body");
+      if(p.category) body.appendChild(el("span","pill cat", p.category.replace("_"," ")));
+      body.appendChild(el("h3", null, p.title));
+      body.appendChild(el("p", null, p.excerpt || ""));
+      body.appendChild(el("div","date", fmtDate(p.published_at || p.created_at)));
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  /* =================================================================
+     INSTAGRAM
+  ================================================================= */
+  async function loadInstagram(){
+    const { data } = await db.from("instagram_posts").select("image_url,caption,permalink")
+      .eq("is_published", true).order("sort_order").order("posted_at",{ascending:false}).limit(6);
+    const grid = $("#ig-grid");
+    if(!data || !data.length){
+      grid.innerHTML = "";
+      grid.appendChild(emptyCard("Posts coming soon", "Follow @officeoftylernicholas on Instagram to see the latest."));
+      return;
+    }
+    grid.innerHTML = "";
+    data.forEach(post => {
+      const a = el("a"); a.href = post.permalink || "https://www.instagram.com/officeoftylernicholas/";
+      a.target = "_blank"; a.rel = "noopener";
+      const img = el("img"); img.src = post.image_url; img.alt = post.caption || "Instagram post"; img.loading = "lazy";
+      a.appendChild(img); grid.appendChild(a);
+    });
+  }
+
+  /* =================================================================
+     FEATURED QUOTE
+  ================================================================= */
+  async function loadQuote(){
+    const { data } = await db.from("quotes").select("text,attribution")
+      .eq("is_active", true).order("sort_order").limit(1);
+    if(data && data.length){
+      $("#quote-text").textContent = data[0].text;
+      $("#quote-cite").textContent = data[0].attribution || "Office of Tyler Nicholas";
+    }
+  }
+
+  /* ---------- shared empty-state card ---------- */
+  function emptyCard(title, msg){
+    const d = el("div","empty");
+    d.appendChild(el("strong", null, title));
+    d.appendChild(document.createTextNode(msg));
+    return d;
+  }
+
+  /* =================================================================
+     NEWSLETTER SIGN-UP
+  ================================================================= */
+  $("#signup-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = $("#signup-email").value.trim();
+    const note  = $("#signup-note");
+    const btn   = $("#signup-btn");
+    if(!email) return;
+    btn.disabled = true; note.className = "note"; note.textContent = "Signing you up…";
+    const { error } = await db.from("newsletter_subscribers").insert({ email });
+    btn.disabled = false;
+    if(!error){
+      note.className = "note ok"; note.textContent = "You're on the list — thank you for standing with the Office.";
+      $("#signup-email").value = "";
+    } else if(error.code === "23505"){
+      note.className = "note ok"; note.textContent = "You're already subscribed — welcome back.";
+    } else {
+      note.className = "note err"; note.textContent = "Something went wrong. Please try again in a moment.";
+    }
+  });
+
+  /* =================================================================
+     SEARCH  (full-text across news / initiatives / events)
+  ================================================================= */
+  const overlay = $("#search-overlay");
+  const openSearch = () => { overlay.classList.add("show"); setTimeout(()=>$("#overlay-input").focus(),40); };
+  const closeSearch = () => { overlay.classList.remove("show"); $("#results").innerHTML=""; $("#overlay-input").value=""; };
+  $("#open-search").addEventListener("click", openSearch);
+  $("#close-search").addEventListener("click", closeSearch);
+  overlay.addEventListener("click", e => { if(e.target === overlay) closeSearch(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") closeSearch(); });
+
+  $("#hero-search-form").addEventListener("submit", e => {
+    e.preventDefault();
+    const q = $("#hero-search-input").value.trim();
+    openSearch(); $("#overlay-input").value = q; runSearch(q);
+  });
+
+  let searchTimer;
+  $("#overlay-input").addEventListener("input", e => {
+    clearTimeout(searchTimer);
+    const q = e.target.value.trim();
+    searchTimer = setTimeout(() => runSearch(q), 250);
+  });
+  $("#overlay-form").addEventListener("submit", e => { e.preventDefault(); runSearch($("#overlay-input").value.trim()); });
+
+  async function runSearch(q){
+    const box = $("#results");
+    if(!q){ box.innerHTML=""; return; }
+    box.innerHTML = `<div class="none">Searching…</div>`;
+    const opt = { type:"websearch", config:"english" };
+    const [n, i, ev] = await Promise.allSettled([
+      db.from("news_posts").select("title,slug,excerpt").eq("status","published").textSearch("search_vector", q, opt).limit(5),
+      db.from("initiatives").select("title,slug,summary").eq("is_published",true).textSearch("search_vector", q, opt).limit(5),
+      db.from("events").select("title,slug,location").eq("is_published",true).textSearch("search_vector", q, opt).limit(5),
+    ]);
+    const news = n.value?.data || [], inits = i.value?.data || [], events = ev.value?.data || [];
+    box.innerHTML = "";
+    const group = (label, rows, page, sub) => {
+      if(!rows.length) return;
+      box.appendChild(el("div","grp", label));
+      rows.forEach(r => {
+        const a = el("a"); a.href = page;
+        a.appendChild(el("b", null, r.title));
+        const s = sub(r); if(s) a.appendChild(el("span", null, s));
+        box.appendChild(a);
+      });
+    };
+    group("Newsroom", news, "newsroom.html", r => r.excerpt);
+    group("Initiatives", inits, "initiatives.html", r => r.summary);
+    group("Events", events, "events.html", r => r.location);
+    if(!news.length && !inits.length && !events.length){
+      box.innerHTML = `<div class="none">No results yet for “${q}”. As the Office publishes content, it will appear here.</div>`;
+    }
+  }
+
+  /* =================================================================
+     NAV + REVEAL
+  ================================================================= */
+  const toggle = $("#menu-toggle");
+  toggle.addEventListener("click", () => {
+    const open = $("#navlinks").classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open);
+  });
+  $("#announce-close").addEventListener("click", () => $("#announce").classList.remove("show"));
+
+  // scroll reveal (progressive — elements are visible if JS fails)
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reveals = document.querySelectorAll(".reveal");
+  if(!prefersReduced && "IntersectionObserver" in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold:.12 });
+    reveals.forEach(r => io.observe(r));
+  } else {
+    reveals.forEach(r => r.classList.add("in"));
+  }
+
+  /* =================================================================
+     GO
+  ================================================================= */
+  loadSettings(); loadProfile(); loadImpact();
+  loadInitiatives(); loadEvents(); loadNews();
+  loadInstagram(); loadQuote();
+  </script>
+</body>
+</html>
