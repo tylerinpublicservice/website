@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — Office of Tyler Nicholas</title>
+  <meta name="description" content="Upcoming and past events, gatherings and engagements from the Office of Tyler Nicholas." />
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;--blue:#0B5FB0;--green:#0A8A43;--paper:#F6F8FB;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;--shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);--shadow-md:0 12px 30px -16px rgba(11,46,99,.28);--container:1180px;--radius:14px;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.loading{overflow:hidden;height:100vh}
+    img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none}
+    h1,h2,h3,h4{color:var(--navy);line-height:1.14;font-weight:800;letter-spacing:-.01em}
+    ::selection{background:var(--navy);color:#fff}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:70px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 8px 0}.skip:focus{left:0;top:0}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(200,16,46,.5)}.btn-accent:hover{background:var(--accent-600)}
+    .btn-outline{background:#fff;color:var(--navy);border-color:var(--line)}.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+    #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pl-flag{width:66px;height:44px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm);animation:plPulse 1.6s ease-in-out infinite}
+    @keyframes plPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+    .pl-ring{width:38px;height:38px;border:3px solid rgba(11,46,99,.15);border-top-color:var(--accent);border-radius:50%;animation:plSpin .9s linear infinite}
+    @keyframes plSpin{to{transform:rotate(360deg)}}
+    .pl-text{font-weight:800;color:var(--navy);font-size:1.05rem}
+    .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:10px 44px;position:relative;display:none}.announce.show{display:block}
+    .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;font-size:1rem;opacity:.75}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
+    header.scrolled{box-shadow:0 6px 24px -14px rgba(11,46,99,.4);background:rgba(255,255,255,.96)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+    .brand{display:flex;align-items:center;gap:13px}
+    .brand-flag{width:42px;height:28px;object-fit:cover;border-radius:4px;border:1px solid var(--line);box-shadow:var(--shadow-sm);flex:none}
+    .brand-text{font-weight:800;font-size:1.06rem;color:var(--navy)}
+    .nav-links{display:flex;align-items:center;gap:30px}
+    .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--navy);border-color:var(--accent)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,color .2s}
+    .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .menu-toggle{display:none}.nav-cta{padding:10px 20px;border-radius:10px}
+
+    .page-header{background:linear-gradient(120deg,var(--navy-900) 0%,var(--navy) 60%,var(--blue) 140%);color:#fff;position:relative;overflow:hidden}
+    .page-header::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent)}
+    .ph-inner{padding-block:70px 62px}
+    .ph-crumb{font-size:.8rem;color:#a9bbdb;font-weight:600;margin-bottom:14px}.ph-crumb a:hover{color:#fff}
+    .page-header h1{color:#fff;font-size:clamp(2.4rem,5vw,3.6rem)}
+    .page-header p{margin-top:16px;color:#cdd9ee;font-size:1.08rem;max-width:640px}
+
+    /* featured event */
+    .featured-card{display:grid;grid-template-columns:1.15fr 1fr;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md)}
+    .featured-media{position:relative;min-height:360px;background:#eef2f8}
+    .featured-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .featured-media .nocov{position:absolute;inset:0;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;color:rgba(255,255,255,.25);font-size:3rem}
+    .featured-flag{position:absolute;top:18px;left:18px;background:var(--accent);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:100px;z-index:2}
+    .featured-body{padding:44px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+    .featured-body h2{font-size:clamp(1.6rem,2.8vw,2.25rem);line-height:1.2}
+    .featured-body .fmeta{color:var(--muted);font-weight:600;display:flex;flex-direction:column;gap:6px;margin-top:2px}
+    .featured-body .fmeta span{display:flex;align-items:center;gap:9px}
+    .featured-body .fmeta i{color:var(--accent);width:16px}
+    .pill{align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:100px}
+    .pill.up{background:#e7f0fb;color:var(--blue)}.pill.past{background:#eef1f7;color:var(--muted)}
+
+    .controls{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin:48px 0 8px}
+    .tabs{display:flex;flex-wrap:wrap;gap:8px}
+    .tab{padding:9px 17px;border-radius:100px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:.86rem;color:var(--muted);transition:background .2s,color .2s,border-color .2s}
+    .tab:hover{border-color:var(--accent);color:var(--accent)}
+    .tab[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .search-mini{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:0 12px}
+    .search-mini i{color:var(--muted);font-size:.9rem}
+    .search-mini input{border:0;outline:none;padding:11px 4px;font-size:.92rem;width:190px;background:none}
+    .search-mini:focus-within{border-color:var(--accent)}
+    .result-count{font-size:.86rem;color:var(--muted);font-weight:600;margin:26px 0 22px}
+
+    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+    .event-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+    .event-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+    .event-media{aspect-ratio:16/10;position:relative;overflow:hidden;background:#eef2f8}
+    .event-media img{width:100%;height:100%;object-fit:cover}
+    .event-media .nocov{position:absolute;inset:0;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;color:rgba(255,255,255,.22);font-size:2.4rem}
+    .date-badge{position:absolute;top:14px;left:14px;background:#fff;border-radius:12px;padding:8px 10px;text-align:center;box-shadow:var(--shadow-sm);min-width:54px}
+    .date-badge .d{font-size:1.35rem;font-weight:800;color:var(--navy);line-height:1}
+    .date-badge .m{font-size:.64rem;font-weight:700;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
+    .event-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .event-body h3{font-size:1.18rem;line-height:1.3}
+    .event-body .meta{color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:5px}
+    .event-body .meta span{display:flex;align-items:center;gap:8px}
+    .event-body .meta i{color:var(--accent);width:15px;text-align:center}
+    .event-body .more{font-weight:700;color:var(--navy);font-size:.9rem;margin-top:auto}
+    .event-card:hover .more{color:var(--accent)}
+    .load-more{text-align:center;margin-top:44px}
+    .empty{border:1.5px dashed var(--line);border-radius:var(--radius);background:#fbfcfe;padding:60px 28px;text-align:center;color:var(--muted)}
+    .empty i{font-size:2rem;color:#c3cede;margin-bottom:14px}
+    .empty strong{display:block;color:var(--navy);font-size:1.2rem;margin-bottom:8px;font-weight:800}
+
+    footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
+    .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;padding-block:66px 40px}
+    .foot-brand .fb-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .foot-brand .fb-top img{width:44px;height:29px;object-fit:cover;border-radius:4px}
+    .foot-brand .fb-top b{color:#fff;font-size:1.08rem;font-weight:800}
+    .foot-brand p{font-size:.93rem;max-width:330px;color:#a7b6d0;line-height:1.7}
+    .socials{display:flex;gap:11px;margin-top:22px;flex-wrap:wrap}
+    .socials a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;font-size:1.05rem;transition:transform .2s,background .2s}
+    .socials a:hover{transform:translateY(-3px)}
+    .s-fb:hover{background:#1877F2}.s-x:hover{background:#000}.s-ig:hover{background:#E1306C}.s-in:hover{background:#0A66C2}.s-yt:hover{background:#FF0000}.s-tt:hover{background:#000}.s-th:hover{background:#000}
+    .foot-col h4{color:#fff;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+    .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#b9c8e0;transition:color .2s,padding-left .2s}
+    .foot-col a:hover{color:#fff;padding-left:4px}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
+    .foot-bottom a{color:#c3d0e4;font-weight:600}.foot-bottom a:hover{color:#fff}
+
+    .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}.overlay.show{display:block}
+    .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+    .search-panel form{display:flex;border-bottom:1px solid var(--line);align-items:center}
+    .search-panel input{flex:1;border:0;padding:20px 22px;font-size:1.15rem;outline:none}
+    .search-panel .close{padding:0 22px;color:var(--muted);font-size:1.3rem}
+    .results{max-height:56vh;overflow:auto;padding:8px 0}
+    .results .grp{padding:12px 22px 4px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+    .results a{display:block;padding:12px 22px;border-left:3px solid transparent}
+    .results a:hover,.results a:focus-visible{background:#f5f8fd;border-color:var(--accent);outline:none}
+    .results a b{color:var(--navy);font-weight:700}.results a span{display:block;font-size:.88rem;color:var(--muted)}
+    .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+    .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
+    .to-top.show{opacity:1;visibility:visible;transform:none}.to-top:hover{background:var(--accent)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}.reveal{opacity:1;transform:none;transition:none}}
+    @media (max-width:960px){.featured-card{grid-template-columns:1fr}.featured-media{min-height:240px}.card-grid{grid-template-columns:repeat(2,1fr)}.foot-grid{grid-template-columns:1fr 1fr}.search-mini input{width:150px}}
+    @media (max-width:680px){
+      .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
+      .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md)}
+      .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
+      .card-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}
+      .controls{flex-direction:column;align-items:stretch}.search-mini{flex:1}.search-mini input{width:100%}
+      .brand-text{font-size:.98rem}.featured-body{padding:30px}
+    }
+  </style>
+</head>
+<body class="loading">
+  <div id="preloader" role="status" aria-label="Loading"><div class="pl-inner"><img class="pl-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><div class="pl-ring"></div><div class="pl-text">Office of Tyler Nicholas</div></div></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="announce" id="announce" role="region" aria-label="Site announcement"><span id="announce-text"></span><button class="close" id="announce-close" aria-label="Dismiss announcement"><i class="fa-solid fa-xmark"></i></button></div>
+
+  <header id="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Office of Tyler Nicholas — home"><img class="brand-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><span class="brand-text">Office of Tyler Nicholas</span></a>
+      <nav class="nav-links" id="navlinks" aria-label="Primary"><a href="/">Home</a><a href="/about">About</a><a href="/newsroom">Newsroom</a><a href="/media">Media</a><a href="/contact">Contact</a></nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="open-search" aria-label="Search the site"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a class="btn btn-accent nav-cta" href="/volunteer">Get Involved</a>
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-header">
+      <div class="container ph-inner">
+        <div class="ph-crumb"><a href="/">Home</a> &nbsp;/&nbsp; Events</div>
+        <h1>Events</h1>
+        <p>Upcoming gatherings, engagements and community events — and a look back at where we've been.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="featured" class="reveal"></div>
+        <div class="controls" role="region" aria-label="Filter events">
+          <div class="tabs" id="tabs" role="group" aria-label="Filter events">
+            <button class="tab" data-f="upcoming" aria-pressed="true">Upcoming</button>
+            <button class="tab" data-f="past" aria-pressed="false">Past</button>
+            <button class="tab" data-f="all" aria-pressed="false">All</button>
+          </div>
+          <div class="search-mini"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="ev-search" placeholder="Search events" aria-label="Search events" /></div>
+        </div>
+        <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+        <div class="card-grid" id="grid"></div>
+        <div class="load-more"><button class="btn btn-outline" id="load-more" style="display:none">Load more events</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <div class="fb-top"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><b>Office of Tyler Nicholas</b></div>
+        <p>The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas, in the Republic of Seychelles.</p>
+        <div class="socials">
+          <a class="s-fb" href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="s-x" href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="s-ig" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="s-in" href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a class="s-yt" href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a class="s-tt" href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="s-th" href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>The Office</h4><a href="/about">About Tyler Nicholas</a><a href="/initiatives">Initiatives</a><a href="/newsroom">Newsroom</a></div>
+      <div class="foot-col"><h4>Engage</h4><a href="/contact">Contact the Office</a><a href="/volunteer">Volunteer</a><a href="/resources">Resources</a><a href="/media">Media</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/events">Events</a><a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">Instagram</a><a href="mailto:" id="foot-email">Email the Office</a></div>
+    </div>
+    <div class="container foot-bottom"><span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved. &nbsp;&middot;&nbsp; <a href="/admin">Admin</a></span></div>
+  </footer>
+
+  <button class="to-top" id="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-panel"><form id="overlay-form" role="search"><input type="search" id="overlay-input" placeholder="Search the office…" aria-label="Search" autocomplete="off" /><button type="button" class="close" id="close-search" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button></form><div class="results" id="results"></div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL="https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+  const $=(s,r=document)=>r.querySelector(s);
+  const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+  const prefersReduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fmtDate=iso=>new Intl.DateTimeFormat("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(new Date(iso));
+  const fmtTime=iso=>new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit"}).format(new Date(iso));
+  const dayNum=iso=>new Intl.DateTimeFormat("en-GB",{day:"2-digit"}).format(new Date(iso));
+  const monTxt=iso=>new Intl.DateTimeFormat("en-GB",{month:"short"}).format(new Date(iso)).toUpperCase();
+  const EV=slug=>`/events/event?slug=${encodeURIComponent(slug)}`;
+  $("#year").textContent=new Date().getFullYear();
+  function hidePreloader(){const p=$("#preloader");if(!p||p.classList.contains("hide"))return;p.classList.add("hide");document.body.classList.remove("loading");setTimeout(()=>p.remove(),600);}
+  window.addEventListener("load",hidePreloader);setTimeout(hidePreloader,6000);
+
+  let ALL=[], state={f:"upcoming",q:"",shown:0}, PER=9;
+  const isPast=e=>new Date(e.starts_at).getTime() < Date.now();
+
+  function currentList(){
+    const now=Date.now();
+    const up=ALL.filter(e=>new Date(e.starts_at).getTime()>=now).sort((a,b)=>new Date(a.starts_at)-new Date(b.starts_at));
+    const past=ALL.filter(e=>new Date(e.starts_at).getTime()<now).sort((a,b)=>new Date(b.starts_at)-new Date(a.starts_at));
+    let list = state.f==="past"?past : state.f==="all"?[...up,...past] : up;
+    if(state.q){const q=state.q.toLowerCase();list=list.filter(e=>(e.title||"").toLowerCase().includes(q)||(e.location||"").toLowerCase().includes(q));}
+    return list;
+  }
+  function makeCard(e){
+    const past=isPast(e);
+    const card=el("a","event-card");card.href=EV(e.slug);
+    const media=el("div","event-media");
+    if(e.cover_url){const im=el("img");im.src=e.cover_url;im.alt=e.title;im.loading="lazy";media.appendChild(im);}
+    else{const nc=el("div","nocov");nc.innerHTML='<i class="fa-regular fa-calendar"></i>';media.appendChild(nc);}
+    const badge=el("div","date-badge");badge.appendChild(el("div","d",dayNum(e.starts_at)));badge.appendChild(el("div","m",monTxt(e.starts_at)));media.appendChild(badge);
+    card.appendChild(media);
+    const body=el("div","event-body");
+    body.appendChild(el("span",`pill ${past?"past":"up"}`,past?"Past":"Upcoming"));
+    body.appendChild(el("h3",null,e.title));
+    const meta=el("div","meta");
+    const t=el("span");t.innerHTML=`<i class="fa-regular fa-clock"></i> ${fmtDate(e.starts_at)} · ${fmtTime(e.starts_at)}`;meta.appendChild(t);
+    if(e.location){const loc=el("span");loc.innerHTML=`<i class="fa-solid fa-location-dot"></i> ${e.location}`;meta.appendChild(loc);}
+    body.appendChild(meta);
+    body.appendChild(el("div","more","View details →"));
+    card.appendChild(body);
+    return card;
+  }
+  function emptyState(){
+    const d=el("div","empty");
+    if(!ALL.length){ d.innerHTML='<i class="fa-regular fa-calendar-xmark"></i><strong>No events scheduled yet</strong>Upcoming events and gatherings will appear here. Follow along to be the first to know.'; }
+    else if(state.f==="upcoming"){ d.innerHTML='<i class="fa-regular fa-calendar"></i><strong>No upcoming events right now</strong>Check back soon, or browse past events.'; }
+    else{ d.innerHTML='<i class="fa-regular fa-folder-open"></i><strong>Nothing here</strong>No events match your search.'; }
+    return d;
+  }
+  function renderGrid(reset){
+    const grid=$("#grid");const list=currentList();
+    if(reset) state.shown=0;
+    if(!list.length){grid.innerHTML="";grid.appendChild(emptyState());$("#load-more").style.display="none";$("#result-count").textContent="";return;}
+    if(reset) grid.innerHTML="";
+    const next=list.slice(state.shown,state.shown+PER);next.forEach(e=>grid.appendChild(makeCard(e)));state.shown+=next.length;
+    $("#load-more").style.display=state.shown<list.length?"inline-flex":"none";
+    $("#result-count").textContent=`Showing ${state.shown} of ${list.length} event${list.length===1?"":"s"}.`;
+  }
+  function renderFeatured(){
+    const box=$("#featured");if(!ALL.length){box.innerHTML="";return;}
+    const now=Date.now();
+    const up=ALL.filter(e=>new Date(e.starts_at).getTime()>=now).sort((a,b)=>new Date(a.starts_at)-new Date(b.starts_at));
+    const past=ALL.filter(e=>new Date(e.starts_at).getTime()<now).sort((a,b)=>new Date(b.starts_at)-new Date(a.starts_at));
+    const e = ALL.find(x=>x.is_featured && !isPast(x)) || up[0] || past[0];
+    if(!e){box.innerHTML="";return;}
+    const past2=isPast(e);
+    const card=el("a","featured-card");card.href=EV(e.slug);card.setAttribute("aria-label",`Featured event: ${e.title}`);
+    const media=el("div","featured-media");
+    media.appendChild(Object.assign(el("span","featured-flag"),{textContent:past2?"Featured":"Next up"}));
+    if(e.cover_url){const im=el("img");im.src=e.cover_url;im.alt=e.title;media.appendChild(im);}
+    else{const nc=el("div","nocov");nc.innerHTML='<i class="fa-regular fa-calendar"></i>';media.appendChild(nc);}
+    const body=el("div","featured-body");
+    body.appendChild(el("span",`pill ${past2?"past":"up"}`,past2?"Past event":"Upcoming"));
+    body.appendChild(el("h2",null,e.title));
+    const fm=el("div","fmeta");
+    const t=el("span");t.innerHTML=`<i class="fa-regular fa-clock"></i> ${fmtDate(e.starts_at)} · ${fmtTime(e.starts_at)}`;fm.appendChild(t);
+    if(e.location){const l=el("span");l.innerHTML=`<i class="fa-solid fa-location-dot"></i> ${e.location}`;fm.appendChild(l);}
+    body.appendChild(fm);
+    const cta=el("span");cta.style.cssText="color:var(--accent);font-weight:700;margin-top:6px";cta.textContent="View event details →";body.appendChild(cta);
+    card.appendChild(media);card.appendChild(body);box.innerHTML="";box.appendChild(card);
+  }
+
+  async function loadEvents(){
+    const { data, error } = await db.from("events")
+      .select("title,slug,description,starts_at,ends_at,location,cover_url,registration_url,allow_rsvp,is_featured")
+      .eq("is_published",true).order("starts_at",{ascending:true});
+    ALL = error? [] : (data||[]);
+    renderFeatured(); renderGrid(true);
+  }
+
+  $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;state.f=b.dataset.f;[...$("#tabs").children].forEach(t=>t.setAttribute("aria-pressed",t===b?"true":"false"));renderGrid(true);});
+  let st;$("#ev-search").addEventListener("input",e=>{clearTimeout(st);st=setTimeout(()=>{state.q=e.target.value.trim();renderGrid(true);},220);});
+  $("#load-more").addEventListener("click",()=>renderGrid(false));
+
+  /* global search overlay */
+  const overlay=$("#search-overlay");let lastFocused=null;
+  const openSearch=()=>{lastFocused=document.activeElement;overlay.classList.add("show");setTimeout(()=>$("#overlay-input").focus(),40);};
+  const closeSearch=()=>{overlay.classList.remove("show");$("#results").innerHTML="";$("#overlay-input").value="";if(lastFocused)lastFocused.focus();};
+  $("#open-search").addEventListener("click",openSearch);$("#close-search").addEventListener("click",closeSearch);
+  overlay.addEventListener("click",e=>{if(e.target===overlay)closeSearch();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("show"))closeSearch();});
+  let gt;$("#overlay-input").addEventListener("input",e=>{clearTimeout(gt);const q=e.target.value.trim();gt=setTimeout(()=>runSearch(q),250);});
+  $("#overlay-form").addEventListener("submit",e=>{e.preventDefault();runSearch($("#overlay-input").value.trim());});
+  async function runSearch(q){
+    const box=$("#results");if(!q){box.innerHTML="";return;}
+    box.innerHTML=`<div class="none">Searching…</div>`;const opt={type:"websearch",config:"english"};
+    const[n,i,ev]=await Promise.allSettled([
+      db.from("news_posts").select("title,slug,excerpt").eq("status","published").textSearch("search_vector",q,opt).limit(4),
+      db.from("initiatives").select("title,summary").eq("is_published",true).textSearch("search_vector",q,opt).limit(4),
+      db.from("events").select("title,slug,location").eq("is_published",true).textSearch("search_vector",q,opt).limit(6),
+    ]);
+    const news=n.value?.data||[],inits=i.value?.data||[],events=ev.value?.data||[];box.innerHTML="";
+    const group=(label,rows,mk)=>{if(!rows.length)return;box.appendChild(el("div","grp",label));rows.forEach(r=>box.appendChild(mk(r)));};
+    group("Events",events,r=>{const a=el("a");a.href=EV(r.slug);a.appendChild(el("b",null,r.title));if(r.location)a.appendChild(el("span",null,r.location));return a;});
+    group("Newsroom",news,r=>{const a=el("a");a.href=`/newsroom/article?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.excerpt)a.appendChild(el("span",null,r.excerpt));return a;});
+    group("Initiatives",inits,r=>{const a=el("a");a.href="/initiatives";a.appendChild(el("b",null,r.title));if(r.summary)a.appendChild(el("span",null,r.summary));return a;});
+    if(!news.length&&!inits.length&&!events.length){box.innerHTML=`<div class="none">No results yet for “${q}”.</div>`;}
+  }
+
+  const toggle=$("#menu-toggle");
+  toggle.addEventListener("click",()=>{const o=$("#navlinks").classList.toggle("open");toggle.setAttribute("aria-expanded",o);});
+  $("#navlinks").addEventListener("click",e=>{if(e.target.tagName==="A"){$("#navlinks").classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
+  $("#announce-close").addEventListener("click",()=>$("#announce").classList.remove("show"));
+  const header=$("#site-header"),toTop=$("#to-top");
+  const onScroll=()=>{header.classList.toggle("scrolled",window.scrollY>10);toTop.classList.toggle("show",window.scrollY>600);};
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:prefersReduced?"auto":"smooth"}));
+  const reveals=document.querySelectorAll(".reveal");
+  if(!prefersReduced&&"IntersectionObserver" in window){const io=new IntersectionObserver(en=>{en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.1});reveals.forEach(r=>io.observe(r));}else{reveals.forEach(r=>r.classList.add("in"));}
+  async function loadSettings(){const{data,error}=await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();if(error||!data)return;if(data.announcement_active&&data.announcement_text){$("#announce-text").textContent=data.announcement_text+" ";if(data.announcement_url){const a=el("a",null,"Learn more");a.href=data.announcement_url;$("#announce-text").appendChild(a);}$("#announce").classList.add("show");}if(data.contact_email)$("#foot-email").href="mailto:"+data.contact_email;}
+
+  loadEvents(); loadSettings();
+  </script>
+</body>
+</html>
