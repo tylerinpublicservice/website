@@ -1,559 +1,804 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Admin Portal | Office of Tyler Nicholas</title>
-    
-    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin — Office of Tyler Nicholas</title>
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;--blue:#0B5FB0;--green:#0A8A43;--amber:#B8860B;--paper:#F4F6FA;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;--shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);--shadow-md:0 12px 30px -16px rgba(11,46,99,.28);}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none}
+    img{display:block;max-width:100%}
+    h1,h2,h3,h4{line-height:1.2;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+    input,select,textarea{font-family:inherit}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.9rem;padding:11px 18px;border-radius:9px;border:2px solid transparent;transition:transform .12s,background .2s,border-color .2s,color .2s;white-space:nowrap}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:var(--accent-600)}
+    .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-900)}
+    .btn-ghost{background:#fff;color:var(--navy);border-color:var(--line)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-danger{background:#fff;color:var(--accent);border-color:#f0d2d7}.btn-danger:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn-sm{padding:8px 12px;font-size:.82rem}
+    .spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+    @keyframes sp{to{transform:rotate(360deg)}}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: { blue: '#0033a0', lightblue: '#005eb8' }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-    </style>
+    /* LOGIN */
+    #login{position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(130deg,var(--navy-900),var(--navy) 60%,var(--blue));padding:24px}
+    .login-card{background:#fff;border-radius:18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.6);width:100%;max-width:420px;padding:40px 36px}
+    .login-brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .login-brand img{width:44px;height:29px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm)}
+    .login-brand b{font-size:1.05rem;color:var(--navy);font-weight:800;line-height:1.1}
+    .login-card h1{font-size:1.5rem;margin-bottom:6px}
+    .login-card .sub{color:var(--muted);font-size:.92rem;margin-bottom:24px}
+    .login-field{margin-bottom:16px}
+    .login-field label{display:block;font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:7px}
+    .login-field input{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:.98rem;outline:none;transition:border-color .2s,box-shadow .2s}
+    .login-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+    .login-msg{font-size:.88rem;font-weight:600;min-height:1.2em;margin-bottom:8px}
+    .login-msg.err{color:var(--accent)}.login-msg.ok{color:var(--green)}
+    .login-hint{font-size:.82rem;color:var(--muted);margin-top:18px;line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+
+    /* SHELL */
+    #app{display:none;min-height:100vh}
+    .layout{display:grid;grid-template-columns:262px 1fr;min-height:100vh}
+    .sidebar{background:var(--navy-900);color:#c3d0e4;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+    .side-brand{display:flex;align-items:center;gap:11px;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .side-brand img{width:38px;height:25px;object-fit:cover;border-radius:4px}
+    .side-brand b{color:#fff;font-size:.98rem;font-weight:800;line-height:1.1}
+    .side-brand span{display:block;font-size:.68rem;color:#8ea0be;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    .side-nav{flex:1;padding:14px 12px}
+    .side-group{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#6b7f9e;font-weight:700;padding:16px 12px 8px}
+    .side-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:#b9c8e0;font-weight:600;font-size:.9rem;transition:background .16s,color .16s;width:100%;text-align:left;position:relative}
+    .side-link i{width:18px;text-align:center;font-size:.95rem}
+    .side-link:hover{background:rgba(255,255,255,.06);color:#fff}
+    .side-link.active{background:var(--accent);color:#fff}
+    .side-link .badge{margin-left:auto;background:var(--accent);color:#fff;font-size:.68rem;font-weight:800;border-radius:100px;padding:2px 8px;min-width:20px;text-align:center}
+    .side-link.active .badge{background:rgba(255,255,255,.25)}
+    .side-foot{padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
+    .side-user{font-size:.82rem;color:#8ea0be;margin-bottom:10px;word-break:break-all}
+    .side-user b{color:#fff;display:block;font-size:.9rem}
+    .signout{display:flex;align-items:center;gap:8px;color:#c3d0e4;font-weight:700;font-size:.85rem;padding:8px 0}
+    .signout:hover{color:#fff}
+
+    .main{min-width:0;display:flex;flex-direction:column}
+    .topbar{background:#fff;border-bottom:1px solid var(--line);padding:0 30px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+    .topbar h2{font-size:1.15rem}
+    .mob-toggle{display:none}
+    .view-site{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:700;font-size:.85rem}
+    .view-site:hover{color:var(--accent)}
+    .content{padding:30px;max-width:1100px;width:100%}
+
+    /* dashboard */
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-bottom:30px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .18s,box-shadow .18s}
+    .stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+    .stat .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .stat .ic{width:42px;height:42px;border-radius:11px;background:#eaf0f9;color:var(--navy);display:grid;place-items:center;font-size:1.05rem}
+    .stat .n{font-size:2rem;font-weight:800;color:var(--navy);line-height:1}
+    .stat .l{color:var(--muted);font-size:.88rem;font-weight:600;margin-top:5px}
+    .stat.alert .ic{background:#fbe9ec;color:var(--accent)}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);margin-bottom:24px;overflow:hidden}
+    .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+    .panel-head h3{font-size:1.05rem}
+    .panel-body{padding:22px}
+    .setup-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+    .setup-item:last-child{border-bottom:0}
+    .setup-item i{width:22px;text-align:center}
+    .setup-item .ok{color:var(--green)}.setup-item .todo{color:var(--amber)}
+
+    /* toolbar */
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+    .toolbar .left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:0 12px}
+    .search-box i{color:var(--muted);font-size:.85rem}
+    .search-box input{border:0;outline:none;padding:10px 4px;font-size:.9rem;width:200px;background:none}
+
+    /* table */
+    .table-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden}
+    table{width:100%;border-collapse:collapse}
+    thead th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:14px 18px;border-bottom:1px solid var(--line);background:#fafbfd}
+    tbody td{padding:14px 18px;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:middle}
+    tbody tr:last-child td{border-bottom:0}
+    tbody tr:hover{background:#fafbfd}
+    td.actions{text-align:right;white-space:nowrap}
+    td.actions button{margin-left:6px}
+    .cell-title{font-weight:700;color:var(--navy)}
+    .pill{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+    .pill.on{background:#e6f4ec;color:var(--green)}.pill.off{background:#eef1f7;color:var(--muted)}
+    .pill.draft{background:#fbf3e2;color:var(--amber)}.pill.published{background:#e6f4ec;color:var(--green)}.pill.archived{background:#eef1f7;color:var(--muted)}
+    .pill.active{background:#e6f4ec;color:var(--green)}.pill.upcoming{background:#e7f0fb;color:var(--blue)}.pill.completed{background:#eef1f7;color:var(--muted)}
+    .pill.cat{background:#eef1f7;color:var(--navy)}
+    .empty-state{padding:60px 24px;text-align:center;color:var(--muted)}
+    .empty-state i{font-size:2rem;color:#c3cede;margin-bottom:12px}
+    .empty-state strong{display:block;color:var(--navy);font-size:1.1rem;margin-bottom:6px}
+    .loading-row{padding:40px;text-align:center;color:var(--muted)}
+
+    /* form */
+    .form-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden}
+    .form-body{padding:26px 28px}
+    .fld{margin-bottom:20px}
+    .fld > label{display:block;font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:7px}
+    .fld .req{color:var(--accent)}
+    .fld .help{font-size:.8rem;color:var(--muted);margin-top:6px}
+    .fld input[type=text],.fld input[type=url],.fld input[type=email],.fld input[type=number],.fld input[type=date],.fld input[type=datetime-local],.fld select,.fld textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 13px;font-size:.95rem;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+    .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+    .fld textarea{resize:vertical;min-height:90px}
+    .fld textarea.rich{min-height:200px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem;line-height:1.6}
+    .form-group-head{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:28px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+    .form-group-head:first-child{margin-top:0}
+    .toggle{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+    .toggle input{position:absolute;opacity:0;width:0;height:0}
+    .toggle .track{width:46px;height:26px;border-radius:100px;background:#cdd5e2;position:relative;transition:background .2s;flex:none}
+    .toggle .track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    .toggle input:checked + .track{background:var(--green)}
+    .toggle input:checked + .track::after{transform:translateX(20px)}
+    .toggle .tlabel{font-weight:600;color:var(--ink);font-size:.92rem}
+    .uploader{display:flex;gap:10px;align-items:center}
+    .uploader input[type=text],.uploader input[type=url]{flex:1}
+    .upload-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:.82rem;padding:11px 14px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:border-color .2s,color .2s}
+    .upload-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .img-prev{margin-top:10px}
+    .img-prev img{max-height:120px;border-radius:10px;border:1px solid var(--line)}
+    .socials-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .social-in{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:10px;padding:0 12px}
+    .social-in i{color:var(--muted);width:18px;text-align:center}
+    .social-in input{border:0;outline:none;padding:11px 4px;font-size:.9rem;width:100%;background:none}
+    .form-foot{padding:18px 28px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fafbfd;position:sticky;bottom:0}
+    .form-foot .note{font-size:.85rem;font-weight:600;min-height:1em}
+    .form-foot .note.ok{color:var(--green)}.form-foot .note.err{color:var(--accent)}
+    .form-actions{display:flex;gap:10px}
+
+    /* inbox */
+    .msg{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-sm);margin-bottom:14px;overflow:hidden}
+    .msg.unread{border-left:4px solid var(--accent)}
+    .msg-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;cursor:pointer;flex-wrap:wrap}
+    .msg-who b{color:var(--navy);font-size:.98rem}
+    .msg-who .meta{color:var(--muted);font-size:.84rem;margin-top:2px}
+    .msg-who .meta a{color:var(--blue)}
+    .msg-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .msg-date{font-size:.82rem;color:var(--muted);font-weight:600}
+    .msg-body{padding:0 20px 18px;border-top:1px solid var(--line);display:none}
+    .msg.open .msg-body{display:block;padding-top:16px}
+    .msg-body .row{margin-bottom:8px;font-size:.9rem}
+    .msg-body .row b{color:var(--navy)}
+    .msg-body .txt{white-space:pre-wrap;color:#28374f;background:#fafbfd;border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:8px;font-size:.92rem;line-height:1.6}
+    .tagchip{display:inline-block;background:#eef1f7;color:var(--navy);border-radius:100px;padding:3px 10px;font-size:.78rem;font-weight:600;margin:2px 4px 2px 0}
+
+    /* toast */
+    #toasts{position:fixed;right:20px;bottom:20px;z-index:200;display:flex;flex-direction:column;gap:10px}
+    .toast{background:var(--navy-900);color:#fff;padding:13px 18px;border-radius:10px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;animation:slideIn .25s ease}
+    .toast.ok{background:var(--green)}.toast.err{background:var(--accent)}
+    @keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:none;opacity:1}}
+
+    .backdrop{display:none}
+    @media (max-width:900px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:fixed;left:0;top:0;bottom:0;width:262px;z-index:60;transform:translateX(-100%);transition:transform .25s}
+      .sidebar.open{transform:none}
+      .mob-toggle{display:grid;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;place-items:center;color:var(--navy)}
+      .backdrop.show{display:block;position:fixed;inset:0;background:rgba(7,27,61,.5);z-index:55}
+      .content{padding:20px}.topbar{padding:0 18px}
+      .socials-grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased h-screen overflow-hidden flex">
-
-    <div id="login-overlay" class="fixed inset-0 z-[100] bg-gray-900 flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
-        <div class="absolute inset-0 bg-gray-900/80 backdrop-blur-md"></div>
-        <div class="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border-t-8 border-brand-blue">
-            <div class="text-center mb-8">
-                <i class="fa-solid fa-shield-halved text-4xl text-brand-blue mb-4"></i>
-                <h2 class="text-2xl font-black text-gray-900 tracking-tight">Secure Access</h2>
-                <p class="text-sm text-gray-500 mt-1">Office of Tyler Nicholas Executive Portal</p>
-            </div>
-            <form id="login-form" onsubmit="handleLogin(event)">
-                <div class="mb-5">
-                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Access Key</label>
-                    <input type="password" id="admin-pass" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition" placeholder="Enter administrative password">
-                </div>
-                <button type="submit" class="w-full py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition shadow-md flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-lock text-sm"></i> Authenticate
-                </button>
-                <p id="login-error" class="text-red-500 text-xs font-bold text-center mt-4 hidden">Invalid credentials. Access denied.</p>
-                <p class="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-widest">Authorized Personnel Only</p>
-            </form>
-        </div>
+<body>
+  <!-- LOGIN -->
+  <div id="login">
+    <div class="login-card">
+      <div class="login-brand"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><span><b>Office of Tyler Nicholas</b>Content Management</span></div>
+      <h1>Admin sign in</h1>
+      <p class="sub">Sign in to manage the website.</p>
+      <form id="login-form">
+        <div class="login-field"><label for="lg-email">Email</label><input id="lg-email" type="email" autocomplete="username" required /></div>
+        <div class="login-field"><label for="lg-pass">Password</label><input id="lg-pass" type="password" autocomplete="current-password" required /></div>
+        <div class="login-msg" id="lg-msg" role="status" aria-live="polite"></div>
+        <button type="submit" class="btn btn-accent" id="lg-btn" style="width:100%"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
+      </form>
+      <p class="login-hint">Use the email &amp; password created in Supabase (Authentication → Users). Only accounts listed as admins can sign in.</p>
     </div>
+  </div>
 
-    <aside class="w-64 bg-gray-900 text-white flex flex-col shadow-xl z-20 flex-shrink-0">
-        <div class="h-20 flex items-center px-6 border-b border-gray-800">
-            <h1 class="text-lg font-black tracking-tight text-white leading-tight">Tyler Nicholas<br><span class="text-brand-lightblue text-sm">Admin Portal</span></h1>
+  <!-- APP -->
+  <div id="app">
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="side-brand"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><div><b>Office of Tyler</b><span>Admin</span></div></div>
+        <nav class="side-nav" id="side-nav"></nav>
+        <div class="side-foot">
+          <div class="side-user"><b id="su-name">Admin</b><span id="su-email"></span></div>
+          <button class="signout" id="signout"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
         </div>
-        
-        <nav class="flex-grow py-6 px-4 space-y-2 overflow-y-auto">
-            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 pl-2">Overview</p>
-            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg bg-brand-blue text-white font-medium transition text-sm">
-                <i class="fa-solid fa-chart-line w-5 text-center"></i> Dashboard
-            </button>
-            <button onclick="switchTab('inbox')" id="nav-inbox" class="nav-btn w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <div class="flex items-center gap-3"><i class="fa-solid fa-inbox w-5 text-center"></i> Inbox</div>
-                <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full" id="badge-inbox">0</span>
-            </button>
-            
-            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-8 mb-2 pl-2">Content Manager</p>
-            <button onclick="switchTab('cms-news')" id="nav-cms-news" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-newspaper w-5 text-center"></i> News & Press
-            </button>
-            <button onclick="switchTab('cms-init')" id="nav-cms-init" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-bolt w-5 text-center"></i> Initiatives
-            </button>
-            <button onclick="switchTab('cms-events')" id="nav-cms-events" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-calendar-day w-5 text-center"></i> Events
-            </button>
-            <button onclick="switchTab('cms-docs')" id="nav-cms-docs" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-file-pdf w-5 text-center"></i> Documents
-            </button>
-
-            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-8 mb-2 pl-2">System</p>
-            <button onclick="switchTab('subscribers')" id="nav-subscribers" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-users w-5 text-center"></i> Subscribers
-            </button>
-            <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm">
-                <i class="fa-solid fa-gear w-5 text-center"></i> Site Config
-            </button>
-        </nav>
-        
-        <div class="p-4 border-t border-gray-800">
-            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-red-400 transition text-sm font-medium">
-                <i class="fa-solid fa-arrow-right-from-bracket w-5 text-center"></i> Secure Logout
-            </button>
+      </aside>
+      <div class="backdrop" id="backdrop"></div>
+      <div class="main">
+        <div class="topbar">
+          <div style="display:flex;align-items:center;gap:14px">
+            <button class="mob-toggle" id="mob-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+            <h2 id="view-title">Dashboard</h2>
+          </div>
+          <a class="view-site" href="/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> View site</a>
         </div>
-    </aside>
-
-    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50 relative">
-        
-        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow-sm flex-shrink-0 z-10">
-            <div>
-                <h2 id="header-title" class="text-xl font-black text-gray-900 tracking-tight">System Dashboard</h2>
-                <p id="header-subtitle" class="text-xs font-medium text-gray-500">Live platform overview and analytics</p>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="/" target="_blank" class="text-xs font-bold text-gray-500 border border-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 transition">View Live Site <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-                <div class="w-10 h-10 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold shadow-md">
-                    TN
-                </div>
-            </div>
-        </header>
-
-        <div class="flex-1 overflow-y-auto p-8" id="view-container">
-            
-            <div id="view-dashboard" class="tab-view block">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-blue-50 text-brand-blue flex items-center justify-center text-xl"><i class="fa-solid fa-inbox"></i></div>
-                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">New Messages</p><p class="text-2xl font-black text-gray-900" id="stat-messages">0</p></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-green-50 text-green-600 flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div>
-                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Subscribers</p><p class="text-2xl font-black text-gray-900" id="stat-subs">0</p></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center text-xl"><i class="fa-solid fa-newspaper"></i></div>
-                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">News Articles</p><p class="text-2xl font-black text-gray-900" id="stat-news">0</p></div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-xl"><i class="fa-solid fa-bolt"></i></div>
-                        <div><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Active Initiatives</p><p class="text-2xl font-black text-gray-900" id="stat-init">0</p></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm">
-                        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                            <h3 class="font-bold text-gray-900">Recent Inbox Activity</h3>
-                            <button onclick="switchTab('inbox')" class="text-xs font-bold text-brand-lightblue hover:text-brand-blue">View All</button>
-                        </div>
-                        <div class="p-0">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                                        <th class="p-4 border-b border-gray-100">Date</th>
-                                        <th class="p-4 border-b border-gray-100">Subject/Type</th>
-                                        <th class="p-4 border-b border-gray-100">Sender</th>
-                                        <th class="p-4 border-b border-gray-100">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dash-recent-messages" class="text-sm divide-y divide-gray-100">
-                                    <tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">Loading recent activity...</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-                        <h3 class="font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">Quick Actions</h3>
-                        <div class="space-y-3">
-                            <button onclick="openModal('New Article', 'news')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
-                                <i class="fa-solid fa-plus text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Publish News Update</span>
-                            </button>
-                            <button onclick="openModal('New Event', 'event')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
-                                <i class="fa-solid fa-calendar-plus text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Schedule Event</span>
-                            </button>
-                            <button onclick="openModal('System Announcement', 'announcement')" class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-brand-blue hover:bg-blue-50 transition flex items-center gap-3">
-                                <i class="fa-solid fa-bullhorn text-brand-lightblue"></i> <span class="text-sm font-semibold text-gray-700">Update Announcement Bar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="view-inbox" class="tab-view hidden">
-                <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col h-[calc(100vh-12rem)]">
-                    <div class="p-4 border-b border-gray-100 bg-gray-50 rounded-t-xl flex justify-between items-center">
-                        <div class="flex gap-2">
-                            <button class="px-4 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-md shadow">All Messages</button>
-                            <button class="px-4 py-1.5 bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold rounded-md transition">Unread</button>
-                        </div>
-                        <button class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-rotate-right"></i></button>
-                    </div>
-                    <div class="flex-grow overflow-auto p-0">
-                        <table class="w-full text-left border-collapse relative">
-                            <thead class="sticky top-0 bg-white shadow-sm z-10">
-                                <tr class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">
-                                    <th class="p-4">Date</th>
-                                    <th class="p-4">Type</th>
-                                    <th class="p-4">From</th>
-                                    <th class="p-4">Message Snippet</th>
-                                    <th class="p-4 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inbox-table" class="text-sm divide-y divide-gray-100">
-                                <tr><td colspan="5" class="p-10 text-center text-gray-500">Loading inbox...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="view-cms" class="tab-view hidden">
-                <div class="mb-6 flex justify-between items-center">
-                    <h3 id="cms-table-title" class="text-xl font-bold text-gray-900">Content Directory</h3>
-                    <button onclick="openModal('Create Record', currentCmsType)" class="px-5 py-2 bg-brand-blue hover:bg-brand-lightblue text-white text-sm font-bold rounded-lg transition shadow-md flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i> Add New
-                    </button>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                    <table class="w-full text-left border-collapse">
-                        <thead id="cms-thead" class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">
-                            </thead>
-                        <tbody id="cms-tbody" class="text-sm divide-y divide-gray-100">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <div id="action-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
-        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl relative z-10 flex flex-col max-h-[90vh]">
-            <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
-                <h3 id="modal-title" class="font-black text-gray-900 text-lg">Edit Record</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="p-6 overflow-y-auto flex-grow" id="modal-body">
-                </div>
-            <div class="p-5 border-t border-gray-100 bg-gray-50 rounded-b-xl flex justify-end gap-3">
-                <button onclick="closeModal()" class="px-5 py-2 bg-white border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition text-sm">Cancel</button>
-                <button onclick="saveModalData()" class="px-5 py-2 bg-brand-blue text-white font-bold rounded-lg hover:bg-brand-lightblue transition shadow text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-floppy-disk"></i> Save Changes
-                </button>
-            </div>
-        </div>
+        <div class="content" id="content"></div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Supabase Init
-        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <div id="toasts"></div>
 
-        let currentTab = 'dashboard';
-        let currentCmsType = '';
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL="https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+  const $=(s,r=document)=>r.querySelector(s);
+  const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+  const LABELS={news:"News",press_release:"Press Release",speech:"Speech",statement:"Statement",draft:"Draft",published:"Published",archived:"Archived",active:"Active",upcoming:"Upcoming",completed:"Completed",photo:"Photo",video:"Video",general:"General",speaking:"Speaking",media:"Media",volunteer:"Volunteer",partnership:"Partnership"};
+  const fmtDate=v=>v?new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"}).format(new Date(v)):"—";
+  const fmtDateTime=v=>v?new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(v)):"—";
+  const slugify=s=>(s||"").toLowerCase().trim().replace(/[^\w\s-]/g,"").replace(/[\s_-]+/g,"-").replace(/^-+|-+$/g,"");
+  function toast(msg,type){const t=el("div","toast "+(type||""));t.innerHTML=`<i class="fa-solid ${type==="err"?"fa-circle-exclamation":type==="ok"?"fa-circle-check":"fa-circle-info"}"></i> ${msg}`;$("#toasts").appendChild(t);setTimeout(()=>{t.style.opacity="0";t.style.transform="translateX(20px)";t.style.transition="all .3s";setTimeout(()=>t.remove(),320);},3200);}
+  function toLocalInput(iso){if(!iso)return"";const d=new Date(iso);const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;}
 
-        // Authentication Simulation
-        function handleLogin(e) {
-            e.preventDefault();
-            const pass = document.getElementById('admin-pass').value;
-            // HARDCODED PASSWORD FOR PROTOTYPE. Replace with Supabase Auth in production.
-            if(pass === 'admin2026') {
-                document.getElementById('login-overlay').classList.add('hidden');
-                initAdmin();
-            } else {
-                document.getElementById('login-error').classList.remove('hidden');
-            }
-        }
+  /* ---------------- CONFIG ---------------- */
+  const COLLECTIONS={
+    news_posts:{label:"News Posts",icon:"fa-newspaper",singular:"Post",list:["title","category","status","is_featured"],order:{col:"created_at",asc:false},fields:[
+      {k:"title",label:"Title",type:"text",required:true,slugSource:true},
+      {k:"slug",label:"Slug (URL)",type:"slug",required:true,help:"Appears in the link, e.g. /newsroom/article?slug=my-post"},
+      {k:"category",label:"Category",type:"select",options:[["news","News"],["press_release","Press Release"],["speech","Speech"],["statement","Statement"]],default:"news"},
+      {k:"status",label:"Status",type:"select",options:[["draft","Draft"],["published","Published"],["archived","Archived"]],default:"draft",help:"Only 'Published' posts appear on the site."},
+      {k:"excerpt",label:"Excerpt",type:"textarea",help:"Short summary shown on cards."},
+      {k:"cover_url",label:"Cover image",type:"image",bucket:"images"},
+      {k:"body",label:"Body",type:"rich",help:"Blank line = new paragraph · ## Heading · ### Subheading · > Quote · - list item"},
+      {k:"tags",label:"Tags",type:"tags",help:"Comma-separated."},
+      {k:"is_featured",label:"Feature this post (large card on Newsroom)",type:"bool",default:false},
+      {k:"published_at",label:"Publish date",type:"datetime",help:"Used for ordering. Set when publishing."},
+    ]},
+    initiatives:{label:"Initiatives",icon:"fa-diagram-project",singular:"Initiative",list:["title","status","progress","is_published"],order:{col:"created_at",asc:false},fields:[
+      {k:"title",label:"Title",type:"text",required:true,slugSource:true},
+      {k:"slug",label:"Slug (URL)",type:"slug",required:true},
+      {k:"status",label:"Status",type:"select",options:[["active","Active"],["upcoming","Upcoming"],["completed","Completed"]],default:"active"},
+      {k:"summary",label:"Summary",type:"textarea"},
+      {k:"description",label:"Description",type:"rich"},
+      {k:"progress",label:"Progress (%)",type:"number",min:0,max:100,help:"0–100. Leave blank to hide the progress bar."},
+      {k:"goal",label:"Goal",type:"text"},
+      {k:"cover_url",label:"Cover image",type:"image",bucket:"images"},
+      {k:"gallery",label:"Gallery images",type:"gallery",bucket:"images",help:"One image per line, or use Upload to add."},
+      {k:"start_date",label:"Start date",type:"date"},
+      {k:"end_date",label:"End / target date",type:"date"},
+      {k:"is_featured",label:"Feature this initiative",type:"bool",default:false},
+      {k:"is_published",label:"Published (visible on site)",type:"bool",default:false},
+    ]},
+    events:{label:"Events",icon:"fa-calendar-day",singular:"Event",list:["title","starts_at","location","is_published"],order:{col:"starts_at",asc:false},fields:[
+      {k:"title",label:"Title",type:"text",required:true,slugSource:true},
+      {k:"slug",label:"Slug (URL)",type:"slug",required:true},
+      {k:"description",label:"Description",type:"rich"},
+      {k:"starts_at",label:"Starts at",type:"datetime",required:true},
+      {k:"ends_at",label:"Ends at",type:"datetime"},
+      {k:"location",label:"Location",type:"text",help:"Used for the map on the event page."},
+      {k:"cover_url",label:"Cover image",type:"image",bucket:"images"},
+      {k:"registration_url",label:"External registration URL",type:"url",help:"If set, shows a Register button instead of RSVP."},
+      {k:"allow_rsvp",label:"Allow RSVP on the site",type:"bool",default:false},
+      {k:"is_featured",label:"Feature this event",type:"bool",default:false},
+      {k:"is_published",label:"Published (visible on site)",type:"bool",default:false},
+    ]},
+    media_items:{label:"Media",icon:"fa-photo-film",singular:"Media item",list:["title","type","album","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"type",label:"Type",type:"select",options:[["photo","Photo"],["video","Video"]],default:"photo"},
+      {k:"title",label:"Title",type:"text"},
+      {k:"caption",label:"Caption",type:"textarea"},
+      {k:"url",label:"Image URL / Video URL",type:"image",bucket:"images",required:true,help:"Photos: upload or paste an image URL. Videos: paste the YouTube link."},
+      {k:"thumb_url",label:"Thumbnail (optional)",type:"image",bucket:"images"},
+      {k:"album",label:"Album",type:"text",help:"Photos with the same album group into a tab."},
+      {k:"external_id",label:"YouTube video ID (videos only)",type:"text",help:"e.g. dQw4w9WgXcQ — optional if the URL is a YouTube link."},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    press_mentions:{label:"Press",icon:"fa-award",singular:"Press mention",list:["outlet","title","published_on","is_published"],order:{col:"published_on",asc:false},fields:[
+      {k:"outlet",label:"Outlet",type:"text",required:true},
+      {k:"title",label:"Headline",type:"text",required:true},
+      {k:"url",label:"Article URL",type:"url",required:true},
+      {k:"logo_url",label:"Outlet logo",type:"image",bucket:"images"},
+      {k:"published_on",label:"Published date",type:"date"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    resources:{label:"Resources",icon:"fa-folder-open",singular:"Resource",list:["title","category","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"title",label:"Title",type:"text",required:true},
+      {k:"description",label:"Description",type:"textarea"},
+      {k:"category",label:"Category",type:"text",help:"Enables filter tabs once you have 2+ categories."},
+      {k:"file_url",label:"Downloadable file",type:"file",bucket:"documents",help:"Upload a file, or use the link below instead."},
+      {k:"link_url",label:"External link",type:"url",help:"Used if there's no downloadable file."},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    faqs:{label:"FAQs",icon:"fa-circle-question",singular:"FAQ",list:["question","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"question",label:"Question",type:"text",required:true},
+      {k:"answer",label:"Answer",type:"textarea",required:true},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    quotes:{label:"Quotes",icon:"fa-quote-left",singular:"Quote",list:["text","attribution","is_active"],order:{col:"sort_order",asc:true},fields:[
+      {k:"text",label:"Quote",type:"textarea",required:true},
+      {k:"attribution",label:"Attribution",type:"text"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_active",label:"Active",type:"bool",default:true},
+    ]},
+    roles:{label:"Roles",icon:"fa-briefcase",singular:"Role",list:["title","organization","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"title",label:"Role title",type:"text",required:true},
+      {k:"organization",label:"Organisation",type:"text"},
+      {k:"summary",label:"Summary",type:"textarea"},
+      {k:"body",label:"Full detail",type:"rich"},
+      {k:"link",label:"Link",type:"url"},
+      {k:"icon",label:"Logo / icon image",type:"image",bucket:"images"},
+      {k:"slug",label:"Slug (optional)",type:"slug"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    principles:{label:"Principles",icon:"fa-lightbulb",singular:"Principle",list:["title","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"title",label:"Title",type:"text",required:true},
+      {k:"description",label:"Description",type:"textarea"},
+      {k:"icon",label:"Icon (Font Awesome name)",type:"text",help:"e.g. fa-handshake"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    timeline:{label:"Timeline",icon:"fa-timeline",singular:"Milestone",list:["title","occurred_on","is_published"],order:{col:"occurred_on",asc:false},fields:[
+      {k:"title",label:"Title",type:"text",required:true},
+      {k:"occurred_on",label:"Date",type:"date"},
+      {k:"description",label:"Description",type:"textarea"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+    impact_stats:{label:"Impact Stats",icon:"fa-chart-simple",singular:"Stat",list:["label","value","is_published"],order:{col:"sort_order",asc:true},fields:[
+      {k:"label",label:"Label",type:"text",required:true,help:"e.g. Volunteers mobilised"},
+      {k:"value",label:"Value",type:"text",required:true,help:"e.g. 500+"},
+      {k:"icon",label:"Icon (Font Awesome name)",type:"text"},
+      {k:"sort_order",label:"Sort order",type:"number",default:0},
+      {k:"is_published",label:"Published",type:"bool",default:true},
+    ]},
+  };
+  const INBOXES={
+    contact_submissions:{label:"Contact Messages",icon:"fa-envelope",unreadKey:"is_read"},
+    volunteer_signups:{label:"Volunteer Signups",icon:"fa-hand-holding-heart"},
+    event_rsvps:{label:"Event RSVPs",icon:"fa-calendar-check"},
+    newsletter_subscribers:{label:"Newsletter",icon:"fa-paper-plane"},
+  };
+  const SINGLETONS={
+    site_settings:{label:"Site Settings",icon:"fa-gear",fields:[
+      {group:"Contact details"},
+      {k:"contact_email",label:"Contact email",type:"text",help:"Shown in the footer and on the Contact page."},
+      {k:"contact_phone",label:"Contact phone",type:"text"},
+      {k:"contact_address",label:"Address",type:"text"},
+      {k:"office_hours",label:"Office hours",type:"text"},
+      {group:"Announcement bar"},
+      {k:"announcement_active",label:"Show the announcement bar",type:"bool",default:false},
+      {k:"announcement_text",label:"Announcement text",type:"text"},
+      {k:"announcement_url",label:"Announcement link (optional)",type:"url"},
+      {group:"Homepage hero"},
+      {k:"hero_headline",label:"Hero headline",type:"text"},
+      {k:"hero_tagline",label:"Hero tagline",type:"textarea"},
+      {k:"hero_image_url",label:"Hero image",type:"image",bucket:"images"},
+      {k:"hero_video_url",label:"Hero video URL",type:"url"},
+      {k:"hero_cta_primary_label",label:"Primary button label",type:"text"},
+      {k:"hero_cta_primary_url",label:"Primary button link",type:"text"},
+      {k:"hero_cta_secondary_label",label:"Secondary button label",type:"text"},
+      {k:"hero_cta_secondary_url",label:"Secondary button link",type:"text"},
+      {group:"Social links"},
+      {k:"social_links",label:"Social links",type:"socials"},
+      {group:"SEO"},
+      {k:"seo_title",label:"SEO title",type:"text"},
+      {k:"seo_description",label:"SEO description",type:"textarea"},
+      {k:"seo_image_url",label:"SEO share image",type:"image",bucket:"images"},
+    ]},
+    profile:{label:"Profile",icon:"fa-id-badge",fields:[
+      {k:"full_name",label:"Full name",type:"text"},
+      {k:"title",label:"Title / roles line",type:"text"},
+      {k:"portrait_url",label:"Portrait photo",type:"image",bucket:"images"},
+      {k:"official_statement",label:"Official statement (homepage)",type:"rich"},
+      {k:"biography",label:"Biography (About page)",type:"rich",help:"Blank line separates paragraphs — feeds the About page book."},
+      {k:"country_section",label:"'For Seychelles' content",type:"rich"},
+      {k:"press_kit_url",label:"Press kit (PDF)",type:"file",bucket:"documents"},
+    ]},
+  };
+  const SOCIALS=[["facebook","fa-facebook-f"],["x","fa-x-twitter"],["instagram","fa-instagram"],["linkedin","fa-linkedin-in"],["youtube","fa-youtube"],["tiktok","fa-tiktok"],["threads","fa-threads"]];
 
-        function logout() {
-            document.getElementById('login-overlay').classList.remove('hidden');
-            document.getElementById('admin-pass').value = '';
-            document.getElementById('login-error').classList.add('hidden');
-        }
+  const NAV=[
+    {group:"Overview",items:[{type:"dashboard",label:"Dashboard",icon:"fa-gauge-high"}]},
+    {group:"Content",items:["news_posts","initiatives","events","media_items","press_mentions","resources","faqs","quotes"].map(k=>({type:"collection",key:k,label:COLLECTIONS[k].label,icon:COLLECTIONS[k].icon}))},
+    {group:"Page sections",items:["roles","principles","timeline","impact_stats"].map(k=>({type:"collection",key:k,label:COLLECTIONS[k].label,icon:COLLECTIONS[k].icon}))},
+    {group:"Inbox",items:Object.keys(INBOXES).map(k=>({type:"inbox",key:k,label:INBOXES[k].label,icon:INBOXES[k].icon}))},
+    {group:"Settings",items:Object.keys(SINGLETONS).map(k=>({type:"singleton",key:k,label:SINGLETONS[k].label,icon:SINGLETONS[k].icon}))},
+  ];
 
-        // Navigation
-        function switchTab(tabId) {
-            // Update buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium transition text-sm";
-            });
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) {
-                activeBtn.className = "nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg bg-brand-blue text-white font-medium transition text-sm";
-            }
+  let CURRENT=null, VIEW={type:"dashboard"};
 
-            // Hide all views
-            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+  /* ---------------- AUTH ---------------- */
+  async function boot(){
+    const { data:{ session } } = await db.auth.getSession();
+    if(session){ await afterLogin(session); } else { showLogin(); }
+    db.auth.onAuthStateChange((event,sess)=>{ if(event==="SIGNED_OUT"){ CURRENT=null; showLogin(); } });
+  }
+  function showLogin(msg){ $("#app").style.display="none"; $("#login").style.display="grid"; if(msg){ const m=$("#lg-msg"); m.className="login-msg err"; m.textContent=msg; } }
+  $("#login-form").addEventListener("submit",async(e)=>{
+    e.preventDefault();
+    const email=$("#lg-email").value.trim(), pass=$("#lg-pass").value, msg=$("#lg-msg"), btn=$("#lg-btn");
+    msg.className="login-msg"; msg.textContent=""; btn.disabled=true; btn.innerHTML='<span class="spin"></span> Signing in…';
+    const { data, error } = await db.auth.signInWithPassword({ email, password:pass });
+    if(error){ btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-right-to-bracket"></i> Sign in'; msg.className="login-msg err"; msg.textContent=error.message||"Sign in failed."; return; }
+    await afterLogin(data.session);
+    btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-right-to-bracket"></i> Sign in';
+  });
+  async function afterLogin(session){
+    const { data, error } = await db.from("admin_users").select("user_id,full_name,role").eq("user_id",session.user.id).maybeSingle();
+    if(error || !data){ await db.auth.signOut(); showLogin("This account doesn't have admin access."); return; }
+    CURRENT={ user:session.user, admin:data };
+    $("#login").style.display="none"; $("#app").style.display="block";
+    $("#su-name").textContent=data.full_name||"Admin"; $("#su-email").textContent=session.user.email;
+    $("#lg-pass").value="";
+    buildNav(); navigate({type:"dashboard"}); refreshBadges();
+  }
+  $("#signout").addEventListener("click",async()=>{ await db.auth.signOut(); });
 
-            // Show target
-            if(tabId === 'dashboard') {
-                document.getElementById('view-dashboard').classList.remove('hidden');
-                document.getElementById('header-title').textContent = 'System Dashboard';
-                document.getElementById('header-subtitle').textContent = 'Live platform overview and analytics';
-                loadDashboard();
-            } else if (tabId === 'inbox') {
-                document.getElementById('view-inbox').classList.remove('hidden');
-                document.getElementById('header-title').textContent = 'Global Inbox';
-                document.getElementById('header-subtitle').textContent = 'Manage press inquiries, contact messages, and resource submissions';
-                loadInbox();
-            } else if (tabId.startsWith('cms-')) {
-                document.getElementById('view-cms').classList.remove('hidden');
-                currentCmsType = tabId.replace('cms-', '');
-                document.getElementById('header-title').textContent = 'Content Manager';
-                document.getElementById('header-subtitle').textContent = `Manage ${currentCmsType.toUpperCase()} records`;
-                loadCMS(currentCmsType);
-            } else if (tabId === 'subscribers') {
-                document.getElementById('view-cms').classList.remove('hidden');
-                currentCmsType = 'subscribers';
-                document.getElementById('header-title').textContent = 'Newsletter List';
-                document.getElementById('header-subtitle').textContent = 'Manage public email subscribers';
-                loadCMS('subscribers');
-            } else {
-                document.getElementById('view-dashboard').classList.remove('hidden'); // fallback
-            }
-        }
+  /* ---------------- NAV / ROUTER ---------------- */
+  function buildNav(){
+    const nav=$("#side-nav"); nav.innerHTML="";
+    NAV.forEach(g=>{
+      nav.appendChild(el("div","side-group",g.group));
+      g.items.forEach(it=>{
+        const b=el("button","side-link"); b.dataset.type=it.type; if(it.key)b.dataset.key=it.key;
+        b.innerHTML=`<i class="fa-solid ${it.icon}"></i> <span>${it.label}</span>`;
+        if(it.type==="inbox"){ const badge=el("span","badge"); badge.style.display="none"; badge.dataset.inbox=it.key; b.appendChild(badge); }
+        b.addEventListener("click",()=>{ navigate(it); closeMobile(); });
+        nav.appendChild(b);
+      });
+    });
+  }
+  function setActiveNav(){
+    document.querySelectorAll(".side-link").forEach(b=>{
+      const match = b.dataset.type===VIEW.type && (b.dataset.key||"")===(VIEW.key||"");
+      const collMatch = VIEW.type==="form" && b.dataset.type==="collection" && b.dataset.key===VIEW.key;
+      b.classList.toggle("active", match||collMatch);
+    });
+  }
+  function navigate(v){ VIEW=v; setActiveNav(); render(); window.scrollTo(0,0); }
+  function titleFor(){
+    if(VIEW.type==="dashboard") return "Dashboard";
+    if(VIEW.type==="collection") return COLLECTIONS[VIEW.key].label;
+    if(VIEW.type==="form"){ const c=COLLECTIONS[VIEW.key]; return (VIEW.id?"Edit ":"New ")+c.singular; }
+    if(VIEW.type==="inbox") return INBOXES[VIEW.key].label;
+    if(VIEW.type==="singleton") return SINGLETONS[VIEW.key].label;
+    return "Admin";
+  }
+  function render(){
+    $("#view-title").textContent=titleFor();
+    const c=$("#content"); c.innerHTML='<div class="loading-row"><span class="spin" style="border-color:rgba(11,46,99,.2);border-top-color:var(--accent)"></span></div>';
+    if(VIEW.type==="dashboard") return renderDashboard(c);
+    if(VIEW.type==="collection") return renderList(c);
+    if(VIEW.type==="form") return renderForm(c);
+    if(VIEW.type==="inbox") return renderInbox(c);
+    if(VIEW.type==="singleton") return renderSingleton(c);
+  }
 
-        // Initialize Data on successful login
-        async function initAdmin() {
-            switchTab('dashboard');
-            // Fetch global badge for Inbox
-            try {
-                const { count } = await supabaseClient.from('contact_messages').select('*', { count: 'exact', head: true }).eq('status', 'new');
-                const badge = document.getElementById('badge-inbox');
-                badge.textContent = count || 0;
-                if(count === 0) badge.classList.add('hidden'); else badge.classList.remove('hidden');
-            } catch(e) { console.log(e); }
-        }
+  /* ---------------- DASHBOARD ---------------- */
+  async function countOf(table, filter){
+    let q=db.from(table).select("*",{count:"exact",head:true});
+    if(filter) q=filter(q);
+    const { count, error }=await q; return error?0:(count||0);
+  }
+  async function renderDashboard(c){
+    const contentKeys=["news_posts","initiatives","events","media_items","press_mentions","resources","faqs"];
+    const counts={}; await Promise.all(contentKeys.map(async k=>counts[k]=await countOf(k)));
+    const unreadContact=await countOf("contact_submissions",q=>q.eq("is_read",false));
+    const volunteers=await countOf("volunteer_signups");
+    const rsvps=await countOf("event_rsvps");
+    const subs=await countOf("newsletter_subscribers");
 
-        // ==========================================
-        // DATA LOADERS
-        // ==========================================
+    c.innerHTML="";
+    const grid=el("div","stat-grid");
+    const stat=(icon,n,label,go,alert)=>{const s=el("div","stat"+(alert?" alert":""));s.innerHTML=`<div class="top"><div class="ic"><i class="fa-solid ${icon}"></i></div></div><div class="n">${n}</div><div class="l">${label}</div>`;s.addEventListener("click",go);return s;};
+    grid.appendChild(stat("fa-newspaper",counts.news_posts,"News posts",()=>navigate({type:"collection",key:"news_posts"})));
+    grid.appendChild(stat("fa-diagram-project",counts.initiatives,"Initiatives",()=>navigate({type:"collection",key:"initiatives"})));
+    grid.appendChild(stat("fa-calendar-day",counts.events,"Events",()=>navigate({type:"collection",key:"events"})));
+    grid.appendChild(stat("fa-photo-film",counts.media_items,"Media items",()=>navigate({type:"collection",key:"media_items"})));
+    grid.appendChild(stat("fa-envelope",unreadContact,"Unread messages",()=>navigate({type:"inbox",key:"contact_submissions"}),unreadContact>0));
+    grid.appendChild(stat("fa-hand-holding-heart",volunteers,"Volunteer signups",()=>navigate({type:"inbox",key:"volunteer_signups"})));
+    grid.appendChild(stat("fa-calendar-check",rsvps,"Event RSVPs",()=>navigate({type:"inbox",key:"event_rsvps"})));
+    grid.appendChild(stat("fa-paper-plane",subs,"Subscribers",()=>navigate({type:"inbox",key:"newsletter_subscribers"})));
+    c.appendChild(grid);
 
-        async function loadDashboard() {
-            try {
-                // Fetch basic counts (In a real app, you'd use a custom RPC or cached view for speed)
-                const msgRes = await supabaseClient.from('contact_messages').select('*', { count: 'exact', head: true }).eq('status', 'new');
-                const subsRes = await supabaseClient.from('newsletter_subscribers').select('*', { count: 'exact', head: true });
-                const newsRes = await supabaseClient.from('news_articles').select('*', { count: 'exact', head: true });
-                const initRes = await supabaseClient.from('initiatives').select('*', { count: 'exact', head: true }).eq('status', 'active');
+    // setup checklist
+    const settings=await db.from("site_settings").select("id,contact_email").maybeSingle();
+    const prof=await db.from("profile").select("id").maybeSingle();
+    const panel=el("div","panel");
+    panel.innerHTML='<div class="panel-head"><h3>Getting started</h3></div>';
+    const body=el("div","panel-body");
+    const item=(done,text,action)=>{
+      const d=el("div","setup-item");
+      d.innerHTML=`<i class="fa-solid ${done?"fa-circle-check ok":"fa-circle-dot todo"}"></i> <span style="flex:1">${text}</span>`;
+      if(action && !done){ const b=el("button","btn btn-ghost btn-sm",action.label); b.addEventListener("click",action.go); d.appendChild(b); }
+      return d;
+    };
+    body.appendChild(item(!!(settings.data&&settings.data.contact_email),"Add your contact email in Site Settings",{label:"Open Settings",go:()=>navigate({type:"singleton",key:"site_settings"})}));
+    body.appendChild(item(!!(prof.data),"Fill in your Profile (name, bio, portrait)",{label:"Open Profile",go:()=>navigate({type:"singleton",key:"profile"})}));
+    body.appendChild(item(counts.news_posts>0,"Publish your first news post",{label:"New post",go:()=>navigate({type:"form",key:"news_posts",id:null})}));
+    body.appendChild(item(counts.events>0,"Add an event",{label:"New event",go:()=>navigate({type:"form",key:"events",id:null})}));
+    panel.appendChild(body);
+    c.appendChild(panel);
+  }
+  async function refreshBadges(){
+    const unread=await countOf("contact_submissions",q=>q.eq("is_read",false));
+    document.querySelectorAll('[data-inbox="contact_submissions"]').forEach(b=>{ b.textContent=unread; b.style.display=unread>0?"inline-block":"none"; });
+  }
 
-                document.getElementById('stat-messages').textContent = msgRes.count || 0;
-                document.getElementById('stat-subs').textContent = subsRes.count || 0;
-                document.getElementById('stat-news').textContent = newsRes.count || 0;
-                document.getElementById('stat-init').textContent = initRes.count || 0;
+  /* ---------------- LIST ---------------- */
+  async function renderList(c){
+    const key=VIEW.key, cfg=COLLECTIONS[key];
+    const { data, error } = await db.from(key).select("*").order(cfg.order.col,{ascending:cfg.order.asc,nullsFirst:false});
+    c.innerHTML="";
+    const bar=el("div","toolbar");
+    const left=el("div","left");
+    const sb=el("div","search-box"); sb.innerHTML='<i class="fa-solid fa-magnifying-glass"></i>'; const si=el("input"); si.type="search"; si.placeholder="Filter…"; sb.appendChild(si); left.appendChild(sb);
+    bar.appendChild(left);
+    const addBtn=el("button","btn btn-accent"); addBtn.innerHTML=`<i class="fa-solid fa-plus"></i> New ${cfg.singular}`; addBtn.addEventListener("click",()=>navigate({type:"form",key,id:null}));
+    bar.appendChild(addBtn);
+    c.appendChild(bar);
 
-                // Load recent messages
-                const { data: recentMsgs } = await supabaseClient.from('contact_messages').select('*').order('created_at', { ascending: false }).limit(5);
-                const tbody = document.getElementById('dash-recent-messages');
-                if(recentMsgs && recentMsgs.length > 0) {
-                    let html = '';
-                    recentMsgs.forEach(msg => {
-                        const date = new Date(msg.created_at).toLocaleDateString();
-                        const statusBadge = msg.status === 'new' ? '<span class="px-2 py-0.5 bg-red-100 text-red-600 rounded text-[10px] font-bold uppercase">New</span>' : '<span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-[10px] font-bold uppercase">Read</span>';
-                        html += `
-                        <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="switchTab('inbox')">
-                            <td class="p-4 text-gray-500">${date}</td>
-                            <td class="p-4 font-semibold text-gray-900">${msg.inquiry_type || 'General'}</td>
-                            <td class="p-4 text-gray-600">${msg.full_name || 'Anonymous'}</td>
-                            <td class="p-4">${statusBadge}</td>
-                        </tr>`;
-                    });
-                    tbody.innerHTML = html;
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">No recent messages.</td></tr>';
-                }
-            } catch(e) { console.error(e); }
-        }
+    if(error){ c.appendChild(errBox(error)); return; }
+    const rows=data||[];
+    const wrap=el("div","table-wrap");
+    if(!rows.length){ wrap.innerHTML=`<div class="empty-state"><i class="fa-regular fa-folder-open"></i><strong>No ${cfg.label.toLowerCase()} yet</strong>Click "New ${cfg.singular}" to create your first one.</div>`; c.appendChild(wrap); return; }
+    const table=el("table");
+    const thead=el("thead"); const htr=el("tr");
+    cfg.list.forEach(k=>htr.appendChild(el("th",null,fieldLabel(cfg,k))));
+    htr.appendChild(el("th",null,"")); thead.appendChild(htr); table.appendChild(thead);
+    const tb=el("tbody");
+    function draw(list){
+      tb.innerHTML="";
+      list.forEach(row=>{
+        const tr=el("tr");
+        cfg.list.forEach((k,i)=>{ const td=el("td"); if(i===0)td.className="cell-title"; td.appendChild(renderCell(cfg,k,row[k])); tr.appendChild(td); });
+        const act=el("td","actions");
+        const edit=el("button","btn btn-ghost btn-sm"); edit.innerHTML='<i class="fa-solid fa-pen"></i> Edit'; edit.addEventListener("click",()=>navigate({type:"form",key,id:row.id}));
+        const del=el("button","btn btn-danger btn-sm"); del.innerHTML='<i class="fa-solid fa-trash"></i>'; del.setAttribute("aria-label","Delete"); del.addEventListener("click",()=>deleteRow(key,row,cfg));
+        act.appendChild(edit); act.appendChild(del); tr.appendChild(act);
+        tb.appendChild(tr);
+      });
+    }
+    draw(rows);
+    table.appendChild(tb); wrap.appendChild(table); c.appendChild(wrap);
+    si.addEventListener("input",()=>{ const q=si.value.trim().toLowerCase(); draw(!q?rows:rows.filter(r=>JSON.stringify(r).toLowerCase().includes(q))); });
+  }
+  function fieldLabel(cfg,k){ const f=cfg.fields.find(f=>f.k===k); return f?f.label.replace(/\s*\(.*\)$/,""):k; }
+  function renderCell(cfg,k,val){
+    const f=cfg.fields.find(f=>f.k===k);
+    if(f&&f.type==="bool"){ const on=!!val; const p=el("span","pill "+(on?"on":"off")); p.textContent=on?"Yes":"No"; if(k==="is_published")p.textContent=on?"Published":"Hidden"; if(k==="is_active")p.textContent=on?"Active":"Off"; if(k==="is_featured")p.textContent=on?"Featured":"—"; return p; }
+    if(k==="status"){ const p=el("span","pill "+val,LABELS[val]||val); return p; }
+    if(k==="category"||k==="type"){ const p=el("span","pill cat",LABELS[val]||val||"—"); return p; }
+    if(k==="progress"){ return document.createTextNode(val==null?"—":val+"%"); }
+    if(/_at$/.test(k)){ return document.createTextNode(fmtDateTime(val)); }
+    if(/_on$/.test(k)){ return document.createTextNode(fmtDate(val)); }
+    let s=val==null||val===""?"—":String(val); if(s.length>64)s=s.slice(0,64)+"…";
+    return document.createTextNode(s);
+  }
+  async function deleteRow(table,row,cfg){
+    const name=row.title||row.question||row.text||row.label||row.outlet||row.full_name||"this item";
+    if(!confirm(`Delete "${String(name).slice(0,60)}"? This cannot be undone.`)) return;
+    const { error }=await db.from(table).delete().eq("id",row.id);
+    if(error){ toast(error.message||"Delete failed","err"); return; }
+    toast("Deleted","ok"); render();
+  }
 
-        async function loadInbox() {
-            try {
-                // Combine contact_messages and youth_concerns (if needed, here we just do contact_messages for prototype)
-                const { data } = await supabaseClient.from('contact_messages').select('*').order('created_at', { ascending: false }).limit(50);
-                const tbody = document.getElementById('inbox-table');
-                
-                if(data && data.length > 0) {
-                    let html = '';
-                    data.forEach(msg => {
-                        const date = new Date(msg.created_at).toLocaleDateString();
-                        const statusStyle = msg.status === 'new' ? 'font-bold text-gray-900 bg-blue-50/30' : 'text-gray-600';
-                        const badge = msg.status === 'new' ? '<div class="w-2 h-2 rounded-full bg-brand-blue absolute left-2 top-1/2 transform -translate-y-1/2"></div>' : '';
-                        
-                        html += `
-                        <tr class="hover:bg-gray-50 transition border-b border-gray-100 relative ${statusStyle}">
-                            ${badge}
-                            <td class="p-4 pl-6 w-32 whitespace-nowrap">${date}</td>
-                            <td class="p-4 w-48"><span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] uppercase font-bold rounded">${msg.inquiry_type || 'Message'}</span></td>
-                            <td class="p-4 w-48">${msg.full_name}<br><span class="text-xs text-gray-400 font-normal">${msg.email}</span></td>
-                            <td class="p-4 max-w-xs truncate">${msg.message}</td>
-                            <td class="p-4 text-right">
-                                <button onclick="viewMessage('${msg.id}')" class="text-xs font-bold text-brand-lightblue border border-brand-lightblue/30 px-3 py-1.5 rounded hover:bg-brand-blue hover:text-white transition">Review</button>
-                            </td>
-                        </tr>`;
-                    });
-                    tbody.innerHTML = html;
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500">Inbox is empty.</td></tr>';
-                }
-            } catch(e) { console.error(e); }
-        }
+  /* ---------------- FORM ---------------- */
+  async function renderForm(c){
+    const key=VIEW.key, cfg=COLLECTIONS[key]; let row={};
+    if(VIEW.id){ const { data, error }=await db.from(key).select("*").eq("id",VIEW.id).maybeSingle(); if(error||!data){ c.innerHTML=""; c.appendChild(errBox(error||{message:"Not found"})); return; } row=data; }
+    c.innerHTML="";
+    const back=el("button","btn btn-ghost btn-sm"); back.innerHTML='<i class="fa-solid fa-arrow-left"></i> Back'; back.style.marginBottom="16px"; back.addEventListener("click",()=>navigate({type:"collection",key})); c.appendChild(back);
+    const card=el("div","form-card"); const form=el("form"); const body=el("div","form-body");
+    cfg.fields.forEach(f=>body.appendChild(buildField(f,row[f.k])));
+    form.appendChild(body);
+    const foot=el("div","form-foot"); const note=el("div","note"); const acts=el("div","form-actions");
+    const cancel=el("button","btn btn-ghost","Cancel"); cancel.type="button"; cancel.addEventListener("click",()=>navigate({type:"collection",key}));
+    const save=el("button","btn btn-accent"); save.type="submit"; save.innerHTML='<i class="fa-solid fa-check"></i> Save';
+    acts.appendChild(cancel); acts.appendChild(save); foot.appendChild(note); foot.appendChild(acts); form.appendChild(foot);
+    card.appendChild(form); c.appendChild(card);
+    wireSlug(form,cfg);
+    form.addEventListener("submit",async(e)=>{
+      e.preventDefault();
+      const payload=collect(cfg.fields,form,note); if(payload===null) return;
+      save.disabled=true; save.innerHTML='<span class="spin"></span> Saving…'; note.className="note"; note.textContent="";
+      let error;
+      if(VIEW.id){ ({ error }=await db.from(key).update(payload).eq("id",VIEW.id)); }
+      else { ({ error }=await db.from(key).insert(payload)); }
+      save.disabled=false; save.innerHTML='<i class="fa-solid fa-check"></i> Save';
+      if(error){ note.className="note err"; note.textContent=error.message||"Save failed."; toast("Save failed","err"); return; }
+      toast(VIEW.id?"Saved":"Created","ok"); navigate({type:"collection",key});
+    });
+  }
+  function wireSlug(form,cfg){
+    const src=cfg.fields.find(f=>f.slugSource); const slugF=cfg.fields.find(f=>f.type==="slug");
+    if(!src||!slugF) return;
+    const si=form.querySelector(`[data-key="${src.k}"]`), sl=form.querySelector(`[data-key="${slugF.k}"]`);
+    if(si&&sl){ si.addEventListener("input",()=>{ if(!sl.dataset.touched){ sl.value=slugify(si.value); } }); sl.addEventListener("input",()=>{ sl.dataset.touched="1"; }); }
+  }
 
-        async function loadCMS(type) {
-            document.getElementById('cms-table-title').textContent = type.toUpperCase() + ' DATABASE';
-            const thead = document.getElementById('cms-thead');
-            const tbody = document.getElementById('cms-tbody');
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Loading data...</td></tr>';
+  function buildField(f,value){
+    if(f.group){ return el("div","form-group-head",f.group); }
+    const wrap=el("div","fld");
+    const lab=el("label"); lab.innerHTML=f.label+(f.required?' <span class="req">*</span>':""); lab.setAttribute("for","f_"+f.k); wrap.appendChild(lab);
+    let input;
+    if(f.type==="textarea"||f.type==="rich"){ input=el("textarea"); if(f.type==="rich")input.className="rich"; input.value=value||""; }
+    else if(f.type==="select"){ input=el("select"); f.options.forEach(([v,l])=>{ const o=el("option",null,l); o.value=v; if((value!=null?value:f.default)===v)o.selected=true; input.appendChild(o); }); }
+    else if(f.type==="bool"){ 
+      const t=el("label","toggle"); const cb=el("input"); cb.type="checkbox"; cb.dataset.key=f.k; cb.dataset.type="bool"; cb.id="f_"+f.k;
+      const checked=(value!=null)?!!value:(f.default||false); cb.checked=checked;
+      const track=el("span","track"); const tl=el("span","tlabel","Yes / No"); 
+      t.appendChild(cb); t.appendChild(track); t.appendChild(tl);
+      // move label above; for bool we show the field label as the main label and toggle below
+      wrap.appendChild(t);
+      if(f.help)wrap.appendChild(el("div","help",f.help));
+      return wrap;
+    }
+    else if(f.type==="tags"){ input=el("input"); input.type="text"; input.value=Array.isArray(value)?value.join(", "):(value||""); }
+    else if(f.type==="gallery"){ 
+      input=el("textarea"); input.value=Array.isArray(value)?value.join("\n"):(typeof value==="string"?value:""); 
+      input.dataset.key=f.k; input.dataset.type="gallery"; input.id="f_"+f.k; input.rows=4; input.placeholder="https://...\nhttps://...";
+      wrap.appendChild(input);
+      const up=makeUpload(f.bucket,(url)=>{ input.value=(input.value.trim()?input.value.trim()+"\n":"")+url; });
+      wrap.appendChild(up);
+      if(f.help)wrap.appendChild(el("div","help",f.help));
+      return wrap;
+    }
+    else if(f.type==="socials"){
+      const grid=el("div","socials-grid"); const obj=value||{};
+      SOCIALS.forEach(([k,ic])=>{ const box=el("div","social-in"); box.innerHTML=`<i class="fa-brands ${ic}"></i>`; const inp=el("input"); inp.type="url"; inp.placeholder=k; inp.dataset.social=k; inp.value=obj[k]||""; box.appendChild(inp); grid.appendChild(box); });
+      grid.dataset.key=f.k; grid.dataset.type="socials"; wrap.appendChild(grid);
+      if(f.help)wrap.appendChild(el("div","help",f.help));
+      return wrap;
+    }
+    else if(f.type==="image"||f.type==="file"){
+      const u=el("div","uploader"); input=el("input"); input.type=f.type==="image"?"url":"text"; input.value=value||""; input.placeholder=f.type==="image"?"Paste image URL or upload →":"Paste file URL or upload →";
+      input.dataset.key=f.k; input.dataset.type="text"; input.id="f_"+f.k;
+      u.appendChild(input); u.appendChild(makeUpload(f.bucket,(url)=>{ input.value=url; if(f.type==="image")updatePrev(); }));
+      wrap.appendChild(u);
+      let prev; if(f.type==="image"){ prev=el("div","img-prev"); wrap.appendChild(prev); }
+      function updatePrev(){ if(!prev)return; prev.innerHTML=""; if(input.value.trim()){ const im=el("img"); im.src=input.value.trim(); im.onerror=()=>prev.innerHTML=""; prev.appendChild(im); } }
+      if(f.type==="image"){ input.addEventListener("input",updatePrev); updatePrev(); }
+      if(f.help)wrap.appendChild(el("div","help",f.help));
+      return wrap;
+    }
+    else if(f.type==="number"){ input=el("input"); input.type="number"; if(f.min!=null)input.min=f.min; if(f.max!=null)input.max=f.max; input.value=(value!=null?value:""); }
+    else if(f.type==="date"){ input=el("input"); input.type="date"; input.value=value?String(value).slice(0,10):""; }
+    else if(f.type==="datetime"){ input=el("input"); input.type="datetime-local"; input.value=toLocalInput(value); }
+    else if(f.type==="slug"){ input=el("input"); input.type="text"; input.value=value||""; if(value)input.dataset.touched="1"; }
+    else { input=el("input"); input.type=f.type==="url"?"url":"text"; input.value=value||""; }
+    input.dataset.key=f.k; input.dataset.type=f.type; input.id="f_"+f.k;
+    wrap.appendChild(input);
+    if(f.help)wrap.appendChild(el("div","help",f.help));
+    return wrap;
+  }
+  function makeUpload(bucket,onDone){
+    const lab=el("label","upload-btn"); lab.innerHTML='<i class="fa-solid fa-arrow-up-from-bracket"></i> Upload';
+    const fi=el("input"); fi.type="file"; fi.hidden=true; if(bucket==="images")fi.accept="image/*";
+    lab.appendChild(fi);
+    fi.addEventListener("change",async()=>{ const file=fi.files[0]; if(!file)return; lab.innerHTML='<span class="spin" style="border-color:rgba(11,46,99,.3);border-top-color:var(--accent)"></span> Uploading…';
+      try{ const url=await uploadFile(bucket||"images",file); onDone(url); toast("Uploaded","ok"); }
+      catch(err){ toast(err.message||"Upload failed","err"); }
+      lab.innerHTML='<i class="fa-solid fa-arrow-up-from-bracket"></i> Upload'; fi.value="";
+    });
+    return lab;
+  }
+  async function uploadFile(bucket,file){
+    const ext=(file.name.split(".").pop()||"bin").toLowerCase();
+    const path=`${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const { error }=await db.storage.from(bucket).upload(path,file,{cacheControl:"3600",upsert:false});
+    if(error) throw error;
+    const { data }=db.storage.from(bucket).getPublicUrl(path);
+    return data.publicUrl;
+  }
+  function collect(fields,form,note){
+    const payload={};
+    for(const f of fields){
+      if(f.group) continue;
+      if(f.type==="bool"){ const cb=form.querySelector(`[data-key="${f.k}"]`); payload[f.k]=!!cb.checked; continue; }
+      if(f.type==="socials"){ const grid=form.querySelector(`[data-key="${f.k}"]`); const obj={}; grid.querySelectorAll("[data-social]").forEach(inp=>{ const v=inp.value.trim(); if(v)obj[inp.dataset.social]=v; }); payload[f.k]=obj; continue; }
+      const inp=form.querySelector(`[data-key="${f.k}"]`); if(!inp)continue;
+      let v=inp.value;
+      if(f.type==="tags"){ payload[f.k]=v.split(",").map(s=>s.trim()).filter(Boolean); continue; }
+      if(f.type==="gallery"){ payload[f.k]=v.split("\n").map(s=>s.trim()).filter(Boolean); continue; }
+      if(f.type==="number"){ if(v===""){ payload[f.k]=(f.default!=null?f.default:null); } else { payload[f.k]=Number(v); } continue; }
+      if(f.type==="datetime"){ payload[f.k]= v? new Date(v).toISOString() : null; continue; }
+      if(f.type==="date"){ payload[f.k]= v||null; continue; }
+      v=(v||"").trim();
+      if(f.required && !v){ note.className="note err"; note.textContent=`"${f.label}" is required.`; inp.focus(); return null; }
+      payload[f.k]= v===""? null : v;
+    }
+    return payload;
+  }
 
-            try {
-                let data = [];
-                // Configure Headers based on Type
-                if (type === 'news') {
-                    thead.innerHTML = '<tr><th class="p-4">Date</th><th class="p-4">Title</th><th class="p-4">Category</th><th class="p-4">Status</th><th class="p-4 text-right">Actions</th></tr>';
-                    const res = await supabaseClient.from('news_articles').select('*').order('created_at', { ascending: false });
-                    data = res.data;
-                    renderCMSTable(data, type, (item) => `
-                        <td class="p-4">${new Date(item.created_at).toLocaleDateString()}</td>
-                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
-                        <td class="p-4 text-gray-500">${item.category}</td>
-                        <td class="p-4">${item.is_published ? '<span class="text-green-600 font-bold text-[10px] uppercase">Published</span>' : '<span class="text-orange-500 font-bold text-[10px] uppercase">Draft</span>'}</td>
-                    `);
-                } 
-                else if (type === 'init') {
-                    thead.innerHTML = '<tr><th class="p-4">Title</th><th class="p-4">Status</th><th class="p-4">Summary Snippet</th><th class="p-4 text-right">Actions</th></tr>';
-                    const res = await supabaseClient.from('initiatives').select('*').order('created_at', { ascending: false });
-                    data = res.data;
-                    renderCMSTable(data, type, (item) => `
-                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
-                        <td class="p-4 text-brand-blue font-bold text-[10px] uppercase">${item.status}</td>
-                        <td class="p-4 text-gray-500 truncate max-w-xs">${item.summary || 'No summary'}</td>
-                    `);
-                }
-                else if (type === 'events') {
-                    thead.innerHTML = '<tr><th class="p-4">Event Date</th><th class="p-4">Title</th><th class="p-4">Location</th><th class="p-4 text-right">Actions</th></tr>';
-                    const res = await supabaseClient.from('events').select('*').order('event_date', { ascending: false });
-                    data = res.data;
-                    renderCMSTable(data, type, (item) => `
-                        <td class="p-4 font-bold text-brand-blue">${new Date(item.event_date).toLocaleDateString()}</td>
-                        <td class="p-4 font-bold text-gray-900">${item.title}</td>
-                        <td class="p-4 text-gray-500">${item.location}</td>
-                    `);
-                }
-                else if (type === 'subscribers') {
-                    thead.innerHTML = '<tr><th class="p-4">Subscribed Date</th><th class="p-4">Email Address</th><th class="p-4 text-right">Actions</th></tr>';
-                    const res = await supabaseClient.from('newsletter_subscribers').select('*').order('created_at', { ascending: false });
-                    data = res.data;
-                    renderCMSTable(data, type, (item) => `
-                        <td class="p-4">${new Date(item.created_at).toLocaleDateString()}</td>
-                        <td class="p-4 font-bold text-gray-900">${item.email}</td>
-                    `);
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-gray-500">Module under construction.</td></tr>';
-                }
-            } catch (e) {
-                console.error(e);
-                tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-red-500">Database connection error.</td></tr>';
-            }
-        }
+  /* ---------------- SINGLETON ---------------- */
+  async function renderSingleton(c){
+    const key=VIEW.key, cfg=SINGLETONS[key];
+    const { data, error }=await db.from(key).select("*").maybeSingle();
+    if(error){ c.innerHTML=""; c.appendChild(errBox(error)); return; }
+    const row=data||{};
+    c.innerHTML="";
+    const card=el("div","form-card"); const form=el("form"); const body=el("div","form-body");
+    cfg.fields.forEach(f=>body.appendChild(buildField(f,row[f.k])));
+    form.appendChild(body);
+    const foot=el("div","form-foot"); const note=el("div","note"); const acts=el("div","form-actions");
+    const save=el("button","btn btn-accent"); save.type="submit"; save.innerHTML='<i class="fa-solid fa-check"></i> Save changes';
+    acts.appendChild(save); foot.appendChild(note); foot.appendChild(acts); form.appendChild(foot);
+    card.appendChild(form); c.appendChild(card);
+    form.addEventListener("submit",async(e)=>{
+      e.preventDefault();
+      const payload=collect(cfg.fields,form,note); if(payload===null) return;
+      save.disabled=true; save.innerHTML='<span class="spin"></span> Saving…'; note.className="note"; note.textContent="";
+      let error;
+      if(data){ ({ error }=await db.from(key).update(payload).eq("id",true)); }
+      else { ({ error }=await db.from(key).insert({ id:true, ...payload })); }
+      save.disabled=false; save.innerHTML='<i class="fa-solid fa-check"></i> Save changes';
+      if(error){ note.className="note err"; note.textContent=error.message||"Save failed."; toast("Save failed","err"); return; }
+      note.className="note ok"; note.textContent="Saved."; toast("Settings saved","ok");
+    });
+  }
 
-        function renderCMSTable(data, type, rowGenerator) {
-            const tbody = document.getElementById('cms-tbody');
-            if(!data || data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-500">No records found in ${type.toUpperCase()}.</td></tr>`;
-                return;
-            }
-            let html = '';
-            data.forEach(item => {
-                html += `
-                <tr class="hover:bg-gray-50 transition border-b border-gray-100">
-                    ${rowGenerator(item)}
-                    <td class="p-4 text-right space-x-2">
-                        <button onclick="openModal('Edit Record', '${type}', '${item.id}')" class="text-gray-400 hover:text-brand-blue transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteRecord('${type}', '${item.id}')" class="text-gray-400 hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            tbody.innerHTML = html;
-        }
+  /* ---------------- INBOX ---------------- */
+  async function renderInbox(c){
+    const key=VIEW.key, cfg=INBOXES[key];
+    const { data, error }=await db.from(key).select("*").order("created_at",{ascending:false});
+    c.innerHTML="";
+    if(error){ c.appendChild(errBox(error)); return; }
+    const rows=data||[];
+    if(!rows.length){ const w=el("div","table-wrap"); w.innerHTML=`<div class="empty-state"><i class="fa-regular fa-inbox"></i><strong>Nothing here yet</strong>${cfg.label} will appear here as they come in.</div>`; c.appendChild(w); return; }
+    let eventMap={};
+    if(key==="event_rsvps"){ const ids=[...new Set(rows.map(r=>r.event_id))]; const { data:evs }=await db.from("events").select("id,title").in("id",ids); (evs||[]).forEach(e=>eventMap[e.id]=e.title); }
 
-        // ==========================================
-        // UNIVERSAL MODAL SYSTEM
-        // ==========================================
-        function openModal(title, context, id = null) {
-            document.getElementById('modal-title').textContent = title;
-            const body = document.getElementById('modal-body');
-            
-            // Build form based on context. (This is a simplified skeleton builder)
-            let formHtml = `<form id="editor-form" class="space-y-4"><input type="hidden" id="record-id" value="${id || ''}">`;
-            
-            if (context === 'news') {
-                formHtml += `
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Title</label><input type="text" id="f-title" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Category</label><select id="f-cat" class="w-full px-3 py-2 border rounded text-sm"><option>Press Release</option><option>Statement</option></select></div>
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Content (Text/HTML)</label><textarea id="f-content" rows="6" class="w-full px-3 py-2 border rounded text-sm outline-none focus:border-brand-blue"></textarea></div>
-                    <div><label class="flex items-center gap-2 text-sm font-bold text-gray-900"><input type="checkbox" id="f-pub" class="w-4 h-4 text-brand-blue rounded focus:ring-brand-blue"> Is Published</label></div>
-                `;
-            } else if (context === 'init') {
-                formHtml += `
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Initiative Title</label><input type="text" id="f-title" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Status</label><input type="text" id="f-status" value="Active" class="w-full px-3 py-2 border rounded text-sm focus:border-brand-blue outline-none"></div>
-                    <div><label class="block text-xs font-bold text-gray-700 uppercase mb-1">Summary</label><textarea id="f-summary" rows="4" class="w-full px-3 py-2 border rounded text-sm outline-none focus:border-brand-blue"></textarea></div>
-                `;
-            } else {
-                formHtml += `<p class="text-sm text-gray-500">Auto-generated schema builder for ${context} would load here.</p>`;
-            }
-            
-            formHtml += `</form>`;
-            body.innerHTML = formHtml;
+    const info=el("div"); info.style.cssText="margin-bottom:16px;color:var(--muted);font-size:.9rem;font-weight:600"; info.textContent=`${rows.length} ${rows.length===1?"entry":"entries"}`; c.appendChild(info);
 
-            // Load data if ID exists (Skeleton code for reading)
-            if (id) {
-                // Example: supabaseClient.from(context).select().eq('id', id)... fill form
-                console.log("Loading record:", id, "for context:", context);
-            }
+    rows.forEach(r=>{
+      const unread = key==="contact_submissions" ? !r.is_read : false;
+      const card=el("div","msg"+(unread?" unread":""));
+      const head=el("div","msg-head");
+      const who=el("div","msg-who");
+      if(key==="contact_submissions"){ who.innerHTML=`<b>${esc(r.name)}</b><div class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a> · <span class="pill cat">${LABELS[r.reason]||r.reason}</span> ${r.subject?"· "+esc(r.subject):""}</div>`; }
+      else if(key==="volunteer_signups"){ who.innerHTML=`<b>${esc(r.name)}</b><div class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${r.phone?" · "+esc(r.phone):""}${r.availability?" · "+esc(r.availability):""}</div>`; }
+      else if(key==="event_rsvps"){ who.innerHTML=`<b>${esc(r.name)}</b><div class="meta"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a> · ${esc(eventMap[r.event_id]||"Event")}</div>`; }
+      else if(key==="newsletter_subscribers"){ who.innerHTML=`<b>${esc(r.email)}</b><div class="meta">${r.is_confirmed?"Confirmed":"Pending"}</div>`; }
+      head.appendChild(who);
+      const right=el("div","msg-right");
+      right.appendChild(el("span","msg-date",fmtDateTime(r.created_at)));
+      if(key==="contact_submissions"){ const mk=el("button","btn btn-ghost btn-sm"); mk.innerHTML=unread?'<i class="fa-regular fa-envelope-open"></i> Mark read':'<i class="fa-regular fa-envelope"></i> Unread'; mk.addEventListener("click",async(e)=>{ e.stopPropagation(); await db.from(key).update({is_read:!r.is_read}).eq("id",r.id); r.is_read=!r.is_read; render(); refreshBadges(); }); right.appendChild(mk); }
+      const del=el("button","btn btn-danger btn-sm"); del.innerHTML='<i class="fa-solid fa-trash"></i>'; del.setAttribute("aria-label","Delete"); del.addEventListener("click",async(e)=>{ e.stopPropagation(); if(!confirm("Delete this entry?"))return; await db.from(key).delete().eq("id",r.id); toast("Deleted","ok"); render(); refreshBadges(); }); right.appendChild(del);
+      head.appendChild(right);
+      card.appendChild(head);
 
-            document.getElementById('action-modal').classList.remove('hidden');
-            document.getElementById('action-modal').classList.add('flex');
-        }
+      // body (details)
+      const bd=el("div","msg-body");
+      if(key==="contact_submissions"){ if(r.subject)bd.appendChild(rowLine("Subject",r.subject)); const t=el("div","txt",r.message); bd.appendChild(t); }
+      else if(key==="volunteer_signups"){ if(r.district)bd.appendChild(rowLine("District",r.district)); if(r.interests&&r.interests.length){ const rl=el("div","row"); rl.innerHTML="<b>Interests:</b> "; r.interests.forEach(i=>rl.appendChild(Object.assign(el("span","tagchip"),{textContent:i}))); bd.appendChild(rl); } if(r.availability)bd.appendChild(rowLine("Availability",r.availability)); if(r.message){ const t=el("div","txt",r.message); bd.appendChild(t); } if(!r.district&&!(r.interests&&r.interests.length)&&!r.message)bd.appendChild(el("div","row","No additional details.")); }
+      else if(key==="event_rsvps"){ bd.appendChild(rowLine("Event",eventMap[r.event_id]||r.event_id)); bd.appendChild(rowLine("Email",r.email)); }
+      else if(key==="newsletter_subscribers"){ bd.appendChild(rowLine("Status",r.is_confirmed?"Confirmed":"Pending confirmation")); bd.appendChild(rowLine("Signed up",fmtDateTime(r.created_at))); }
+      card.appendChild(bd);
+      head.addEventListener("click",()=>{ card.classList.toggle("open"); if(key==="contact_submissions" && unread && !r.is_read){ /* auto mark read on open */ db.from(key).update({is_read:true}).eq("id",r.id).then(()=>{ r.is_read=true; card.classList.remove("unread"); refreshBadges(); }); } });
+      c.appendChild(card);
+    });
+  }
+  function rowLine(k,v){ const d=el("div","row"); d.innerHTML=`<b>${k}:</b> ${esc(String(v))}`; return d; }
+  function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch])); }
+  function errBox(error){ const w=el("div","table-wrap"); w.innerHTML=`<div class="empty-state"><i class="fa-solid fa-triangle-exclamation" style="color:var(--accent)"></i><strong>Couldn't load</strong>${esc(error.message||"An error occurred.")}</div>`; return w; }
 
-        function closeModal() {
-            document.getElementById('action-modal').classList.add('hidden');
-            document.getElementById('action-modal').classList.remove('flex');
-        }
+  /* mobile */
+  function closeMobile(){ $("#sidebar").classList.remove("open"); $("#backdrop").classList.remove("show"); }
+  $("#mob-toggle").addEventListener("click",()=>{ $("#sidebar").classList.toggle("open"); $("#backdrop").classList.toggle("show"); });
+  $("#backdrop").addEventListener("click",closeMobile);
 
-        function saveModalData() {
-            // Skeleton for saving data back to Supabase
-            console.log("Saving data for context:", currentCmsType);
-            const btn = document.querySelector('#action-modal .fa-floppy-disk').parentElement;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-            
-            // Simulate network request
-            setTimeout(() => {
-                closeModal();
-                loadCMS(currentCmsType); // Reload table
-                btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
-            }, 800);
-        }
-
-        function viewMessage(id) {
-            // Open read-only modal for Inbox messages
-            openModal('Review Message', 'inbox', id);
-            document.getElementById('modal-body').innerHTML = `
-                <div class="bg-blue-50 p-4 rounded-lg mb-4">
-                    <p class="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Marking as Read...</p>
-                    <p class="text-sm text-gray-700">Connecting to database to retrieve full message details for ID: ${id}.</p>
-                </div>
-                <button class="px-4 py-2 bg-green-600 text-white text-xs font-bold rounded shadow hover:bg-green-700 transition">Mark as Resolved</button>
-            `;
-            // In real app: Update status to 'read' via Supabase here.
-        }
-
-        function deleteRecord(table, id) {
-            if(confirm("Are you sure you want to delete this record? This cannot be undone.")) {
-                console.log(`Deleting ${id} from ${table}...`);
-                // Simulate Supabase delete
-                // supabaseClient.from(table).delete().eq('id', id);
-                loadCMS(currentCmsType);
-            }
-        }
-    </script>
+  boot();
+  </script>
 </body>
 </html>
