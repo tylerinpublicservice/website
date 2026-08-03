@@ -11,6 +11,7 @@
   <meta property="og:image" content="https://i.ibb.co/tMH5rnhD/Snapchat-345993718-2.jpg" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://elfsightcdn.com/platform.js" async></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -39,7 +40,7 @@
     .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
     .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
     .eyebrow.light{color:#fff}
-    .section-intro{max-width:720px;margin-bottom:44px}
+    .section-intro{max-width:760px;margin-bottom:44px}
     .section-intro h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
     .section-intro p{color:var(--muted);margin-top:14px;font-size:1.05rem}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s}
@@ -47,12 +48,10 @@
     .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(200,16,46,.5)}
     .btn-accent:hover{background:var(--accent-600)}
     .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-900)}
-    .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.55)}
-    .btn-ghost:hover{background:#fff;color:var(--navy);border-color:#fff}
-    .btn-outline{background:#fff;color:var(--navy);border-color:var(--line)}
-    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-light{background:#fff;color:var(--navy)}.btn-light:hover{background:#eef3fb}
     .note{font-size:.88rem;min-height:1.2em;font-weight:600}
     .note.ok{color:var(--green)}.note.err{color:var(--accent)}
+    .zoom{cursor:zoom-in}
 
     /* preloader */
     #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
@@ -91,18 +90,18 @@
     .ph-crumb{font-size:.8rem;color:#a9bbdb;font-weight:600;margin-bottom:14px;letter-spacing:.04em}
     .ph-crumb a:hover{color:#fff}
     .page-header h1{color:#fff;font-size:clamp(2.4rem,5vw,3.7rem);letter-spacing:-.02em}
-    .ph-tagline{margin-top:18px;color:#cdd9ee;font-weight:600;font-size:clamp(.95rem,1.6vw,1.12rem);max-width:840px;line-height:1.6}
+    .ph-tagline{margin-top:20px;color:#cdd9ee;font-weight:500;font-size:clamp(1rem,1.7vw,1.2rem);max-width:820px;line-height:1.65}
 
     /* meet + book */
-    .meet-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:stretch}
-    .meet-photo{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);display:flex}
-    .meet-photo img{width:100%;height:100%;object-fit:cover;min-height:420px}
+    .meet-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:44px;align-items:stretch}
+    .meet-photo{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);display:flex;align-self:stretch}
+    .meet-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
     .meet-photo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent);z-index:2}
     .book{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;display:flex;flex-direction:column}
-    .book-viewport{position:relative;height:460px;overflow:hidden}
+    .book-viewport{position:relative;height:430px;overflow:hidden}
     .book-viewport::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,rgba(11,46,99,.06),transparent);z-index:3;pointer-events:none}
     .book-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
-    .book-page{flex:0 0 100%;height:100%;width:100%;padding:34px 40px;overflow:hidden}
+    .book-page{flex:0 0 100%;height:100%;width:100%;padding:32px 38px;overflow:hidden}
     .book-page p{color:#28374f;font-size:1.02rem;line-height:1.75;margin-bottom:14px}
     .book-bar{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-top:1px solid var(--line);background:#fbfcfe}
     .book-bar .pg{font-size:.8rem;color:var(--muted);font-weight:700}
@@ -111,107 +110,65 @@
     .book-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
     .book-nav button:disabled{opacity:.35;cursor:default}
 
-    /* gallery + lightbox */
-    .gallery{column-count:4;column-gap:14px}
-    .g-item{display:block;width:100%;margin:0 0 14px;padding:0;border:0;background:none;cursor:pointer;border-radius:12px;overflow:hidden;break-inside:avoid;box-shadow:var(--shadow-sm)}
-    .g-item img{width:100%;display:block;transition:transform .35s}
-    .g-item:hover img{transform:scale(1.05)}
-    .lightbox{position:fixed;inset:0;background:rgba(6,17,38,.92);z-index:600;display:none;place-items:center}
-    .lightbox.show{display:grid}
-    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-    .lb-btn{position:absolute;background:rgba(255,255,255,.12);color:#fff;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;transition:background .2s}
-    .lb-btn:hover{background:var(--accent)}
-    #lb-prev{left:24px;top:50%;transform:translateY(-50%)}
-    #lb-next{right:24px;top:50%;transform:translateY(-50%)}
-    #lb-close{right:24px;top:24px}
-
-    /* portfolio */
-    .role-group{margin-bottom:44px}
+    /* portfolio — corporate */
+    .role-group{margin-bottom:40px}
     .role-group:last-child{margin-bottom:0}
-    .role-group-title{font-size:1.15rem;color:var(--navy);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:12px}
+    .role-group-title{font-size:1.1rem;color:var(--navy);margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:12px;font-weight:800}
     .role-group-title::before{content:"";width:22px;height:3px;background:var(--accent);border-radius:2px}
-    .role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .role-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;gap:8px}
-    .role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-    .role-logo{width:56px;height:56px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;margin-bottom:6px;flex:none}
-    .role-logo img{max-width:80%;max-height:80%;object-fit:contain}
+    .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .role-item{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s,border-color .18s}
+    .role-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:#d3ddec}
+    .role-logo{width:56px;height:56px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;flex:none}
+    .role-logo img{max-width:78%;max-height:78%;object-fit:contain}
     .role-logo.fallback{background:var(--navy);color:#fff;font-weight:800;font-size:1.3rem}
-    .role-title{font-size:1.08rem;color:var(--navy);font-weight:800;line-height:1.25}
-    .role-org{font-size:.85rem;color:var(--accent);font-weight:700}
-    .role-desc{color:var(--muted);font-size:.93rem;line-height:1.6}
+    .role-title{font-size:1.04rem;color:var(--navy);font-weight:800;line-height:1.25}
+    .role-org{font-size:.83rem;color:var(--accent);font-weight:700;margin:3px 0 7px}
+    .role-desc{color:var(--muted);font-size:.92rem;line-height:1.55}
 
-    /* values */
-    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-    .value-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow-sm);transition:transform .2s}
-    .value-card:hover{transform:translateY(-4px)}
-    .value-ic{width:54px;height:54px;border-radius:12px;background:#fbe9ec;color:var(--accent);display:grid;place-items:center;font-size:1.3rem;margin-bottom:18px}
-    .value-card h3{font-size:1.15rem;margin-bottom:10px}
-    .value-card p{color:var(--muted);font-size:.94rem;line-height:1.6}
+    /* beliefs — plain list, no cards/icons */
+    .beliefs{display:grid;grid-template-columns:1fr 1fr;gap:14px 48px;max-width:960px}
+    .belief{display:flex;gap:13px;align-items:flex-start;color:#28374f;font-weight:600;font-size:1.03rem;line-height:1.5}
+    .belief::before{content:"";flex:none;width:15px;height:2px;background:var(--accent);margin-top:12px;border-radius:2px}
 
     /* feature (two-column) */
     .feature{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
-    .feature-img img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow-md);cursor:zoom-in}
+    .feature-img img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow-md)}
     .feature-text h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px}
     .feature-text p{color:#28374f;margin-bottom:16px;font-size:1.03rem}
+    .sec-logo{width:66px;height:66px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid var(--line);padding:8px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
     .ya-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .ya-photos img{width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:var(--shadow-sm);cursor:zoom-in;aspect-ratio:3/4}
+    .ya-photos img{width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:var(--shadow-sm);aspect-ratio:3/4}
 
-    /* youth ambassador */
+    /* youth ambassador — simplified */
     .ya{background:var(--paper);border-block:1px solid var(--line)}
-    .ya-hero{text-align:center;max-width:760px;margin:0 auto 42px}
-    .ya-hero p{color:var(--muted);margin-top:14px;font-size:1.08rem}
-    .ya-badges{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:42px}
-    .ya-badge{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:8px 16px;font-weight:700;font-size:.82rem;color:var(--navy);box-shadow:var(--shadow-sm)}
-    .ya-badge img{height:20px;width:auto;border-radius:2px}
-    .ya-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:20px}
-    .ya-ocard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
-    .ya-ocard .k{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:10px}
-    .ya-ocard .v{font-weight:800;color:var(--navy);font-size:1.05rem;margin-bottom:8px}
-    .ya-ocard p{color:var(--muted);font-size:.9rem;line-height:1.6}
-    .ya-objectives{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:42px 0}
-    .ya-chip{background:var(--navy);color:#fff;border-radius:100px;padding:11px 22px;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:9px}
-    .ya-chip i{color:#8fb4e6}
-    .ya-block{max-width:860px;margin:0 auto 30px}
-    .ya-block h3{font-size:1.4rem;margin-bottom:14px;text-align:center}
-    .ya-block p{color:#28374f;margin-bottom:14px;font-size:1.02rem}
-    .ya-locations{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:14px}
-    .ya-loc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);border-top:4px solid var(--accent)}
-    .ya-loc h4{font-size:1.05rem;margin-bottom:8px;display:flex;align-items:center;gap:9px}
-    .ya-loc h4 i{color:var(--accent)}
-    .ya-loc p{color:var(--muted);font-size:.9rem;line-height:1.55}
+    .glance{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 32px;box-shadow:var(--shadow-sm)}
+    .glance h3{font-size:1.15rem;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--line)}
+    .glance dl{display:flex;flex-direction:column;gap:15px}
+    .glance dl>div{display:flex;flex-direction:column;gap:3px}
+    .glance dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.11em;color:var(--accent);font-weight:700}
+    .glance dd{font-weight:700;color:var(--navy);font-size:1rem}
 
     /* country */
     .country{background:linear-gradient(120deg,var(--navy-900),var(--navy));color:#fff}
-    .country-inner{display:grid;grid-template-columns:auto 1fr;gap:52px;align-items:center}
-    .country-flag{width:220px;height:auto;border-radius:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.7);flex:none}
-    .country h2{color:#fff;font-size:clamp(1.9rem,3.4vw,2.6rem)}
-    .country p{color:#cdd9ee;margin-top:16px;font-size:1.06rem;line-height:1.7;max-width:640px}
+    .country-inner{display:grid;grid-template-columns:1fr 1.05fr;gap:52px;align-items:center}
+    .country-inner .feature-img img{box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+    .country-text h2{color:#fff;font-size:clamp(1.9rem,3.4vw,2.6rem)}
+    .country-text p{color:#cdd9ee;margin-top:16px;font-size:1.05rem;line-height:1.75}
     .country .motto{margin-top:22px;font-weight:800;color:#fff;font-size:1.1rem;border-left:3px solid var(--accent);padding-left:16px}
 
     /* request */
     .request{background:var(--surface);border-block:1px solid var(--line)}
     .request-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start}
     .request-text h2{font-size:clamp(1.8rem,3.2vw,2.4rem);margin-bottom:16px}
-    .request-text p{color:var(--muted);margin-bottom:18px;font-size:1.03rem}
-    .req-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:6px}
-    .req-list li{display:flex;gap:12px;align-items:flex-start;color:#28374f;font-weight:600}
-    .req-list i{color:var(--accent);margin-top:4px}
-    .form-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm)}
+    .request-text p{color:#28374f;margin-bottom:16px;font-size:1.04rem}
+    .request-text .muted{color:var(--muted)}
+    .form-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm)}
     .field{margin-bottom:16px}
-    .field label{display:block;font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:7px;letter-spacing:.02em}
+    .field label{display:block;font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:7px}
     .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:.98rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
     .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
-    .field textarea{resize:vertical;min-height:110px}
+    .field textarea{resize:vertical;min-height:120px}
     .field-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-
-    /* press kit */
-    .press-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .press-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;align-items:center;gap:12px}
-    .press-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-    .press-ic{width:54px;height:54px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1.25rem}
-    .press-card h4{font-size:1.05rem}
-    .press-card p{color:var(--muted);font-size:.88rem;flex:1}
-    .press-card .plink{font-weight:700;color:var(--accent);font-size:.9rem}
 
     /* footer */
     footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
@@ -230,7 +187,7 @@
     .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
     .foot-bottom a{color:#c3d0e4;font-weight:600}.foot-bottom a:hover{color:#fff}
 
-    /* search overlay + back to top */
+    /* search + lightbox + back to top */
     .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}
     .overlay.show{display:block}
     .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
@@ -244,6 +201,12 @@
     .results a b{color:var(--navy);font-weight:700}
     .results a span{display:block;font-size:.88rem;color:var(--muted)}
     .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+    .lightbox{position:fixed;inset:0;background:rgba(6,17,38,.92);z-index:600;display:none;place-items:center}
+    .lightbox.show{display:grid}
+    .lb-img{max-width:90vw;max-height:82vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .lb-btn{position:absolute;background:rgba(255,255,255,.12);color:#fff;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;transition:background .2s}
+    .lb-btn:hover{background:var(--accent)}
+    #lb-prev{left:24px;top:50%;transform:translateY(-50%)}#lb-next{right:24px;top:50%;transform:translateY(-50%)}#lb-close{right:24px;top:24px}
     .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
     .to-top.show{opacity:1;visibility:visible;transform:none}
     .to-top:hover{background:var(--accent)}
@@ -258,19 +221,15 @@
       .meet-grid,.feature,.request-grid,.country-inner{grid-template-columns:1fr}
       .meet-photo{max-height:440px;order:-1}
       .book-viewport{height:500px}
-      .gallery{column-count:3}
-      .role-grid,.ya-overview{grid-template-columns:1fr 1fr}
-      .values-grid,.ya-locations,.press-grid{grid-template-columns:repeat(2,1fr)}
-      .country-flag{width:180px}
-      .feature.rev .feature-text{order:0}
+      .role-grid{grid-template-columns:1fr 1fr}
+      .country-inner .feature-img{max-width:520px}
     }
     @media (max-width:680px){
       .section{padding-block:60px}
       .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
       .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md)}
       .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
-      .gallery{column-count:2}
-      .role-grid,.values-grid,.ya-overview,.ya-locations,.press-grid,.field-2{grid-template-columns:1fr}
+      .role-grid,.beliefs,.field-2{grid-template-columns:1fr}
       .book-viewport{height:560px}.book-page{padding:26px 22px}
       .brand-text{font-size:.98rem}
     }
@@ -316,7 +275,7 @@
       <div class="container ph-inner">
         <div class="ph-crumb"><a href="/">Home</a> &nbsp;/&nbsp; About</div>
         <h1>About Tyler Nicholas</h1>
-        <p class="ph-tagline">17 years old &nbsp;·&nbsp; Honourable Member, Seychelles National Youth Assembly &nbsp;·&nbsp; Youth Ambassador Alumni &nbsp;·&nbsp; Entrepreneur &nbsp;·&nbsp; Technology Developer &nbsp;·&nbsp; Youth Advocate</p>
+        <p class="ph-tagline">Tyler P. Nicholas is a 17-year-old Seychellois youth leader — an Honourable Member of the Seychelles National Youth Assembly, a Youth Ambassador alumnus, and an entrepreneur, technology developer and youth advocate.</p>
       </div>
     </section>
 
@@ -344,44 +303,52 @@
       </div>
     </section>
 
-    <!-- JOURNEY / MEMORIES -->
-    <section class="section" id="journey" style="background:var(--surface);border-block:1px solid var(--line)">
-      <div class="container">
-        <div class="section-intro reveal">
-          <span class="eyebrow">The Journey</span>
-          <h2>Moments &amp; memories</h2>
-          <p>A journey shaped by people — moments of service, leadership, learning and friendship along the way. Tap any photo to view it.</p>
-        </div>
-        <div class="gallery reveal" id="gallery"></div>
-      </div>
-    </section>
-
     <!-- LEADERSHIP PORTFOLIO -->
-    <section class="section" id="portfolio">
+    <section class="section" id="portfolio" style="background:var(--surface);border-block:1px solid var(--line)">
       <div class="container">
         <div class="section-intro reveal">
           <span class="eyebrow">Leadership Portfolio</span>
           <h2>Roles &amp; responsibilities</h2>
-          <p>A portfolio of leadership, enterprise and service — from the classroom to the community, and from Seychelles to the world.</p>
+          <p>A record of leadership, enterprise and service — from the classroom to the community, and from Seychelles to the world.</p>
         </div>
         <div class="reveal" id="portfolio-wrap"></div>
       </div>
     </section>
 
-    <!-- VALUES -->
-    <section class="section" id="values" style="background:var(--surface);border-block:1px solid var(--line)">
+    <!-- BELIEFS -->
+    <section class="section" id="values">
       <div class="container">
         <div class="section-intro reveal">
           <span class="eyebrow">Guiding Principles</span>
           <h2>What I believe in</h2>
-          <p>The principles behind every decision, project and responsibility.</p>
+          <p>The convictions behind every decision, project and responsibility.</p>
         </div>
-        <div class="values-grid reveal" id="values-grid"></div>
+        <div class="beliefs reveal">
+          <div class="belief">World peace</div>
+          <div class="belief">Human dignity and equality for every person</div>
+          <div class="belief">Respect and tolerance for every culture and belief</div>
+          <div class="belief">No partisanship — vote for the person, not the party</div>
+          <div class="belief">Help your neighbour</div>
+          <div class="belief">Choose peace over conflict</div>
+          <div class="belief">Love and compassion for one another</div>
+          <div class="belief">Integrity in everything, seen or unseen</div>
+          <div class="belief">Service before self, whenever you can</div>
+          <div class="belief">Listen to young people — they often know more than we assume, and ego should never get in the way</div>
+          <div class="belief">Innovation as a force for good</div>
+          <div class="belief">Diplomacy and dialogue over division</div>
+          <div class="belief">Education as a right for every child</div>
+          <div class="belief">Justice and fairness for all</div>
+          <div class="belief">Protect our planet for future generations</div>
+          <div class="belief">Cooperation across communities and nations</div>
+          <div class="belief">Stand up for human rights</div>
+          <div class="belief">Work to end poverty and hunger</div>
+          <div class="belief">Promote and live by your values</div>
+        </div>
       </div>
     </section>
 
     <!-- FOUNDATION -->
-    <section class="section" id="foundation">
+    <section class="section" id="foundation" style="background:var(--surface);border-block:1px solid var(--line)">
       <div class="container">
         <div class="feature reveal">
           <div class="feature-img"><img class="zoom" src="https://i.ibb.co/NgcPV4Y6/Tyler-Nicholas-Foundation-Who-We-Are.png" alt="Tyler Nicholas Foundation — Who We Are" loading="lazy" /></div>
@@ -389,22 +356,24 @@
             <span class="eyebrow">The Foundation</span>
             <h2>The Tyler Nicholas Foundation</h2>
             <p>The Tyler Nicholas Foundation is the philanthropic arm of Tyler's mission — dedicated to empowering young people, supporting education, and strengthening communities across Seychelles.</p>
-            <p>Through its programmes and partnerships, the Foundation works to turn ideas into real opportunities for the next generation, ensuring that more young Seychellois have the tools, support and confidence to contribute to their country.</p>
-            <a class="btn btn-accent" href="https://tyler-nicholas-foundation.online" target="_blank" rel="noopener">Visit the Foundation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.85em"></i></a>
+            <p>Through its programmes and partnerships, the Foundation turns ideas into real opportunities for the next generation, ensuring more young Seychellois have the tools, support and confidence to contribute to their country.</p>
+            <a class="btn btn-accent" href="https://tyler-nicholas-foundation.online" target="_blank" rel="noopener">Visit the Foundation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.82em"></i></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- YOUTH ASSEMBLY -->
-    <section class="section" id="youth-assembly" style="background:var(--surface);border-block:1px solid var(--line)">
+    <section class="section" id="youth-assembly">
       <div class="container">
-        <div class="feature rev reveal">
+        <div class="feature reveal">
           <div class="feature-text">
+            <img class="sec-logo" src="https://i.ibb.co/39w7tQcc/1000064823.jpg" alt="Seychelles National Youth Assembly" loading="lazy" />
             <span class="eyebrow">National Service</span>
             <h2>Honourable Member — Seychelles National Youth Assembly</h2>
             <p>As an Honourable Member of the Seychelles National Youth Assembly, Tyler represents the voices of young Seychellois at a national level.</p>
             <p>The Assembly gives young people a platform to debate, propose and contribute to the discussions that shape the country's future — ensuring the next generation has a genuine say in the Seychelles it will inherit. For Tyler, it is a responsibility to listen carefully, represent faithfully, and speak up for the young people he serves.</p>
+            <a class="btn btn-navy" href="https://21stsnya.online/" target="_blank" rel="noopener">Visit the 21st SNYA <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.82em"></i></a>
           </div>
           <div class="feature-img">
             <div class="ya-photos">
@@ -419,72 +388,54 @@
     <!-- YOUTH AMBASSADOR -->
     <section class="section ya" id="youth-ambassador">
       <div class="container">
-        <div class="ya-hero reveal">
-          <span class="eyebrow">International Engagement</span>
-          <h2>Youth Ambassador Program</h2>
-          <p>Bridging cultural divides, fostering mutual respect, and preparing the leaders of tomorrow.</p>
-        </div>
-
-        <div class="ya-badges reveal">
-          <span class="ya-badge"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /> Representing Seychelles</span>
-          <span class="ya-badge"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnVq-2mjy2-8fKUI44b-S-64OrAlUHmCuAPxkrGOKQ7A&s" alt="" onerror="this.remove()" /> U.S. Department of State</span>
-          <span class="ya-badge"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Youth Ambassadors Africa</span>
-          <span class="ya-badge"><i class="fa-solid fa-globe" style="color:var(--accent)"></i> PH International</span>
-        </div>
-
-        <div class="ya-overview reveal">
-          <div class="ya-ocard"><div class="k">Cohort</div><div class="v">Youth Ambassadors Africa</div><p>Selected to represent Seychelles among young leaders from across the continent.</p></div>
-          <div class="ya-ocard"><div class="k">Management</div><div class="v">PH International</div><p>Implemented by PH International — an organisation with over $100M in U.S. government funding history and 15,000+ exchange alumni.</p></div>
-          <div class="ya-ocard"><div class="k">Accommodations</div><div class="v">Immersive U.S. life</div><p>Homestays with American families, university dormitories and program hotels, offering varied perspectives on life in the United States.</p></div>
-        </div>
-
-        <div class="ya-objectives reveal">
-          <span class="ya-chip"><i class="fa-solid fa-hands-holding-circle"></i> Civic Engagement</span>
-          <span class="ya-chip"><i class="fa-solid fa-check-to-slot"></i> Participatory Democracy</span>
-          <span class="ya-chip"><i class="fa-solid fa-compass"></i> Adaptive Leadership</span>
-          <span class="ya-chip"><i class="fa-solid fa-diagram-project"></i> Action Planning</span>
-        </div>
-
-        <div class="ya-block reveal">
-          <h3>Preparing leaders of tomorrow</h3>
-          <p>The Youth Ambassadors Program strengthens mutual understanding, prosperity and global collaboration by empowering youth leaders to become active, responsible citizens both locally and globally.</p>
-          <p>The program fosters mutual respect — helping to share values, build relationships and bridge cultural divides to promote peaceful coexistence. By developing critical thinking, problem-solving and civic-action skills, participants return home equipped to contribute to stability and progress within their own nations.</p>
-        </div>
-
-        <div class="ya-block reveal">
-          <h3>The exchange experience</h3>
-          <p>The overall theme of the program is civic engagement. The exchange brings together highly selected participants to promote mutual understanding, increase leadership capacity, and prepare youth to implement tangible change within their local communities.</p>
-          <p>It builds team spirit through hands-on service learning, leadership seminars, peer collaboration, and visits to entrepreneurial ventures and innovative organisations — from the policy-focused landscape of Washington, D.C. to the grassroots civil-rights history of the American South.</p>
-        </div>
-
-        <div class="ya-block reveal">
-          <h3>Community action &amp; impact</h3>
-          <p>Civic education and youth leadership build participants' self-confidence and capacity to drive solutions to challenges back home. A central objective is the Action Planning Academy, where participants develop a concrete framework for execution.</p>
-          <p>Upon returning to Seychelles, participants apply what they have learned by formally implementing a Community Action Plan — a Community Impact Project that serves critical needs and ensures long-term civic progress.</p>
-        </div>
-
-        <div class="reveal">
-          <div class="section-intro" style="text-align:center;max-width:100%;margin-bottom:24px"><h2 style="font-size:1.5rem">Program destinations</h2></div>
-          <div class="ya-locations">
-            <div class="ya-loc"><h4><i class="fa-solid fa-landmark-dome"></i> Washington D.C.</h4><p>Policy and government — the institutions and decisions that shape a nation.</p></div>
-            <div class="ya-loc"><h4><i class="fa-solid fa-city"></i> New York City</h4><p>Diversity, enterprise and global connection in one of the world's great cities.</p></div>
-            <div class="ya-loc"><h4><i class="fa-solid fa-tree"></i> Vermont</h4><p>Community, sustainability and civic life in small-town America.</p></div>
-            <div class="ya-loc"><h4><i class="fa-solid fa-monument"></i> Alabama</h4><p>The grassroots civil-rights history of the American South.</p></div>
+        <div class="feature reveal">
+          <div class="feature-text">
+            <span class="eyebrow">International Engagement</span>
+            <h2>Youth Ambassador</h2>
+            <p>Tyler represented Seychelles as a Youth Ambassador through the Youth Ambassadors programme — a U.S. Department of State exchange, implemented by PH International, that brings together young leaders from across Africa to build skills in civic engagement and leadership.</p>
+            <p>Centred on civic engagement, the exchange combines leadership seminars, service learning and cultural immersion across the United States. On returning home, each participant designs and delivers a Community Action Plan that addresses a real need — turning the experience into lasting impact.</p>
+          </div>
+          <div class="glance">
+            <h3>Program at a glance</h3>
+            <dl>
+              <div><dt>Cohort</dt><dd>Youth Ambassadors Africa</dd></div>
+              <div><dt>Managed by</dt><dd>PH International</dd></div>
+              <div><dt>Supported by</dt><dd>U.S. Department of State</dd></div>
+              <div><dt>Focus</dt><dd>Civic engagement, leadership &amp; action planning</dd></div>
+              <div><dt>U.S. destinations</dt><dd>Washington D.C. · New York City · Vermont · Alabama</dd></div>
+            </dl>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- MY COUNTRY -->
+    <!-- LINKEDIN FEED -->
+    <section class="section" id="linkedin" style="background:var(--surface);border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="eyebrow">Professional Updates</span>
+          <h2>Latest on LinkedIn</h2>
+          <p>Follow Tyler's professional journey and most recent updates.</p>
+        </div>
+        <!-- Elfsight LinkedIn Feed | Untitled LinkedIn Feed -->
+        <div class="elfsight-app-c4870813-765d-44e4-98da-c9ef5c54a7b0" data-elfsight-app-lazy></div>
+      </div>
+    </section>
+
+    <!-- FOR SEYCHELLES -->
     <section class="country section" id="country">
-      <div class="container country-inner">
-        <img class="country-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" />
-        <div class="reveal">
-          <span class="eyebrow light">My Country</span>
-          <h2>For Seychelles</h2>
-          <p>Seychelles is more than where Tyler comes from — it is the reason behind everything he does. A young island nation in the heart of the Indian Ocean, Seychelles is home to extraordinary natural beauty, a proud and diverse people, and enormous potential.</p>
-          <p>Tyler believes deeply in its future: that through education, innovation, unity and responsible leadership, Seychelles can stand confident and prosperous on the world stage. Every project, every role and every ambition comes back to one goal — to help build a stronger, brighter Seychelles.</p>
-          <p class="motto">Finis Coronat Opus — "The End Crowns the Work"</p>
+      <div class="container">
+        <div class="country-inner">
+          <div class="feature-img reveal"><img src="https://images.daytrip.com/anse-royale.jpg" alt="Anse Royale, Seychelles" loading="lazy" onerror="this.style.display='none'" /></div>
+          <div class="country-text reveal">
+            <span class="eyebrow light">My Country</span>
+            <h2>For Seychelles</h2>
+            <p>Seychelles is more than where Tyler comes from — it is the reason behind everything he does. A young island nation scattered across the Indian Ocean, Seychelles is home to some of the most beautiful places on earth: granite peaks and turquoise water, quiet coves like Anse Royale, and forests found nowhere else in the world.</p>
+            <p>But its greatest strength has always been its people — proud, warm, resilient and diverse, drawn from many cultures into one nation. In just a few decades, Seychelles has grown from a small colony into an independent country with its own voice, its own identity, and a standard of living that is the envy of the region.</p>
+            <p>Tyler believes the story is far from finished. He sees a country with extraordinary potential — one that can lead in education, embrace technology and innovation, protect its environment, and stand confidently on the world stage through diplomacy and cooperation rather than division.</p>
+            <p>He believes deeply that the future of Seychelles belongs to its young people, and that they must be trusted, educated and empowered to build it. Every role he takes, every project he starts and every ambition he holds returns to a single purpose: to help build a stronger, more peaceful and more prosperous Seychelles for the generations still to come.</p>
+            <p class="motto">Finis Coronat Opus — "The End Crowns the Work"</p>
+          </div>
         </div>
       </div>
     </section>
@@ -495,13 +446,8 @@
         <div class="request-text reveal">
           <span class="eyebrow">Invitations</span>
           <h2>Request Tyler Nicholas</h2>
-          <p>Tyler is available for a limited number of speaking engagements, panels and school visits, focused on youth leadership, civic participation, technology and the future of Seychelles.</p>
-          <ul class="req-list">
-            <li><i class="fa-solid fa-microphone-lines"></i> Keynotes &amp; conference talks</li>
-            <li><i class="fa-solid fa-users-line"></i> Panels &amp; youth forums</li>
-            <li><i class="fa-solid fa-school"></i> School &amp; university assemblies</li>
-            <li><i class="fa-solid fa-comments"></i> Interviews &amp; media features</li>
-          </ul>
+          <p>Tyler accepts a limited number of speaking engagements each year, focused on youth leadership, civic participation, technology and the future of Seychelles.</p>
+          <p class="muted">He is available for keynotes and conference talks, panels and youth forums, school and university assemblies, and interviews or media features. Share a few details below and the Office will be in touch.</p>
         </div>
         <form class="form-card reveal" id="request-form">
           <div class="field-2">
@@ -511,9 +457,7 @@
           <div class="field-2">
             <div class="field"><label for="rq-org">Organisation</label><input id="rq-org" type="text" /></div>
             <div class="field"><label for="rq-type">Type of engagement</label>
-              <select id="rq-type">
-                <option>Keynote</option><option>Panel</option><option>School assembly</option><option>Interview / media</option><option>Other</option>
-              </select>
+              <select id="rq-type"><option>Keynote</option><option>Panel</option><option>School assembly</option><option>Interview / media</option><option>Other</option></select>
             </div>
           </div>
           <div class="field"><label for="rq-date">Preferred date</label><input id="rq-date" type="date" /></div>
@@ -521,31 +465,6 @@
           <button type="submit" class="btn btn-accent" id="rq-btn" style="width:100%">Send request</button>
           <div class="note" id="rq-note" role="status" aria-live="polite" style="margin-top:10px"></div>
         </form>
-      </div>
-    </section>
-
-    <!-- PRESS KIT -->
-    <section class="section" id="press" style="background:var(--surface);border-top:1px solid var(--line)">
-      <div class="container">
-        <div class="section-intro reveal">
-          <span class="eyebrow">Press Kit</span>
-          <h2>For media</h2>
-          <p>Everything you need to feature the Office of Tyler Nicholas. For interviews or additional assets, contact the Office directly.</p>
-        </div>
-        <div class="press-grid reveal">
-          <a class="press-card" href="https://i.ibb.co/tMH5rnhD/Snapchat-345993718-2.jpg" target="_blank" rel="noopener">
-            <div class="press-ic"><i class="fa-solid fa-image"></i></div><h4>Official Portrait</h4><p>High-resolution portrait photo.</p><span class="plink">Open image →</span>
-          </a>
-          <a class="press-card" href="https://i.ibb.co/cczjjKjc/Tyler-Nicholas-OFFICE-OF-TYLER-NICHOLAS.png" target="_blank" rel="noopener">
-            <div class="press-ic"><i class="fa-solid fa-id-badge"></i></div><h4>Press Headshot</h4><p>Formal headshot with the flag.</p><span class="plink">Open image →</span>
-          </a>
-          <a class="press-card" href="#meet">
-            <div class="press-ic"><i class="fa-solid fa-file-lines"></i></div><h4>Official Biography</h4><p>Full biography, ready to quote.</p><span class="plink">Read the bio →</span>
-          </a>
-          <a class="press-card" href="/contact">
-            <div class="press-ic"><i class="fa-solid fa-envelope"></i></div><h4>Media Enquiries</h4><p>Reach the Office for interviews.</p><span class="plink">Contact us →</span>
-          </a>
-        </div>
       </div>
     </section>
   </main>
@@ -597,20 +516,19 @@
   <!-- SUPABASE + APP -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-  const SUPABASE_URL  = "https://lanrakgrrbyfhtzcxnof.supabase.co";
-  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-  const $  = (s, r=document) => r.querySelector(s);
-  const el = (tag, cls, txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; };
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  $("#year").textContent = new Date().getFullYear();
+  const SUPABASE_URL="https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+  const $=(s,r=document)=>r.querySelector(s);
+  const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;};
+  const prefersReduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#year").textContent=new Date().getFullYear();
 
-  /* preloader */
-  function hidePreloader(){ const p=$("#preloader"); if(!p||p.classList.contains("hide"))return; p.classList.add("hide"); document.body.classList.remove("loading"); setTimeout(()=>p.remove(),600); }
-  window.addEventListener("load", hidePreloader); setTimeout(hidePreloader, 6000);
+  function hidePreloader(){const p=$("#preloader");if(!p||p.classList.contains("hide"))return;p.classList.add("hide");document.body.classList.remove("loading");setTimeout(()=>p.remove(),600);}
+  window.addEventListener("load",hidePreloader);setTimeout(hidePreloader,6000);
 
-  /* ===================== BIO BOOK ===================== */
-  const BIO = [
+  /* BIO BOOK */
+  const BIO=[
     "Tyler Nicholas is a 17-year-old Seychellois student, youth leader, entrepreneur, technology developer and public-service advocate committed to serving his community and contributing to the future development of Seychelles.",
     "Tyler is currently completing his final year of high school at École Française des Seychelles, where he is pursuing an academic pathway focused on Mathematics, Physics and Chemistry. Alongside his academic studies, he has developed a deep passion for aviation, technology, politics, diplomacy, international relations and law, with a long-term ambition to continue learning and building a career connected to both aviation and public service.",
     "His interest in leadership began during his school years. At École Française des Seychelles, Tyler has taken on several student leadership and representative responsibilities, including serving within the Conseil de la Vie Lycéenne, as School Treasurer, Eco-Delegate, and Class Delegate on multiple occasions. These experiences gave him an early understanding of representation, responsibility, teamwork and listening to the people he serves.",
@@ -621,31 +539,26 @@
     "His journey is still beginning. At 17, Tyler continues to balance his final year of school with youth leadership, entrepreneurship, technology, volunteering, international engagement and his passion for aviation. He continues to learn from every experience, believing that leadership is not a destination but an ongoing responsibility to serve, learn and contribute.",
     "His ambition is simple: to use every opportunity, every skill and every experience he gains to contribute to a stronger, more peaceful, prosperous and forward-looking Seychelles."
   ];
-  let currentParagraphs = BIO.slice(), bookIndex = 0, bookTotal = 1;
+  let currentParagraphs=BIO.slice(),bookIndex=0,bookTotal=1;
   function paginate(paragraphs){
-    const viewport = $("#book-viewport"); const pageH = viewport.clientHeight;
-    const measure = document.createElement("div"); measure.className="book-page"; measure.style.cssText="position:absolute;visibility:hidden;left:0;top:0;width:100%;"; viewport.appendChild(measure);
-    const pages=[]; let current=[];
-    paragraphs.forEach(text=>{ const p=document.createElement("p"); p.textContent=text; measure.appendChild(p);
-      if(measure.scrollHeight>pageH && current.length>0){ pages.push(current); current=[text]; measure.innerHTML=""; const np=document.createElement("p"); np.textContent=text; measure.appendChild(np); }
-      else { current.push(text); } });
-    if(current.length) pages.push(current); viewport.removeChild(measure); return pages;
+    const viewport=$("#book-viewport");const pageH=viewport.clientHeight;
+    const measure=document.createElement("div");measure.className="book-page";measure.style.cssText="position:absolute;visibility:hidden;left:0;top:0;width:100%;";viewport.appendChild(measure);
+    const pages=[];let current=[];
+    paragraphs.forEach(text=>{const p=document.createElement("p");p.textContent=text;measure.appendChild(p);
+      if(measure.scrollHeight>pageH&&current.length>0){pages.push(current);current=[text];measure.innerHTML="";const np=document.createElement("p");np.textContent=text;measure.appendChild(np);}else{current.push(text);}});
+    if(current.length)pages.push(current);viewport.removeChild(measure);return pages;
   }
-  function buildBook(paragraphs){ const track=$("#book-track"); track.innerHTML=""; const pages=paginate(paragraphs); pages.forEach(pg=>{ const page=el("div","book-page"); pg.forEach(t=>page.appendChild(el("p",null,t))); track.appendChild(page); }); bookTotal=pages.length||1; }
-  function showBookPage(i){ bookIndex=Math.max(0,Math.min(i,bookTotal-1)); $("#book-track").style.transform=`translateX(-${bookIndex*100}%)`; $("#book-pg").textContent=`Page ${bookIndex+1} of ${bookTotal}`; $("#book-prev").disabled=bookIndex===0; $("#book-next").disabled=bookIndex===bookTotal-1; }
-  function initBook(){ buildBook(currentParagraphs); showBookPage(Math.min(bookIndex,bookTotal-1)); }
+  function buildBook(paragraphs){const track=$("#book-track");track.innerHTML="";const pages=paginate(paragraphs);pages.forEach(pg=>{const page=el("div","book-page");pg.forEach(t=>page.appendChild(el("p",null,t)));track.appendChild(page);});bookTotal=pages.length||1;}
+  function showBookPage(i){bookIndex=Math.max(0,Math.min(i,bookTotal-1));$("#book-track").style.transform=`translateX(-${bookIndex*100}%)`;$("#book-pg").textContent=`Page ${bookIndex+1} of ${bookTotal}`;$("#book-prev").disabled=bookIndex===0;$("#book-next").disabled=bookIndex===bookTotal-1;}
+  function initBook(){buildBook(currentParagraphs);showBookPage(Math.min(bookIndex,bookTotal-1));}
   $("#book-prev").addEventListener("click",()=>showBookPage(bookIndex-1));
   $("#book-next").addEventListener("click",()=>showBookPage(bookIndex+1));
-  let brT; window.addEventListener("resize",()=>{ clearTimeout(brT); brT=setTimeout(initBook,250); });
-  window.addEventListener("load", initBook);
+  let brT;window.addEventListener("resize",()=>{clearTimeout(brT);brT=setTimeout(initBook,250);});
+  window.addEventListener("load",initBook);
+  async function loadBio(){const{data}=await db.from("profile").select("biography").maybeSingle();if(data&&data.biography){const paras=data.biography.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);if(paras.length){currentParagraphs=paras;bookIndex=0;initBook();}}}
 
-  async function loadBio(){
-    const { data } = await db.from("profile").select("biography").maybeSingle();
-    if(data && data.biography){ const paras=data.biography.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean); if(paras.length){ currentParagraphs=paras; bookIndex=0; initBook(); } }
-  }
-
-  /* ===================== PORTFOLIO ===================== */
-  const L = {
+  /* PORTFOLIO */
+  const L={
     ecole:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6m8Du7Re6d10R9LgKlxMujnf-_AN5kfPgR8Ck-q2Iq54BSmyKXit6Y0gE&s=10",
     egr:"https://i.ibb.co/jPPzN1rz/LOGO-EMIRATES-ROBLOX-compressed.png",
     asv:"https://i.ibb.co/C399b1XT/images.png",
@@ -656,166 +569,119 @@
     tnf:"https://i.ibb.co/DgTcFQhD/non-profit-logo-Made-with-Poster-My-Wall.jpg",
     foodshare:"https://i.ibb.co/zHX6bbXb/Food-Share-Seychelles-Logo.png",
     usds:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnVq-2mjy2-8fKUI44b-S-64OrAlUHmCuAPxkrGOKQ7A&s",
-    redcross:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXwbCM9SOgeRLA2Up0c3hOiukLsfRZ7vyg8XPn91CrQ&s=10"
+    redcross:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXwbCM9SOgeRLA2Up0c3hOiukLsfRZ7vyg8XPn91CrQ&s=10",
+    snya:"https://i.ibb.co/39w7tQcc/1000064823.jpg"
   };
-  const ROLES = [
-    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Class Delegate (Délégué de Classe)", org:"École Française des Seychelles", desc:"Elected by classmates to represent their views, raise concerns with staff and help resolve day-to-day matters within the class." },
-    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Eco-Delegate (Éco-Délégué)", org:"École Française des Seychelles", desc:"Championed environmental awareness and sustainability across the school, encouraging greener habits among students." },
-    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"School Treasurer (Trésorier d'Établissement)", org:"École Française des Seychelles", desc:"Helped manage and account for student funds, supporting the financing of school activities and events." },
-    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Member, Collège Life Council", org:"Conseil de la Vie Collégienne", desc:"Represented students within the middle-school governance body, contributing to decisions on school life and wellbeing." },
-    { group:"Student Leadership — École Française des Seychelles", logo:L.ecole, title:"Member, Lycée Life Council", org:"Conseil de la Vie Lycéenne", desc:"Served in the high-school student council, giving students a voice in the running and improvement of school life." },
-
-    { group:"Enterprise & Ventures", logo:L.egr, title:"Chairman & Chief Executive Officer", org:"Emirates Group Roblox (EGR)", desc:"Leads a large online aviation community, overseeing operations, staff and thousands of members across a virtual organisation." },
-    { group:"Enterprise & Ventures", logo:L.asv, title:"Chairman & Chief Executive Officer", org:"Air Seychelles Virtual (ASV)", desc:"Founded and leads a virtual airline celebrating Seychelles, bringing aviation enthusiasts together through realistic online operations." },
-    { group:"Enterprise & Ventures", logo:L.falcon, title:"Founder", org:"Falcon LTD", desc:"Founded Falcon LTD, a venture pursuing opportunities in aviation-related services and enterprise." },
-    { group:"Enterprise & Ventures", logo:L.blackwood, title:"Founder", org:"BlackWood Digital Services", desc:"Founded a digital-services venture providing web, design and technology solutions." },
-    { group:"Enterprise & Ventures", logo:L.bluewave, title:"Founder", org:"BlueWave Digital", desc:"Founded BlueWave Digital, building websites, digital platforms and technology solutions for clients and communities." },
-    { group:"Enterprise & Ventures", logo:L.tng, title:"Founder & Chairman of the Board", org:"Tyler Nicholas Group", desc:"Founded the holding company overseeing a portfolio of ventures across technology, aviation services and non-profit work." },
-
-    { group:"Public Service & Community", logo:"", title:"Honourable Member", org:"Seychelles National Youth Assembly", desc:"Represents young Seychellois in the national youth assembly, contributing to discussions on youth and the country's future." },
-    { group:"Public Service & Community", logo:L.tnf, title:"Chairman", org:"Tyler Nicholas Foundation", desc:"Chairs the Foundation — the philanthropic arm dedicated to youth empowerment, education and community development." },
-    { group:"Public Service & Community", logo:L.foodshare, title:"Co-Founder", org:"FoodShare Seychelles", desc:"Co-founded a community initiative working to reduce food waste and support those in need across Seychelles." },
-    { group:"Public Service & Community", logo:L.usds, title:"Youth Ambassador", org:"U.S. Department of State · PH International", desc:"Selected for the U.S. Department of State's Youth Ambassadors programme, representing Seychelles in leadership, diplomacy and civic exchange." },
-    { group:"Public Service & Community", logo:L.redcross, title:"Volunteer", org:"Red Cross Society of Seychelles", desc:"Volunteers with the Seychelles Red Cross, supporting community service and humanitarian activities, including national events." }
+  const ROLES=[
+    {group:"Student Leadership — École Française des Seychelles",logo:L.ecole,title:"Class Delegate (Délégué de Classe)",org:"École Française des Seychelles",desc:"Elected by classmates to represent their views, raise concerns with staff and help resolve day-to-day matters within the class."},
+    {group:"Student Leadership — École Française des Seychelles",logo:L.ecole,title:"Eco-Delegate (Éco-Délégué)",org:"École Française des Seychelles",desc:"Championed environmental awareness and sustainability across the school, encouraging greener habits among students."},
+    {group:"Student Leadership — École Française des Seychelles",logo:L.ecole,title:"School Treasurer (Trésorier d'Établissement)",org:"École Française des Seychelles",desc:"Helped manage and account for student funds, supporting the financing of school activities and events."},
+    {group:"Student Leadership — École Française des Seychelles",logo:L.ecole,title:"Member, Collège Life Council",org:"Conseil de la Vie Collégienne",desc:"Represented students within the middle-school governance body, contributing to decisions on school life and wellbeing."},
+    {group:"Student Leadership — École Française des Seychelles",logo:L.ecole,title:"Member, Lycée Life Council",org:"Conseil de la Vie Lycéenne",desc:"Served in the high-school student council, giving students a voice in the running and improvement of school life."},
+    {group:"Enterprise & Ventures",logo:L.egr,title:"Chairman & Chief Executive Officer",org:"Emirates Group Roblox (EGR)",desc:"Leads a large online aviation community, overseeing operations, staff and thousands of members across a virtual organisation."},
+    {group:"Enterprise & Ventures",logo:L.asv,title:"Chairman & Chief Executive Officer",org:"Air Seychelles Virtual (ASV)",desc:"Founded and leads a virtual airline celebrating Seychelles, bringing aviation enthusiasts together through realistic online operations."},
+    {group:"Enterprise & Ventures",logo:L.falcon,title:"Founder",org:"Falcon LTD",desc:"Founded Falcon LTD, a venture pursuing opportunities in aviation-related services and enterprise."},
+    {group:"Enterprise & Ventures",logo:L.blackwood,title:"Founder",org:"BlackWood Digital Services",desc:"Founded a digital-services venture providing web, design and technology solutions."},
+    {group:"Enterprise & Ventures",logo:L.bluewave,title:"Founder",org:"BlueWave Digital",desc:"Founded BlueWave Digital, building websites, digital platforms and technology solutions for clients and communities."},
+    {group:"Enterprise & Ventures",logo:L.tng,title:"Founder & Chairman of the Board",org:"Tyler Nicholas Group",desc:"Founded the holding company overseeing a portfolio of ventures across technology, aviation services and non-profit work."},
+    {group:"Public Service & Community",logo:L.snya,title:"Honourable Member",org:"Seychelles National Youth Assembly",desc:"Represents young Seychellois in the national youth assembly, contributing to discussions on youth and the country's future."},
+    {group:"Public Service & Community",logo:L.tnf,title:"Chairman",org:"Tyler Nicholas Foundation",desc:"Chairs the Foundation — the philanthropic arm dedicated to youth empowerment, education and community development."},
+    {group:"Public Service & Community",logo:L.foodshare,title:"Co-Founder",org:"FoodShare Seychelles",desc:"Co-founded a community initiative working to reduce food waste and support those in need across Seychelles."},
+    {group:"Public Service & Community",logo:L.usds,title:"Youth Ambassador",org:"U.S. Department of State · PH International",desc:"Selected for the U.S. Department of State's Youth Ambassadors programme, representing Seychelles in leadership, diplomacy and civic exchange."},
+    {group:"Public Service & Community",logo:L.redcross,title:"Volunteer",org:"Red Cross Society of Seychelles",desc:"Volunteers with the Seychelles Red Cross, supporting community service and humanitarian activities, including national events."}
   ];
   function renderPortfolio(){
-    const wrap=$("#portfolio-wrap"); wrap.innerHTML="";
+    const wrap=$("#portfolio-wrap");wrap.innerHTML="";
     [...new Set(ROLES.map(r=>r.group))].forEach(gp=>{
-      const sec=el("div","role-group"); sec.appendChild(el("h3","role-group-title",gp));
+      const sec=el("div","role-group");sec.appendChild(el("h3","role-group-title",gp));
       const grid=el("div","role-grid");
       ROLES.filter(r=>r.group===gp).forEach(r=>{
-        const card=el("div","role-card");
+        const item=el("div","role-item");
         const logo=el("div","role-logo");
-        if(r.logo){ const img=el("img"); img.src=r.logo; img.alt=r.org; img.loading="lazy"; img.onerror=()=>{ logo.innerHTML=""; logo.classList.add("fallback"); logo.textContent=(r.org||"?").charAt(0); }; logo.appendChild(img); }
-        else { logo.classList.add("fallback"); logo.textContent=(r.org||"?").charAt(0); }
-        card.appendChild(logo);
-        card.appendChild(el("div","role-title",r.title));
-        card.appendChild(el("div","role-org",r.org));
-        card.appendChild(el("p","role-desc",r.desc));
-        grid.appendChild(card);
+        if(r.logo){const img=el("img");img.src=r.logo;img.alt=r.org;img.loading="lazy";img.onerror=()=>{logo.innerHTML="";logo.classList.add("fallback");logo.textContent=(r.org||"?").charAt(0);};logo.appendChild(img);}
+        else{logo.classList.add("fallback");logo.textContent=(r.org||"?").charAt(0);}
+        item.appendChild(logo);
+        const body=el("div","role-body");
+        body.appendChild(el("div","role-title",r.title));
+        body.appendChild(el("div","role-org",r.org));
+        body.appendChild(el("p","role-desc",r.desc));
+        item.appendChild(body);grid.appendChild(item);
       });
-      sec.appendChild(grid); wrap.appendChild(sec);
+      sec.appendChild(grid);wrap.appendChild(sec);
     });
   }
 
-  /* ===================== VALUES ===================== */
-  const VALUES = [
-    { ic:"fa-handshake-angle", title:"Service Over Self-Interest", desc:"Leadership means standing alongside people, listening, and working with them toward something better — not above them." },
-    { ic:"fa-graduation-cap", title:"Education as the Foundation", desc:"A strong education prepares young people not only for exams and jobs, but for citizenship, creativity and critical thinking." },
-    { ic:"fa-lightbulb", title:"Innovation & Opportunity", desc:"Technology and entrepreneurship are tools to solve real problems and open doors for the next generation." },
-    { ic:"fa-dove", title:"Diplomacy Over Division", desc:"Progress comes when disagreement is met with dialogue, and ambition is matched with responsibility." }
-  ];
-  function renderValues(){
-    const g=$("#values-grid"); g.innerHTML="";
-    VALUES.forEach(v=>{ const c=el("div","value-card"); const ic=el("div","value-ic"); ic.innerHTML=`<i class="fa-solid ${v.ic}"></i>`; c.appendChild(ic); c.appendChild(el("h3",null,v.title)); c.appendChild(el("p",null,v.desc)); g.appendChild(c); });
-  }
-
-  /* ===================== GALLERY + LIGHTBOX ===================== */
-  const GALLERY = [
-    "https://i.ibb.co/bgW5W3Y0/712133659-18083750501309891-4094983543585667119-n.webp",
-    "https://i.ibb.co/4gMLCgvM/729479738-17998362398959096-3774989960113511901-n-heic.jpg",
-    "https://i.ibb.co/svS9JyhF/An-honour-to-connect-with-fellow-young-leaders-committed-to-making-a-positive-impact-in-Seychel.webp",
-    "https://i.ibb.co/8LgbsQQj/file-000000004d5c71f4b909e38b835c1a0f.png",
-    "https://i.ibb.co/svGbFSr5/IMG-20251030-230304-983.webp",
-    "https://i.ibb.co/PvHxKf4X/IMG-20260330-114310-901.webp",
-    "https://i.ibb.co/9mRK4pkW/IMG-20251219-WA0012.jpg",
-    "https://i.ibb.co/DPQ6Hf8g/IMG-20260419-WA0004.jpg",
-    "https://i.ibb.co/3mb921S4/IMG-20260425-WA0025.jpg",
-    "https://i.ibb.co/mCDsC4YR/IMG-20260601-WA0022-1.jpg",
-    "https://i.ibb.co/gFvnwpxm/IMG-20260606-WA0031.jpg",
-    "https://i.ibb.co/ksJNGL9d/IMG-20260719-WA0039.jpg",
-    "https://i.ibb.co/Vc7LhmJg/IMG-20260726-WA0017.jpg",
-    "https://i.ibb.co/zTXXQXjc/20260719-115410.jpg",
-    "https://i.ibb.co/TMtNcDzh/675488273-17992789112959096-5723295647168697039-n.jpg",
-    "https://i.ibb.co/v41jMKmc/710365761-18083583731309891-79085176288733846-n.webp",
-    "https://i.ibb.co/vCyGh17G/710868675-18083583788309891-3858973910023180607-n.webp",
-    "https://i.ibb.co/Hfp6xSzf/Great-experience-volunteering-with-the-Seychelles-Red-Cross-Society-at-the-Seychelles-National.webp",
-    "https://i.ibb.co/tPJYCNM4/IMG-20260129-195634-400.webp",
-    "https://i.ibb.co/QFs9Mn2g/IMG-20260531-235851-801.webp",
-    "https://i.ibb.co/Fq4TmhyQ/IMG-20260227-WA0027.jpg",
-    "https://i.ibb.co/Lz3R0Vwh/IMG-20260426-WA0038.jpg",
-    "https://i.ibb.co/9kdvrRN5/IMG-20260530-WA0058-2.jpg",
-    "https://i.ibb.co/Zz36QTmC/IMG-20260606-WA0009.jpg",
-    "https://i.ibb.co/ccfZNT0D/IMG-20260606-WA0058.jpg",
-    "https://i.ibb.co/8WtFmh7/IMG-20260610-WA0031.jpg",
-    "https://i.ibb.co/My5MGB5j/IMG-20260611-WA0009.jpg",
-    "https://i.ibb.co/DgQm58nG/IMG-20260723-WA0031.jpg"
-  ];
-  function renderGallery(){
-    const g=$("#gallery"); g.innerHTML="";
-    GALLERY.forEach((url,idx)=>{ const b=el("button","g-item"); b.setAttribute("aria-label",`Open photo ${idx+1}`); const img=el("img"); img.src=url; img.alt=`Moment ${idx+1}`; img.loading="lazy"; b.appendChild(img); b.addEventListener("click",()=>openLightbox(GALLERY,idx)); g.appendChild(b); });
-  }
-  const lb=$("#lightbox"), lbImg=$("#lb-img"); let lbList=[], lbIndex=0, lbLast=null;
-  function openLightbox(list,i){ lbList=list; lbIndex=i; lbImg.src=lbList[lbIndex]; lb.classList.add("show"); document.body.style.overflow="hidden"; lbLast=document.activeElement; const multi=lbList.length>1; $("#lb-prev").style.display=multi?"grid":"none"; $("#lb-next").style.display=multi?"grid":"none"; $("#lb-close").focus(); }
-  function closeLightbox(){ lb.classList.remove("show"); document.body.style.overflow=""; lbImg.src=""; if(lbLast) lbLast.focus(); }
-  function lbStep(d){ if(lbList.length<2)return; lbIndex=(lbIndex+d+lbList.length)%lbList.length; lbImg.src=lbList[lbIndex]; }
+  /* LIGHTBOX (for section zoom images) */
+  const lb=$("#lightbox"),lbImg=$("#lb-img");let lbList=[],lbIndex=0,lbLast=null;
+  function openLightbox(list,i){lbList=list;lbIndex=i;lbImg.src=lbList[lbIndex];lb.classList.add("show");document.body.style.overflow="hidden";lbLast=document.activeElement;const multi=lbList.length>1;$("#lb-prev").style.display=multi?"grid":"none";$("#lb-next").style.display=multi?"grid":"none";$("#lb-close").focus();}
+  function closeLightbox(){lb.classList.remove("show");document.body.style.overflow="";lbImg.src="";if(lbLast)lbLast.focus();}
+  function lbStep(d){if(lbList.length<2)return;lbIndex=(lbIndex+d+lbList.length)%lbList.length;lbImg.src=lbList[lbIndex];}
   $("#lb-close").addEventListener("click",closeLightbox);
   $("#lb-prev").addEventListener("click",()=>lbStep(-1));
   $("#lb-next").addEventListener("click",()=>lbStep(1));
-  lb.addEventListener("click",e=>{ if(e.target===lb) closeLightbox(); });
-  document.addEventListener("keydown",e=>{ if(!lb.classList.contains("show"))return; if(e.key==="Escape")closeLightbox(); if(e.key==="ArrowLeft")lbStep(-1); if(e.key==="ArrowRight")lbStep(1); });
-  function wireZoomImages(){ document.querySelectorAll(".zoom").forEach(img=>{ img.style.cursor="zoom-in"; img.addEventListener("click",()=>openLightbox([img.getAttribute("src")],0)); }); }
+  lb.addEventListener("click",e=>{if(e.target===lb)closeLightbox();});
+  document.addEventListener("keydown",e=>{if(!lb.classList.contains("show"))return;if(e.key==="Escape")closeLightbox();if(e.key==="ArrowLeft")lbStep(-1);if(e.key==="ArrowRight")lbStep(1);});
+  function wireZoomImages(){const imgs=[...document.querySelectorAll(".zoom")].map(i=>i.getAttribute("src"));document.querySelectorAll(".zoom").forEach((img)=>{img.addEventListener("click",()=>openLightbox(imgs,imgs.indexOf(img.getAttribute("src"))));});}
 
-  /* ===================== REQUEST FORM ===================== */
-  $("#request-form").addEventListener("submit", async (e)=>{
+  /* REQUEST FORM */
+  $("#request-form").addEventListener("submit",async(e)=>{
     e.preventDefault();
-    const name=$("#rq-name").value.trim(), email=$("#rq-email").value.trim(), org=$("#rq-org").value.trim(), type=$("#rq-type").value, date=$("#rq-date").value, msg=$("#rq-msg").value.trim(), note=$("#rq-note"), btn=$("#rq-btn");
-    if(!name||!email) return;
-    const message = `Speaking request\nEvent type: ${type}\nOrganisation: ${org||"—"}\nPreferred date: ${date||"—"}\n\n${msg||"(no additional details)"}`;
-    btn.disabled=true; note.className="note"; note.textContent="Sending your request…";
-    const { error } = await db.from("contact_submissions").insert({ name, email, subject:`Speaking request — ${type}`, reason:"speaking", message });
+    const name=$("#rq-name").value.trim(),email=$("#rq-email").value.trim(),org=$("#rq-org").value.trim(),type=$("#rq-type").value,date=$("#rq-date").value,msg=$("#rq-msg").value.trim(),note=$("#rq-note"),btn=$("#rq-btn");
+    if(!name||!email)return;
+    const message=`Speaking request\nEvent type: ${type}\nOrganisation: ${org||"—"}\nPreferred date: ${date||"—"}\n\n${msg||"(no additional details)"}`;
+    btn.disabled=true;note.className="note";note.textContent="Sending your request…";
+    const{error}=await db.from("contact_submissions").insert({name,email,subject:`Speaking request — ${type}`,reason:"speaking",message});
     btn.disabled=false;
-    if(!error){ note.className="note ok"; note.textContent="Thank you — your request has been received. The Office will be in touch."; e.target.reset(); }
-    else { note.className="note err"; note.textContent="Something went wrong. Please try again, or email the Office directly."; }
+    if(!error){note.className="note ok";note.textContent="Thank you — your request has been received. The Office will be in touch.";e.target.reset();}
+    else{note.className="note err";note.textContent="Something went wrong. Please try again, or email the Office directly.";}
   });
 
-  /* ===================== SEARCH ===================== */
-  const overlay=$("#search-overlay"); let lastFocused=null;
-  const openSearch=()=>{ lastFocused=document.activeElement; overlay.classList.add("show"); setTimeout(()=>$("#overlay-input").focus(),40); };
-  const closeSearch=()=>{ overlay.classList.remove("show"); $("#results").innerHTML=""; $("#overlay-input").value=""; if(lastFocused) lastFocused.focus(); };
+  /* SEARCH */
+  const overlay=$("#search-overlay");let lastFocused=null;
+  const openSearch=()=>{lastFocused=document.activeElement;overlay.classList.add("show");setTimeout(()=>$("#overlay-input").focus(),40);};
+  const closeSearch=()=>{overlay.classList.remove("show");$("#results").innerHTML="";$("#overlay-input").value="";if(lastFocused)lastFocused.focus();};
   $("#open-search").addEventListener("click",openSearch);
   $("#close-search").addEventListener("click",closeSearch);
-  overlay.addEventListener("click",e=>{ if(e.target===overlay) closeSearch(); });
-  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&overlay.classList.contains("show")) closeSearch(); });
+  overlay.addEventListener("click",e=>{if(e.target===overlay)closeSearch();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("show"))closeSearch();});
   let searchTimer;
-  $("#overlay-input").addEventListener("input",e=>{ clearTimeout(searchTimer); const q=e.target.value.trim(); searchTimer=setTimeout(()=>runSearch(q),250); });
-  $("#overlay-form").addEventListener("submit",e=>{ e.preventDefault(); runSearch($("#overlay-input").value.trim()); });
+  $("#overlay-input").addEventListener("input",e=>{clearTimeout(searchTimer);const q=e.target.value.trim();searchTimer=setTimeout(()=>runSearch(q),250);});
+  $("#overlay-form").addEventListener("submit",e=>{e.preventDefault();runSearch($("#overlay-input").value.trim());});
   async function runSearch(q){
-    const box=$("#results"); if(!q){ box.innerHTML=""; return; }
+    const box=$("#results");if(!q){box.innerHTML="";return;}
     box.innerHTML=`<div class="none">Searching…</div>`;
-    const opt={ type:"websearch", config:"english" };
-    const [n,i,ev]=await Promise.allSettled([
+    const opt={type:"websearch",config:"english"};
+    const[n,i,ev]=await Promise.allSettled([
       db.from("news_posts").select("title,excerpt").eq("status","published").textSearch("search_vector",q,opt).limit(5),
       db.from("initiatives").select("title,summary").eq("is_published",true).textSearch("search_vector",q,opt).limit(5),
       db.from("events").select("title,location").eq("is_published",true).textSearch("search_vector",q,opt).limit(5),
     ]);
-    const news=n.value?.data||[], inits=i.value?.data||[], events=ev.value?.data||[]; box.innerHTML="";
-    const group=(label,rows,page,sub)=>{ if(!rows.length)return; box.appendChild(el("div","grp",label)); rows.forEach(r=>{ const a=el("a"); a.href=page; a.appendChild(el("b",null,r.title)); const s=sub(r); if(s) a.appendChild(el("span",null,s)); box.appendChild(a); }); };
-    group("Newsroom",news,"/newsroom",r=>r.excerpt); group("Initiatives",inits,"/initiatives",r=>r.summary); group("Events",events,"/events",r=>r.location);
-    if(!news.length&&!inits.length&&!events.length){ box.innerHTML=`<div class="none">No results yet for “${q}”. As the Office publishes content, it will appear here.</div>`; }
+    const news=n.value?.data||[],inits=i.value?.data||[],events=ev.value?.data||[];box.innerHTML="";
+    const group=(label,rows,page,sub)=>{if(!rows.length)return;box.appendChild(el("div","grp",label));rows.forEach(r=>{const a=el("a");a.href=page;a.appendChild(el("b",null,r.title));const s=sub(r);if(s)a.appendChild(el("span",null,s));box.appendChild(a);});};
+    group("Newsroom",news,"/newsroom",r=>r.excerpt);group("Initiatives",inits,"/initiatives",r=>r.summary);group("Events",events,"/events",r=>r.location);
+    if(!news.length&&!inits.length&&!events.length){box.innerHTML=`<div class="none">No results yet for “${q}”. As the Office publishes content, it will appear here.</div>`;}
   }
 
-  /* ===================== NAV / SCROLL / REVEAL ===================== */
+  /* NAV / SCROLL / REVEAL */
   const toggle=$("#menu-toggle");
-  toggle.addEventListener("click",()=>{ const open=$("#navlinks").classList.toggle("open"); toggle.setAttribute("aria-expanded",open); });
-  $("#navlinks").addEventListener("click",e=>{ if(e.target.tagName==="A"){ $("#navlinks").classList.remove("open"); toggle.setAttribute("aria-expanded","false"); } });
+  toggle.addEventListener("click",()=>{const open=$("#navlinks").classList.toggle("open");toggle.setAttribute("aria-expanded",open);});
+  $("#navlinks").addEventListener("click",e=>{if(e.target.tagName==="A"){$("#navlinks").classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
   $("#announce-close").addEventListener("click",()=>$("#announce").classList.remove("show"));
-  const header=$("#site-header"), toTop=$("#to-top");
-  const onScroll=()=>{ header.classList.toggle("scrolled",window.scrollY>10); toTop.classList.toggle("show",window.scrollY>600); };
-  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+  const header=$("#site-header"),toTop=$("#to-top");
+  const onScroll=()=>{header.classList.toggle("scrolled",window.scrollY>10);toTop.classList.toggle("show",window.scrollY>600);};
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
   toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:prefersReduced?"auto":"smooth"}));
-  function wireReveals(){ const reveals=document.querySelectorAll(".reveal"); if(!prefersReduced&&"IntersectionObserver" in window){ const io=new IntersectionObserver((en)=>{ en.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.1}); reveals.forEach(r=>io.observe(r)); } else { reveals.forEach(r=>r.classList.add("in")); } }
-
+  function wireReveals(){const reveals=document.querySelectorAll(".reveal");if(!prefersReduced&&"IntersectionObserver" in window){const io=new IntersectionObserver((en)=>{en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.1});reveals.forEach(r=>io.observe(r));}else{reveals.forEach(r=>r.classList.add("in"));}}
   async function loadSettings(){
-    const { data, error } = await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();
-    if(error||!data) return;
-    if(data.announcement_active&&data.announcement_text){ $("#announce-text").textContent=data.announcement_text+" "; if(data.announcement_url){ const a=el("a",null,"Learn more"); a.href=data.announcement_url; $("#announce-text").appendChild(a); } $("#announce").classList.add("show"); }
-    if(data.contact_email) $("#foot-email").href="mailto:"+data.contact_email;
+    const{data,error}=await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();
+    if(error||!data)return;
+    if(data.announcement_active&&data.announcement_text){$("#announce-text").textContent=data.announcement_text+" ";if(data.announcement_url){const a=el("a",null,"Learn more");a.href=data.announcement_url;$("#announce-text").appendChild(a);}$("#announce").classList.add("show");}
+    if(data.contact_email)$("#foot-email").href="mailto:"+data.contact_email;
   }
 
-  /* ===================== GO ===================== */
-  renderPortfolio(); renderValues(); renderGallery(); wireZoomImages(); wireReveals(); initBook();
-  loadBio(); loadSettings();
+  /* GO */
+  renderPortfolio();wireZoomImages();wireReveals();initBook();
+  loadBio();loadSettings();
   </script>
 </body>
 </html>
