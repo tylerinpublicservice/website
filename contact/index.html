@@ -1,334 +1,372 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact the Office | Office of Tyler Nicholas</title>
-    
-    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Office of Tyler Nicholas</title>
+  <meta name="description" content="Get in touch with the Office of Tyler Nicholas — general enquiries, speaking requests, media, volunteering and partnerships." />
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;--blue:#0B5FB0;--green:#0A8A43;--paper:#F6F8FB;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;--shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);--shadow-md:0 12px 30px -16px rgba(11,46,99,.28);--container:1180px;--radius:14px;}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.loading{overflow:hidden;height:100vh}
+    img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none}
+    h1,h2,h3,h4{color:var(--navy);line-height:1.14;font-weight:800;letter-spacing:-.01em}
+    ::selection{background:var(--navy);color:#fff}:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:70px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 8px 0}.skip:focus{left:0;top:0}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.98rem;padding:13px 26px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(200,16,46,.5)}.btn-accent:hover{background:var(--accent-600)}
+    .note{font-size:.9rem;min-height:1.1em;font-weight:600}.note.ok{color:var(--green)}.note.err{color:var(--accent)}
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pl-flag{width:66px;height:44px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm);animation:plPulse 1.6s ease-in-out infinite}
+    @keyframes plPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+    .pl-ring{width:38px;height:38px;border:3px solid rgba(11,46,99,.15);border-top-color:var(--accent);border-radius:50%;animation:plSpin .9s linear infinite}
+    @keyframes plSpin{to{transform:rotate(360deg)}}
+    .pl-text{font-weight:800;color:var(--navy);font-size:1.05rem}
+    .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:10px 44px;position:relative;display:none}.announce.show{display:block}
+    .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;font-size:1rem;opacity:.75}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
+    header.scrolled{box-shadow:0 6px 24px -14px rgba(11,46,99,.4);background:rgba(255,255,255,.96)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+    .brand{display:flex;align-items:center;gap:13px}
+    .brand-flag{width:42px;height:28px;object-fit:cover;border-radius:4px;border:1px solid var(--line);box-shadow:var(--shadow-sm);flex:none}
+    .brand-text{font-weight:800;font-size:1.06rem;color:var(--navy)}
+    .nav-links{display:flex;align-items:center;gap:30px}
+    .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--navy);border-color:var(--accent)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,color .2s}
+    .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .menu-toggle{display:none}.nav-cta{padding:10px 20px;border-radius:10px}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    .page-header{background:linear-gradient(120deg,var(--navy-900) 0%,var(--navy) 60%,var(--blue) 140%);color:#fff;position:relative;overflow:hidden}
+    .page-header::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent)}
+    .ph-inner{padding-block:70px 62px}
+    .ph-crumb{font-size:.8rem;color:#a9bbdb;font-weight:600;margin-bottom:14px}.ph-crumb a:hover{color:#fff}
+    .page-header h1{color:#fff;font-size:clamp(2.4rem,5vw,3.6rem)}
+    .page-header p{margin-top:16px;color:#cdd9ee;font-size:1.08rem;max-width:640px}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    .contact-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+    .form-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow-sm)}
+    .form-card h2{font-size:1.4rem;margin-bottom:6px}
+    .form-card .sub{color:var(--muted);font-size:.96rem;margin-bottom:24px}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:7px}
+    .field label .req{color:var(--accent)}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:.98rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+    .field textarea{resize:vertical;min-height:140px}
+    .field-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    .info-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+    .info-card h3{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;font-weight:700}
+    .info-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+    .info-row:last-child{margin-bottom:0}
+    .info-ic{width:42px;height:42px;border-radius:11px;background:#fbe9ec;color:var(--accent);display:grid;place-items:center;font-size:1rem;flex:none}
+    .info-row .k{font-weight:800;color:var(--navy);font-size:.95rem;margin-bottom:2px}
+    .info-row .v{color:var(--muted);font-size:.92rem;word-break:break-word}
+    .info-row a.v:hover{color:var(--accent)}
+    .info-socials{display:flex;gap:10px;flex-wrap:wrap}
+    .info-socials a{width:44px;height:44px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;color:var(--navy);font-size:1.05rem;transition:transform .2s,background .2s,color .2s,border-color .2s}
+    .info-socials a:hover{transform:translateY(-3px);color:#fff}
+    .info-socials .s-fb:hover{background:#1877F2;border-color:#1877F2}.info-socials .s-x:hover{background:#000;border-color:#000}.info-socials .s-ig:hover{background:#E1306C;border-color:#E1306C}.info-socials .s-in:hover{background:#0A66C2;border-color:#0A66C2}.info-socials .s-yt:hover{background:#FF0000;border-color:#FF0000}.info-socials .s-tt:hover{background:#000;border-color:#000}.info-socials .s-th:hover{background:#000;border-color:#000}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        signature: ['Great Vibes', 'cursive'],
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#0033a0',
-                            lightblue: '#005eb8',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    /* FAQ */
+    .faq-sec{background:var(--surface);border-top:1px solid var(--line)}
+    .faq-intro{max-width:720px;margin-bottom:34px}
+    .faq-intro h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+    .faq-intro p{color:var(--muted);margin-top:12px}
+    .faq-list{max-width:820px}
+    .faq-item{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+    .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;text-align:left;font-weight:700;color:var(--navy);font-size:1.03rem}
+    .faq-q .chev{color:var(--accent);transition:transform .3s;flex:none}
+    .faq-item.open .chev{transform:rotate(180deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-a-inner{padding:0 22px 20px;color:#28374f;line-height:1.7;font-size:.98rem}
+    .empty{border:1.5px dashed var(--line);border-radius:var(--radius);background:#fbfcfe;padding:50px 28px;text-align:center;color:var(--muted);max-width:820px}
+    .empty i{font-size:1.9rem;color:#c3cede;margin-bottom:12px}
+    .empty strong{display:block;color:var(--navy);font-size:1.1rem;margin-bottom:6px;font-weight:800}
 
-    <style>
-        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
-        
-        /* Custom file input styling */
-        input[type="file"]::file-selector-button {
-            background-color: #f3f4f6;
-            color: #4b5563;
-            border: 1px solid #e5e7eb;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            margin-right: 1rem;
-        }
-        input[type="file"]::file-selector-button:hover {
-            background-color: #e5e7eb;
-            color: #111827;
-        }
-    </style>
+    footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
+    .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;padding-block:66px 40px}
+    .foot-brand .fb-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .foot-brand .fb-top img{width:44px;height:29px;object-fit:cover;border-radius:4px}
+    .foot-brand .fb-top b{color:#fff;font-size:1.08rem;font-weight:800}
+    .foot-brand p{font-size:.93rem;max-width:330px;color:#a7b6d0;line-height:1.7}
+    .socials{display:flex;gap:11px;margin-top:22px;flex-wrap:wrap}
+    .socials a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;font-size:1.05rem;transition:transform .2s,background .2s}
+    .socials a:hover{transform:translateY(-3px)}
+    .s-fb:hover{background:#1877F2}.s-x:hover{background:#000}.s-ig:hover{background:#E1306C}.s-in:hover{background:#0A66C2}.s-yt:hover{background:#FF0000}.s-tt:hover{background:#000}.s-th:hover{background:#000}
+    .foot-col h4{color:#fff;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+    .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#b9c8e0;transition:color .2s,padding-left .2s}
+    .foot-col a:hover{color:#fff;padding-left:4px}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
+    .foot-bottom a{color:#c3d0e4;font-weight:600}.foot-bottom a:hover{color:#fff}
+
+    .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}.overlay.show{display:block}
+    .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+    .search-panel form{display:flex;border-bottom:1px solid var(--line);align-items:center}
+    .search-panel input{flex:1;border:0;padding:20px 22px;font-size:1.15rem;outline:none}
+    .search-panel .close{padding:0 22px;color:var(--muted);font-size:1.3rem}
+    .results{max-height:56vh;overflow:auto;padding:8px 0}
+    .results .grp{padding:12px 22px 4px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+    .results a{display:block;padding:12px 22px;border-left:3px solid transparent}
+    .results a:hover,.results a:focus-visible{background:#f5f8fd;border-color:var(--accent);outline:none}
+    .results a b{color:var(--navy);font-weight:700}.results a span{display:block;font-size:.88rem;color:var(--muted)}
+    .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+    .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
+    .to-top.show{opacity:1;visibility:visible;transform:none}.to-top:hover{background:var(--accent)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}.reveal{opacity:1;transform:none;transition:none}.faq-a{transition:none}}
+    @media (max-width:960px){.contact-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:680px){
+      .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
+      .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md)}
+      .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
+      .field-2{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.form-card{padding:24px}.brand-text{font-size:.98rem}
+    }
+  </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+<body class="loading">
+  <div id="preloader" role="status" aria-label="Loading"><div class="pl-inner"><img class="pl-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><div class="pl-ring"></div><div class="pl-text">Office of Tyler Nicholas</div></div></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="announce" id="announce" role="region" aria-label="Site announcement"><span id="announce-text"></span><button class="close" id="announce-close" aria-label="Dismiss announcement"><i class="fa-solid fa-xmark"></i></button></div>
 
-    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
-        <div class="flex flex-col items-center">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading</p>
-        </div>
+  <header id="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Office of Tyler Nicholas — home"><img class="brand-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><span class="brand-text">Office of Tyler Nicholas</span></a>
+      <nav class="nav-links" id="navlinks" aria-label="Primary"><a href="/">Home</a><a href="/about">About</a><a href="/newsroom">Newsroom</a><a href="/media">Media</a><a href="/contact" aria-current="page">Contact</a></nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="open-search" aria-label="Search the site"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a class="btn btn-accent nav-cta" href="/volunteer">Get Involved</a>
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
+  </header>
 
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
-                        Office of Tyler Nicholas
-                    </a>
-                </div>
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
-                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
-                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
-                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
-                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
-                    <a href="/resources/" class="text-gray-600 hover:text-brand-blue transition font-medium">Resources</a>
-                    <a href="/contact/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
-            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Get In Touch</span>
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Contact the Office</h1>
-            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">Reach out for general inquiries, youth concerns, media requests, or formal partnerships.</p>
-        </div>
-    </header>
-
-    <section class="bg-gray-50 py-24 min-h-[60vh]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                
-                <div class="lg:col-span-4 space-y-8">
-                    
-                    <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                        <h4 class="font-black text-2xl text-gray-900 tracking-tight mb-4 border-b border-gray-100 pb-4">Direct Channels</h4>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4 group">
-                                <div class="w-10 h-10 rounded-full bg-blue-50 text-brand-blue flex items-center justify-center shrink-0 border border-blue-100 group-hover:scale-110 transition"><i class="fa-solid fa-microphone-lines"></i></div>
-                                <div>
-                                    <h5 class="font-bold text-gray-900 text-sm">Press & Media</h5>
-                                    <p class="text-xs text-gray-500 mt-1 mb-1">For journalists and interview requests.</p>
-                                    <a href="/newsroom/#press-form" class="text-xs font-bold text-brand-lightblue hover:text-brand-blue transition">Go to Press Office &rarr;</a>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start gap-4 group">
-                                <div class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0 border border-green-100 group-hover:scale-110 transition"><i class="fa-solid fa-handshake-angle"></i></div>
-                                <div>
-                                    <h5 class="font-bold text-gray-900 text-sm">Partnerships</h5>
-                                    <p class="text-xs text-gray-500 mt-1 mb-1">For NGOs, schools, and civic groups.</p>
-                                    <a href="/initiatives/#partner-form" class="text-xs font-bold text-brand-lightblue hover:text-brand-blue transition">Propose Partnership &rarr;</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                        <h4 class="font-black text-2xl text-gray-900 tracking-tight mb-4 border-b border-gray-100 pb-4">Connect Socially</h4>
-                        <p class="text-sm text-gray-600 mb-6">Follow the official channels for live updates, public service announcements, and youth highlights.</p>
-                        
-                        <div class="flex flex-wrap gap-4 text-xl">
-                            <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-gray-500 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition shadow-sm"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="https://x.com/officeoftylern" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-gray-500 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition shadow-sm"><i class="fa-brands fa-x-twitter"></i></a>
-                            <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-gray-500 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white hover:border-transparent transition shadow-sm"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-gray-500 flex items-center justify-center hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] transition shadow-sm"><i class="fa-brands fa-linkedin-in"></i></a>
-                            <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-gray-500 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition shadow-sm"><i class="fa-brands fa-tiktok"></i></a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="lg:col-span-8">
-                    
-                    <div class="bg-blue-50 border-l-4 border-brand-blue p-6 rounded-r-xl mb-8 flex items-start gap-4 shadow-sm">
-                        <i class="fa-solid fa-clock text-brand-blue text-xl mt-0.5"></i>
-                        <div>
-                            <h4 class="font-bold text-gray-900 text-sm">Response Expectation</h4>
-                            <p class="text-sm text-gray-700 mt-1">Our team aims to review and respond to all standard inquiries within <strong>24 to 48 hours</strong> during standard working days. Urgent media requests will be prioritised.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 p-8 md:p-12 rounded-2xl shadow-xl">
-                        <h3 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight mb-2">Secure Contact Portal</h3>
-                        <p class="text-gray-500 text-sm mb-8 pb-6 border-b border-gray-100">All submissions are automatically routed to the appropriate desk within our secure ticket system.</p>
-
-                        <form id="contact-form" class="space-y-6" onsubmit="handleContactSubmit(event)">
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Full Name <span class="text-red-500">*</span></label>
-                                    <input type="text" id="contact-name" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition shadow-inner" required placeholder="Your name">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Email Address <span class="text-red-500">*</span></label>
-                                    <input type="email" id="contact-email" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition shadow-inner" required placeholder="name@example.com">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Inquiry Type <span class="text-red-500">*</span></label>
-                                <select id="contact-type" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition shadow-inner appearance-none cursor-pointer" required>
-                                    <option value="" disabled selected>Select a category to route your message...</option>
-                                    <option value="General Inquiry">General Inquiry</option>
-                                    <option value="Youth / Community Concern">Youth / Community Concern</option>
-                                    <option value="Partnership / NGO Support">Partnership / NGO Support</option>
-                                    <option value="Press / Media Request">Press / Media Request</option>
-                                    <option value="Website Feedback">Website Feedback</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Message <span class="text-red-500">*</span></label>
-                                <textarea id="contact-message" rows="6" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue focus:bg-white transition shadow-inner" required placeholder="Provide full details regarding your inquiry..."></textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Attach Document (Optional)</label>
-                                <input type="file" id="contact-file" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-600 focus:outline-none focus:border-brand-blue transition shadow-inner" accept=".pdf,.doc,.docx,.jpg,.png">
-                                <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider font-bold">Max file size: 5MB. PDF or Image preferred.</p>
-                            </div>
-
-                            <button type="submit" id="contact-btn" class="w-full py-5 bg-brand-blue text-white font-black text-lg rounded-xl hover:bg-brand-lightblue transition shadow-lg mt-4">
-                                Send Secure Message <i class="fa-solid fa-paper-plane ml-2"></i>
-                            </button>
-                            
-                            <p id="contact-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <main id="main">
+    <section class="page-header">
+      <div class="container ph-inner">
+        <div class="ph-crumb"><a href="/">Home</a> &nbsp;/&nbsp; Contact</div>
+        <h1>Contact the Office</h1>
+        <p>Whether it's a question, a speaking request, a media enquiry or a partnership — the Office would be glad to hear from you.</p>
+      </div>
     </section>
 
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
-                <div class="md:col-span-6">
-                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
-                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
-                    
-                    <div class="flex flex-wrap gap-5 text-xl">
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
-                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
-                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/contact/" class="text-white font-semibold transition">Contact the Office</a></li>
-                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="hover:text-white transition">Resources</a></li>
-                    </ul>
-                </div>
-
+    <section class="section">
+      <div class="container contact-grid">
+        <!-- FORM -->
+        <div class="form-card reveal">
+          <h2>Send a message</h2>
+          <p class="sub">Fill in the form below and the Office will get back to you.</p>
+          <form id="contact-form" novalidate>
+            <div class="field-2">
+              <div class="field"><label for="c-name">Name <span class="req">*</span></label><input id="c-name" type="text" autocomplete="name" required /></div>
+              <div class="field"><label for="c-email">Email <span class="req">*</span></label><input id="c-email" type="email" autocomplete="email" required /></div>
             </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
-                <p class="mt-4 md:mt-0">
-                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
-                </p>
+            <div class="field-2">
+              <div class="field"><label for="c-reason">Reason for contact</label>
+                <select id="c-reason">
+                  <option value="general">General enquiry</option>
+                  <option value="speaking">Speaking request</option>
+                  <option value="media">Media &amp; press</option>
+                  <option value="volunteer">Volunteering</option>
+                  <option value="partnership">Partnership</option>
+                </select>
+              </div>
+              <div class="field"><label for="c-subject">Subject</label><input id="c-subject" type="text" placeholder="Brief summary" /></div>
             </div>
+            <div class="field"><label for="c-message">Message <span class="req">*</span></label><textarea id="c-message" placeholder="How can the Office help?" required></textarea></div>
+            <button type="submit" class="btn btn-accent" id="c-btn" style="width:100%"><i class="fa-regular fa-paper-plane"></i> Send message</button>
+            <div class="note" id="c-note" role="status" aria-live="polite" style="margin-top:12px"></div>
+          </form>
         </div>
-    </footer>
 
-    <script>
-        // Page Load Sequence
-        document.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const body = document.getElementById('body');
-            
-            function hideLoader() {
-                if (loader.style.display === 'none') return; 
-                loader.classList.add('fade-out');
-                body.classList.remove('overflow-hidden');
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }
-            
-            setTimeout(hideLoader, 300); 
-            window.addEventListener('load', hideLoader);
-        });
+        <!-- INFO -->
+        <div class="reveal">
+          <div class="info-card">
+            <h3>Reach us directly</h3>
+            <div class="info-row">
+              <div class="info-ic"><i class="fa-regular fa-envelope"></i></div>
+              <div><div class="k">Email</div><a class="v" id="info-email" href="mailto:">Loading…</a></div>
+            </div>
+            <div class="info-row">
+              <div class="info-ic"><i class="fa-solid fa-location-dot"></i></div>
+              <div><div class="k">Location</div><div class="v" id="info-location">Republic of Seychelles</div></div>
+            </div>
+            <div class="info-row">
+              <div class="info-ic"><i class="fa-regular fa-clock"></i></div>
+              <div><div class="k">Response time</div><div class="v">The Office aims to respond within a few days.</div></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>Follow the Office</h3>
+            <div class="info-socials">
+              <a class="s-fb" href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a class="s-x" href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a class="s-ig" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a class="s-in" href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a class="s-yt" href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a class="s-tt" href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+              <a class="s-th" href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Supabase Integration
-        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <!-- FAQ -->
+    <section class="section faq-sec" id="faq">
+      <div class="container">
+        <div class="faq-intro reveal">
+          <span class="eyebrow">Questions</span>
+          <h2>Frequently asked</h2>
+          <p>Quick answers to some of the most common questions.</p>
+        </div>
+        <div id="faq-wrap" class="reveal"></div>
+      </div>
+    </section>
+  </main>
 
-        // Submit Contact Form
-        async function handleContactSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('contact-btn');
-            const msgEl = document.getElementById('contact-msg');
-            
-            btn.disabled = true; 
-            btn.innerHTML = 'Sending Securely... <i class="fa-solid fa-circle-notch fa-spin ml-2"></i>'; 
-            msgEl.classList.add('hidden');
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <div class="fb-top"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><b>Office of Tyler Nicholas</b></div>
+        <p>The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas, in the Republic of Seychelles.</p>
+        <div class="socials">
+          <a class="s-fb" href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="s-x" href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="s-ig" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="s-in" href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a class="s-yt" href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a class="s-tt" href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="s-th" href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>The Office</h4><a href="/about">About Tyler Nicholas</a><a href="/initiatives">Initiatives</a><a href="/newsroom">Newsroom</a></div>
+      <div class="foot-col"><h4>Engage</h4><a href="/contact">Contact the Office</a><a href="/volunteer">Volunteer</a><a href="/resources">Resources</a><a href="/media">Media</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/events">Events</a><a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">Instagram</a><a href="mailto:" id="foot-email">Email the Office</a></div>
+    </div>
+    <div class="container foot-bottom"><span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved. &nbsp;&middot;&nbsp; <a href="/admin">Admin</a></span></div>
+  </footer>
 
-            const fullName = document.getElementById('contact-name').value.trim();
-            const email = document.getElementById('contact-email').value.trim();
-            const inquiryType = document.getElementById('contact-type').value;
-            const message = document.getElementById('contact-message').value.trim();
-            const fileInput = document.getElementById('contact-file').files[0];
+  <button class="to-top" id="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-panel"><form id="overlay-form" role="search"><input type="search" id="overlay-input" placeholder="Search the office…" aria-label="Search" autocomplete="off" /><button type="button" class="close" id="close-search" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button></form><div class="results" id="results"></div></div>
+  </div>
 
-            let finalMessage = message;
-            if (fileInput) {
-                finalMessage += `\n\n[System Note: User indicated attachment intended: ${fileInput.name}]`;
-            }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL="https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+  const $=(s,r=document)=>r.querySelector(s);
+  const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+  const prefersReduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#year").textContent=new Date().getFullYear();
+  function hidePreloader(){const p=$("#preloader");if(!p||p.classList.contains("hide"))return;p.classList.add("hide");document.body.classList.remove("loading");setTimeout(()=>p.remove(),600);}
+  window.addEventListener("load",hidePreloader);setTimeout(hidePreloader,6000);
 
-            try {
-                // Insert into contact_messages table
-                const { error } = await supabaseClient.from('contact_messages').insert([{ 
-                    full_name: fullName, 
-                    email: email,
-                    inquiry_type: inquiryType,
-                    message: finalMessage,
-                    status: 'new' // Automatically flags as 'new' for the admin dashboard
-                }]);
-                
-                if (error) throw error;
-                
-                msgEl.textContent = "Thank you. Your message has been successfully routed to the Office.";
-                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-6 p-4 bg-green-50 rounded-lg border border-green-200 block";
-                document.getElementById('contact-form').reset();
-                
-            } catch (err) {
-                console.log(err);
-                msgEl.textContent = "A system error occurred. Please try again or email the office directly.";
-                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-6 p-4 bg-red-50 rounded-lg border border-red-200 block";
-            } finally {
-                btn.disabled = false; 
-                btn.innerHTML = 'Send Secure Message <i class="fa-solid fa-paper-plane ml-2"></i>';
-            }
-        }
-    </script>
+  /* preselect reason from ?reason= */
+  const reasonParam=new URLSearchParams(location.search).get("reason");
+  if(reasonParam && ["general","speaking","media","volunteer","partnership"].includes(reasonParam)){ $("#c-reason").value=reasonParam; }
+
+  /* contact form */
+  $("#contact-form").addEventListener("submit",async(e)=>{
+    e.preventDefault();
+    const name=$("#c-name").value.trim(),email=$("#c-email").value.trim(),reason=$("#c-reason").value,subject=$("#c-subject").value.trim(),message=$("#c-message").value.trim(),note=$("#c-note"),btn=$("#c-btn");
+    if(!name||!email||!message){ note.className="note err"; note.textContent="Please fill in your name, email and message."; return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ note.className="note err"; note.textContent="Please enter a valid email address."; return; }
+    btn.disabled=true; note.className="note"; note.textContent="Sending your message…";
+    const { error } = await db.from("contact_submissions").insert({ name, email, reason, subject: subject || null, message });
+    btn.disabled=false;
+    if(!error){ note.className="note ok"; note.textContent="Thank you — your message has been sent. The Office will be in touch."; e.target.reset(); }
+    else{ note.className="note err"; note.textContent="Something went wrong. Please try again, or email the Office directly."; }
+  });
+
+  /* FAQ */
+  async function loadFaqs(){
+    const { data } = await db.from("faqs").select("question,answer").eq("is_published",true).order("sort_order",{ascending:true}).order("created_at",{ascending:true});
+    const wrap=$("#faq-wrap");
+    if(!data||!data.length){ wrap.innerHTML='<div class="empty"><i class="fa-regular fa-circle-question"></i><strong>No questions yet</strong>Frequently asked questions will appear here. In the meantime, feel free to use the form above.</div>'; return; }
+    const list=el("div","faq-list"); wrap.innerHTML=""; wrap.appendChild(list);
+    data.forEach((f,idx)=>{
+      const item=el("div","faq-item");
+      const qid=`faq-a-${idx}`;
+      const btn=el("button","faq-q"); btn.setAttribute("aria-expanded","false"); btn.setAttribute("aria-controls",qid);
+      btn.appendChild(el("span",null,f.question));
+      btn.appendChild(Object.assign(el("span","chev"),{innerHTML:'<i class="fa-solid fa-chevron-down"></i>'}));
+      const ans=el("div","faq-a"); ans.id=qid;
+      const inner=el("div","faq-a-inner",f.answer); ans.appendChild(inner);
+      btn.addEventListener("click",()=>{
+        const open=item.classList.contains("open");
+        list.querySelectorAll(".faq-item.open").forEach(o=>{ o.classList.remove("open"); o.querySelector(".faq-a").style.maxHeight=null; o.querySelector(".faq-q").setAttribute("aria-expanded","false"); });
+        if(!open){ item.classList.add("open"); ans.style.maxHeight=ans.scrollHeight+"px"; btn.setAttribute("aria-expanded","true"); }
+      });
+      item.appendChild(btn); item.appendChild(ans); list.appendChild(item);
+    });
+  }
+
+  /* global search overlay */
+  const overlay=$("#search-overlay");let lastFocused=null;
+  const openSearch=()=>{lastFocused=document.activeElement;overlay.classList.add("show");setTimeout(()=>$("#overlay-input").focus(),40);};
+  const closeSearch=()=>{overlay.classList.remove("show");$("#results").innerHTML="";$("#overlay-input").value="";if(lastFocused)lastFocused.focus();};
+  $("#open-search").addEventListener("click",openSearch);$("#close-search").addEventListener("click",closeSearch);
+  overlay.addEventListener("click",e=>{if(e.target===overlay)closeSearch();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("show"))closeSearch();});
+  let gt;$("#overlay-input").addEventListener("input",e=>{clearTimeout(gt);const q=e.target.value.trim();gt=setTimeout(()=>runSearch(q),250);});
+  $("#overlay-form").addEventListener("submit",e=>{e.preventDefault();runSearch($("#overlay-input").value.trim());});
+  async function runSearch(q){
+    const box=$("#results");if(!q){box.innerHTML="";return;}
+    box.innerHTML=`<div class="none">Searching…</div>`;const opt={type:"websearch",config:"english"};
+    const[n,i,ev]=await Promise.allSettled([
+      db.from("news_posts").select("title,slug,excerpt").eq("status","published").textSearch("search_vector",q,opt).limit(4),
+      db.from("initiatives").select("title,slug,summary").eq("is_published",true).textSearch("search_vector",q,opt).limit(4),
+      db.from("events").select("title,slug,location").eq("is_published",true).textSearch("search_vector",q,opt).limit(4),
+    ]);
+    const news=n.value?.data||[],inits=i.value?.data||[],events=ev.value?.data||[];box.innerHTML="";
+    const group=(label,rows,mk)=>{if(!rows.length)return;box.appendChild(el("div","grp",label));rows.forEach(r=>box.appendChild(mk(r)));};
+    group("Newsroom",news,r=>{const a=el("a");a.href=`/newsroom/article?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.excerpt)a.appendChild(el("span",null,r.excerpt));return a;});
+    group("Initiatives",inits,r=>{const a=el("a");a.href=`/initiatives/initiative?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.summary)a.appendChild(el("span",null,r.summary));return a;});
+    group("Events",events,r=>{const a=el("a");a.href=`/events/event?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.location)a.appendChild(el("span",null,r.location));return a;});
+    if(!news.length&&!inits.length&&!events.length){box.innerHTML=`<div class="none">No results yet for “${q}”.</div>`;}
+  }
+
+  const toggle=$("#menu-toggle");
+  toggle.addEventListener("click",()=>{const o=$("#navlinks").classList.toggle("open");toggle.setAttribute("aria-expanded",o);});
+  $("#navlinks").addEventListener("click",e=>{if(e.target.tagName==="A"){$("#navlinks").classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
+  $("#announce-close").addEventListener("click",()=>$("#announce").classList.remove("show"));
+  const header=$("#site-header"),toTop=$("#to-top");
+  const onScroll=()=>{header.classList.toggle("scrolled",window.scrollY>10);toTop.classList.toggle("show",window.scrollY>600);};
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:prefersReduced?"auto":"smooth"}));
+  const reveals=document.querySelectorAll(".reveal");
+  if(!prefersReduced&&"IntersectionObserver" in window){const io=new IntersectionObserver(en=>{en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.1});reveals.forEach(r=>io.observe(r));}else{reveals.forEach(r=>r.classList.add("in"));}
+
+  async function loadSettings(){
+    const{data,error}=await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();
+    let email=null;
+    if(!error && data){
+      if(data.contact_email) email=data.contact_email;
+      if(data.announcement_active&&data.announcement_text){$("#announce-text").textContent=data.announcement_text+" ";if(data.announcement_url){const a=el("a",null,"Learn more");a.href=data.announcement_url;$("#announce-text").appendChild(a);}$("#announce").classList.add("show");}
+    }
+    if(email){ $("#info-email").href="mailto:"+email; $("#info-email").textContent=email; $("#foot-email").href="mailto:"+email; }
+    else{ $("#info-email").textContent="Use the form to get in touch"; $("#info-email").removeAttribute("href"); }
+  }
+
+  loadFaqs(); loadSettings();
+  </script>
 </body>
 </html>
