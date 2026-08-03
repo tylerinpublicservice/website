@@ -1,410 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources & Opportunities | Office of Tyler Nicholas</title>
-    
-    <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/420-272/seychelles.jpg" type="image/jpeg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — Office of Tyler Nicholas</title>
+  <meta name="description" content="Documents, guides, links and downloadable resources from the Office of Tyler Nicholas." />
+  <link rel="icon" href="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#0F1E36;--navy:#0B2E63;--navy-900:#071B3D;--accent:#C8102E;--accent-600:#a50f26;--blue:#0B5FB0;--green:#0A8A43;--paper:#F6F8FB;--surface:#FFFFFF;--muted:#5A6B84;--line:#E4E9F1;--shadow-sm:0 1px 2px rgba(11,46,99,.05),0 6px 16px -10px rgba(11,46,99,.18);--shadow-md:0 12px 30px -16px rgba(11,46,99,.28);--container:1180px;--radius:14px;}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.loading{overflow:hidden;height:100vh}
+    img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none}
+    h1,h2,h3,h4{color:var(--navy);line-height:1.14;font-weight:800;letter-spacing:-.01em}
+    ::selection{background:var(--navy);color:#fff}:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:70px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 8px 0}.skip:focus{left:0;top:0}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:.95rem;padding:11px 20px;border-radius:10px;border:2px solid transparent;transition:transform .15s,background .2s,border-color .2s,color .2s}
+    .btn:active{transform:translateY(1px)}
+    .btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:var(--accent-600)}
+    .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-900)}
+    .btn-outline{background:#fff;color:var(--navy);border-color:var(--line)}.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    #preloader{position:fixed;inset:0;z-index:1000;background:#fff;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pl-flag{width:66px;height:44px;object-fit:cover;border-radius:5px;box-shadow:var(--shadow-sm);animation:plPulse 1.6s ease-in-out infinite}
+    @keyframes plPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.85}}
+    .pl-ring{width:38px;height:38px;border:3px solid rgba(11,46,99,.15);border-top-color:var(--accent);border-radius:50%;animation:plSpin .9s linear infinite}
+    @keyframes plSpin{to{transform:rotate(360deg)}}
+    .pl-text{font-weight:800;color:var(--navy);font-size:1.05rem}
+    .announce{background:var(--navy-900);color:#fff;font-size:.9rem;text-align:center;padding:10px 44px;position:relative;display:none}.announce.show{display:block}
+    .announce .close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;font-size:1rem;opacity:.75}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s,background .3s}
+    header.scrolled{box-shadow:0 6px 24px -14px rgba(11,46,99,.4);background:rgba(255,255,255,.96)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+    .brand{display:flex;align-items:center;gap:13px}
+    .brand-flag{width:42px;height:28px;object-fit:cover;border-radius:4px;border:1px solid var(--line);box-shadow:var(--shadow-sm);flex:none}
+    .brand-text{font-weight:800;font-size:1.06rem;color:var(--navy)}
+    .nav-links{display:flex;align-items:center;gap:30px}
+    .nav-links a{font-weight:600;font-size:.95rem;color:var(--ink);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--navy);border-color:var(--accent)}
+    .nav-actions{display:flex;align-items:center;gap:14px}
+    .icon-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy);font-size:1rem;transition:border-color .2s,color .2s}
+    .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .menu-toggle{display:none}.nav-cta{padding:10px 20px;border-radius:10px}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    .page-header{background:linear-gradient(120deg,var(--navy-900) 0%,var(--navy) 60%,var(--blue) 140%);color:#fff;position:relative;overflow:hidden}
+    .page-header::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--accent)}
+    .ph-inner{padding-block:70px 62px}
+    .ph-crumb{font-size:.8rem;color:#a9bbdb;font-weight:600;margin-bottom:14px}.ph-crumb a:hover{color:#fff}
+    .page-header h1{color:#fff;font-size:clamp(2.4rem,5vw,3.6rem)}
+    .page-header p{margin-top:16px;color:#cdd9ee;font-size:1.08rem;max-width:640px}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+    .tab{padding:9px 17px;border-radius:100px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:.86rem;color:var(--muted);transition:background .2s,color .2s,border-color .2s}
+    .tab:hover{border-color:var(--accent);color:var(--accent)}
+    .tab[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    .res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .res-item{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s,border-color .18s}
+    .res-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:#d3ddec}
+    .res-ic{width:56px;height:56px;border-radius:14px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1.4rem;flex:none}
+    .res-ic.pdf{background:#C8102E}.res-ic.doc{background:#0B5FB0}.res-ic.sheet{background:#0A8A43}.res-ic.link{background:#5A6B84}
+    .res-body{flex:1;min-width:0}
+    .res-cat{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:4px}
+    .res-body h3{font-size:1.1rem;line-height:1.3;margin-bottom:5px}
+    .res-body p{color:var(--muted);font-size:.9rem;line-height:1.5}
+    .res-action{flex:none}
+    .res-action .btn{white-space:nowrap}
+    .empty{border:1.5px dashed var(--line);border-radius:var(--radius);background:#fbfcfe;padding:60px 28px;text-align:center;color:var(--muted)}
+    .empty i{font-size:2rem;color:#c3cede;margin-bottom:14px}
+    .empty strong{display:block;color:var(--navy);font-size:1.2rem;margin-bottom:8px;font-weight:800}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        signature: ['Great Vibes', 'cursive'],
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#0033a0',
-                            lightblue: '#005eb8',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    .help-band{background:var(--surface);border-top:1px solid var(--line)}
+    .help-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:linear-gradient(130deg,var(--navy),var(--blue));color:#fff;border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow-md)}
+    .help-inner h3{color:#fff;font-size:1.4rem;margin-bottom:6px}
+    .help-inner p{color:#cdd9ee;font-size:1rem}
 
-    <style>
-        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0033a0; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #005eb8; }
-        
-        .dark-glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-    </style>
+    footer{background:var(--navy-900);color:#c3d0e4;border-top:5px solid var(--accent)}
+    .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;padding-block:66px 40px}
+    .foot-brand .fb-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .foot-brand .fb-top img{width:44px;height:29px;object-fit:cover;border-radius:4px}
+    .foot-brand .fb-top b{color:#fff;font-size:1.08rem;font-weight:800}
+    .foot-brand p{font-size:.93rem;max-width:330px;color:#a7b6d0;line-height:1.7}
+    .socials{display:flex;gap:11px;margin-top:22px;flex-wrap:wrap}
+    .socials a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;font-size:1.05rem;transition:transform .2s,background .2s}
+    .socials a:hover{transform:translateY(-3px)}
+    .s-fb:hover{background:#1877F2}.s-x:hover{background:#000}.s-ig:hover{background:#E1306C}.s-in:hover{background:#0A66C2}.s-yt:hover{background:#FF0000}.s-tt:hover{background:#000}.s-th:hover{background:#000}
+    .foot-col h4{color:#fff;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+    .foot-col a{display:block;padding:6px 0;font-size:.94rem;color:#b9c8e0;transition:color .2s,padding-left .2s}
+    .foot-col a:hover{color:#fff;padding-left:4px}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:24px;display:flex;justify-content:center;text-align:center;font-size:.84rem;color:#8ea0be}
+    .foot-bottom a{color:#c3d0e4;font-weight:600}.foot-bottom a:hover{color:#fff}
+
+    .overlay{position:fixed;inset:0;background:rgba(7,27,61,.62);backdrop-filter:blur(5px);z-index:300;display:none;padding-top:12vh}.overlay.show{display:block}
+    .search-panel{max-width:680px;margin-inline:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+    .search-panel form{display:flex;border-bottom:1px solid var(--line);align-items:center}
+    .search-panel input{flex:1;border:0;padding:20px 22px;font-size:1.15rem;outline:none}
+    .search-panel .close{padding:0 22px;color:var(--muted);font-size:1.3rem}
+    .results{max-height:56vh;overflow:auto;padding:8px 0}
+    .results .grp{padding:12px 22px 4px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+    .results a{display:block;padding:12px 22px;border-left:3px solid transparent}
+    .results a:hover,.results a:focus-visible{background:#f5f8fd;border-color:var(--accent);outline:none}
+    .results a b{color:var(--navy);font-weight:700}.results a span{display:block;font-size:.88rem;color:var(--muted)}
+    .results .none{padding:30px 22px;text-align:center;color:var(--muted)}
+    .to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;z-index:120}
+    .to-top.show{opacity:1;visibility:visible;transform:none}.to-top:hover{background:var(--accent)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}.reveal{opacity:1;transform:none;transition:none}}
+    @media (max-width:960px){.res-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:680px){
+      .nav-links{display:none}.menu-toggle{display:grid}.nav-cta{display:none}
+      .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;gap:4px;box-shadow:var(--shadow-md)}
+      .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line)}
+      .res-item{flex-direction:column;align-items:flex-start;gap:14px}.res-action{width:100%}.res-action .btn{width:100%}
+      .foot-grid{grid-template-columns:1fr}.help-inner{padding:28px 24px}.brand-text{font-size:.98rem}
+    }
+  </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-hidden" id="body">
+<body class="loading">
+  <div id="preloader" role="status" aria-label="Loading"><div class="pl-inner"><img class="pl-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="" /><div class="pl-ring"></div><div class="pl-text">Office of Tyler Nicholas</div></div></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="announce" id="announce" role="region" aria-label="Site announcement"><span id="announce-text"></span><button class="close" id="announce-close" aria-label="Dismiss announcement"><i class="fa-solid fa-xmark"></i></button></div>
 
-    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
-        <div class="flex flex-col items-center">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-blue mb-4"></div>
-            <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Loading Library</p>
-        </div>
+  <header id="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Office of Tyler Nicholas — home"><img class="brand-flag" src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><span class="brand-text">Office of Tyler Nicholas</span></a>
+      <nav class="nav-links" id="navlinks" aria-label="Primary"><a href="/">Home</a><a href="/about">About</a><a href="/newsroom">Newsroom</a><a href="/media">Media</a><a href="/contact">Contact</a></nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="open-search" aria-label="Search the site"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a class="btn btn-accent nav-cta" href="/volunteer">Get Involved</a>
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
+  </header>
 
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="text-xl font-bold text-brand-blue tracking-tight hover:text-brand-lightblue transition">
-                        Office of Tyler Nicholas
-                    </a>
-                </div>
-                <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/" class="text-gray-600 hover:text-brand-blue transition font-medium">Home</a>
-                    <a href="/about/" class="text-gray-600 hover:text-brand-blue transition font-medium">About</a>
-                    <a href="/public-service/" class="text-gray-600 hover:text-brand-blue transition font-medium">Public Service</a>
-                    <a href="/initiatives/" class="text-gray-600 hover:text-brand-blue transition font-medium">Initiatives</a>
-                    <a href="/newsroom/" class="text-gray-600 hover:text-brand-blue transition font-medium">Newsroom</a>
-                    <a href="/resources/" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Resources</a>
-                    <a href="/contact/" class="text-gray-600 hover:text-brand-blue transition font-medium">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="w-full py-32 bg-cover bg-center bg-no-repeat relative border-b-4 border-brand-blue" 
-            style="background-image: url('https://res.cloudinary.com/enchanting/q_auto:good,f_auto,c_lfill,w_1450,h_550/myo-web/2024/05/base_seychelles_00.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-widest mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">
-                <i class="fa-solid fa-folder-open"></i>
-                <span>Public Library</span>
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 [text-shadow:_0_4px_12px_rgb(0_0_0_/_80%)]">Resources & Opportunities</h1>
-            <p class="text-xl text-white font-bold max-w-3xl mx-auto [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)]">A centralized database of toolkits, scholarship information, civic guides, and mental health directories for the youth of Seychelles.</p>
-        </div>
-    </header>
-
-    <section class="bg-gray-900 py-10 border-b border-gray-800 sticky top-20 z-30 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                
-                <div class="w-full md:w-1/2 relative">
-                    <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="search-input" placeholder="Search for guides, policies, or opportunities..." class="w-full pl-12 pr-4 py-4 bg-white/10 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-brand-lightblue focus:bg-white/20 transition placeholder-gray-400 font-medium">
-                </div>
-
-                <div class="w-full md:w-1/3 flex gap-4">
-                    <select id="category-filter" class="w-full px-4 py-4 bg-white/10 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-brand-lightblue focus:bg-white/20 transition font-medium appearance-none">
-                        <option value="All" class="text-gray-900">All Categories</option>
-                        <option value="Student Resources" class="text-gray-900">Student Resources</option>
-                        <option value="Youth Opportunities" class="text-gray-900">Youth Opportunities</option>
-                        <option value="Civic Education" class="text-gray-900">Civic Education</option>
-                        <option value="Mental Health" class="text-gray-900">Mental Health</option>
-                        <option value="Scholarships" class="text-gray-900">Scholarships & Programs</option>
-                        <option value="Guides" class="text-gray-900">Guides & Toolkits</option>
-                        <option value="Policy" class="text-gray-900">Policy Briefs</option>
-                    </select>
-                    
-                    <button id="search-btn" class="px-6 py-4 bg-brand-blue hover:bg-brand-lightblue text-white font-bold rounded-xl transition shadow-md whitespace-nowrap">
-                        Search
-                    </button>
-                </div>
-
-            </div>
-        </div>
+  <main id="main">
+    <section class="page-header">
+      <div class="container ph-inner">
+        <div class="ph-crumb"><a href="/">Home</a> &nbsp;/&nbsp; Resources</div>
+        <h1>Resources</h1>
+        <p>Documents, guides, links and downloads from the Office of Tyler Nicholas — gathered in one place.</p>
+      </div>
     </section>
 
-    <section class="bg-gray-50 py-24 min-h-[60vh]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="flex justify-between items-end mb-12 border-b-2 border-gray-200 pb-4">
-                <div>
-                    <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-1">Downloads & Links</h2>
-                    <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Resource Directory</h3>
-                </div>
-                <div class="text-sm font-bold text-gray-500 hidden md:block">
-                    Showing <span id="result-count" class="text-brand-blue">0</span> files
-                </div>
-            </div>
-
-            <div id="dynamic-resources" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-full py-20 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">
-                    Connecting to central database...
-                </div>
-            </div>
-
-        </div>
+    <section class="section">
+      <div class="container">
+        <div class="tabs" id="tabs" style="display:none" role="group" aria-label="Filter by category"></div>
+        <div id="res-wrap" class="reveal"></div>
+      </div>
     </section>
 
-    <section class="bg-white py-24 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
-            <div>
-                <h2 class="text-sm font-bold tracking-widest text-brand-lightblue uppercase mb-2">Crowdsourcing Knowledge</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-6">Contribute to the Library</h3>
-                <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    A strong community relies on shared knowledge. If you represent an NGO, school, government department, or are simply a citizen with a valuable toolkit, scholarship link, or mental health directory, submit it here.
-                </p>
-                <ul class="space-y-4 text-gray-600 font-medium">
-                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 text-brand-blue"><i class="fa-solid fa-shield-check"></i></div> Submissions are reviewed by the policy team.</li>
-                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 text-brand-blue"><i class="fa-solid fa-globe"></i></div> Approved resources are published publicly.</li>
-                    <li class="flex items-center"><div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3 text-brand-blue"><i class="fa-solid fa-hands-holding"></i></div> Helps expand access to opportunity for all youth.</li>
-                </ul>
-            </div>
-
-            <div class="bg-gray-50 border border-gray-200 p-8 md:p-10 rounded-2xl shadow-xl">
-                <h4 class="text-2xl font-black text-gray-900 mb-6 tracking-tight border-b border-gray-200 pb-4">Submit Resource Form</h4>
-                
-                <form id="resource-submit-form" class="space-y-5" onsubmit="handleResourceSubmit(event)">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Resource Title / Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="sub-title" class="w-full px-5 py-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue transition shadow-sm" required placeholder="e.g. 2026 Scholarship Guide">
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Submitted By (Org/Name)</label>
-                            <input type="text" id="sub-org" class="w-full px-5 py-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue transition shadow-sm" placeholder="Optional">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Resource Category <span class="text-red-500">*</span></label>
-                            <select id="sub-category" class="w-full px-5 py-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue transition shadow-sm" required>
-                                <option value="" disabled selected>Select...</option>
-                                <option value="Student Resources">Student Resources</option>
-                                <option value="Youth Opportunities">Youth Opportunities</option>
-                                <option value="Civic Education">Civic Education</option>
-                                <option value="Mental Health">Mental Health</option>
-                                <option value="Scholarships">Scholarships & Programs</option>
-                                <option value="Guides">Guides & Toolkits</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-2">Link or Details <span class="text-red-500">*</span></label>
-                        <textarea id="sub-desc" rows="4" class="w-full px-5 py-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-brand-blue transition shadow-sm" required placeholder="Paste the URL link here, or describe the resource and attach your email so we can contact you for the file."></textarea>
-                    </div>
-
-                    <button type="submit" id="sub-btn" class="w-full py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-lightblue transition mt-2 shadow-lg">
-                        Submit for Review
-                    </button>
-                    <p id="sub-msg" class="text-sm font-semibold text-center mt-4 hidden"></p>
-                </form>
-            </div>
-
+    <section class="section help-band">
+      <div class="container">
+        <div class="help-inner reveal">
+          <div>
+            <h3>Looking for something specific?</h3>
+            <p>If you can't find the resource you need, the Office is happy to help point you in the right direction.</p>
+          </div>
+          <a class="btn btn-accent" href="/contact"><i class="fa-regular fa-envelope"></i> Contact the Office</a>
         </div>
+      </div>
     </section>
+  </main>
 
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-blue">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-                
-                <div class="md:col-span-6">
-                    <h4 class="text-xl font-bold tracking-wider mb-2 text-white">OFFICE OF TYLER NICHOLAS</h4>
-                    <p class="text-gray-400 text-sm mb-4">Public Service. Youth Leadership. National Progress.</p>
-                    
-                    <div class="flex flex-wrap gap-5 text-xl">
-                        <a href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://x.com/officeoftylern" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.threads.com/@officeoftylernicholas" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">The Office</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/about/" class="hover:text-white transition">About Tyler Nicholas</a></li>
-                        <li><a href="/public-service/" class="hover:text-white transition">Public Service</a></li>
-                        <li><a href="/initiatives/" class="hover:text-white transition">Initiatives</a></li>
-                        <li><a href="/newsroom/" class="hover:text-white transition">Newsroom</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3">
-                    <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Engage</h5>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="/contact/" class="hover:text-white transition">Contact the Office</a></li>
-                        <li><a href="/volunteer/" class="hover:text-white transition">Volunteer</a></li>
-                        <li><a href="/resources/" class="text-white font-semibold transition">Resources</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; <script>document.write(new Date().getFullYear())</script> Office of Tyler Nicholas. All rights reserved.</p>
-                <p class="mt-4 md:mt-0">
-                    Protected by the <a href="https://tylernicholasgroup.com" target="_blank" class="text-gray-400 hover:text-white transition underline decoration-gray-700">Tyler Nicholas Group</a>
-                </p>
-            </div>
+  <footer>
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <div class="fb-top"><img src="https://www.flagsonline.it/uploads/2016-6-6/1200-0/seychelles.jpg" alt="Flag of Seychelles" /><b>Office of Tyler Nicholas</b></div>
+        <p>The official platform for the public service, youth advocacy, and community initiatives of Tyler P. Nicholas, in the Republic of Seychelles.</p>
+        <div class="socials">
+          <a class="s-fb" href="https://www.facebook.com/profile.php?id=61576518486123" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="s-x" href="https://x.com/officeoftylern" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="s-ig" href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="s-in" href="https://www.linkedin.com/company/office-of-tyler-nicholas" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a class="s-yt" href="https://www.youtube.com/channel/UCAlL9fYF1K8nGdxzP7SMfqw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a class="s-tt" href="https://www.tiktok.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="s-th" href="https://www.threads.com/@officeoftylernicholas" target="_blank" rel="noopener" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
         </div>
-    </footer>
+      </div>
+      <div class="foot-col"><h4>The Office</h4><a href="/about">About Tyler Nicholas</a><a href="/initiatives">Initiatives</a><a href="/newsroom">Newsroom</a></div>
+      <div class="foot-col"><h4>Engage</h4><a href="/contact">Contact the Office</a><a href="/volunteer">Volunteer</a><a href="/resources">Resources</a><a href="/media">Media</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="/events">Events</a><a href="https://www.instagram.com/officeoftylernicholas/" target="_blank" rel="noopener">Instagram</a><a href="mailto:" id="foot-email">Email the Office</a></div>
+    </div>
+    <div class="container foot-bottom"><span>&copy; <span id="year"></span> Office of Tyler Nicholas. All rights reserved. &nbsp;&middot;&nbsp; <a href="/admin">Admin</a></span></div>
+  </footer>
 
-    <script>
-        // Loading Screen
-        document.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const body = document.getElementById('body');
-            function hideLoader() {
-                if (loader.style.display === 'none') return; 
-                loader.classList.add('fade-out');
-                body.classList.remove('overflow-hidden');
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }
-            setTimeout(hideLoader, 500); 
-            window.addEventListener('load', hideLoader);
-            setTimeout(hideLoader, 3000); 
-        });
+  <button class="to-top" id="to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <div class="overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-panel"><form id="overlay-form" role="search"><input type="search" id="overlay-input" placeholder="Search the office…" aria-label="Search" autocomplete="off" /><button type="button" class="close" id="close-search" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button></form><div class="results" id="results"></div></div>
+  </div>
 
-        // Supabase Integration
-        const SUPABASE_URL = 'https://qcwldyvecokspamcjgbl.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjd2xkeXZlY29rc3BhbWNqZ2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTYzNjksImV4cCI6MjA5NDA5MjM2OX0.4du52QpdsRaUATJ5qXeA1sd7zVEOPSlJ1KJJ9KQvjHk';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        let allResources = [];
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL="https://lanrakgrrbyfhtzcxnof.supabase.co";
+  const SUPABASE_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhbnJha2dycmJ5Zmh0emN4bm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzQwMTQsImV4cCI6MjEwMTI1MDAxNH0.gHaVFXo5vRjcOTlwHRaNNOP1WXqL_4h3ieWg6xnz3hY";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+  const $=(s,r=document)=>r.querySelector(s);
+  const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+  const prefersReduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#year").textContent=new Date().getFullYear();
+  function hidePreloader(){const p=$("#preloader");if(!p||p.classList.contains("hide"))return;p.classList.add("hide");document.body.classList.remove("loading");setTimeout(()=>p.remove(),600);}
+  window.addEventListener("load",hidePreloader);setTimeout(hidePreloader,6000);
 
-        async function fetchResources() {
-            try {
-                // Fetch directly from the resources table
-                const { data, error } = await supabaseClient
-                    .from('resources')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+  let ALL=[], activeCat="all";
 
-                if (data) {
-                    allResources = data;
-                    renderResources(allResources);
-                } else {
-                    document.getElementById('dynamic-resources').innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">No resources available at the moment.</div>';
-                }
-            } catch (err) {
-                console.log(err);
-                document.getElementById('dynamic-resources').innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm">Error connecting to database.</div>';
-            }
-        }
+  function iconFor(r){
+    const u=(r.file_url||r.url||"").toLowerCase();
+    if(/\.pdf(\?|$)/.test(u)) return {i:"fa-file-pdf",c:"pdf"};
+    if(/\.(docx?|odt|rtf)(\?|$)/.test(u)) return {i:"fa-file-word",c:"doc"};
+    if(/\.(xlsx?|csv|ods)(\?|$)/.test(u)) return {i:"fa-file-excel",c:"sheet"};
+    if(/\.(pptx?|odp)(\?|$)/.test(u)) return {i:"fa-file-powerpoint",c:"pdf"};
+    if(/\.(zip|rar|7z)(\?|$)/.test(u)) return {i:"fa-file-zipper",c:"doc"};
+    if(/\.(jpe?g|png|gif|webp|svg)(\?|$)/.test(u)) return {i:"fa-file-image",c:"sheet"};
+    if(r.file_url) return {i:"fa-file-lines",c:"navy"};
+    return {i:"fa-arrow-up-right-from-square",c:"link"};
+  }
+  function makeItem(r){
+    const item=el("div","res-item");
+    const ic=iconFor(r);
+    const box=el("div",`res-ic ${ic.c}`); box.innerHTML=`<i class="fa-solid ${ic.i}"></i>`; item.appendChild(box);
+    const body=el("div","res-body");
+    if(r.category) body.appendChild(el("div","res-cat",r.category));
+    body.appendChild(el("h3",null,r.title));
+    if(r.description) body.appendChild(el("p",null,r.description));
+    item.appendChild(body);
+    const act=el("div","res-action");
+    if(r.file_url){ const a=el("a","btn btn-navy"); a.href=r.file_url; a.target="_blank"; a.rel="noopener"; a.setAttribute("download",""); a.innerHTML='<i class="fa-solid fa-download"></i> Download'; act.appendChild(a); }
+    else if(r.url){ const a=el("a","btn btn-outline"); a.href=r.url; a.target="_blank"; a.rel="noopener"; a.innerHTML='Open <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.8em"></i>'; act.appendChild(a); }
+    item.appendChild(act);
+    return item;
+  }
+  function buildTabs(){
+    const cats=[...new Set(ALL.map(r=>r.category).filter(Boolean))];
+    const bar=$("#tabs");
+    if(cats.length<2){ bar.style.display="none"; return; }
+    bar.style.display="flex"; bar.innerHTML="";
+    const mk=(label,val)=>{const b=el("button","tab",label);b.setAttribute("aria-pressed",val===activeCat?"true":"false");b.addEventListener("click",()=>{activeCat=val;[...bar.children].forEach(t=>t.setAttribute("aria-pressed",t===b?"true":"false"));render();});return b;};
+    bar.appendChild(mk("All","all")); cats.forEach(c=>bar.appendChild(mk(c,c)));
+  }
+  function render(){
+    const wrap=$("#res-wrap");
+    const list = activeCat==="all"? ALL : ALL.filter(r=>r.category===activeCat);
+    if(!list.length){ wrap.innerHTML='<div class="empty"><i class="fa-regular fa-folder-open"></i><strong>Resources coming soon</strong>Documents, guides and helpful links will be published here.</div>'; return; }
+    const grid=el("div","res-grid"); wrap.innerHTML=""; wrap.appendChild(grid);
+    list.forEach(r=>grid.appendChild(makeItem(r)));
+  }
+  async function loadResources(){
+    const { data, error } = await db.from("resources").select("title,description,type,url,file_url,category,sort_order").eq("is_published",true).order("category",{ascending:true,nullsFirst:true}).order("sort_order",{ascending:true});
+    ALL = error? [] : (data||[]);
+    buildTabs(); render();
+  }
 
-        function getIconForCategory(cat) {
-            const lowerCat = (cat || '').toLowerCase();
-            if (lowerCat.includes('student') || lowerCat.includes('scholarship')) return 'fa-graduation-cap';
-            if (lowerCat.includes('mental')) return 'fa-hand-holding-heart';
-            if (lowerCat.includes('civic') || lowerCat.includes('policy')) return 'fa-landmark';
-            if (lowerCat.includes('youth') || lowerCat.includes('guide')) return 'fa-compass';
-            return 'fa-file-lines';
-        }
+  /* global search overlay */
+  const overlay=$("#search-overlay");let lastFocused=null;
+  const openSearch=()=>{lastFocused=document.activeElement;overlay.classList.add("show");setTimeout(()=>$("#overlay-input").focus(),40);};
+  const closeSearch=()=>{overlay.classList.remove("show");$("#results").innerHTML="";$("#overlay-input").value="";if(lastFocused)lastFocused.focus();};
+  $("#open-search").addEventListener("click",openSearch);$("#close-search").addEventListener("click",closeSearch);
+  overlay.addEventListener("click",e=>{if(e.target===overlay)closeSearch();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("show"))closeSearch();});
+  let gt;$("#overlay-input").addEventListener("input",e=>{clearTimeout(gt);const q=e.target.value.trim();gt=setTimeout(()=>runSearch(q),250);});
+  $("#overlay-form").addEventListener("submit",e=>{e.preventDefault();runSearch($("#overlay-input").value.trim());});
+  async function runSearch(q){
+    const box=$("#results");if(!q){box.innerHTML="";return;}
+    box.innerHTML=`<div class="none">Searching…</div>`;const opt={type:"websearch",config:"english"};
+    const[n,i,ev]=await Promise.allSettled([
+      db.from("news_posts").select("title,slug,excerpt").eq("status","published").textSearch("search_vector",q,opt).limit(4),
+      db.from("initiatives").select("title,slug,summary").eq("is_published",true).textSearch("search_vector",q,opt).limit(4),
+      db.from("events").select("title,slug,location").eq("is_published",true).textSearch("search_vector",q,opt).limit(4),
+    ]);
+    const news=n.value?.data||[],inits=i.value?.data||[],events=ev.value?.data||[];box.innerHTML="";
+    const group=(label,rows,mk)=>{if(!rows.length)return;box.appendChild(el("div","grp",label));rows.forEach(r=>box.appendChild(mk(r)));};
+    group("Newsroom",news,r=>{const a=el("a");a.href=`/newsroom/article?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.excerpt)a.appendChild(el("span",null,r.excerpt));return a;});
+    group("Initiatives",inits,r=>{const a=el("a");a.href=`/initiatives/initiative?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.summary)a.appendChild(el("span",null,r.summary));return a;});
+    group("Events",events,r=>{const a=el("a");a.href=`/events/event?slug=${encodeURIComponent(r.slug)}`;a.appendChild(el("b",null,r.title));if(r.location)a.appendChild(el("span",null,r.location));return a;});
+    if(!news.length&&!inits.length&&!events.length){box.innerHTML=`<div class="none">No results yet for “${q}”.</div>`;}
+  }
 
-        function getIconColor(cat) {
-            const lowerCat = (cat || '').toLowerCase();
-            if (lowerCat.includes('mental')) return 'bg-purple-100 text-purple-600 border-purple-200';
-            if (lowerCat.includes('scholarship') || lowerCat.includes('student')) return 'bg-green-100 text-green-600 border-green-200';
-            if (lowerCat.includes('civic')) return 'bg-red-100 text-red-600 border-red-200';
-            return 'bg-blue-50 text-brand-blue border-blue-100';
-        }
+  const toggle=$("#menu-toggle");
+  toggle.addEventListener("click",()=>{const o=$("#navlinks").classList.toggle("open");toggle.setAttribute("aria-expanded",o);});
+  $("#navlinks").addEventListener("click",e=>{if(e.target.tagName==="A"){$("#navlinks").classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
+  $("#announce-close").addEventListener("click",()=>$("#announce").classList.remove("show"));
+  const header=$("#site-header"),toTop=$("#to-top");
+  const onScroll=()=>{header.classList.toggle("scrolled",window.scrollY>10);toTop.classList.toggle("show",window.scrollY>600);};
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:prefersReduced?"auto":"smooth"}));
+  const reveals=document.querySelectorAll(".reveal");
+  if(!prefersReduced&&"IntersectionObserver" in window){const io=new IntersectionObserver(en=>{en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.08});reveals.forEach(r=>io.observe(r));}else{reveals.forEach(r=>r.classList.add("in"));}
+  async function loadSettings(){const{data,error}=await db.from("site_settings").select("announcement_active,announcement_text,announcement_url,contact_email").maybeSingle();if(error||!data)return;if(data.announcement_active&&data.announcement_text){$("#announce-text").textContent=data.announcement_text+" ";if(data.announcement_url){const a=el("a",null,"Learn more");a.href=data.announcement_url;$("#announce-text").appendChild(a);}$("#announce").classList.add("show");}if(data.contact_email)$("#foot-email").href="mailto:"+data.contact_email;}
 
-        function renderResources(dataToRender) {
-            const container = document.getElementById('dynamic-resources');
-            document.getElementById('result-count').textContent = dataToRender.length;
-
-            if (dataToRender.length === 0) {
-                container.innerHTML = '<div class="col-span-full py-20 text-center text-gray-500 font-mono text-sm bg-white rounded-2xl border border-gray-200 shadow-sm"><i class="fa-solid fa-folder-open text-4xl mb-4 block text-gray-300"></i> No files match your search criteria.</div>';
-                return;
-            }
-
-            let html = '';
-            dataToRender.forEach(item => {
-                const iconClass = getIconForCategory(item.category);
-                const colorClass = getIconColor(item.category);
-                const isPdf = (item.file_url || '').toLowerCase().endsWith('.pdf');
-                
-                html += `
-                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-brand-lightblue transition duration-300 p-6 flex flex-col group relative overflow-hidden">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl border ${colorClass} group-hover:scale-110 transition duration-300">
-                            <i class="fa-solid ${iconClass}"></i>
-                        </div>
-                        ${isPdf ? '<span class="text-[10px] font-bold uppercase tracking-widest text-red-500 bg-red-50 px-2 py-1 rounded border border-red-100">PDF</span>' : '<span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 bg-gray-100 px-2 py-1 rounded border border-gray-200">LINK</span>'}
-                    </div>
-                    
-                    <span class="text-xs font-bold uppercase tracking-wider text-brand-lightblue mb-2 block">${item.category || 'General Resource'}</span>
-                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition leading-tight">${item.title}</h4>
-                    <p class="text-sm text-gray-600 line-clamp-3 mb-6 flex-grow">${item.description || 'View resource for more details.'}</p>
-                    
-                    <a href="${item.file_url || '#'}" target="_blank" class="mt-auto flex items-center justify-center w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl group-hover:bg-brand-blue group-hover:text-white transition shadow-sm">
-                        ${isPdf ? '<i class="fa-solid fa-download mr-2"></i> Download File' : '<i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Access Resource'}
-                    </a>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        // Search and Filter Logic
-        function filterData() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const categoryFilter = document.getElementById('category-filter').value;
-
-            let filtered = allResources;
-
-            if (categoryFilter !== 'All') {
-                filtered = filtered.filter(r => (r.category || '').toLowerCase().includes(categoryFilter.toLowerCase()));
-            }
-
-            if (searchTerm) {
-                filtered = filtered.filter(r => 
-                    (r.title || '').toLowerCase().includes(searchTerm) || 
-                    (r.description || '').toLowerCase().includes(searchTerm)
-                );
-            }
-
-            renderResources(filtered);
-        }
-
-        document.getElementById('search-input').addEventListener('input', filterData);
-        document.getElementById('category-filter').addEventListener('change', filterData);
-        document.getElementById('search-btn').addEventListener('click', filterData);
-
-        // Submit Resource Form Logic
-        async function handleResourceSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('sub-btn');
-            const msgEl = document.getElementById('sub-msg');
-            btn.disabled = true; btn.innerHTML = 'Submitting...'; msgEl.classList.add('hidden');
-
-            try {
-                // Submit to youth_concerns for backend review
-                const { error } = await supabaseClient.from('youth_concerns').insert([{ 
-                    subject: `[RESOURCE SUBMISSION - ${document.getElementById('sub-category').value}] ${document.getElementById('sub-title').value}`, 
-                    district: document.getElementById('sub-org').value || 'Anonymous',
-                    description: `Category: ${document.getElementById('sub-category').value}\n\nDetails/Link:\n${document.getElementById('sub-desc').value}`,
-                    status: 'new'
-                }]);
-                
-                if (error) throw error;
-                
-                msgEl.textContent = "Resource successfully submitted for review.";
-                msgEl.className = "text-sm font-semibold text-green-600 text-center mt-4 block";
-                document.getElementById('resource-submit-form').reset();
-            } catch (err) {
-                msgEl.textContent = "System error. Please try again.";
-                msgEl.className = "text-sm font-semibold text-red-600 text-center mt-4 block";
-            } finally {
-                btn.disabled = false; btn.innerHTML = 'Submit for Review';
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchResources);
-    </script>
+  loadResources(); loadSettings();
+  </script>
 </body>
 </html>
