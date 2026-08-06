@@ -409,6 +409,7 @@
 
   const NAV=[
     {group:"Overview",items:[{type:"dashboard",label:"Dashboard",icon:"fa-gauge-high"}]},
+    {group:"My Workspace",items:[{type:"link",href:"/admin/office",label:"My Office",icon:"fa-briefcase"}]},
     {group:"Content",items:["news_posts","initiatives","events","media_items","press_mentions","resources","faqs","quotes"].map(k=>({type:"collection",key:k,label:COLLECTIONS[k].label,icon:COLLECTIONS[k].icon}))},
     {group:"Page sections",items:["roles","principles","timeline","impact_stats"].map(k=>({type:"collection",key:k,label:COLLECTIONS[k].label,icon:COLLECTIONS[k].icon}))},
     {group:"Inbox",items:Object.keys(INBOXES).map(k=>({type:"inbox",key:k,label:INBOXES[k].label,icon:INBOXES[k].icon}))},
@@ -453,7 +454,7 @@
         const b=el("button","side-link"); b.dataset.type=it.type; if(it.key)b.dataset.key=it.key;
         b.innerHTML=`<i class="fa-solid ${it.icon}"></i> <span>${it.label}</span>`;
         if(it.type==="inbox"){ const badge=el("span","badge"); badge.style.display="none"; badge.dataset.inbox=it.key; b.appendChild(badge); }
-        b.addEventListener("click",()=>{ navigate(it); closeMobile(); });
+        b.addEventListener("click",()=>{ if(it.type==="link"){ window.location.href=it.href; return; } navigate(it); closeMobile(); });
         nav.appendChild(b);
       });
     });
